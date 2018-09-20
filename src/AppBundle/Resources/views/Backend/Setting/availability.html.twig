@@ -1,0 +1,131 @@
+<form class="form-horizontal" style="position: relative;">
+    <div class="form-body">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group [[model.availabilityDomainHasError?'has-error':'']]" 
+                 style="padding: 10px 0px;">
+                    <label class="col-md-2 setting-label">
+                        Dominio de publicación :
+                    </label>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button class="btn default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a data-ng-click="changeAvailabilitySettings($event,'domain_http_protocol','http')">
+                                            http
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-ng-click="changeAvailabilitySettings($event,'domain_http_protocol','https')">
+                                            https
+                                        </a>
+                                    </li>
+                                </ul>
+                                <button class="btn default disabled" type="button">
+                                   [[model.availabilitySettingsObject.domain_http_protocol]]
+                                </button>
+                                <button class="btn default disabled" type="button">
+                                    : //
+                                </button>
+                            </div>
+                            <input class="form-control" type="text" placeholder="www.bnc.cult.cu"
+                            data-ng-model="model.availabilitySettingsObject.domain_name">
+                            <span class="help-block">
+                                <p data-ng-if="model.availabilityDomainHasError">Valor incorrecto o en blanco.</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group [[model.availabilityLaunchDateHasError?'has-error':'']]" style="padding: 10px 0px;">
+                    <label class="col-md-2 setting-label">
+                        Status del sitio :
+                    </label>
+                    <div class="icheck-inline col-md-4">
+                        <label>
+                            <div class="iradio_square-blue ichecked-status-option-online
+                            [[model.availabilitySettingsObject.status=='online'?'checked':'']]"
+                            data-ng-click="changeAvailabilitySettings($event,'status','online')"
+                            data-ng-mouseover="updateICheckStyles($event,'ichecked-status-option-online')"
+                            data-ng-mouseleave="updateICheckStyles($event,'ichecked-status-option-online')">
+                            </div>
+                            Online
+                        </label>
+                        <label>
+                            <div class="iradio_square-blue ichecked-status-option-offline
+                            [[model.availabilitySettingsObject.status=='offline'?'checked':'']]"
+                             data-ng-click="changeAvailabilitySettings($event,'status','offline')"
+                             data-ng-mouseover="updateICheckStyles($event,'ichecked-status-option-offline')"
+                             data-ng-mouseleave="updateICheckStyles($event,'ichecked-status-option-offline')">
+                            </div>
+                            Offline
+                        </label>
+                    </div>
+                    <label class="col-md-2 setting-label">
+                        Fecha de lanzamiento :
+                    </label>
+                    <div class="col-md-4">
+                        <input class="form-control form-control-inline date-picker"
+                        size="16" type="text"
+                        data-ng-model="model.availabilitySettingsObject.launch_date"/>
+                        <span class="help-block">
+                            <p data-ng-if="model.availabilityLaunchDateHasError">Valor incorrecto o en blanco.</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group [[model.availabilityMessageTitleHasError?'has-error':'']]" style="padding: 10px 0px;">
+                    <label class="col-md-2 setting-label">
+                        Título del mensaje :
+                    </label>
+                    <div class="col-md-10">
+                        <input class="form-control form-control-inline" type="text"
+                        data-ng-model="model.availabilitySettingsObject.message_title"/>
+                        <span class="help-block">
+                            <p data-ng-if="model.availabilityMessageTitleHasError">Valor incorrecto o en blanco.</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group [[model.availabilityMessageBodyHasError?'has-error':'']]" style="padding: 10px 0px;">
+                    <label class="col-md-2 setting-label">
+                        Cuerpo del mensaje :
+                    </label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" rows="5" style="width:100%"
+                        data-ng-model="model.availabilitySettingsObject.message_body"></textarea>
+                        <span class="help-block">
+                            <p data-ng-if="model.availabilityMessageBodyHasError">Valor incorrecto o en blanco.</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <div class="row" style="margin-top:30px;">
+            <div class="col-xs-12 col-md-offset-5 col-md-7">
+                <button class="btn blue btn-blue btn-footer" type="submit"
+                data-ng-click="saveAvailabilitySectionData()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</form>

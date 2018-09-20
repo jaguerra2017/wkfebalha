@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="dd">
+            <ol class="dd-list">
+                <li data-ng-repeat="menuItem in model.appearanceMenuItemsCollection" class="dd-item">
+                    <!-- Level 1 -->
+                    <div class="dd-handle">
+                        <div data-ng-if="model.showMenuItemForm && (model.selectedAppearanceMenuItem.id != menuItem.id)"
+                             class="icheckbox_square-blue checkbox-[[menuItem.tree_slug]]
+                             [[menuItem.selected ? 'checked' : '']] [[menuItem.childs.length == 0? 'margin-right-30' : '']]"
+                             data-ng-click="selectMenuItem($event,menuItem)"
+                             data-ng-mouseover="updateICheckStyles($event,'checkbox-'+menuItem.tree_slug, null)"
+                             data-ng-mouseleave="updateICheckStyles($event,'checkbox-'+menuItem.tree_slug, null)">
+                        </div>
+                        <a data-ng-if="menuItem.childs.length > 0" style="color: #666 !important;margin-right:5px;">
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <span class="[[menuItem.childs.length == 0 && !model.showMenuItemForm && model.selectedAppearanceMenuItem.id == menuItem.id? 'margin-left-30' : '']]">
+                            [[menuItem.name_es]]
+                        </span>
+                        {% if canEdit %}
+                            <button data-ng-if="menuItem.canDelete && !model.showMenuItemForm" class="btn btn-link pull-right" data-ng-click="deleteMenuItem(menuItem)">
+                                <i class="icon-trash btn-red"></i>
+                            </button>
+                            <button data-ng-if="menuItem.canEdit && !model.showMenuItemForm" class="btn btn-link pull-right" data-ng-click="editMenuItem(menuItem)">
+                                <i class="icon-pencil btn-blue"></i>
+                            </button>
+                            <button data-ng-if="menuItem.canEdit && !model.showMenuItemForm" class="btn btn-link pull-right tooltips"
+                            data-container="body" data-placement="top" data-original-title="Agregar elemento hijo"
+                            data-ng-click="createMenuItem(menuItem)">
+                                <i class="fa fa-plus btn-blue"></i>
+                            </button>
+                        {% endif %}
+                    </div>
+                    <ol data-ng-if="menuItem.childs.length > 0" class="dd-list">
+                        <!-- Level 2 -->
+                        <li data-ng-repeat="child in menuItem.childs" class="dd-item">
+                            <div class="dd-handle">
+                                <div data-ng-if="model.showMenuItemForm && (model.selectedAppearanceMenuItem.id != child.id)"
+                                     class="icheckbox_square-blue checkbox-[[child.tree_slug]] [[child.selected ? 'checked' : '']]
+                                     [[child.childs.length == 0? 'margin-right-30' : '']]"
+                                     data-ng-click="selectMenuItem($event,child)"
+                                     data-ng-mouseover="updateICheckStyles($event, 'checkbox-'+child.tree_slug, null)"
+                                     data-ng-mouseleave="updateICheckStyles($event, 'checkbox-'+child.tree_slug, null)">
+                                </div>
+                                <a data-ng-if="child.childs.length > 0" style="color: #666 !important;margin-right:5px;">
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <span class="[[(child.childs.length == 0 && !model.showMenuItemForm) || model.selectedAppearanceMenuItem.id == child.id? 'margin-left-30' : '']]">
+                                    [[child.name_es]]
+                                </span>
+                                {% if canEdit %}
+                                    <button data-ng-if="child.canDelete && !model.showMenuItemForm" class="btn btn-link pull-right" data-ng-click="deleteMenuItem(child)">
+                                        <i class="icon-trash btn-red"></i>
+                                    </button>
+                                    <button data-ng-if="child.canEdit && !model.showMenuItemForm" class="btn btn-link pull-right" data-ng-click="editMenuItem(child)">
+                                        <i class="icon-pencil btn-blue"></i>
+                                    </button>
+                                    <button data-ng-if="menuItem.canEdit && !model.showMenuItemForm" class="btn btn-link pull-right tooltips"
+                                            data-container="body" data-placement="top" data-original-title="Agregar elemento hijo"
+                                            data-ng-click="createMenuItem(child)">
+                                        <i class="fa fa-plus btn-blue"></i>
+                                    </button>
+                                {% endif %}
+                            </div>
+                            <ol data-ng-if="child.childs.length > 0" class="dd-list">
+                                <!-- Level 3 (and last) -->
+                                <li data-ng-repeat="grand_child in child.childs" class="dd-item">
+                                    <div class="dd-handle">
+                                        <span class="margin-left-30">
+                                            [[grand_child.name_es]]
+                                        </span>
+                                        {% if canEdit %}
+                                            <button data-ng-if="grand_child.canDelete && !model.showMenuItemForm" class="btn btn-link pull-right" data-ng-click="deleteMenuItemy(grand_child)">
+                                                <i class="icon-trash btn-red"></i>
+                                            </button>
+                                            <button data-ng-if="grand_child.canEdit && !model.showMenuItemForm" class="btn btn-link pull-right" data-ng-click="editMenuItem(grand_child)">
+                                                <i class="icon-pencil btn-blue"></i>
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+        <!-- Message when isn't menu items to show -->
+        <div data-ng-show="model.appearanceMenuItemsCollection.length == 0 &&
+        model.selectedAppearanceMenu != null">
+            <div style="display:block;text-align: center; color:#93a2a9; padding: 20px;">
+                El menú seleccionado no tiene elementos creados.
+            </div>
+        </div>
+        <!-- Message when isn't menu items to show -->
+        <div data-ng-show="model.selectedAppearanceMenu == null">
+            <div style="display:block;text-align: center; color:#93a2a9; padding: 20px;">
+                Por favor, seleccione un menú para ver sus elementos.
+            </div>
+        </div>
+    </div>
+</div>

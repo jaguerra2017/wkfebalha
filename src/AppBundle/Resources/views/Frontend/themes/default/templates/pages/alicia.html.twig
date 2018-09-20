@@ -1,0 +1,227 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block template_name %}
+<!--**
+ * Template Name: Página Alicia Alonso
+ *
+ * -->
+{% endblock %}
+{% block title %} Alicia Alonso {% endblock %}
+
+{% block content %}
+    <section class="news-section" style="padding-bottom:50px;" data-ng-controller="aliciaPageCtrller" data-ng-cloak>
+        <!-- Block linked to Tag "bibliografia"-->
+        <h3 class="font-family-france">Biografía</h3>
+        <div class="container-fluid wow fadeInUpBig"
+         style="padding-top: 60px; padding-bottom:60px;min-height: 400px;"
+         id="bibliografia">
+            <div class="row" style="margin:0">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <img class="img-responsive" style="max-width: 320px;"
+                     src="[[model.selectedPage.featured_image_url]]">
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-8">
+                    <span style="width:60px;border-top:2px solid white;display: block;margin-top: 60px;"></span>
+                    <span class="notifier-event-text" style="text-align:left;padding: 10px 0px;">
+                        Alicia Alonso
+                    </span>
+                    <div style="color: white;padding: 20px 0px 0px;font-size: 16px;">
+                        [[model.selectedPage.excerpt_es]]
+                    </div>
+                </div>
+
+                <div data-ng-if="model.showPageContent" class="col-xs-12 wow fadeIn"
+                style="color: white;padding: 20px 0px 0px;font-size: 16px;"
+                data-ng-bind-html="model.selectedPage.html_filtered_content_es">
+                </div>
+
+                <div data-ng-if="!model.showPageContent" class="col-xs-12" style="padding: 100px 0px;text-align: center;">
+                    <a class="btn custom-general-button"
+                    data-ng-click="model.showPageContent = true;"
+                       style="border:2px solid #009dc7;color:#009dc7;float:none;">
+                        <i class="fa fa-plus"></i>
+                        Más
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block linked to Tag "distinciones"-->
+        <div class="wow fadeInUpBig" style="background:rgba(1,1,1,0.2);padding-top:10px">
+            <h3 class="font-family-france">Distinciones</h3>
+            <div class="container-fluid "
+             style="padding: 60px 0px;min-height:400px;max-width: 1280px;"
+             id="distinciones">
+                <div class="row " style="margin:0;position:relative;">
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <span style="width:60px;border-top:2px solid #009dc7;display:
+                        block;"></span>
+                        <span class="notifier-event-text" style="text-align:left;padding: 10px 0px;">
+                            Nacionales
+                        </span>
+                        <div data-ng-repeat="na in model.nationalAwardsCollection"
+                         class="wow fadeInUp"
+                        style="color: white;margin: 20px 0px 0px;font-size: 16px;
+                        padding:5px 60px 5px 5px;">
+                            [[na.title_es]]
+                        </div>
+                        <div data-ng-if="model.nationalAwardsCollection.length < model.na_total" style="max-width:130px;margin:auto;">
+                            <a class="btn custom-general-button"
+                               data-ng-click="getAwards('na')"
+                               style="border:2px solid #009dc7;margin-top:50px;">
+                                <i class="fa fa-plus"></i>
+                                Más
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <span style="width:60px;border-top:2px solid #009dc7;display:
+                        block;"></span>
+                        <span class="notifier-event-text" style="text-align:left;padding: 10px 0px;">
+                            Internacionales
+                        </span>
+                        <div data-ng-repeat="ia in model.internationalAwardsCollection"
+                         class="wow fadeInUp"
+                         style="color: white;margin: 20px 0px 0px;font-size: 16px;
+                        padding:5px 60px 5px 5px;">
+                            [[ia.title_es]]
+                        </div>
+                        <div data-ng-if="model.internationalAwardsCollection.length < model.ia_total" style="max-width:130px;margin:auto;">
+                            <a class="btn custom-general-button"
+                               data-ng-click="getAwards('ia')"
+                               style="border:2px solid #009dc7;margin-top:50px;">
+                                <i class="fa fa-plus"></i>
+                                Más
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <span style="width:60px;border-top:2px solid #009dc7;display:
+                        block;"></span>
+                        <span class="notifier-event-text" style="text-align:left;padding: 10px 0px;">
+                            América y el Caribe
+                        </span>
+                        <div data-ng-repeat="la in model.latamAwardsCollection"
+                         class="wow fadeInUp"
+                         style="color: white;margin: 20px 0px 0px;font-size: 16px;
+                        padding:5px 60px 5px 5px;">
+                            [[la.title_es]]
+                        </div>
+                        <div data-ng-if="model.latamAwardsCollection.length < model.la_total" style="max-width:130px;margin:auto;">
+                            <a class="btn custom-general-button"
+                               data-ng-click="getAwards('la')"
+                               style="border:2px solid #009dc7;margin-top:50px;">
+                                <i class="fa fa-plus"></i>
+                                Más
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Data Loader -->
+                    <div data-ng-show="model.loadingData">
+                        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Blocks Handler -->
+        <div data-ng-if="model.selectedPage != null" class="container-fluid"
+             style="position:relative;">
+            <block-handler elementid="model.selectedPage.id" elementtype="'post'"
+            blockscollection="model.blocksCollection">
+            </block-handler>
+        </div>
+
+        <!-- Block linked to Tag "galeria-de-fotos"-->
+        <div data-ng-if="model.imagesCollection.length > 0">
+            <h3 class="font-family-france">Galería de Fotos</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+             id="galeria-de-fotos">
+                <div class="lightBoxGallery container-fluid block-handler-section"
+                     style="padding: 20px 15px 80px;max-width: 1280px;min-height: 400px;">
+                    <a data-ng-repeat="image in model.imagesCollection"
+                       style="float:left;position:relative;margin:10px;"
+                       href="[[image.url]]" title="[[image.description_es]]" data-gallery="">
+                        <img src="[[image.web_filtered_standard_thumbnail_url]]">
+                        <div class="image-gallery-over"></div>
+                    </a>
+                    <div id="blueimp-gallery" class="blueimp-gallery">
+                        <div class="slides"></div>
+                        <h3 class="title"></h3>
+                        <a class="prev">‹</a>
+                        <a class="next">›</a>
+                        <a class="close">×</a>
+                        <a class="play-pause"></a>
+                        <ol class="indicator"></ol>
+                    </div>
+
+                    <span data-ng-if="model.imagesCollection.length == 0"
+                          style="color: white;font-family: 'Helvetica LTStd Bold';font-size: 12px;">
+                        Sin Fotos
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Block linked to Tag "opiniones"-->
+        <div class="wow fadeInUpBig" data-ng-if="model.opinionsCollection.length > 0">
+            <h3 class="font-family-france">Opiniones</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+             id="opiniones">
+                <div class="row" style="margin: 20px 0px 0px;">
+                    <div class="col-xs-1">
+                        <a class="btn btn-icon-only btn-circle btn-carrousel"
+                        data-ng-if="model.selectedOpinion.index > 0"
+                        data-ng-click="changeOpinion('before')">
+                            <i class="fa fa-angle-left" style="font-size: 18px;"></i>
+                        </a>
+                    </div>
+                    <div class="col-xs-10">
+                        <div class="wow fadeInBig opinion-card">
+                            <div class="opinion-content"
+                            style="text-align:center;"
+                            data-ng-bind-html="model.selectedOpinion.filtered_html_content">
+                            </div>
+                            <div class="opinion-reference"
+                            style="text-align:center;">
+                                [[model.selectedOpinion.title_es]]
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1">
+                        <a class="btn btn-icon-only btn-circle btn-carrousel"
+                        data-ng-if="model.selectedOpinion.index < (model.opinionsCollection.length - 1)"
+                        data-ng-click="changeOpinion('next')">
+                            <i class="fa fa-angle-right" style="font-size: 18px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block linked to Tag "videos"-->
+        <div class="wow fadeInUpBig" data-ng-if="model.videosCollection.length > 0">
+            <h3 class="font-family-france">Videos</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+             id="videos">
+                <div>
+                    <video-handler videoscollection="model.videosCollection"></video-handler>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Comments section -->
+        <div data-ng-if="model.selectedPage != null" class="comments-section">
+            <comment-handler genericpostid="model.selectedPage.id"></comment-handler>
+        </div>
+
+
+    </section>
+
+{% endblock %}

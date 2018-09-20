@@ -1,0 +1,388 @@
+<div class="row" style="position: relative;">
+    <div class="col-xs-12" style="padding: 5px 15px;border-bottom: 1px solid #eee;margin-bottom: 10px;">
+        {% if canEdit %}
+        <button class="btn blue btn-circle btn-icon-only btn-create-inner tooltips"
+        data-container="body" data-placement="top" data-original-title="Crear nuevo menú"
+        data-ng-click="createMenu()">
+            <i class="fa fa-plus" style="color:white"></i>
+        </button>
+        {% endif %}
+        <!-- Modal with form for CRUD Menus -->
+        <div id="appearance-menu-crud-modal" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">[[model.createMenuAction?'Crear':'Editar']] menú</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" style="position: relative;">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group [[model.appearanceMenuNameHasError?'has-error':'']]">
+                                    <label class="col-md-2 setting-label">
+                                        Nombre :
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="menu_name" name="menu_name"
+                                        data-ng-model="model.appearanceMenuName"
+                                        data-ng-keyup="handleMenuFormInputKeyEvents($event)">
+                                        <span class="help-block">
+                                            <p data-ng-if="model.appearanceMenuNameHasError">
+                                                Valor incorrecto o en blanco.
+                                            </p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group [[model.appearanceMenuSlugHasError?'has-error':'']]">
+                                    <label class="col-md-2 setting-label">
+                                        Slug :
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text"
+                                               data-ng-model="model.appearanceMenuSlug">
+                                        <span class="help-block">
+                                            <p data-ng-if="model.appearanceMenuSlugHasError">
+                                                Valor incorrecto o en blanco.
+                                            </p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group ">
+                                    <label class="col-md-2 setting-label">
+                                        Descripción :
+                                    </label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control" rows="5" style="width:100%"
+                                        data-ng-model="model.appearanceMenuDescription"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row"
+                         style="margin-top: 30px;border-top: 1px solid #eee;padding: 15px 0px 10px;">
+                            <div class="col-xs-12 col-md-offset-3 col-md-9">
+                                <button class="btn default btn-footer" type="button"
+                                data-ng-click="hideAppearanceMenuForm()">
+                                    Cancelar
+                                </button>
+                                <button data-ng-if="model.createMenuAction"
+                                class="btn blue btn-blue btn-footer" type="submit"
+                                data-ng-click="saveAppearanceThemeSectionMenuData('clear')">
+                                    Guardar y limpiar
+                                </button>
+                                <button class="btn blue btn-blue btn-footer" type="button"
+                                data-ng-click="saveAppearanceThemeSectionMenuData('close')">
+                                    Guardar y cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div data-ng-show="model.loadingData">
+                    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="model.appearanceMenusCollection.length > 0" class="col-xs-12 col-md-4">
+        <ul data-ng-if="model.appearanceMenusCollection.length > 0" class="ver-inline-menu tabbable">
+            <li data-ng-repeat="menu in model.appearanceMenusCollection"
+            class="[[model.selectedAppearanceMenu != null && menu.id == model.selectedAppearanceMenu.id?'active':'']]">
+                <a data-toggle="tab" data-ng-click="loadAppearanceMenuItems(menu)">
+                    {% if canEdit %}
+                    <i class="fa fa-bars dropdown-toggle tooltips"
+                    data-container="body" data-placement="top" data-original-title="Opciones del menú"
+                    data-toggle="dropdown"></i>
+                    {% endif %}
+                    [[menu.name]]
+                    <ul class="dropdown-menu" role="menu">
+                        <li style="color:#777" data-ng-click="editMenu(menu)">
+                            <i class="icon-pencil" style="background: white !important;color: #009dc7;"></i>
+                            Editar
+                        </li>
+                        <li style="color:#777" data-ng-click="deleteMenu(menu)">
+                            <i class="icon-trash"  style="background: white !important;color: #F3565D;"></i>
+                            Eliminar
+                        </li>
+                        <li class="divider"></li>
+                        <li style="color:#777" data-ng-click="createMenuItem()">
+                            <i class="fa fa-plus" style="background: white !important;color: #009dc7;"></i>
+                            Agregar elemento
+                        </li>
+                    </ul>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Modal with form for Menu Items CRUD -->
+        <div id="appearance-menu-item-crud-modal" class="modal fade" tabindex="-1" data-width="990"
+        data-backdrop="static" data-keyboard="false">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                data-ng-click="hideAppearanceMenuItemForm()"></button>
+                <h4 class="modal-title">[[model.createMenuItemAction?'Crear':'Editar']] elemento del menú</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" style="position: relative;">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group [[model.appearanceMenuItemNameHasError?'has-error':'']]">
+                                            <label class="col-md-3 setting-label">
+                                                Nombre :
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" type="text" id="menu_item_name" name="menu_item_name"
+                                               data-ng-model="model.appearanceMenuItemName"
+                                               data-ng-keyup="handleMenuFormInputKeyEvents($event)">
+                                                <span class="help-block">
+                                                    <p data-ng-if="model.appearanceMenuItemNameHasError">
+                                                        Valor incorrecto o en blanco.
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="form-group [[model.appearanceMenuItemSlugHasError?'has-error':'']]">
+                                            <label class="col-md-3 setting-label">
+                                                Slug :
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" type="text"
+                                                data-ng-model="model.appearanceMenuItemSlug">
+                                                <span class="help-block">
+                                                    <p data-ng-if="model.appearanceMenuItemSlugHasError">
+                                                        Valor incorrecto o en blanco.
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="form-group [[model.appearanceMenuItemPriorityHasError?'has-error':'']]">
+                                            <label class="col-md-3 setting-label">
+                                                Prioridad :
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" type="text"
+                                                   data-ng-model="model.appearanceMenuItemPriority">
+                                                <span class="help-block">
+                                                    <p data-ng-if="!model.appearanceMenuItemPriorityHasError">
+                                                        Orden respecto a los elementos del mismo nivel.
+                                                    </p>
+                                                    <p data-ng-if="model.appearanceMenuItemPriorityHasError">
+                                                        Valor incorrecto o en blanco.
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="form-group ">
+                                            <label class="col-md-3 setting-label">
+                                                Descripción :
+                                            </label>
+                                            <div class="col-md-9">
+                                                 <textarea class="form-control" rows="5" style="width:100%"
+                                                  data-ng-model="model.appearanceMenuItemDescription"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group [[model.appearanceMenuItemNameHasError?'has-error':'']]">
+                                            <label class="col-md-3 setting-label">
+                                                Padre :
+                                            </label>
+                                            <div class="col-md-9">
+                                                <a class="btn toolbar-btn-dropdown-text btn-md btn-default"
+                                                style="text-align:left !important;"
+                                                data-ng-click="showMenuItemParentsSelector()">
+                                                    [[model.appearanceMenuItemParentSelected != null ? model.appearanceMenuItemParentSelected.name_es : 'Seleccione.']]
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="form-group [[model.appearanceMenuItemTypeHasError?'has-error':'']]">
+                                            <label class="col-md-3 setting-label">
+                                                Tipo :
+                                            </label>
+                                            <div class="col-md-9">
+                                                <button class="btn btn-default dropdown-toggle" type="button"
+                                                data-toggle="dropdown" style="width: 100%;text-align: left;">
+                                                    [[model.appearanceMenuItemTypeSelected != null?model.appearanceMenuItemTypeSelected.name_es:'Seleccione.']]
+                                                    <i class="fa fa-angle-down pull-right"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" style="margin-left:15px;top:0;margin-top:35px;">
+                                                    <li data-ng-repeat="menuItemType in model.appearanceMenuItemTypesCollection">
+                                                        <a data-ng-click="updateMenuItemTypeSelected(menuItemType)">
+                                                            [[menuItemType.name_es]]
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <span class="help-block">
+                                                    <p data-ng-if="model.appearanceMenuItemTypeHasError">
+                                                        Valor incorrecto o en blanco.
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12"
+                                    data-ng-if="model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-page'">
+                                        <div class="form-group [[model.appearanceMenuItemTypePageHasError?'has-error':'']]">
+                                            <label class="col-md-3 setting-label">
+                                            </label>
+                                            <div class="col-md-9">
+                                                <button class="btn btn-default dropdown-toggle" type="button"
+                                                data-toggle="dropdown" style="width: 100%;text-align: left;">
+                                                    [[model.appearanceMenuItemTypePageSelected != null?model.appearanceMenuItemTypePageSelected.name_es:'Seleccione la página.']]
+                                                    <i class="fa fa-angle-down pull-right"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" style="margin-left:15px;top:0;margin-top:35px;">
+                                                    <li data-ng-repeat="menuItemType in model.appearanceMenuItemTypesCollection">
+                                                        <a data-ng-click="updateMenuItemTypeSelected(menuItemType)">
+                                                            [[menuItemType.name_es]]
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <span class="help-block">
+                                                    <p data-ng-if="model.appearanceMenuItemTypePageHasError">
+                                                        Valor incorrecto o en blanco.
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 setting-label">
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" type="text" placeholder="Etiqueta específica"
+                                                data-ng-model="model.appearanceMenuItemTypePageTag">
+                                                <span class="help-block">
+                                                     <p>
+                                                         Id de algún elemento HTML dentro de la página.
+                                                     </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12"
+                                     data-ng-if="model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-url'">
+                                        <div class="form-group [[model.appearanceMenuItemTypeLinkHasError?'has-error':'']]">
+                                            <label class="col-md-3 setting-label">
+                                            </label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" type="text" placeholder="Enlace"
+                                                data-ng-model="model.appearanceMenuItemTypeLink">
+                                                <span class="help-block">
+                                                     <p data-ng-if="!model.appearanceMenuItemTypeLinkHasError">
+                                                         Ejemplo:  http://www.misitio.com
+                                                     </p>
+                                                    <p data-ng-if="model.appearanceMenuItemTypeLinkHasError">
+                                                        Valor incorrecto o en blanco.
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row"
+                        style="margin-top: 30px;border-top: 1px solid #eee;padding: 15px 0px 10px;">
+                            <div class="col-xs-12 col-md-offset-3 col-md-9">
+                                <button class="btn default btn-footer" type="button"
+                                        data-ng-click="hideAppearanceMenuItemForm()">
+                                    Cancelar
+                                </button>
+                                <button data-ng-if="model.createMenuItemAction"
+                                class="btn blue btn-blue btn-footer" type="submit"
+                                data-ng-click="saveAppearanceThemeSectionMenuItemData('clear')">
+                                    Guardar y limpiar
+                                </button>
+                                <button class="btn blue btn-blue btn-footer" type="button"
+                                data-ng-click="saveAppearanceThemeSectionMenuItemData('close')">
+                                    Guardar y cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div data-ng-show="model.loadingData">
+                    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal with candidates for Menu Item Parent -->
+        <div id="appearance-menu-item-parent-modal" class="modal fade" tabindex="-1" data-width="760">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Seleccionar elemento padre</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning alert-dismissable" data-auto-close="2" >
+                    <button class="close" type="button" data-dismiss="alert" aria-hidden="true"></button>
+                    <span style="font-size: 12px;color:#777;">
+                       Seleccione un solo padre de primer o segundo nivel.
+                       Si selecciona más de uno se tomará el primero seleccionado en la lista.
+                       Si desea cancelar un padre previamente seleccionado, solo guarde sin seleccionar ninguno.
+                    </span>
+                </div>
+                <form class="form-horizontal" style="position: relative;">
+                    <div class="form-body">
+                        {% include '@app_backend_template_directory/Setting/appearance_menu_item.html.twig' %}
+                    </div>
+                    <div class="form-actions">
+                        <div class="row"
+                             style="margin-top: 30px;border-top: 1px solid #eee;padding: 15px 0px 10px;">
+                            <div class="col-xs-12 col-md-offset-3 col-md-9">
+                                <button class="btn default btn-footer" type="button"
+                                data-ng-click="hideMenuItemParentsSelector();">
+                                    Cancelar
+                                </button>
+                                <button class="btn blue btn-blue btn-footer" type="button"
+                                data-ng-click="selectMenuItemParent()">
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <div data-ng-if="model.appearanceMenusCollection.length > 0" class="col-xs-12 col-md-8">
+        {% include '@app_backend_template_directory/Setting/appearance_menu_item.html.twig' %}
+    </div>
+    <!-- Message when isn't data to show -->
+    <div data-ng-show="model.appearanceMenusCollection.length == 0">
+        {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</div>

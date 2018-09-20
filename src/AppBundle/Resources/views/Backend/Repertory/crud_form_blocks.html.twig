@@ -1,0 +1,8 @@
+<div data-ng-if="model.formActiveView == 'blocks'" class="row" id="repertory_blocks">
+    <div data-ng-if="model.createAction == true" style="display:block;text-align: center; color:#93a2a9; padding: 20px;">
+        Primero debe de <strong>Guardar</strong> para poder agregar Bloques.
+    </div>
+    <div data-ng-if="model.createAction == false && model.selectedRepertory.id != undefined">
+        <block-selector elementid="model.selectedRepertory.id" elementtype="repertory"></block-selector>
+    </div>
+</div>

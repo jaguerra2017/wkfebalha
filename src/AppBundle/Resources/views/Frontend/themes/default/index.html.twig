@@ -1,0 +1,221 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block title %} ¡Bienvenidos! {% endblock %}
+
+{% block content %}
+    <!-- Banner -->
+    <section class="home-banner" >
+        {% if themeConfigsData.headerConfigs is not empty %}
+            {% if themeConfigsData.headerConfigs.welcome_image_url is not empty %}
+                <img src="{{ themeConfigsData.headerConfigs.welcome_image_url | imagine_filter('default_theme_banner')}}">
+            {% endif %}
+            {% if themeConfigsData.headerConfigs.welcome_text is not empty %}
+                <div class="theme-welcome-text-container hidden-xs">
+                    <span class="theme-welcome-text wow bounceIn">{{ themeConfigsData.headerConfigs.welcome_text }}</span>
+                </div>
+
+            {% endif %}
+
+            <!-- Hiding original design -->
+            {# {% if closerEventsData is not empty %}
+                <div class="home-events-notifier">
+                    <div class="row" style="margin-left:0px;margin-right:0px;">
+                        <div class="col-xs-12 col-sm-6 wow fadeInLeftBig">
+                            <span class="notifier-event-date">
+                                {{ closerEventsData[0].start_date }}
+                            </span>
+                            <span class="notifier-event-text pull-right">
+                                {{ closerEventsData[0].title_es }}
+                            </span>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 wow fadeInRightBig">
+                            <a href="{{closerEventsData[0].url}}" class="btn custom-general-button">
+                                Leer más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}#}
+            <!-- Showing this instead -->
+            <div class="home-events-notifier">
+                <div class="row" style="margin-left:0px;margin-right:0px;">
+                    <div class="col-xs-12 col-sm-7 wow fadeInLeftBig">
+                            <span class="notifier-event-text pull-right"
+                            style="max-width: 100%;margin-top: 3px;">
+                                Patrimonio Cultural de la Nación
+                            </span>
+                    </div>
+                    <div class="col-xs-12 col-sm-5 wow fadeInRightBig">
+                        <a href="http://balletcuba.cult.cu/es/paginas/patrimonio-cultural-de-la-nacion"
+                        class="btn custom-general-button">
+                            Leer más
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        {% endif %}
+    </section>
+
+    <!-- News Summary -->
+    <section class="home-news-summary">
+        <h3 class="font-family-france">Últimas Noticias</h3>
+        {% if newsSummaryData is not empty%}
+            <div class="row news-summary" style="margin-left:0px;margin-right:0px;">
+                {% if newsSummaryData[0] is not empty%}
+                    <div class="col-xs-12 wow fadeInUpBig">
+                        <div class="generic-post-grid-container summary-first-container">
+                            <div class="generic-post-grid-feature-image-container summary-first">
+                                {% if newsSummaryData[0].have_featured_image == true  %}
+                                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
+                                    <img src="{{ newsSummaryData[0].web_filtered_grid_featured_image_thumbnail_url }}">
+                                </div>
+                                {% endif %}
+                                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
+                                    <span class="notifier-event-date">
+                                        {{ newsSummaryData[0].published_date }}
+                                    </span>
+                                    <span class="notifier-event-text ">
+                                        {{ newsSummaryData[0].title_es }}
+                                    </span>
+
+                                    <a class="btn custom-general-button"
+                                    href="{{ newsSummaryData[0].url }}">
+                                        Leer más
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if newsSummaryData[3] is not empty%}
+                    <div class="col-xs-12 col-sm-12 col-md-6 wow fadeInUpBig" style="padding-top:70px;">
+                        <div class="generic-post-grid-container" >
+                            <div class="generic-post-grid-feature-image-container summary-fourth">
+                                {% if newsSummaryData[3].have_featured_image == true  %}
+                                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
+                                    <img src="{{ newsSummaryData[3].web_filtered_grid_featured_image_thumbnail_url }}">
+                                </div>
+                                {% endif  %}
+                                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
+                                    <span class="notifier-event-date">
+                                        {{ newsSummaryData[3].published_date}}
+                                    </span>
+                                    <span class="notifier-event-text ">
+                                        {{ newsSummaryData[3].title_es }}
+                                    </span>
+
+                                    <a class="btn custom-general-button"
+                                       href="{{ newsSummaryData[3].url }}">
+                                        Leer más
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if newsSummaryData[1] is not empty%}
+                    <div class="col-xs-12 col-sm-12 col-md-6 wow fadeInUpBig" style="padding-top:70px;padding-bottom:70px;">
+                        <div class="generic-post-grid-container">
+                            <div class="generic-post-grid-feature-image-container summary-second">
+                                {% if newsSummaryData[1].have_featured_image == true  %}
+                                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
+                                    <img src="{{ newsSummaryData[1].web_filtered_grid_featured_image_thumbnail_url }}">
+                                </div>
+                                {% endif  %}
+                                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
+                                    <span class="notifier-event-date">
+                                        {{ newsSummaryData[1].published_date }}
+                                    </span>
+                                    <span class="notifier-event-text ">
+                                        {{ newsSummaryData[1].title_es }}
+                                    </span>
+
+                                    <a class="btn custom-general-button"
+                                       href="{{ newsSummaryData[1].url }}">
+                                        Leer más
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if newsSummaryData[2] is not empty%}
+                    <div class="col-xs-12 wow fadeInUpBig">
+                        <div class="generic-post-grid-container">
+                            <div class="generic-post-grid-feature-image-container summary-third">
+                                {% if newsSummaryData[2].have_featured_image == true  %}
+                                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
+                                    <img src="{{ newsSummaryData[2].web_filtered_grid_featured_image_thumbnail_url }}">
+                                </div>
+                                {% endif %}
+                                <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
+                                    <span class="notifier-event-date">
+                                        {{ newsSummaryData[2].published_date}}
+                                    </span>
+                                    <span class="notifier-event-text ">
+                                        {{ newsSummaryData[2].title_es }}
+                                    </span>
+
+                                    <a class="btn custom-general-button"
+                                       href="{{ newsSummaryData[2].url }}">
+                                        Leer más
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="col-xs-12" style="padding: 150px 0px 100px;">
+                    <div class="generic-post-grid-container" style="max-width:140px;">
+                        <a class="btn custom-general-button"
+                       href="{{ newsMainPageUrl }}"
+                       style="border:2px solid #009dc7;color:#009dc7;">
+                            <i class="fa fa-plus"></i>
+                            Más Noticias
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+    </section>
+
+    <!-- Partners Summary -->
+    <section class="home-partners-summary">
+        {% if partnersSummaryData is not empty%}
+            <div class="row home-partners-container wow fadeInUpBig" style="margin-left:0px;margin-right:0px;">
+            {% for partner in partnersSummaryData%}
+                <div class="col-xs-12 col-sm-12 col-md-3 home-partner">
+                    <img src="{{ partner.featured_image_url }}">
+                    <a class="home-partner-over"
+                    href="{{ partner.url}}">
+                        <span class="home-partner-title font-family-france">
+                            {{ partner.title_es }}
+                        </span>
+                        <span class="home-partner-excerpt">
+                            {{ partner.excerpt_es }}
+                        </span>
+                         <span class="home-partner-address">
+                            <p style="padding: 0 10px;">
+                                {% if partner.address is not empty%}
+                                    <i class="icon-pin"></i>
+                                    {{ partner.address }}
+                                {% endif %}
+                            </p>
+                        </span>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- Banner -->
+
+
+
+{% endblock %}

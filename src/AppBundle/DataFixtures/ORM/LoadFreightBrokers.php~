@@ -1,0 +1,57 @@
+<?php
+
+namespace AppBundle\DataFixtures\ORM;
+
+use AppBundle\Entity\FreightBroker;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+
+
+class LoadFreightBrokers implements FixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
+        $fbroker = new FreightBroker();
+        $fbroker->setName('Arrival Broker 1');
+        $fbroker->setAddress('Routowns 34, Squares Avenue.');
+        $fbroker->setEmail('abroker1@fms.com');
+        $fbroker->setPhoneNumber('(+11) 9876-456-2345');
+        $fbroker->setPortName('Angeles Port');
+        $fbroker->setIsForArrival(1);
+        $manager->persist($fbroker);
+
+        $fbroker2 = new FreightBroker();
+        $fbroker2->setName('Arrival Broker 2');
+        $fbroker2->setAddress('Routowns 34, Squares Avenue.');
+        $fbroker2->setEmail('abroker2@fms.com');
+        $fbroker2->setPhoneNumber('(+11) 9876-456-2346');
+        $fbroker2->setPortName('Angeles Port');
+        $fbroker2->setIsForArrival(1);
+        $manager->persist($fbroker2);
+
+        $fbroker3 = new FreightBroker();
+        $fbroker3->setName('Departure Broker 1');
+        $fbroker3->setAddress('Routowns 34, Squares Avenue.');
+        $fbroker3->setEmail('dbroker1@fms.com');
+        $fbroker3->setPhoneNumber('(+11) 9876-456-2345');
+        $fbroker3->setPortName('Angeles Port');
+        $fbroker3->setIsForArrival(0);
+        $manager->persist($fbroker3);
+
+        $fbroker4 = new FreightBroker();
+        $fbroker4->setName('Departure Broker 2');
+        $fbroker4->setAddress('Routowns 34, Squares Avenue.');
+        $fbroker4->setEmail('dbroker2@fms.com');
+        $fbroker4->setPhoneNumber('(+11) 9876-456-2346');
+        $fbroker4->setPortName('Angeles Port');
+        $fbroker4->setIsForArrival(0);
+        $manager->persist($fbroker4);
+
+        $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 8;
+    }
+}

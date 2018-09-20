@@ -1,0 +1,26 @@
+<!-- Media Images Gallery List-->
+<div style="">
+    <div data-ng-if="model.selectedGallery.childrens.length > 0"
+     class="row" style="margin-top:30px;">
+        <div data-ng-repeat="children in model.selectedGallery.childrens"
+             class="col-xs-6 col-md-2">
+            <div class="media-image-standard-thumbnail-container">
+                <img data-ng-src="[[children.web_filtered_standard_thumbnail_url]]">
+                {% if canEdit %}
+                    <a class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
+                       data-ng-click="deleteGalleryChildren(children.id)" data-container="body"
+                       data-placement="top"
+                       data-original-title="Eliminar imágen" style="position: absolute;top: 0px;">
+                        <i class="icon-trash"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="model.selectedGallery.childrens.length == 0">
+        <!-- No data to show -->
+        <div style="display:block;text-align: center; color:#93a2a9; padding: 20px;">
+            No se han seleccionado imágenes para esta galería......
+        </div>
+    </div>
+</div>

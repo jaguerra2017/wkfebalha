@@ -1,0 +1,76 @@
+<table class="table table-hover table-light">
+    <thead>
+    <tr class="uppercase">
+        <th width="50">
+            <div class="icheckbox_square-blue checkbox-master [[model.allPublicationsSelected ? 'checked' : '']]"
+                 data-ng-click="selectAllPublications($event)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+            </div>
+        </th>
+        <th class="table-header" width="150">
+            Imagen principal
+        </th>
+        <th class="table-header">
+            Título
+        </th>
+        <th class="table-header" width="120">
+            Status
+        </th>
+        <th class="table-header" width="150">
+            Autor
+        </th>
+        <th class="table-header" width="135">
+            Fecha creado
+        </th>
+        <th class="table-header" width="95">
+            Acciones
+        </th>
+    </tr>
+    </thead>
+    <tr data-ng-repeat="publication in model.publicationsCollection | limitTo : (model.publicationsCurrentResultLimit - (model.publicationsCurrentResultStart - 1)) : (model.publicationsCurrentResultStart - 1) ">
+        <td>
+            <div class="icheckbox_square-blue checkbox-[[publication.tree_slug]] [[publication.selected ? 'checked' : '']]"
+                 data-ng-click="selectPublications($event,publication)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+publication.tree_slug, null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+publication.tree_slug, null)">
+            </div>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectPublications($event,publication)">
+            <div data-ng-if="publication.have_featured_image == true" class="text-center publication-mini-thumbnail-container">
+                <img data-ng-src="[[publication.web_filtered_list_featured_image_mini_thumbnail_url]]">
+            </div>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectPublications($event,publication)" data-ng-bind="publication.title_es"></td>
+        <td class="cursor-pointer" data-ng-click="selectPublications($event,publication)">
+            <span data-ng-bind="publication.post_status_name"
+            class="label label-sm [[publication.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] ">
+            </span>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectPublications($event,publication)" data-ng-bind="publication.author_name"></td>
+        <td class="cursor-pointer" data-ng-click="selectPublications($event,publication)" data-ng-bind="publication.created_date"></td>
+        <td>
+            {% if canEdit %}
+                <button data-ng-if="publication.canEdit" class="btn btn-link"
+                data-ng-click="editPublications(publication)">
+                    <i class="icon-pencil btn-blue"></i>
+                </button>
+            {% endif %}
+            {% if canDelete %}
+                <button data-ng-if="publication.canDelete" class="btn btn-link"
+                data-ng-click="deletePublications(publication.id)">
+                    <i class="icon-trash btn-red"></i>
+                </button>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.publicationsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

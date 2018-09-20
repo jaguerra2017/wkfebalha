@@ -1,0 +1,107 @@
+<!-- Search bar -->
+<div class="inputs">
+    <div class="portlet-input input-small input-inline" style="width: 100% !important;border-bottom: 1px solid #eee;margin-bottom: 20px;padding-bottom: 20px;">
+        <div class="input-icon right">
+            <i class="icon-magnifier"></i>
+            <input type="text" class="form-control form-control-solid" placeholder="Buscar..."
+            data-ng-model="model.generalSearchValue" data-ng-keyup="searchMediaData($event,'image')"
+            style="color:#2a3239;">
+        </div>
+    </div>
+</div>
+<!-- Pagination-->
+<div class="row">
+    <div class="col-xs-12 col-md-6 paginator">
+        <span>
+            Mostrar
+        </span>
+        <div class="form-group inline m-b-xs" style="float:left;">
+            <select class="form-control input-xsmall"
+            data-ng-model="model.mediaImageCurrentPageSize"
+            data-ng-options="mediaImageEntrySize for mediaImageEntrySize in model.mediaImageEntriesSizesCollection"
+            data-ng-change="resetPaginationPages('image')">
+            </select>
+        </div>
+        <span>
+            entradas
+        </span>
+
+        <span style="border-left: 1px solid #eee;padding-left: 10px;">
+            <strong>[[model.mediaImageCurrentResultStart]]</strong>
+        </span>
+        <span>
+             -
+        </span>
+        <span>
+            <strong>[[model.mediaImageCurrentResultLimit]]</strong>
+        </span>
+        <span>
+            de <strong>[[model.imagesCollection.length]]</strong> entradas
+        </span>
+
+        <span style="border-left: 1px solid #eee;padding-left: 10px;">
+            Página
+        </span>
+        <div class="form-group inline m-b-xs" style="float:left;">
+            <select class="form-control input-s-xs"
+            data-ng-model="model.mediaImageCurrentPage"
+            data-ng-options="page for page in model.mediaImagePagesCollection"
+            data-ng-change="updatePaginationValues('image')">
+            </select>
+        </div>
+        <span>
+            de <strong>[[model.mediaImagePagesCollection.length]]</strong>
+        </span>
+    </div>
+</div>
+<!-- Media Images List-->
+<div style="position: relative;">
+    <div data-ng-show="model.imagesCollection.length > 0" class="row" style="margin-top:30px;">
+        <div data-ng-repeat="image in model.imagesCollection | limitTo : (model.mediaImageCurrentResultLimit - (model.mediaImageCurrentResultStart - 1)) : (model.mediaImageCurrentResultStart - 1)"
+         class="col-xs-6 col-md-2">
+            <div class="media-image-standard-thumbnail-container [[model.activeView != 'image' ? 'cursor-pointer' : '']]"
+            data-ng-click="selectMedia($event,image)">
+                <img data-ng-src="[[image.web_filtered_standard_thumbnail_url]]">
+
+                <a data-ng-if="model.activeView == 'image'"
+                class="btn btn-circle btn-icon-only btn-default tooltips"
+                   data-ng-click="seeMediaDetails(image)" data-container="body"
+                   data-placement="top"
+                   data-original-title="Ver información de la imágen"
+                   style="position: absolute;top: 0;">
+                    <i class="icon-eye"></i>
+                </a>
+                {% if canCreate %}
+                    <a data-ng-if="image.canEdit && model.activeView == 'image'" class="btn btn-add blue btn-blue btn-circle btn-icon-only btn-default tooltips"
+                       data-ng-click="editMedia(image)" data-container="body" data-placement="top"
+                       data-original-title="Editar imágen" style="position: absolute;top: 40px;">
+                        <i class="icon-pencil"></i>
+                    </a>
+                {% endif %}
+                {% if canDelete %}
+                    <a data-ng-if="image.canDelete && model.activeView == 'image'" class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
+                       data-ng-click="deleteMediaImage(image.id)" data-container="body" data-placement="top"
+                       data-original-title="Eliminar imágen" style="position: absolute;top: 80px;">
+                        <i class="icon-trash"></i>
+                    </a>
+                {% endif %}
+
+                <div data-ng-if="model.activeView != 'image'"
+                style="background-color: white; position: absolute;top: 0 !important;margin-top: 5px;margin-left: 5px;
+                width: 22px; height: 22px">
+                    <div class="icheckbox_square-blue hover [[image.selected ? 'checked' : '']]"
+                         data-ng-click="selectMedia($event,image)"
+                         style="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div data-ng-show="model.imagesCollection.length == 0">
+        {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</div>

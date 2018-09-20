@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+    <!--[if IE 8]> <html lang="es" class="ie8 no-js" data-ng-app="BncCustomErrorPage"> <![endif]-->
+    <!--[if IE 9]> <html lang="es" class="ie9 no-js" data-ng-app="BncCustomErrorPage"> <![endif]-->
+    <!--[if !IE]><!-->
+<html lang="es" class="no-js" data-ng-app="BncCustomErrorPage">
+    <!-- BEGIN HEAD -->
+    <head>
+        <base href="/">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+
+        <title>BNC | {% block title %} Error 404 {% endblock %}</title>
+
+        <!-- Base css global mandatory styles -->
+        <link href="{{ asset('css/backend/fonts/font-awesome/font-awesome.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/fonts/simple-line-icons/simple-line-icons.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/shared/bootstrap/bootstrap.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/plugins/uniform/uniform.default.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+
+        <!-- Plugins css theme styles -->
+        <link href="{{ asset('css/shared/theme/components.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/shared/theme/animations.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/shared/theme/custom-error-page.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <!-- END HEAD -->
+    <!-- BEGIN BODY -->
+    <body class="login">
+        <div class="logo" style="margin-top:0px !important;"></div>
+
+        <div class="content" style="width:85% !important">
+            <!-- Begin Login Form -->
+            <div class="login-form">
+                <!-- Begin Logo -->
+                <div style=" text-align:center;margin-bottom: 50px;">
+                    <a href="{{ path('frontend_index') }}">
+                        <img src="{{ asset('images/shared/bnc-secundary-logo.png') }}" alt="Logo del BNC" width="138" height="60">
+                    </a>
+                </div>
+
+                {% block body %}
+
+                {% endblock %}
+
+                <div class="forget-password" style="text-align:center;">
+                    <h4>¿Desea salir de esta pantalla?</h4>
+                    <p>
+                        Solo haga click <a href="{{ path('frontend_index') }}">aquí </a>
+                        para ir a la portada.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Window Loader -->
+        {% include '@app_backend_template_directory/Shared/window_loader.html.twig' %}
+
+
+    <!-- Base js global mandatory scripts -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('js/backend/plugins/respond.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+    <script src="{{ asset('js/backend/plugins/excanvas.min.js') }}{{ assets_js_base_scripts_version }}"></script>
+    <![endif]-->
+    <script src="{{ asset('js/shared/jquery/jquery.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+    <script src="{{ asset('js/shared/jquery/jquery-migrate.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+    <script src="{{ asset('js/shared/bootstrap/bootstrap.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+    <script src="{{ asset('js/backend/plugins/uniform/jquery.uniform.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+    <script src="{{ asset('js/backend/plugins/backstrecht/jquery.backstretch.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+
+    <!-- Custom js and Plugins js theme scripts -->
+
+    <!-- Angular base scripts -->
+    <script src="{{ asset('js/shared/angularjs/angular.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+    <script src="{{ asset('js/shared/angularjs/angular-animate.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+    <script src="{{ asset('js/shared/angularjs/angular-touch.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+    <script src="{{ asset('js/shared/angularjs/ui-bootstrap.min.js') }}{{ assets_js_base_angular_scripts_version }}"></script>
+    <script src="{{ asset('js/shared/angularjs/sugar.min.js') }}{{ assets_js_base_angular_scripts_version }}"></script>
+
+    <!-- Angular App scripts -->
+    <script src="{{ asset('js/shared/angularjsApp/CustomErrorPageApplication.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+
+    </body>
+    <!-- END BODY -->
+</html>

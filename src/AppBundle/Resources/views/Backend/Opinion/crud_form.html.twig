@@ -1,0 +1,138 @@
+<div class="col-md-12"  data-ng-show="model.showOpinionsForm">
+    <!-- BEGIN Portlet Opinions-CRUD -->
+    <div class="portlet light bordered" style="position:relative;">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">
+                    [[model.createAction == true ? 'Crear' : 'Editar']] crítica / opinión
+                </span>
+            </div>
+            <!-- Toolbar -->
+            <div class="actions custom-toolbar-actions">
+                <button class="btn default btn-footer width-auto-important" type="button" data-ng-click="hideOpinionsForm()">
+                    Cancelar
+                </button>
+                <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer width-auto-important"
+                        type="submit" data-ng-click="saveOpinionsData('clear')">
+                    Guardar y limpiar
+                </button>
+                <button class="btn blue btn-blue btn-footer width-auto-important" type="submit"
+                        data-ng-click="saveOpinionsData('close')">
+                    Guardar y cerrar
+                </button>
+                <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:40px;"></a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <form class="horizontal-form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group [[model.titleHasError ? 'has-error' : '']]">
+                                <label class="control-label">
+                                    Referencia
+                                </label>
+                                <input class="form-control" type="text" placeholder="No más de 250 caracteres."
+                                data-ng-model="model.selectedOpinion.title_es"
+                                maxlength="250">
+                                <span class="help-block">
+                                    <p data-ng-if="!model.titleHasError">Por ejemplo: Juan Antonio, Periódico El Mundo, Cuba, 1999.</p>
+                                    <p data-ng-if="model.titleHasError">Valor incorrecto o en blanco.</p>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <taxonomy-selector taxonomylabel="Categoría"
+                            selectedtaxonomiescollection="model.selectedCategoriesCollection"
+                            taxonomytypetreeslug="opinion-category"></taxonomy-selector>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group margin-top-20">
+                                <label class="control-label">Status</label>
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                                           style="text-align: left; font-size: 14px;"
+                                           data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            [[model.selectedPostStatus == null ? 'Seleccione' : model.selectedPostStatus.name_es]] <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                                             style="min-width: 275px;top: 25px;margin-left: 0px;">
+                                            <label data-ng-repeat="postStatus in model.postStatusCollection">
+                                                <a class="btn" style="width: 100%;text-align: left;"
+                                                   data-ng-click="updateOpinionsForm($event, 'status', postStatus)">
+                                                    [[postStatus.name_es]]
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group margin-top-20 [[model.publishedDateHasError ? 'has-error' : '']]">
+                                <label class="control-label">Fecha de publicación</label>
+                                <input data-ng-show="model.selectedPostStatus.tree_slug == 'generic-post-status-published'"
+                                class="form-control form-control-inline date-picker"
+                                size="16" type="text"
+                                data-ng-model="model.selectedOpinion.published_date"/>
+                                <span class="help-block">
+                                    <p data-ng-if="model.selectedPostStatus.tree_slug == 'generic-post-status-pending'">
+                                        El status debe de estar "Publicado".
+                                    </p>
+                                    <p data-ng-if="!model.publishedDateHasError && model.selectedPostStatus.tree_slug == 'generic-post-status-published'">
+                                        Ejemplo: 19/07/1985
+                                    </p>
+                                    <p data-ng-if="model.publishedDateHasError && model.selectedPostStatus.tree_slug == 'generic-post-status-published'">
+                                        Valor incorrecto o en blanco.
+                                    </p>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="form-group [[model.contentHasError ? 'has-error' : '']]" style="margin-top:40px;">
+                                <label class="control-label">
+                                    Texto de la opinión / crítica
+                                </label>
+                                <div id="textEditor"></div>
+                                <span class="help-block">
+                                    <p data-ng-if="model.contentHasError">
+                                        Valor incorrecto o en blanco.
+                                    </p>
+                                </span>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-offset-4 col-md-8">
+                            <button class="btn default btn-footer" type="button" data-ng-click="hideOpinionsForm()">
+                                Cancelar
+                            </button>
+                            <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer"
+                                    type="submit" data-ng-click="saveOpinionsData('clear')">
+                                Guardar y limpiar
+                            </button>
+                            <button class="btn blue btn-blue btn-footer" type="submit"
+                                    data-ng-click="saveOpinionsData('close')">
+                                Guardar y cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Data Loader -->
+        <div data-ng-show="model.loadingData">
+            {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+        </div>
+    </div>
+</div>

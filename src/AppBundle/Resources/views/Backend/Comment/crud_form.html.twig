@@ -1,0 +1,160 @@
+<div class="col-md-12"  data-ng-show="model.showCommentsForm">
+    <!-- BEGIN Portlet Comments-CRUD -->
+    <div class="portlet light bordered" style="position:relative;">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">
+                    [[model.createAction == true ? 'Crear' : 'Editar']] comentario
+                </span>
+            </div>
+            <!-- Toolbar -->
+            <div class="actions custom-toolbar-actions">
+                <button class="btn default btn-footer width-auto-important" type="button" data-ng-click="hideCommentsForm()">
+                    Cancelar
+                </button>
+                <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer width-auto-important"
+                        type="submit" data-ng-click="saveCommentsData('clear')">
+                    Guardar y limpiar
+                </button>
+                <button class="btn blue btn-blue btn-footer width-auto-important" type="submit"
+                        data-ng-click="saveCommentsData('close')">
+                    Guardar y cerrar
+                </button>
+                <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:40px;"></a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <form class="horizontal-form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <div class="iradio_square-blue [[!model.selectedComment.anonymous ? 'checked' : '']]"
+                                 data-ng-click="updateCommentsForm($event, 'comment-mode', false)">
+                                </div>
+                                <span style="margin-right: 15px;">Como Moderador</span>
+
+                                <div class="iradio_square-blue [[model.selectedComment.anonymous ? 'checked' : '']]"
+                                 data-ng-click="updateCommentsForm($event, 'comment-mode', true)">
+                                </div>
+                                <span>Como Usuario Anónimo</span>
+                            </div>
+
+                        </div>
+
+                        <div data-ng-if="model.selectedComment.anonymous" class="col-xs-12 col-md-6">
+                            <div class="form-group [[model.authorNameHasError ? 'has-error' : '']]">
+                                <label class="control-label">
+                                    Nombre
+                                </label>
+                                <input class="form-control" type="text" placeholder="No más de 200 caracteres."
+                                data-ng-model="model.selectedComment.author_name"
+                                maxlength="200">
+                                <span class="help-block">
+                                    <p data-ng-if="model.authorNameHasError">Valor incorrecto o en blanco.</p>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div data-ng-if="model.selectedComment.anonymous" class="col-xs-12 col-md-6">
+                            <div class="form-group [[model.emailHasError ? 'has-error' : '']]">
+                                <label class="control-label">
+                                    Correo
+                                </label>
+                                <input class="form-control" type="text" placeholder="No más de 60 caracteres."
+                                data-ng-model="model.selectedComment.email"
+                                maxlength="60">
+                                <span class="help-block">
+                                    <p data-ng-if="model.emailHasError">Valor incorrecto o en blanco.</p>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group margin-top-20">
+                                <label class="control-label">Status</label>
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                                        style="text-align: left; font-size: 14px;"
+                                        data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            [[model.selectedCommentStatus == null ? 'Seleccione' : model.selectedCommentStatus.name_es]] <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                                         style="min-width: 275px;top: 25px;margin-left: 0px;">
+                                            <label data-ng-repeat="commentStatus in model.commentStatusCollection">
+                                                <a class="btn" style="width: 100%;text-align: left;"
+                                               data-ng-click="updateCommentsForm($event, 'status', commentStatus)">
+                                                    [[commentStatus.name_es]]
+                                                </a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group margin-top-20 [[model.publishedDateHasError ? 'has-error' : '']]">
+                                <label class="control-label">Fecha de publicación</label>
+                                <input data-ng-show="model.selectedCommentStatus.tree_slug == 'comment-status-published'"
+                                class="form-control form-control-inline date-picker"
+                                size="16" type="text"
+                                data-ng-model="model.selectedComment.published_date"/>
+                                <span class="help-block">
+                                    <p data-ng-if="model.selectedCommentStatus.tree_slug == 'comment-status-pending'">
+                                        El status debe de estar "Publicado".
+                                    </p>
+                                    <p data-ng-if="!model.publishedDateHasError && model.selectedCommentStatus.tree_slug == 'comment-status-published'">
+                                        Ejemplo: 19/07/1985
+                                    </p>
+                                    <p data-ng-if="model.publishedDateHasError && model.selectedCommentStatus.tree_slug == 'comment-status-published'">
+                                        Valor incorrecto o en blanco.
+                                    </p>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="form-group [[model.contentHasError ? 'has-error' : '']]" style="margin-top:40px;">
+                                <label class="control-label">
+                                    Cuerpo del comentario
+                                </label>
+                                <textarea data-ng-model="model.selectedComment.content"
+                                style="width: 100%;height: 200px;"></textarea>
+                                <span class="help-block">
+                                    <p data-ng-if="model.contentHasError">
+                                        Valor incorrecto o en blanco.
+                                    </p>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-offset-4 col-md-8">
+                            <button class="btn default btn-footer" type="button" data-ng-click="hideCommentsForm()">
+                                Cancelar
+                            </button>
+                            <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer"
+                                    type="submit" data-ng-click="saveCommentsData('clear')">
+                                Guardar y limpiar
+                            </button>
+                            <button class="btn blue btn-blue btn-footer" type="submit"
+                                    data-ng-click="saveCommentsData('close')">
+                                Guardar y cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Data Loader -->
+        <div data-ng-show="model.loadingData">
+            {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+        </div>
+    </div>
+</div>

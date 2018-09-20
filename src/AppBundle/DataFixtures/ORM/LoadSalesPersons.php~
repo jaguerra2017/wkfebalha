@@ -1,0 +1,45 @@
+<?php
+
+namespace AppBundle\DataFixtures\ORM;
+
+use AppBundle\Entity\SalesPerson;
+use AppBundle\Entity\Supplier;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+
+
+class LoadSalesPersons implements FixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
+        $salesPerson = new SalesPerson();
+        $salesPerson->setName('Erick Fondover');
+        $salesPerson->setAddress('Carson Avenue,Apart. 45');
+        $salesPerson->setEmail('erickf@gmail.com');
+        $salesPerson->setLicense('HTL-45P');
+        $salesPerson->setPhoneNumber('(+11)-719890745');
+
+        $supplier = $manager->getRepository('AppBundle:Supplier')->find(3);
+        $salesPerson->setSupplier($supplier);
+        $manager->persist($salesPerson);
+
+        $salesPerson2 = new SalesPerson();
+        $salesPerson2->setName('Ode Rodriguez');
+        $salesPerson2->setAddress('Carson Avenue,Apart. 46');
+        $salesPerson2->setEmail('ode@gmail.com');
+        $salesPerson2->setLicense('HTL-45POP');
+        $salesPerson2->setPhoneNumber('(+11)-719890123');
+
+        $supplier = $manager->getRepository('AppBundle:Supplier')->find(4);
+        $salesPerson2->setSupplier($supplier);
+        $manager->persist($salesPerson2);
+
+
+        $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 6;
+    }
+}

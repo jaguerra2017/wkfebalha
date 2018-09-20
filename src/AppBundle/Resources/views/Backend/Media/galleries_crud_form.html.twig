@@ -1,0 +1,74 @@
+<div class="row" style="position:relative;">
+    <div class="col-xs-12 col-md-6">
+        <div class="form-group [[model.galleryNameHasError?'has-error':'']]">
+            <label class="control-label">Nombre</label>
+            <input class="form-control" type="text"
+                   data-ng-model="model.selectedGallery.name_es">
+            <span class="help-block">
+                <p data-ng-if="model.galleryNameHasError">
+                    Valor incorrecto o en blanco.
+                </p>
+            </span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+        <div class="form-group [[model.galleryDescriptionHasError?'has-error':'']]">
+            <label class="control-label">Breve descripción</label>
+            <input class="form-control" type="text"
+            data-ng-model="model.selectedGallery.description_es">
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group [[model.galleryTypeHasError?'has-error':'']]">
+            <label class="control-label">Tipo de Galería</label>
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                       style="text-align: left; font-size: 14px;width: 200px !important;"
+                       data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        [[model.selectedGalleryType == null ? 'Seleccione' : model.selectedGalleryType.name_es]] <i class="fa fa-angle-down"></i>
+                    </a>
+                    <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                         style="min-width: 275px;top: 25px;margin-left: 0px;">
+                        <label data-ng-repeat="galleryType in model.galleryTypesCollection">
+                            <a class="btn" style="width: 100%;text-align: left;"
+                               data-ng-click="updateSelectedGalleryType(galleryType)">
+                                [[galleryType.name_es]]
+                            </a>
+                        </label>
+                    </div>
+                    <button data-ng-if="model.selectedGalleryType != null"
+                    data-ng-click="showGalleryChildrensSelectionModal()"
+                    class="btn default" type="button">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <span class="help-block">
+                <p data-ng-if="model.galleryTypeHasError">
+                    Valor incorrecto o en blanco.
+                </p>
+            </span>
+        </div>
+    </div>
+    <div class="col-xs-12" style="margin-top: 15px;border-top: 1px solid #eee;padding-top: 15px;
+    min-height:200px;">
+        <div data-ng-if="model.selectedGalleryType == null">
+            <div class="alert alert-warning alert-dismissable" data-auto-close="2" >
+            <button class="close" type="button" data-dismiss="alert" aria-hidden="true"></button>
+           <span style="font-size: 12px;color:#777;">
+               Debe de seleccionar el Tipo de Galería para poder escoger los elementos de la misma.
+           </span>
+            </div>
+        </div>
+        <div data-ng-if="model.selectedGalleryType != null && model.selectedGalleryType.tree_slug == 'gallery-type-image'">
+            {% include '@app_backend_template_directory/Media/galleries_crud_form_selected_images.html.twig' %}
+        </div>
+        <div data-ng-if="model.selectedGalleryType != null && model.selectedGalleryType.tree_slug == 'gallery-type-video'">
+            {% include '@app_backend_template_directory/Media/galleries_crud_form_selected_videos.html.twig' %}
+        </div>
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</div>

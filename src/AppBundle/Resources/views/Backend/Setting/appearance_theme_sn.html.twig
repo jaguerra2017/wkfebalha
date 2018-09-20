@@ -1,0 +1,73 @@
+<form class="form-horizontal">
+    <div class="form-body">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group [[model.appearanceFacebookUrlHasError?'has-error':'']]" style="padding: 10px 0px;">
+                    <label class="col-md-3 setting-label">
+                        Url de Facebook :
+                    </label>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <input class="form-control form-control-inline" type="text"
+                            data-ng-model="model.appearanceSettingsObject.configurations[1].facebook_url"/>
+                            <span class="input-group-addon">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </div>
+                        <span class="help-block">
+                            <p data-ng-if="model.appearanceFacebookUrlHasError">Valor incorrecto o en blanco.</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group [[model.appearanceTwitterUrlHasError?'has-error':'']]" style="padding: 10px 0px;">
+                    <label class="col-md-3 setting-label">
+                        Url de Twitter :
+                    </label>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <input class="form-control form-control-inline" type="text"
+                            data-ng-model="model.appearanceSettingsObject.configurations[1].twitter_url"/>
+                            <span class="input-group-addon">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </div>
+                        <span class="help-block">
+                            <p data-ng-if="model.appearanceTwitterUrlHasError">Valor incorrecto o en blanco.</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group [[model.appearanceYoutubeUrlHasError?'has-error':'']]" style="padding: 10px 0px;">
+                    <label class="col-md-3 setting-label">
+                        Url de Youtube :
+                    </label>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <input class="form-control form-control-inline" type="text"
+                            data-ng-model="model.appearanceSettingsObject.configurations[1].youtube_url"/>
+                            <span class="input-group-addon">
+                                <i class="fa fa-youtube"></i>
+                            </span>
+                        </div>
+                        <span class="help-block">
+                            <p data-ng-if="model.appearanceYoutubeUrlHasError">Valor incorrecto o en blanco.</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <div class="row" style="margin-top:30px;">
+            <div class="col-xs-12 col-md-offset-5 col-md-7">
+                <button class="btn blue btn-blue btn-footer" type="submit"
+                data-ng-click="saveAppearanceThemeSectionData()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

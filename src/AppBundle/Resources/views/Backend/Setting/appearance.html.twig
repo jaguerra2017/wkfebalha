@@ -1,0 +1,27 @@
+<div class="tabbable-line">
+    <!-- Appearance SectionTab nav -->
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#appearance_theme" data-toggle="tab">
+                Tema
+            </a>
+        </li>
+        <li class="">
+            <a href="#appearance_menu" data-toggle="tab"
+            data-ng-click="loadAppearanceMenus()">
+                Menú
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="sub-tab-container">
+    <div class="tab-content">
+        <!-- Availability Settings -->
+        <div class="tab-pane active" id="appearance_theme">
+            {% include '@app_backend_template_directory/Setting/appearance_theme.html.twig' %}
+        </div>
+        <div class="tab-pane" id="appearance_menu">
+            {% include '@app_backend_template_directory/Setting/appearance_menu.html.twig' %}
+        </div>
+    </div>
+</div>

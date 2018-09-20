@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="es" class="ie8 no-js" data-ng-app="BncFrontend"> <![endif]-->
+<!--[if IE 9]> <html lang="es" class="ie9 no-js" data-ng-app="BncFrontend"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="es" class="no-js" data-ng-app="BncFrontend">
+<!-- BEGIN HEAD -->
+{% block template_name %}{% endblock %}
+<head>
+    <base href="/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+
+    <title>BNC | {% block title %} ¡Bienvenidos!{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="{{ asset('css/backend/fonts/font-awesome/font-awesome.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/fonts/simple-line-icons/simple-line-icons.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/shared/bootstrap/bootstrap.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/plugins/uniform/uniform.default.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+
+        <!-- Plugins styles -->
+        <link href="{{ asset('css/shared/plugins/bootstrap-modal/bootstrap-modal-bs3patch.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/shared/plugins/bootstrap-modal/bootstrap-modal.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/plugins/bootstrap-select/bootstrap-select.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/plugins/icheck/icheck.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/plugins/fullcalendar/fullcalendar.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/frontend/plugins/blueimp/css/blueimp-gallery.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+
+        <!-- Theme styles -->
+        <link href="{{ asset('css/backend/theme/timeline.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/theme/components.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/theme/plugins.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/theme/layout.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/theme/animations.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/frontend/theme-default/custom.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+    {% block body %}
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <!-- Base js global mandatory scripts -->
+        <!--[if lt IE 9]>
+        <script src="{{ asset('js/backend/plugins/respond.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/excanvas.min.js') }}{{ assets_js_base_scripts_version }}"></script>
+        <![endif]-->
+        <script src="{{ asset('js/backend/plugins/fullcalendar/moment.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/shared/jquery/jquery.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+        <script src="{{ asset('js/shared/jquery/jquery-migrate.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+        <script src="{{ asset('js/shared/bootstrap/bootstrap.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/uniform/jquery.uniform.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+
+        <!-- Custom js and Plugins js theme scripts -->
+        <script src="{{ asset('js/shared/plugins/bootstrap-modal/bootstrap-modalmanager.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/shared/plugins/bootstrap-modal/bootstrap-modal.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/bootstrap-select/bootstrap-select.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/icheck/icheck.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/fullcalendar/fullcalendar.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/fullcalendar/es.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/theme/metronic.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/theme/layout.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/frontend/plugins/wow/wow.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/frontend/plugins/blueimp/jquery.blueimp-gallery.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+
+        <!-- Symfony Fos Routing -->
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        <!-- Angular base scripts -->
+        <script src="{{ asset('js/shared/angularjs/angular.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/shared/angularjs/angular-animate.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/shared/angularjs/angular-touch.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/shared/angularjs/angular-resource.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/shared/angularjs/ui-bootstrap.min.js') }}{{ assets_js_base_angular_scripts_version }}"></script>
+        <script src="{{ asset('js/shared/angularjs/sugar.min.js') }}{{ assets_js_base_angular_scripts_version }}"></script>
+        <script src="{{ asset('js/shared/angularjs/angular-ui-calendar.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+
+
+        <!-- Angular App scripts -->
+        <script src="{{ asset('js/frontend/angularjsApp/FrontendApplication.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/NewsController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/EventsController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/PublicationsController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/RepertoryController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/PartnersController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/PagesController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/CompanyPageController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/JewelsController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/DancersPageController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/CompositionController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/AliciaPageController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Controllers/DefaultPageController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/NewsFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/BlockFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/EventsFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/PublicationsFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/RepertoryFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/PartnersFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/PagesFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/CompanyPageFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/JewelsFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/CommentsFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/DancersPageFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/CompositionFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/AliciaPageFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/DefaultPageFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+
+
+        <script src="{{ asset('js/frontend/angularjsApp/Directives/BlockHandlerDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Directives/VideoHandlerDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Directives/CommentHandlerDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+
+
+    {% endblock %}
+</body>
+<!-- END BODY -->
+</html>

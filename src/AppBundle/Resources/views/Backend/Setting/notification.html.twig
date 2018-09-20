@@ -1,0 +1,82 @@
+<form class="form-horizontal" style="position: relative;">
+    <div class="form-body">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group " style="padding: 10px 0px;">
+                    <label class="col-md-3 setting-label">
+                        Chequear comentarios pendientes :
+                    </label>
+                    <div class="icheck-inline col-md-1">
+                        <label>
+                            <div class="icheckbox_square-blue ichecked-status-check-pending-comments
+                            [[model.notificationSettingsObject.check_pending_comments == true ? 'checked': '']]"
+                             data-ng-click="changeNotificationSettings($event,'status','online')"
+                             data-ng-mouseover="updateICheckStyles($event,'ichecked-status-check-pending-comments')"
+                             data-ng-mouseleave="updateICheckStyles($event,'ichecked-status-check-pending-comments')">
+                            </div>
+                        </label>
+                    </div>
+                    <label class="col-md-2 setting-label">
+                        Ciclo de chequeo :
+                    </label>
+                    <div class="col-md-2 [[model.notificationCheckingCicleHasError?'has-error':'']]">
+
+                        <div class="input-group">
+                            <input class="form-control" type="text"
+                            data-ng-model="model.notificationSettingsObject.checking_cicle_minutes">
+                            <div class="input-group-btn">
+                                <button class="btn default disabled" type="button">
+                                    minutos
+                                </button>
+                            </div>
+                        </div>
+                        <span class="help-block">
+                            <p data-ng-if="!model.notificationCheckingCicleHasError">
+                                No menos de 2 minutos.
+                            </p>
+                            <p data-ng-if="model.notificationCheckingCicleHasError">
+                                Valor incorrecto o en blanco.
+                            </p>
+                        </span>
+                    </div>
+                    <label class="col-md-2 setting-label">
+                        Cantidad a mostrar :
+                    </label>
+                    <div class="col-md-2 [[model.notificationTotalShowHasError?'has-error':'']]">
+
+                        <div class="input-group">
+                            <input class="form-control" type="text"
+                            data-ng-model="model.notificationSettingsObject.total_show_in_box">
+                            <div class="input-group-btn">
+                                <button class="btn default disabled" type="button">
+                                    últimos
+                                </button>
+                            </div>
+                        </div>
+                        <span class="help-block">
+                            <p data-ng-if="!model.notificationTotalShowHasError">
+                                Entre 1 y 3.
+                            </p>
+                            <p data-ng-if="model.notificationTotalShowHasError">
+                                Valor incorrecto o en blanco.
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <div class="row" style="margin-top:30px;">
+            <div class="col-xs-12 col-md-offset-5 col-md-7">
+                <button class="btn blue btn-blue btn-footer" type="submit"
+                        data-ng-click="saveNotificationSectionData()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</form>

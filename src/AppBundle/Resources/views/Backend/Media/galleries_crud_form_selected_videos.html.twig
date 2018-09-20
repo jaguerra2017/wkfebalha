@@ -1,0 +1,37 @@
+<!-- Media Images Gallery List-->
+<div style="">
+    <div data-ng-if="model.selectedGallery.childrens.length > 0"
+     class="row" style="margin-top:30px;">
+        <div data-ng-repeat="children in model.selectedGallery.childrens"
+             class="col-xs-6 col-md-4">
+            <div class="media-video-standard-thumbnail-container" style="margin-bottom:20px;">
+                <div class="media-video-standard-thumbnail" data-video-id="[[children.id]]" style="text-align:center;">
+                    <img src="images/shared/video-default-standard-thumbnail.jpg" style="margin-top: 20%;">
+                </div>
+                <span style="float:left;width:100%; color:#777;padding:10px;border-top: 1px solid #eee;">
+                    [[children.name_es]]
+                </span>
+
+                <a class="btn btn-add btn-circle btn-icon-only btn-default tooltips"
+                   data-ng-click="showVideoPlayModal(children)" data-container="body" data-placement="top"
+                   data-original-title="Reproducir el video" style="position: absolute;top: 0px;left:20px;">
+                    <i class="fa fa-play" style="color: #f13e46;margin-top: 0px;margin-left: 4px;"></i>
+                </a>
+                {% if canDelete %}
+                    <a class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
+                       data-ng-click="deleteGalleryChildren(children.id)" data-container="body"
+                       data-placement="top"
+                       data-original-title="Eliminar video" style="position: absolute;top: 40px;left:20px;">
+                        <i class="icon-trash"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div data-ng-if="model.selectedGallery.childrens.length == 0">
+        <!-- No data to show -->
+        <div style="display:block;text-align: center; color:#93a2a9; padding: 20px;">
+            No se han seleccionado videos para esta galería......
+        </div>
+    </div>
+</div>

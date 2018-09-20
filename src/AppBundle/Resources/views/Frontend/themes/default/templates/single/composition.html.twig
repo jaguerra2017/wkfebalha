@@ -1,0 +1,157 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block title %} Composición del BNC {% endblock %}
+
+{% block content %}
+    <!-- Composition Single -->
+    <section class="news-section" style="padding-bottom:50px;" data-ng-controller="compositionCtrller" data-ng-cloak>
+
+        <!-- Tabs -->
+        <div class="container-fluid tabbable-line wow fadeInUpBig text-center">
+            <h3 class="font-family-france">[[model.selectedComposition.title_es]]</h3>
+            <div class="generic-post-author">
+                <span style="width:100%;text-align:center;">
+                    Por : <strong>[[model.selectedComposition.author_full_name]]</strong> |
+                    [[model.selectedComposition.published_date]] |
+                    <i class="icon-bubble"></i> <strong>[[model.selectedComposition.total_comments]]</strong> Comentarios
+                </span>
+            </div>
+
+            <ul class="nav nav-tabs" style="padding:20px 0px 40px;margin: auto 0;float: none;">
+                <li data-ng-if="model.opinionsCollection.length > 0 ||
+                                model.imagesCollection.length  > 0 ||
+                                model.videosCollection.length  > 0"
+                class="[[model.activeView == 'jewel_data' ? 'active' : '']]">
+                    <a href="#jewel_data" data-toggle="tab"
+                       data-ng-click="changeActiveView('jewel_data')">
+                        General
+                    </a>
+                </li>
+                <li data-ng-if="model.opinionsCollection.length > 0" class="[[model.activeView == 'jewel_opinion' ? 'active' : '']]">
+                    <a href="#jewel_opinion" data-toggle="tab"
+                       data-ng-click="changeActiveView('jewel_opinion')">
+                        Críticas
+                    </a>
+                </li>
+                <li data-ng-if="model.imagesCollection.length > 0" class="[[model.activeView == 'jewel_images' ? 'active' : '']]">
+                    <a href="#jewel_images" data-toggle="tab"
+                       data-ng-click="changeActiveView('jewel_images')">
+                        Fotos
+                    </a>
+                </li>
+                <li data-ng-if="model.videosCollection.length > 0" class="[[model.activeView == 'jewel_videos' ? 'active' : '']]">
+                    <a href="#jewel_videos" data-toggle="tab"
+                       data-ng-click="changeActiveView('jewel_videos')">
+                        Videos
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Blocks Handler (for Composition blocks) -->
+        <div data-ng-if="model.selectedComposition != null" class="container-fluid"
+             style="position:relative;">
+            <block-handler elementid="model.selectedComposition.id" elementtype="'post'"
+            blockscollection="model.blocksCollection">
+            </block-handler>
+        </div>
+
+        <!-- Tabs Content -->
+        <div class="tab-content">
+            <!-- Composition General Data -->
+            <div class="tab-pane active" id="jewel_data">
+                <div class="container-fluid wow fadeInUpBig" style="max-width: 1280px;">
+                    <!-- Featured Image -->
+                    <div data-ng-if="model.selectedComposition.have_featured_image"
+                         class="single-generic-post-feature-image-container">
+                        <img class="img-responsive" src="[[model.selectedComposition.featured_image_url]]">
+                    </div>
+
+                    <!-- Excerpt -->
+                    <div data-ng-if="model.selectedComposition.excerpt_es != null &&
+                    model.selectedComposition.excerpt_es != ''"
+                         class="single-generic-post-excerpt-container">
+                        <p>
+                            [[model.selectedComposition.excerpt_es]]
+                        </p>
+                    </div>
+
+                    <!-- Content -->
+                    <div data-ng-if="model.selectedComposition.content_es != null"
+                         class="single-generic-post-content-container"
+                         data-ng-bind-html="model.selectedComposition.html_filtered_content_es">
+                    </div>
+                </div>
+            </div>
+            <!-- Composition Opinions -->
+            <div data-ng-if="model.opinionsCollection.length > 0" class="tab-pane" id="jewel_opinion">
+                <div  class="container-fluid wow fadeInUpBig" style="max-width: 1280px;min-height: 400px;">
+                    <div data-ng-if="model.opinionsCollection.length > 0"
+                         data-ng-repeat="opinion in model.opinionsCollection" class="col-xs-12"
+                         style="padding: 25px;">
+                        <div class="opinion-content" data-ng-bind-html="opinion.html_filtered_content_es">
+
+                        </div>
+                        <div class="opinion-reference">
+                            [[opinion.title_es]]
+                        </div>
+                    </div>
+
+                    <span data-ng-if="model.opinionsCollection.length == 0"
+                          style="color: white;font-family: 'Helvetica LTStd Bold';font-size: 12px;text-align: center;display:block;">
+                        Sin Críticas
+                    </span>
+                </div>
+            </div>
+            <!-- Composition Images -->
+            <div data-ng-if="model.imagesCollection.length > 0" class="tab-pane" id="jewel_images">
+                <!-- Images blocks -->
+                <div class="lightBoxGallery container-fluid block-handler-section"
+                     style="padding: 20px 15px 80px;max-width: 1280px;min-height: 400px;">
+                    <a data-ng-repeat="image in model.imagesCollection"
+                       style="float:left;position:relative;margin:10px;"
+                       href="[[image.url]]" title="[[image.description_es]]" data-gallery="">
+                        <img src="[[image.web_filtered_standard_thumbnail_url]]">
+                        <div class="image-gallery-over"></div>
+                    </a>
+                    <div id="blueimp-gallery" class="blueimp-gallery">
+                        <div class="slides"></div>
+                        <h3 class="title"></h3>
+                        <a class="prev">‹</a>
+                        <a class="next">›</a>
+                        <a class="close">×</a>
+                        <a class="play-pause"></a>
+                        <ol class="indicator"></ol>
+                    </div>
+
+                    <span data-ng-if="model.imagesCollection.length == 0"
+                          style="color: white;font-family: 'Helvetica LTStd Bold';font-size: 12px;">
+                        Sin Fotos
+                    </span>
+                </div>
+            </div>
+            <!-- Composition Videos -->
+            <div data-ng-if="model.videosCollection.length > 0" class="tab-pane container-fluid block-handler-section wow fadeInUpBig" id="jewel_videos"
+                 style="padding: 20px 15px 80px;min-height: 400px;">
+                <div data-ng-if="model.videosCollection.length > 0" >
+                    <video-handler videoscollection="model.videosCollection"></video-handler>
+                </div>
+
+                <span data-ng-if="model.videosCollection.length == 0"
+                      style="color: white;font-family:'Helvetica LTStd Bold';font-size: 12px;text-align: center;display:block;">
+                    Sin Videos
+                </span>
+            </div>
+        </div>
+
+
+
+        <!-- Comments section -->
+        <div data-ng-if="model.selectedComposition != null" class="comments-section">
+            <comment-handler genericpostid="model.selectedComposition.id"></comment-handler>
+        </div>
+
+    </section>
+
+
+
+{% endblock %}

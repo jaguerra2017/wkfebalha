@@ -1,0 +1,66 @@
+<div data-ng-show="model.formActiveView == 'general-info'" class="row" id="user_general_data">
+    <div class="col-xs-12 col-md-3">
+        <div class="profile-image-container">
+            <!-- Directive mediaSelector(media-selector) -->
+            <media-selector selectedimage="model.userAvatar"></media-selector>
+            <img data-ng-src="[[model.userAvatar.url]]">
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-md-9">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label class="control-label width-100-percent">Usuario</label>
+                    <span>[[selecteduser.user_name]]</span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="form-group">
+                    <label class="control-label width-100-percent">Rol</label>
+                    <span>[[selecteduser.role_name]]</span>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group [[model.userFullNameHasError?'has-error':'']]">
+                    <label class="control-label width-100-percent">Nombre y apellidos</label>
+                    <input class="form-control" type="text" data-ng-model="selecteduser.full_name">
+                    <span class="help-block">
+                        <p data-ng-if="model.userFullNameHasError">
+                            Valor incorrecto o en blanco.
+                        </p>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group [[model.userPasswordHasError?'has-error':'']]">
+                    <label class="control-label" style="width: 90%;">Contraseña</label>
+                    <btn type="button" class="btn btn-link btn-icon-only"
+                         data-ng-click="changeInputPsswordType()">
+                        <i class="fa [[model.passwordInputType == 'password' ? 'fa-eye' : 'fa-eye-slash']]"></i>
+                    </btn>
+                    <input class="form-control" type="[[model.passwordInputType]]" data-ng-model="selecteduser.password">
+                    <span class="help-block">
+                        <p data-ng-if="model.userPasswordHasError">
+                            Valor incorrecto o en blanco.
+                        </p>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group [[model.userRePasswordHasError?'has-error':'']]">
+                    <label class="control-label width-100-percent">Repita la contraseña</label>
+                    <input class="form-control" type="[[model.passwordInputType]]" data-ng-model="selecteduser.repassword">
+                    <span class="help-block">
+                        <p data-ng-if="!model.userRePasswordHasError">
+                            En caso de cambiar la contraseña los valores deben de coincidir.
+                        </p>
+                        <p data-ng-if="model.userRePasswordHasError">
+                            Valor incorrecto o en blanco.
+                        </p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

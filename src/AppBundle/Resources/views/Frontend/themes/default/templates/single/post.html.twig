@@ -1,0 +1,121 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block title %} Noticias {% endblock %}
+
+{% block content %}
+    <!-- News Single -->
+    <section class="news-section" style="padding-bottom:50px;" data-ng-controller="newsCtrller" data-ng-cloak>
+
+        <!-- News General Data -->
+        <div class="container-fluid wow fadeInUpBig">
+            <h3 class="font-family-france">[[model.selectedNew.title_es]]</h3>
+            <div class="generic-post-author">
+                <span style="width:100%;text-align:center;">
+                    Por : <strong>[[model.selectedNew.author_full_name]]</strong> |
+                    [[model.selectedNew.published_date]] |
+                    <i class="icon-bubble"></i> <strong>[[model.selectedNew.total_comments]]</strong> Comentarios
+                </span>
+            </div>
+
+            <!-- Featured Image -->
+            <div data-ng-if="model.selectedNew.have_featured_image"
+             class="single-generic-post-feature-image-container">
+                <img class="img-responsive" src="[[model.selectedNew.featured_image_url]]">
+            </div>
+
+            <!-- Excerpt -->
+            <div data-ng-if="model.selectedNew.excerpt_es != null"
+             class="single-generic-post-excerpt-container">
+                <p>
+                    [[model.selectedNew.excerpt_es]]
+                </p>
+            </div>
+
+            <!-- Content -->
+            <div data-ng-if="model.selectedNew.content_es != null"
+             class="single-generic-post-content-container"
+             data-ng-bind-html="model.selectedNew.html_filtered_content_es">
+            </div>
+        </div>
+
+
+        <!-- Blocks Handler (for New blocks) -->
+        <div data-ng-if="model.selectedNew != null" class="container-fluid"
+             style="position:relative;">
+            <block-handler elementid="model.selectedNew.id" elementtype="'post'"
+                           blockscollection="model.blocksCollection">
+            </block-handler>
+        </div>
+
+        <!-- Tabs -->
+        <div class="container-fluid tabbable-line wow fadeInUpBig text-center"
+        data-ng-if="model.imagesCollection.length > 0 || model.videosCollection.length > 0">
+            <ul class="nav nav-tabs" style="padding:20px 0px 40px;margin: auto 0;float: none;">
+                <li data-ng-if="model.imagesCollection.length > 0" class="[[model.activeView == 'new_images' ? 'active' : '']]">
+                    <a href="#new_images" data-toggle="tab"
+                       data-ng-click="changeActiveView('new_images')">
+                        Fotos
+                    </a>
+                </li>
+                <li data-ng-if="model.videosCollection.length > 0" class="[[model.activeView == 'new_videos' ? 'active' : '']]">
+                    <a href="#new_videos" data-toggle="tab"
+                       data-ng-click="changeActiveView('new_videos')">
+                        Videos
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tabs Content -->
+        <div data-ng-if="model.imagesCollection.length > 0 || model.videosCollection.length > 0" class="tab-content">
+            <!-- New Images -->
+            <div class="tab-pane" id="new_images">
+                <!-- Images blocks -->
+                <div class="lightBoxGallery container-fluid block-handler-section"
+                     style="padding: 20px 15px 80px;max-width: 1280px;min-height: 400px;">
+                    <a data-ng-repeat="image in model.imagesCollection"
+                       style="float:left;position:relative;margin:10px;"
+                       href="[[image.url]]" title="[[image.description_es]]" data-gallery="">
+                        <img src="[[image.web_filtered_standard_thumbnail_url]]">
+                        <div class="image-gallery-over"></div>
+                    </a>
+                    <div id="blueimp-gallery" class="blueimp-gallery">
+                        <div class="slides"></div>
+                        <h3 class="title"></h3>
+                        <a class="prev">‹</a>
+                        <a class="next">›</a>
+                        <a class="close">×</a>
+                        <a class="play-pause"></a>
+                        <ol class="indicator"></ol>
+                    </div>
+
+                    <span data-ng-if="model.imagesCollection.length == 0"
+                          style="color: white;font-family: 'Helvetica LTStd Bold';font-size: 12px;">
+                        Sin Fotos
+                    </span>
+                </div>
+            </div>
+            <!-- New Videos -->
+            <div class="tab-pane container-fluid block-handler-section wow fadeInUpBig" id="new_videos"
+                 style="padding: 20px 15px 80px;min-height: 400px;">
+                <div data-ng-if="model.videosCollection.length > 0" >
+                    <video-handler videoscollection="model.videosCollection"></video-handler>
+                </div>
+
+                <span data-ng-if="model.videosCollection.length == 0"
+                      style="color: white;font-family:'Helvetica LTStd Bold';font-size: 12px;text-align: center;display:block;">
+                    Sin Videos
+                </span>
+            </div>
+        </div>
+
+        <!-- Comments section -->
+        <div data-ng-if="model.selectedNew != null" class="comments-section">
+            <comment-handler genericpostid="model.selectedNew.id"></comment-handler>
+        </div>
+
+
+    </section>
+
+
+
+{% endblock %}

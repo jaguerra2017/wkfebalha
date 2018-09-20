@@ -1,0 +1,358 @@
+<div class="col-md-12" data-ng-if="!model.showCommentsForm">
+    <!-- BEGIN Portlet Comment-List -->
+    <div class="portlet light bordered" style="min-height: 383px;">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">
+                    Comentarios
+                </span>
+                <span class="caption-helper">
+                    Revise y gestione los comentarios que han dejado los visitantes...
+                </span>
+            </div>
+            <!-- Toolbar -->
+            <div class="actions custom-toolbar-actions">
+
+                {% if canDelete %}
+                <a class="btn [[model.canDeleteComments ? 'btn-danger' : '']] btn-circle btn-icon-only btn-default"
+                data-ng-click="deleteComments('all')"
+                   style="margin-left:10px;">
+                    <i class="icon-trash"></i>
+                </a>
+                {% endif %}
+                <a class="btn btn-circle btn-icon-only btn-default reload" style="margin-left:10px;"
+                data-ng-click="getComments()">
+                    <i class="icon-refresh"></i>
+                </a>
+                <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:40px;"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <!-- Paginator and View Mode-->
+            <div class="row">
+                <div class="col-xs-12 col-md-6 paginator">
+                    <span data-ng-if="model.activeView == 'simple_list'">
+                        Mostrar
+                    </span>
+                    <div data-ng-if="model.activeView == 'simple_list'" class="form-group inline m-b-xs" style="float:left;">
+                        <select class="form-control input-xsmall"
+                        data-ng-model="model.commentsCurrentPageSize"
+                        data-ng-options="entrySize for entrySize in model.entriesSizesCollection"
+                        data-ng-change="resetPaginationPages()">
+                        </select>
+                    </div>
+                    <span data-ng-if="model.activeView == 'simple_list'">
+                        entradas
+                    </span>
+
+                    <span data-ng-if="model.activeView == 'simple_list'" style="border-left: 1px solid #eee;padding-left: 10px;">
+                        <strong>[[model.commentsCurrentResultStart]]</strong>
+                    </span>
+                    <span data-ng-if="model.activeView == 'simple_list'">
+                         -
+                    </span>
+                    <span data-ng-if="model.activeView == 'simple_list'">
+                        <strong>[[model.commentsCurrentResultLimit]]</strong>
+                    </span>
+                    <span data-ng-if="model.activeView == 'simple_list'">
+                        de <strong>[[model.commentsCollection.length]]</strong> entradas
+                    </span>
+
+                    <span data-ng-if="model.activeView == 'simple_list'" style="border-left: 1px solid #eee;padding-left: 10px;">
+                        Página
+                    </span>
+                    <div data-ng-if="model.activeView == 'simple_list'" class="form-group inline m-b-xs" style="float:left;">
+                        <select class="form-control input-s-xs"
+                                data-ng-model="model.commentsCurrentPage"
+                                data-ng-options="page for page in model.commentsPagesCollection"
+                                data-ng-change="updatePaginationValues()">
+                        </select>
+                    </div>
+                    <span data-ng-if="model.activeView == 'simple_list'">
+                        de <strong>[[model.commentsPagesCollection.length]]</strong>
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-6 view-mode">
+                    <btn class="btn btn-sm [[model.activeView == 'simple_list' ? 'grey-cascade' : 'default']]"
+                         data-ng-click="changeViewMode('simple_list')">
+                        <i class="fa fa-list"></i>
+                    </btn>
+                    <btn class="btn btn-sm [[model.activeView == 'pending_list' ? 'grey-cascade' : 'default']]"
+                         data-ng-click="changeViewMode('pending_list')">
+                        <i class="icon-bell"></i>
+                    </btn>
+                </div>
+            </div>
+            <!-- Pending List Mode -->
+            <div data-ng-if="model.activeView == 'pending_list'" style="position:relative;">
+                {% include '@app_backend_template_directory/Comment/pending_list.html.twig' %}
+            </div>
+            <!-- Simple List Mode -->
+            <div data-ng-if="model.activeView == 'simple_list'" style="position:relative;">
+                {% include '@app_backend_template_directory/Comment/simple_list.html.twig' %}
+            </div>
+
+            <!-- Modal CRUD comments -->
+            <div id="comment-selector-modal" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">
+                <div class="modal-header">
+                    <button type="button" class="close" data-ng-click="hideCommentSelectorModal()"></button>
+                    <h4 class="modal-title">[[model.createAction == true ? 'Agregar ' : 'Responder ']] comentario</h4>
+                </div>
+                <div class="modal-body min-height-400">
+                    <form class="form horizontal-form" style="min-height: 150px;position:relative;">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <div class="iradio_square-blue [[!model.selectedComment.anonymous ? 'checked' : '']]"
+                                        data-ng-click="updateCommentsForm($event, 'comment-mode', false)">
+                                        </div>
+                                        <span style="margin-right: 15px;">Como Moderador</span>
+                                        <div class="iradio_square-blue [[model.selectedComment.anonymous ? 'checked' : '']]"
+                                        data-ng-click="updateCommentsForm($event, 'comment-mode', true)">
+                                        </div>
+                                        <span>Como Visitante</span>
+                                    </div>
+                                </div>
+
+                                <div data-ng-if="model.selectedParent != null" class="col-xs-12"
+                                style="padding: 15px;background-color: #ddd;margin-bottom: 30px;">
+                                    <span>Respondiendo a</span>
+                                    <div style="padding: 15px 5px;border-top: 1px solid #eee;">
+                                        <a class="pull-left" style="cursor:auto;text-decoration: none;">
+                                            <img class="media-object"
+                                            src="uploads/images/liip_imagine_filtered/logued_user_thumbnail/uploads/images/original/bnc-default-user-avatar.png" alt="">
+                                            </a>
+                                        <div class="media-body" style="padding-left: 10px;">
+                                            <h4 class="media-heading">
+                                                [[model.selectedParent.author_name]]
+                                                <span>
+                                                    [[model.selectedParent.created_date]]
+                                                </span>
+                                            </h4>
+                                            <p>[[model.selectedParent.content]]</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div data-ng-if="model.selectedComment.anonymous" class="col-xs-12 col-md-6">
+                                    <div class="form-group [[model.authorNameHasError ? 'has-error' : '']]">
+                                        <label class="control-label">Nombre</label>
+                                        <input class="form-control" type="text" placeholder="No más de 200 caracteres."
+                                        data-ng-model="model.selectedComment.author_name" maxlength="200">
+                                        <span  data-ng-if="model.authorNameHasError" class="help-block">
+                                            <p>Valor incorrecto o en blanco.</p>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div data-ng-if="model.selectedComment.anonymous" class="col-xs-12 col-md-6">
+                                    <div class="form-group [[model.emailHasError ? 'has-error' : '']]">
+                                        <label class="control-label">Correo</label>
+                                        <input class="form-control" type="text" placeholder="No más de 60 caracteres."
+                                        data-ng-model="model.selectedComment.email" maxlength="60">
+                                        <span data-ng-if="model.emailHasError" class="help-block">
+                                            <p>Valor incorrecto o en blanco.</p>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="form-group margin-top-20">
+                                        <label class="control-label">Status</label>
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                                                 style="text-align: left; font-size: 14px;"
+                                                 data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                [[model.selectedCommentStatus == null ? 'Seleccione' : model.selectedCommentStatus.name_es]]
+                                                    <i class="fa fa-angle-down"></i>
+                                                </a>
+                                                <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                                                style="min-width: 275px;top: 25px;margin-left: 0px;">
+                                                    <label data-ng-repeat="commentStatus in model.commentStatusCollection">
+                                                        <a class="btn" style="width: 100%;text-align: left;"
+                                                        data-ng-click="updateCommentsForm($event, 'status', commentStatus)">
+                                                            [[commentStatus.name_es]]
+                                                         </a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="form-group margin-top-20 [[model.publishedDateHasError ? 'has-error' : '']]">
+                                        <label class="control-label">Fecha de publicación</label>
+                                        <input data-ng-show="model.selectedCommentStatus.tree_slug == 'comment-status-approved'"
+                                        class="form-control form-control-inline date-picker"
+                                        size="16" type="text"
+                                        data-ng-model="model.selectedComment.published_date"/>
+                                        <span class="help-block">
+                                            <p data-ng-if="model.selectedCommentStatus.tree_slug == 'comment-status-pending'">
+                                                El status debe de estar "Publicado".
+                                            </p>
+                                            <p data-ng-if="!model.publishedDateHasError && model.selectedCommentStatus.tree_slug == 'comment-status-approved'">
+                                                Ejemplo: 19/07/1985
+                                            </p>
+                                            <p data-ng-if="model.publishedDateHasError && model.selectedCommentStatus.tree_slug == 'comment-status-approved'">
+                                                Valor incorrecto o en blanco.
+                                            </p>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="form-group [[model.contentHasError ? 'has-error' : '']]" style="margin-top:40px;">
+                                        <label class="control-label">
+                                            Cuerpo del comentario
+                                        </label>
+                                        <textarea data-ng-model="model.selectedComment.content"
+                                        style="width: 100%;height: 200px;"></textarea>
+                                        <span class="help-block">
+                                            <p data-ng-if="model.contentHasError">
+                                                Valor incorrecto o en blanco.
+                                            </p>
+                                        </span>
+                                    </div>
+                                </div>
+
+                             </div>
+
+                        </div>
+                        <div class="form-actions" style="background-color:white;">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-offset-4 col-md-8">
+                                    <button class="btn default btn-footer" type="button"
+                                    data-ng-click="hideCommentSelectorModal()">
+                                    Cancelar </button>
+                                    <button class="btn blue btn-blue btn-footer" type="submit"
+                                    data-ng-click="saveCommentData()">
+                                    Guardar </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-ng-show="model.loadingData">
+                            <div class="data-loader">
+                                <div class="sk-data-loader-spinner sk-spinner-three-bounce">
+                                    <div class="sk-bounce1"></div>
+                                    <div class="sk-bounce2"></div>
+                                    <div class="sk-bounce3"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal Change Status -->
+            <div id="comment-change-status-modal" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false"> 
+                <div class="modal-header">  
+                    <button type="button" class="close" data-ng-click="hideCommentChangeStatusModal()"></button>  
+                    <h4 class="modal-title"> Cambiar status</h4>  
+                </div>
+                <div class="modal-body min-height-400"> 
+                    <form class="form horizontal-form" style="min-height: 150px;position:relative;"> 
+                        <div class="form-body"> 
+                            <div class="row"> 
+
+                                <div class="col-xs-12"  
+                                style="padding: 15px;background-color: #ddd;margin-bottom: 30px;">
+                                    <span>Comentario :</span>
+                                    <div style="padding: 15px 5px;border-top: 1px solid #eee;">
+                                        <a class="pull-left" style="cursor:auto;text-decoration: none;">
+                                            <img class="media-object"
+                                            src="uploads/images/liip_imagine_filtered/logued_user_thumbnail/uploads/images/original/bnc-default-user-avatar.png" alt="">
+                                            </a>
+                                        <div class="media-body" style="padding-left: 10px;">
+                                            <h4 class="media-heading">
+                                                [[model.selectedComment.author_name]]
+                                                <span>
+                                                    '[[model.selectedComment.created_date]]
+                                                </span>
+                                            </h4>
+                                            <p>[[model.selectedComment.content]]</p>
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="form-group margin-top-20">
+                                        <label class="control-label">Status</label>
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                                                style="text-align: left; font-size: 14px;"
+                                                data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                [[model.selectedCommentStatus == null ? 'Seleccione' : model.selectedCommentStatus.name_es]]
+                                                    <i class="fa fa-angle-down"></i>
+                                                </a>
+                                                <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                                                style="min-width: 275px;top: 25px;margin-left: 0px;">
+                                                    <label data-ng-repeat="commentStatus in model.commentStatusCollection">
+                                                        <a class="btn" style="width: 100%;text-align: left;"
+                                                        data-ng-click="updateCommentsForm($event, 'status', commentStatus)">
+                                                        [[commentStatus.name_es]]
+                                                         </a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="form-group margin-top-20 [[model.publishedDateHasError ? 'has-error' : '']]">
+                                        <label class="control-label">Fecha de publicación</label>
+                                        <input data-ng-show="model.selectedCommentStatus.tree_slug == 'comment-status-approved'"
+                                        class="form-control form-control-inline date-picker"
+                                        size="16" type="text"
+                                        data-ng-model="model.selectedComment.published_date"/>
+                                        <span class="help-block">
+                                            <p data-ng-if="model.selectedCommentStatus.tree_slug == 'comment-status-pending'">
+                                                El status debe de estar "Publicado".
+                                            </p>
+                                            <p data-ng-if="!model.publishedDateHasError && model.selectedCommentStatus.tree_slug == 'comment-status-approved'">
+                                                Ejemplo: 19/07/1985
+                                            </p>
+                                            <p data-ng-if="model.publishedDateHasError && model.selectedCommentStatus.tree_slug == 'comment-status-approved'">
+                                                Valor incorrecto o en blanco.
+                                            </p>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-actions" style="background-color:white;">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-offset-4 col-md-8">
+                                    <button class="btn default btn-footer" type="button"
+                                    data-ng-click="hideCommentChangeStatusModal()">
+                                    Cancelar </button>
+                                    <button class="btn blue btn-blue btn-footer" type="submit"
+                                    data-ng-click="changeCommentStatus()">
+                                    Guardar </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-ng-show="model.loadingData">
+                            <div class="data-loader">
+                                <div class="sk-data-loader-spinner sk-spinner-three-bounce">
+                                    <div class="sk-bounce1"></div>
+                                    <div class="sk-bounce2"></div>
+                                    <div class="sk-bounce3"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

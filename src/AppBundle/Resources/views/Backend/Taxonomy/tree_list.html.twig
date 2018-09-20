@@ -1,0 +1,97 @@
+<!-- Nestable List (Tree) -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="dd">
+            <ol class="dd-list">
+                <li data-ng-repeat="taxonomy in taxonomyModel.taxonomiesCollection" class="dd-item">
+                    <!-- Level 1 -->
+                    <div class="dd-handle">
+                        <div class="icheckbox_square-blue checkbox-[[taxonomy.tree_slug]]
+                         [[taxonomy.selected ? 'checked' : '']] [[taxonomy.childs.length == 0? 'margin-right-30' : '']]"
+                         data-ng-click="SelectTaxonomy($event,taxonomy)"
+                         data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+taxonomy.tree_slug, null)"
+                         data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+taxonomy.tree_slug, null)">
+                        </div>
+                        <a data-ng-if="taxonomy.childs.length > 0" style="color: #666 !important;margin-right:5px;">
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        [[taxonomy.name_es]]
+                        {% if canDelete %}
+                            <button data-ng-if="taxonomy.canDelete && !taxonomyModel.showTaxonomyForm" class="btn btn-link pull-right" data-ng-click="deleteTaxonomy(taxonomy.id)">
+                                <i class="icon-trash btn-red"></i>
+                            </button>
+                        {% endif %}
+                        {% if canEdit %}
+                            <button data-ng-if="taxonomy.canEdit && !taxonomyModel.showTaxonomyForm" class="btn btn-link pull-right" data-ng-click="editTaxonomy(taxonomy)">
+                                <i class="icon-pencil btn-blue"></i>
+                            </button>
+                        {% endif %}
+                    </div>
+                    <ol data-ng-if="taxonomy.childs.length > 0" class="dd-list">
+                        <!-- Level 2 -->
+                        <li data-ng-repeat="child in taxonomy.childs" class="dd-item">
+                            <div class="dd-handle">
+                                <div class="icheckbox_square-blue checkbox-[[child.tree_slug]] [[child.selected ? 'checked' : '']]
+                                 [[child.childs.length == 0? 'margin-right-30' : '']]"
+                                 data-ng-click="SelectTaxonomy($event,child)"
+                                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+child.tree_slug, null)"
+                                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+child.tree_slug, null)">
+                                </div>
+                                <a data-ng-if="child.childs.length > 0" style="color: #666 !important;margin-right:5px;">
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                [[child.name_es]]
+                                {% if canDelete %}
+                                    <button data-ng-if="child.canDelete && !taxonomyModel.showTaxonomyForm" class="btn btn-link pull-right" data-ng-click="deleteTaxonomy(child.id)">
+                                        <i class="icon-trash btn-red"></i>
+                                    </button>
+                                {% endif %}
+                                {% if canEdit %}
+                                    <button data-ng-if="child.canEdit && !taxonomyModel.showTaxonomyForm" class="btn btn-link pull-right" data-ng-click="editTaxonomy(child)">
+                                        <i class="icon-pencil btn-blue"></i>
+                                    </button>
+                                {% endif %}
+                            </div>
+                            <ol data-ng-if="child.childs.length > 0" class="dd-list">
+                                <!-- Level 3 (and last) -->
+                                <li data-ng-repeat="grand_child in child.childs" class="dd-item">
+                                    <div class="dd-handle">
+                                        <div data-ng-if="!taxonomyModel.showTaxonomyForm"
+                                        class="icheckbox_square-blue checkbox-[[grand_child.tree_slug]] [[grand_child.selected ? 'checked' : '']]
+                                        [[grand_child.childs.length == 0? 'margin-right-30' : '']]"
+                                         data-ng-click="SelectTaxonomy($event,grand_child)"
+                                         data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+grand_child.tree_slug, null)"
+                                         data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+grand_child.tree_slug, null)">
+                                        </div>
+                                        <a data-ng-if="grand_child.childs.length > 0" style="color: #666 !important;margin-right:5px;">
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        [[grand_child.name_es]]
+                                        {% if canDelete %}
+                                            <button data-ng-if="grand_child.canDelete && !taxonomyModel.showTaxonomyForm" class="btn btn-link pull-right" data-ng-click="deleteTaxonomy(grand_child.id)">
+                                                <i class="icon-trash btn-red"></i>
+                                            </button>
+                                        {% endif %}
+                                        {% if canEdit %}
+                                            <button data-ng-if="grand_child.canEdit && !taxonomyModel.showTaxonomyForm" class="btn btn-link pull-right" data-ng-click="editTaxonomy(grand_child)">
+                                                <i class="icon-pencil btn-blue"></i>
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+        <!-- Message when isn't data to show -->
+        <div data-ng-show="taxonomyModel.taxonomiesCollection.length == 0">
+            {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+        </div>
+        <!-- Data Loader -->
+        <div data-ng-show="taxonomyModel.loadingData">
+            {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{% extends "@app_backend_template_directory/Main/layout.html.twig" %}
+{% block title %} Dashboard {% endblock %}
+
+{% block pagecontent %}
+    <!-- Dashboard content -->
+    <div class="row module-description-container">
+        <div class="col-xs-12" style="padding: 30px;">
+            <span class="module-description">
+                <i class="icon-home"></i> Dashboard
+            </span>
+        </div>
+    </div>
+    <div class="page-content" id="go-to-top-anchor" data-ng-controller="dashboardCtrller" data-ng-cloak>
+        <div class="row">
+            <div class="col-md-6">
+                <info-summary></info-summary>
+            </div>
+            <div class="col-md-6">
+                {% include '@app_backend_template_directory/Dashboard/comments_summary.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

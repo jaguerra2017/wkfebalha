@@ -1,0 +1,61 @@
+<div class="row">
+    <div data-ng-repeat="new in model.newsCollection | limitTo : (model.newsCurrentResultLimit - (model.newsCurrentResultStart - 1)) : (model.newsCurrentResultStart - 1) "
+     class="col-xs-12 col-md-4">
+        <div class="generic-post-grid-container">
+            <div class="generic-post-grid-feature-image-container">
+                <img data-ng-if="new.have_featured_image == true && new.featured_image_url != ''"
+                 data-ng-src="[[new.web_filtered_grid_featured_image_thumbnail_url]]">
+            </div>
+
+            <span style="float:left;width:100%; color:#777;padding:10px 15px;
+            border-top: 1px solid #eee;text-align:left;">
+                <span data-ng-bind="new.post_status_name"
+                class="label label-sm [[new.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] pull-right">
+                </span>
+                [[new.title_es]]
+                <span class="help-block" style="margin-top:20px;">
+                    Por <strong>[[new.author_name]]</strong> | [[new.created_date]] | [[new.total_comments]] <i class="icon-bubble"></i>
+                </span>
+            </span>
+
+            <div style="background-color: white; position: absolute;top: 0 !important;
+            margin-top: 5px;margin-left: 5px;width: 22px; height: 22px">
+                <div class="icheckbox_square-blue hover [[new.selected ? 'checked' : '']]"
+                data-ng-click="selectNews($event,new)"
+                     style="">
+                </div>
+            </div>
+
+            {% if canEdit %}
+                <a data-ng-if="new.canEdit"
+                class="btn btn-add blue btn-blue btn-circle btn-icon-only btn-default tooltips"
+                data-ng-click="editNews(new)" data-container="body" data-placement="top"
+                data-original-title="Editar publicacion"
+                style="position: absolute;top: 40px;left:15px">
+                    <i class="icon-pencil"></i>
+                </a>
+            {% endif %}
+            {% if canDelete %}
+                <a data-ng-if="new.canDelete"
+                class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
+                data-ng-click="deleteNews(new.id)"
+                data-container="body" data-placement="top"
+                data-original-title="Eliminar publicacion"
+                   style="position: absolute;top: 80px;left:15px">
+                    <i class="icon-trash"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.newsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

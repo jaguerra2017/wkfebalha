@@ -1,0 +1,6 @@
+{
+  "id":"default",
+  "name":"Por defecto.",
+  "description":"Tema por defecto para el sitio web del Ballet Nacional de Cuba.",
+  "tags":[{"name":"azul"},{"name":"rojo"},{"name":"oscuro"},{"name":"cuadrado"},{"name":"son columnas"},{"name":"menu flotante"}]
+}

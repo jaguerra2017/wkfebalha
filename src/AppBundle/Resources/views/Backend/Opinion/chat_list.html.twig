@@ -1,0 +1,57 @@
+<div data-ng-show="model.opinionsCollection.length > 0" class="general-item-list"
+ style="margin-top:25px;">
+    <div class="icheckbox_square-blue checkbox-master [[model.allOpinionsSelected ? 'checked' : '']]"
+     data-ng-click="selectAllOpinions($event)"
+     data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+     data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+    </div>
+    Seleccionar todos
+
+    <div data-ng-repeat="opinion in model.opinionsCollection | limitTo : (model.opinionsCurrentResultLimit - (model.opinionsCurrentResultStart - 1)) : (model.opinionsCurrentResultStart - 1)"
+     class="item" style="padding:20px 0px;">
+        <div class="icheckbox_square-blue checkbox-[[opinion.id]] [[opinion.selected ? 'checked' : '']]"
+         data-ng-click="selectOpinions($event,opinion)"
+         data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+opinion.id, null)"
+         data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+opinion.id, null)">
+        </div>
+        <button data-ng-if="opinion.canDelete" class="btn btn-link pull-right"
+        data-ng-click="deleteOpinions(opinion.id)">
+            <i class="icon-trash btn-red"></i>
+        </button>
+        <button data-ng-if="opinion.canEdit" class="btn btn-link pull-right"
+        data-ng-click="editOpinions(opinion)">
+            <i class="icon-pencil btn-blue"></i>
+        </button>
+
+        <div class="item-head" style="margin-top:10px;">
+            <div class="item-details">
+                <a class="item-name primary-link" style="cursor:auto;text-decoration: none;">
+                    [[opinion.title_es]]
+                </a>
+            </div>
+        </div>
+        <div class="item-body" style="margin-bottom: 10px;"
+         data-ng-bind-html="opinion.html_filtered_content_es">
+
+        </div>
+        <span class="label label-sm [[opinion.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] pull-left" style="margin-right:5px;">
+            [[opinion.post_status_name]]
+        </span>
+        <span data-ng-if="opinion.categoriesCollection.length > 0"
+        data-ng-repeat="category in opinion.categoriesCollection"
+        class="label label-sm label-default pull-right" style="margin-right:5px;">
+            [[category.name_es]]
+        </span>
+    </div>
+</div>
+
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.opinionsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

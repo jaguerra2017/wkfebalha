@@ -1,0 +1,75 @@
+<div class="row" style="position:relative;">
+    <div class="col-xs-12" style="margin-top:10px;">
+        <div class="icheckbox_square-blue checkbox-master [[model.allCommentsSelected ? 'checked' : '']]"
+             data-ng-click="selectAllComments($event)" style="display: block;float: left;"
+             data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+             data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+        </div>
+        Seleccionar todos
+    </div>
+    <div class="col-xs-12" style="margin-top: 0px;">
+        <div data-ng-show="model.commentsCollection.length > 0" class=" "
+             style="margin-top:35px;">
+            <!-- LEVEL 1 -->
+            <div data-ng-repeat="comment in model.commentsCollection | limitTo : (model.commentsCurrentResultLimit - (model.commentsCurrentResultStart - 1)) : (model.commentsCurrentResultStart - 1) " class="media"
+             style="padding: 15px 5px;border-top: 1px solid #eee;">
+                <div class="icheckbox_square-blue checkbox-[[comment.id]] [[comment.selected ? 'checked' : '']]"
+                 data-ng-click="selectComments($event,comment)" style="display: block;float: left;"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+comment.id, null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+comment.id, null)">
+                </div>
+                <a class="pull-left" style="cursor:auto;text-decoration: none;">
+                    <img class="media-object"
+                         src="uploads/images/liip_imagine_filtered/logued_user_thumbnail/uploads/images/original/bnc-default-user-avatar.png" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        [[comment.author_name]]
+                        <span>
+                            [[comment.created_date]]
+                            <a data-ng-if="comment.depth < 3" data-ng-click="createComment(false, comment)"> | Responder </a>
+                            <a data-ng-if="comment.canEdit" data-ng-click="editComment(comment)"> | Editar </a>
+                            <a data-ng-click="changeStatus(comment)"> | Cambiar Status </a>
+                            <a data-ng-if="comment.canDelete" data-ng-click="deleteComments(comment.id)" style="color:#F3565D"> | Eliminar </a>
+                        </span>
+                    </h4>
+                    <h4 class="media-heading" style="margin-bottom: 10px;">
+                        <span style="position: inherit">En </span>
+                        <span style="position: inherit;font-size: 14px;color: rgb(28,27,41);">
+                           "[[comment.generic_post_title]]"
+                        </span>
+                    </h4>
+                    <p>[[comment.content]]</p>
+                    <p style="padding-bottom: 10px;padding-top: 10px;">
+                        <span class="label label-sm
+                        [[comment.comment_status_tree_slug =='comment-status-pending'? 'label-warning' : 'label-success']]
+                        pull-left" style="margin-right:5px;">
+                            [[comment.comment_status_name]]
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div data-ng-if="model.commentsCollection.length == 0" style="position: relative;">
+            <!-- No data to show -->'
+            <div style="display:block;text-align: center; color:#93a2a9; padding: 20px;">
+                No tienes comentarios para mostrar...
+            </div>
+        </div>
+    </div>
+
+    <div data-ng-show="model.loadingData">
+        <div class="data-loader">
+            <div class="sk-data-loader-spinner sk-spinner-three-bounce">
+                <div class="sk-bounce1"></div>
+                <div class="sk-bounce2"></div>
+                <div class="sk-bounce3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

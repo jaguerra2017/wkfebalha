@@ -1,0 +1,135 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block template_name %}
+    <!--**
+     * Template Name: Página Compañía BNC
+     *
+     * -->
+{% endblock %}
+{% block title %} La Compañía {% endblock %}
+
+{% block content %}
+    <section class="news-section" style="padding-bottom:50px;" data-ng-controller="companyPageCtrller" data-ng-cloak>
+        <!-- Block linked to Tag "ballet-nacional-de-cuba"-->
+        <h3 class="font-family-france">Ballet Nacional de Cuba</h3>
+        <div class="container-fluid wow fadeInUpBig" style="padding: 60px 0px; min-height:400px;"
+             id="ballet-nacional-de-cuba">
+            <div>
+                <!-- Featured Image -->
+                <div data-ng-if="model.selectedPage.have_featured_image"
+                     class="single-generic-post-feature-image-container">
+                    <img class="img-responsive" src="[[model.selectedPage.featured_image_url]]">
+                </div>
+
+                <!-- Excerpt -->
+                <div data-ng-if="model.selectedPage.excerpt_es != null"
+                     class="single-generic-post-excerpt-container">
+                    <p>
+                        [[model.selectedPage.excerpt_es]]
+                    </p>
+                </div>
+
+                <!-- Content -->
+                <div data-ng-if="model.selectedPage.content_es != null"
+                     class="single-generic-post-content-container"
+                     data-ng-bind-html="model.selectedPage.html_filtered_content_es">
+                </div>
+            </div>
+        </div>
+
+        <!-- Block linked to Tag "hitos-historicos"-->
+        <div style="background:rgba(1,1,1,0.2);padding-top:10px">
+            <h3 class="font-family-france">Hitos Históricos</h3>
+            <div class="container-fluid wow fadeInUpBig"
+                 style="padding: 60px 0px;min-height:400px;max-width: 1280px;"
+                 id="hitos-historicos">
+                <div class="row " style="margin:0">
+                    <div class="timeline" style="background:none;">
+                        <div data-ng-repeat="data in model.historicalMomentsCollection | limitTo: model.hm_limitTo"
+                             class="timeline-item">
+                            <div class="timeline-badge">
+                                <div style="width:80px;height:80px;background-color:rgb(28,27,41);
+                            border:4px solid white;border-radius:50% !important;text-align:center;
+                            font-size:16px;color:#009dc7;padding: 25px 20px;font-weight: 600;">
+                                    <span>[[data.year]]</span>
+                                </div>
+                            </div>
+                            <div data-ng-repeat="historicalMoment in data.childrens" class="timeline-body"
+                                 style="margin-top:0px;background:none;padding:20px 20px 0px;">
+                                <div class="timeline-body-content" style="margin-top:10px;
+                            font-family: 'Helvetica LTStd Roman';font-size:15px;">
+                                    <div style="width:100%;padding:10px 0px;color:white;">
+                                        <div class="block-handler-gallery-title"
+                                             style="padding:0;width:[[$first ? '50%' : '50px']];">
+                                        </div>
+                                    </div>
+                                <span class="font-grey-cascade">
+                                [[historicalMoment.content_es]]
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12" style="padding: 20px 0px 130px;position:relative;">
+                    <div data-ng-if="model.hm_limitTo < model.historicalMomentsCollection.length"
+                         style="max-width:130px;margin:auto;">
+                        <a class="btn custom-general-button"
+                           data-ng-click="loadMoreHistoricalMoments()"
+                           style="border:2px solid #009dc7;">
+                            <i class="fa fa-plus"></i>
+                            Más
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block linked to Tag "galeria-de-fotos"-->
+        {#<div class="wow fadeInUpBig">
+            <h3 class="">Galería de Fotos</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+                 id="galeria-de-fotos">
+                <div class="row" style="margin:0">
+
+                </div>
+            </div>
+        </div>#}
+
+        <!-- Block linked to Tag "las-cuatro-joyas-del-ballet-cubano"-->
+        <div class="wow fadeInUpBig">
+            <h3 class="font-family-france">Las Cuatro Joyas del Ballet Cubano</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+             id="las-cuatro-joyas-del-ballet-cubano">
+                <div data-ng-if="model.jewelsCollection.length > 0"
+                     data-ng-repeat="jewel in model.jewelsCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 70px;">
+                    <div class="generic-post-container-222" style="border:none;height: 320px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[jewel.url]]">
+                                <img data-ng-if="jewel.have_featured_image == true && jewel.featured_image_url != ''"
+                                     data-ng-src="[[jewel.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                        style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[jewel.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comments section -->
+        <div data-ng-if="model.selectedPage != null" class="comments-section">
+            <comment-handler genericpostid="model.selectedPage.id"></comment-handler>
+        </div>
+    </section>
+
+
+
+{% endblock %}

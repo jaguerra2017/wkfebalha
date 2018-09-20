@@ -1,0 +1,38 @@
+<?php
+
+namespace AppBundle\DataFixtures\ORM;
+
+use AppBundle\Entity\Supplier;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+
+
+class LoadSuppliers implements FixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
+        $supplier = new Supplier();
+        $supplier->setName('Jhon Oscars');
+        $supplier->setAddress('Helm Street,456, Main Avenue');
+        $supplier->setFDAPermit('12345678909');
+        $supplier->setPhoneNumber('+59 88882345');
+        $supplier->setWebPage('http://nowebpage.com');
+        $manager->persist($supplier);
+
+        $supplier2 = new Supplier();
+        $supplier2->setName('Payton Smiths');
+        $supplier2->setAddress('Helm Street,456, Main Avenue');
+        $supplier->setFDAPermit('12345678909');
+        $supplier->setPhoneNumber('+59 88882345');
+        $supplier->setWebPage('http://nowebpage.com');
+        $manager->persist($supplier2);
+
+
+        $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 7;
+    }
+}

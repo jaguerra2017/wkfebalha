@@ -1,0 +1,113 @@
+<div class="col-md-12" data-ng-if="!model.showRepertoryForm">
+    <!-- BEGIN Portlet Repertory-List -->
+    <div class="portlet light bordered" style="min-height: 383px;">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">
+                    Repertorio
+                </span>
+                <span class="caption-helper">
+                    Publique cada pieza del repertorio del BNC...
+                </span>
+            </div>
+            <!-- Toolbar -->
+            <div class="actions custom-toolbar-actions">
+                {% if canCreate %}
+                    <a class="btn btn-add [[model.canCreateRepertory ? 'blue btn-blue' : '']] btn-circle btn-icon-only btn-default"
+                    data-ng-click="createRepertory()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                {% endif %}
+                {% if canDelete %}
+                <a class="btn [[model.canDeleteRepertory ? 'btn-danger' : '']] btn-circle btn-icon-only btn-default"
+                data-ng-click="deleteRepertory('all')"
+                   style="margin-left:10px;">
+                    <i class="icon-trash"></i>
+                </a>
+                {% endif %}
+                <a class="btn btn-circle btn-icon-only btn-default reload" style="margin-left:10px;"
+                data-ng-click="getRepertory()">
+                    <i class="icon-refresh"></i>
+                </a>
+                <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:40px;"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <!-- Search bar -->
+            <div class="inputs">
+                <div class="portlet-input input-small input-inline"
+                 style="width: 100% !important;border-bottom: 1px solid #eee;margin-bottom: 20px;padding-bottom: 20px;">
+                    <div class="input-icon right">
+                        <i class="icon-magnifier"></i>
+                        <input type="text" class="form-control form-control-solid" placeholder="Buscar..."
+                        data-ng-model="model.generalSearchValue" data-ng-keyup="searchRepertory($event)"
+                        style="color:#2a3239;">
+                    </div>
+                </div>
+            </div>
+            <!-- Paginator and View Mode-->
+            <div class="row">
+                <div class="col-xs-12 col-md-6 paginator">
+                    <span>
+                        Mostrar
+                    </span>
+                    <div class="form-group inline m-b-xs" style="float:left;">
+                        <select class="form-control input-xsmall"
+                        data-ng-model="model.repertoryCurrentPageSize"
+                        data-ng-options="entrySize for entrySize in model.entriesSizesCollection"
+                        data-ng-change="resetPaginationPages()">
+                        </select>
+                    </div>
+                    <span>
+                        entradas
+                    </span>
+
+                    <span style="border-left: 1px solid #eee;padding-left: 10px;">
+                        <strong>[[model.repertoryCurrentResultStart]]</strong>
+                    </span>
+                    <span>
+                         -
+                    </span>
+                    <span>
+                        <strong>[[model.repertoryCurrentResultLimit]]</strong>
+                    </span>
+                    <span>
+                        de <strong>[[model.repertoryCollection.length]]</strong> entradas
+                    </span>
+
+                    <span style="border-left: 1px solid #eee;padding-left: 10px;">
+                        Página
+                    </span>
+                    <div class="form-group inline m-b-xs" style="float:left;">
+                        <select class="form-control input-s-xs"
+                                data-ng-model="model.repertoryCurrentPage"
+                                data-ng-options="page for page in model.repertoryPagesCollection"
+                                data-ng-change="updatePaginationValues()">
+                        </select>
+                    </div>
+                    <span>
+                        de <strong>[[model.repertoryPagesCollection.length]]</strong>
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-6 view-mode">
+                    <btn class="btn btn-sm [[model.activeView == 'simple_list' ? 'grey-cascade' : 'default']]"
+                     data-ng-click="changeViewMode('simple_list')">
+                        <i class="fa fa-list"></i>
+                    </btn>
+                    <btn class="btn btn-sm [[model.activeView == 'grid_list' ? 'grey-cascade' : 'default']]"
+                         data-ng-click="changeViewMode('grid_list')">
+                        <i class="fa fa-th"></i>
+                    </btn>
+                </div>
+            </div>
+            <!-- Grid List Mode -->
+            <div data-ng-if="model.activeView == 'grid_list'" style="position:relative;">
+                {% include '@app_backend_template_directory/Repertory/grid_list.html.twig' %}
+            </div>
+            <!-- Simple List Mode -->
+            <div data-ng-if="model.activeView == 'simple_list'" class="table-scrollable table-scrollable-borderless" style="position:relative;">
+                {% include '@app_backend_template_directory/Repertory/simple_list.html.twig' %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block title %} Publicaciones {% endblock %}
+
+{% block content %}
+    <!-- Publications Section -->
+    <section class="news-section" style="padding-bottom:50px;" data-ng-controller="publicationsCtrller" data-ng-cloak>
+        <h3 class="font-family-france">Publicaciones</h3>
+        <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;">
+            <div class="row" style="margin:0">
+                <div data-ng-if="model.publicationsCollection.length > 0"
+                 data-ng-repeat="publication in model.publicationsCollection"
+                 class="col-xs-12 col-md-3 wow fadeInUpBig" style="margin-bottom: 70px;">
+                    <div class="generic-post-container-222" style="height: 400px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[publication.url]]">
+                                <img data-ng-if="publication.have_featured_image == true && publication.featured_image_url != ''"
+                                 data-ng-src="[[publication.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+                        <span class="notifier-event-date">
+                             <span style="float:left !important; color:#888 !important;">
+                                <i class="icon-bubble"></i>
+                                <strong>[[publication.total_comments]]</strong>
+                            </span>
+                           [[publication.published_date | date:'dd/MM/yyyy']]
+                        </span>
+                        <span class="notifier-event-text ">
+                            [[publication.title_es | limitTo : 90]]...
+                        </span>
+                        <a class="btn custom-general-button" style="width:100% !important;"
+                           href="[[publication.url]]">
+                            Leer más
+                        </a>
+                    </div>
+                </div>
+
+                <div data-ng-if="model.end < model.total"
+                 class="col-xs-12" style="padding: 150px 0px 100px;position:relative;">
+                    <!-- Data Loader -->
+                    <div data-ng-show="model.loadingData">
+                        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+                    </div>
+
+                    <div style="max-width:130px;margin:auto;">
+                        <a class="btn custom-general-button"
+                        data-ng-click="getPublications()"
+                        style="border:2px solid #009dc7;">
+                            <i class="fa fa-plus"></i>
+                            Más
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

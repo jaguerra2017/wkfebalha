@@ -1,0 +1,68 @@
+<div class="row" style="position:relative;">
+    <div data-ng-if="model.createVideoAction == false" class="col-xs-12 col-md-7" style="">
+        <div class="media-video-details-container" style="text-align:center;">
+            <img src="images/shared/video-default-standard-thumbnail.jpg" style="margin-top: 20%;">
+            <a class="btn btn-add btn-circle btn-icon-only btn-default tooltips"
+               data-ng-click="showVideoPlayModal()" data-container="body" data-placement="top"
+               data-original-title="Reproducir el video" style="position: absolute;top: 10px;left:30px;">
+                <i class="fa fa-play" style="color: #f13e46;margin-top: 0px;margin-left: 4px;"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12 [[model.createVideoAction == true ? 'col-md-12' : 'col-md-5']]">
+        <div class="form-group [[model.videoNameHasError?'has-error':'']]">
+            <label class="control-label">Nombre</label>
+            <input class="form-control" type="text"
+            data-ng-model="model.selectedVideo.name_es">
+            <span class="help-block">
+                <p data-ng-if="model.videoNameHasError">
+                    Valor incorrecto o en blanco.
+                </p>
+            </span>
+        </div>
+        <div class="form-group [[model.videoUrlHasError?'has-error':'']]">
+            <label class="control-label">Url</label>
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button class="btn default dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-angle-down"></i>
+                        [[model.selectedVideo.http_protocol]] ://www.youtube.com/embed/
+                    </button>
+                    <ul class="dropdown-menu" role="menu" style="margin-top:2px;">
+                        <li>
+                            <a data-ng-click="changeVideoUrlProtocol('http')">
+                                http
+                            </a>
+                        </li>
+                        <li>
+                            <a data-ng-click="changeVideoUrlProtocol('https')">
+                                https
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <input class="form-control" type="text"
+               data-ng-model="model.selectedVideo.url">
+            </div>
+            <span class="help-block">
+                <p data-ng-if="!model.videoUrlHasError">
+                    La Url embebida del video, ejemplo:  http://www.youtube.com/embed/<strong>bwj2s_xcd</strong>
+                </p>
+                <p data-ng-if="model.videoUrlHasError">
+                    Valor incorrecto o en blanco.
+                </p>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Breve descripción</label>
+            <textarea data-ng-model="model.selectedVideo.description_es" style="width: 100%;">
+            </textarea>
+        </div>
+
+
+    </div>
+
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</div>

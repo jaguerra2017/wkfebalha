@@ -1,0 +1,108 @@
+<!-- Search bar -->
+<div class="inputs">
+    <div class="portlet-input input-small input-inline"
+         style="width: 100% !important;border-bottom: 1px solid #eee;margin-bottom: 20px;padding-bottom: 20px;">
+        <div class="input-icon right">
+            <i class="icon-magnifier"></i>
+            <input type="text" class="form-control form-control-solid" placeholder="Buscar..."
+            data-ng-model="model.generalSearchValue" data-ng-keyup="searchMediaData($event, 'video')"
+            style="color:#2a3239;">
+        </div>
+    </div>
+</div>
+<!-- Pagination-->
+<div class="row">
+    <div class="col-xs-12 col-md-6 paginator">
+        <span>
+            Mostrar
+        </span>
+        <div class="form-group inline m-b-xs" style="float:left;">
+            <select class="form-control input-xsmall"
+            data-ng-model="model.mediaVideoCurrentPageSize"
+            data-ng-options="mediaVideoEntrySize for mediaVideoEntrySize in model.mediaVideoEntriesSizesCollection"
+            data-ng-change="resetPaginationPages('video')">
+            </select>
+        </div>
+        <span>
+            entradas
+        </span>
+
+        <span style="border-left: 1px solid #eee;padding-left: 10px;">
+            <strong>[[model.mediaVideoCurrentResultStart]]</strong>
+        </span>
+        <span>
+             -
+        </span>
+        <span>
+            <strong>[[model.mediaVideoCurrentResultLimit]]</strong>
+        </span>
+        <span>
+            de <strong>[[model.videosCollection.length]]</strong> entradas
+        </span>
+
+        <span style="border-left: 1px solid #eee;padding-left: 10px;">
+            Página
+        </span>
+        <div class="form-group inline m-b-xs" style="float:left;">
+            <select class="form-control input-s-xs"
+            data-ng-model="model.mediaVideoCurrentPage"
+            data-ng-options="page for page in model.mediaVideoPagesCollection"
+            data-ng-change="updatePaginationValues('video')">
+            </select>
+        </div>
+        <span>
+            de <strong>[[model.mediaVideoPagesCollection.length]]</strong>
+        </span>
+    </div>
+</div>
+<!-- Media Videos List-->
+<div style="position: relative;">
+    <div data-ng-show="model.videosCollection.length > 0" class="row" style="margin-top:30px;">
+        <div data-ng-repeat="video in model.videosCollection | limitTo : (model.mediaVideoCurrentResultLimit - (model.mediaVideoCurrentResultStart - 1)) : (model.mediaVideoCurrentResultStart - 1)"
+         class="col-xs-12 col-md-4">
+            <div class="media-video-standard-thumbnail-container" style="margin-bottom:20px;">
+                <div class="media-video-standard-thumbnail" data-video-id="[[video.id]]" style="text-align:center;">
+                    <img src="images/shared/video-default-standard-thumbnail.jpg" style="margin-top: 20%;">
+                </div>
+                <span style="float:left;width:100%; color:#777;padding:10px;border-top: 1px solid #eee;">
+                    [[video.name_es]]
+                </span>
+
+                <a class="btn btn-add btn-circle btn-icon-only btn-default tooltips"
+                   data-ng-click="showVideoPlayModal(video)" data-container="body" data-placement="top"
+                   data-original-title="Reproducir el video" style="position: absolute;top: 0px;left:20px;">
+                    <i class="fa fa-play" style="color: #f13e46;margin-top: 0px;margin-left: 4px;"></i>
+                </a>
+                {% if canEdit %}
+                    <a data-ng-if="video.canEdit && model.activeView == 'video'" class="btn btn-add blue btn-blue btn-circle btn-icon-only btn-default tooltips"
+                       data-ng-click="editMedia(video)" data-container="body" data-placement="top"
+                       data-original-title="Editar datos del video" style="position: absolute;top: 40px;left:20px;">
+                        <i class="icon-pencil"></i>
+                    </a>
+                {% endif %}
+                {% if canDelete %}
+                    <a data-ng-if="video.canDelete && model.activeView == 'video'" class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
+                       data-ng-click="deleteMediaVideo(video.id)" data-container="body" data-placement="top"
+                       data-original-title="Eliminar video" style="position: absolute;top: 80px;left:20px;">
+                        <i class="icon-trash"></i>
+                    </a>
+                {% endif %}
+
+                <div data-ng-if="model.activeView != 'video'"
+                     style="background-color: white; position: absolute;top: 0 !important;margin-top: 45px;margin-left: 10px;
+                width: 22px; height: 22px">
+                    <div class="icheckbox_square-blue hover [[video.selected ? 'checked' : '']]"
+                         data-ng-click="selectMedia($event,video)"
+                         style="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-show="model.videosCollection.length == 0">
+        {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</div>

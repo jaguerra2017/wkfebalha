@@ -1,0 +1,65 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block title %} Noticias {% endblock %}
+
+{% block content %}
+    <!-- News Section -->
+    <section class="news-section" data-ng-controller="newsCtrller" data-ng-cloak>
+        <h3 class="font-family-france">Noticias</h3>
+        <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;">
+            <div class="row" style="margin:0">
+                <div data-ng-if="model.newsCollection.length > 0"
+                 data-ng-repeat="new in model.newsCollection"
+                 class="col-xs-12 col-md-4 wow fadeInUpBig" style="margin-bottom: 70px;">
+                    <div class="generic-post-container">
+                        <div class="generic-post-feature-image-container">
+                            <a href="[[new.url]]">
+                                <img data-ng-if="new.have_featured_image == true && new.featured_image_url != ''"
+                                 data-ng-src="[[new.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+                        <span class="notifier-event-date">
+                           [[new.published_date | date:'dd/MM/yyyy']]
+                        </span>
+                        <span class="notifier-event-text ">
+                            [[new.title_es | limitTo : 90]]...
+                        </span>
+                        <div class="generic-post-author">
+                            <span class="text-left">
+                                [[new.author_full_name]]
+                            </span>
+                            <span class="text-right">
+                                <i class="icon-bubble"></i>
+                                <strong>[[new.total_comments]]</strong> Comentarios
+                            </span>
+                        </div>
+                        <a class="btn custom-general-button" style="width:100% !important;"
+                           href="[[new.url]]">
+                            Leer más
+                        </a>
+                    </div>
+                </div>
+
+                <div data-ng-if="model.newsCollection.length < model.total"
+                 class="col-xs-12" style="padding: 150px 0px 100px;position:relative;">
+                    <!-- Data Loader -->
+                    <div data-ng-show="model.loadingData">
+                        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+                    </div>
+
+                    <div style="max-width:130px;margin:auto;">
+                        <a class="btn custom-general-button"
+                        data-ng-click="getNews()"
+                        style="border:2px solid #009dc7;">
+                            <i class="fa fa-plus"></i>
+                            Más
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

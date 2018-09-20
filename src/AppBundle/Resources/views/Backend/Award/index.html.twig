@@ -1,0 +1,51 @@
+{% extends "@app_backend_template_directory/Main/layout.html.twig" %}
+{% block title %} Distinciones {% endblock %}
+
+{% block pagecontent %}
+    {# Initializing permissions value #}
+    {%  set userNotFrequentlyAccessFeaturesCollection,canRead,canCreate,canEdit,canDelete =
+    app.session.get('userNotFrequentlyAccessFeatures'),false,false,false,false %}
+    {% if userNotFrequentlyAccessFeaturesCollection is not empty %}
+        {% for userAccessFeature in userNotFrequentlyAccessFeaturesCollection %}
+            {% if userAccessFeature.tree_slug == 'functionality-awards' and userAccessFeature.actions is not empty %}
+                {% for action in userAccessFeature.actions %}
+                    {% if 'read' in action.tree_slug %}
+                        {% set canRead = true %}
+                    {% elseif 'create' in action.tree_slug %}
+                        {% set canCreate = true %}
+                    {% elseif 'edit' in action.tree_slug %}
+                        {% set canEdit = true %}
+                    {% elseif 'delete' in action.tree_slug %}
+                        {% set canDelete = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {%  endif %}
+
+
+    <!-- Main content -->
+    <div class="row module-description-container">
+        <div class="col-xs-12" style="padding: 30px 15px;">
+            <span class="module-description">
+                <i class="icon-diamond"></i> Joyas del BNC
+            </span>
+        </div>
+    </div>
+    <div class="page-content" id="go-to-top-anchor" style="min-height: 500px !important;" data-ng-controller="awardsCtrller" data-ng-cloak>
+        <!-- CRUD Form -->
+        <div class="row">
+            {% if canCreate or canEdit %}
+                {% include '@app_backend_template_directory/Award/crud_form.html.twig' %}
+            {%  endif %}
+        </div>
+        <!-- Awards List -->
+        <div class="row">
+            {% if canRead %}
+                {% include '@app_backend_template_directory/Award/list.html.twig' %}
+            {% else %}
+                {% include '@app_shared_template_directory/access_denied_advise.html.twig' %}
+            {%  endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{#<div class="row">
+    <div class="col-xs-12">
+        <a class="theme-item">
+            <div class="iradio_square-blue hover theme-icheck-selector checked"></div>
+            <img src="">
+        </a>
+    </div>
+</div>#}
+<div class="row" style="position: relative">
+    <div class="col-xs-12 col-md-3 theme-selected-data" style="padding-left:0px;">
+        <div class="iradio_square-blue hover theme-icheck-selected checked"></div>
+        <img src="images/frontend/themes/[[model.appearanceSettingsObject.theme]]/theme_[[model.appearanceSettingsObject.theme]].png">
+        <h2 class="font-weight-bold" style="margin-top:30px;font-size: 19px;color:#666;">
+            Tema: <span style="color: #9eacb4;">[[model.appearanceSettingsObject.theme_description.name]]</span>
+        </h2>
+        <p>[[model.appearanceSettingsObject.theme_description.description]]</p>
+        <ul data-ng-if="model.appearanceSettingsObject.theme_description.tags.length > 0" class="list-inline blog-tags" style="margin:20px 0px;">
+            <li>
+                <i class="icon-tag"></i>
+                <a data-ng-repeat="tag in model.appearanceSettingsObject.theme_description.tags"
+                class="btn default btn-xs">[[tag.name]]</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-12 col-md-8 theme-selected-configuration">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#appearance_theme_header" data-toggle="tab">
+                            Configurar presentación
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#appearance_theme_sn" data-toggle="tab">
+                            Configurar redes sociales
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="appearance_theme_header">
+                        {% include '@app_backend_template_directory/Setting/appearance_theme_header.html.twig' %}
+                    </div>
+                    <div class="tab-pane" id="appearance_theme_sn">
+                        {% include '@app_backend_template_directory/Setting/appearance_theme_sn.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</div>

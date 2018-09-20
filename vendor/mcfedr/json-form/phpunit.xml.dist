@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="tests/bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="Json Forms">
+            <directory>tests/Mcfedr/JsonFormBundle/</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <server name="KERNEL_DIR" value="tests/" />
+    </php>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/Mcfedr/JsonFormbundle/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

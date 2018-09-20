@@ -1,0 +1,35 @@
+{
+    "name": "mcfedr/json-form",
+    "description": "A couple of helper files for handling json with symfony forms",
+    "keywords": ["json", "forms", "symfony"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fred Cox",
+            "email": "mcfedr@gmail.com"
+        }
+    ],
+    "type": "symfony-bundle",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": { "Mcfedr\\JsonFormBundle\\": "src/Mcfedr/JsonFormBundle" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Mcfedr\\JsonFormBundle\\": "tests/Mcfedr/JsonFormBundle" }
+    },
+    "require": {
+        "php": ">=5.5",
+        "symfony/symfony": "~2.8|~3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.3",
+        "symfony/monolog-bundle": "~2.3|^3.0",
+        "sensio/framework-extra-bundle": "~3.0",
+        "friendsofphp/php-cs-fixer": "^2.1"
+    },
+    "config": {
+        "platform": {
+            "php": "5.5.9"
+        }
+    }
+}

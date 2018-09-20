@@ -1,0 +1,101 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block template_name %}
+    <!--**
+     * Template Name: Página Maitres y Coreógrafos
+     *
+     * -->
+{% endblock %}
+{% block title %} Maítres y Coreógrafos {% endblock %}
+
+{% block content %}
+    <!-- News Section -->
+    <section class="news-section" style="padding-bottom:50px;" data-ng-controller="dancersPageCtrller" data-ng-cloak>
+        <!-- Block linked to Tag "maitres"-->
+        <h3 class="font-family-france">Maítres</h3>
+        <div class="container-fluid wow fadeInUpBig" style="padding: 60px 0px; min-height:400px;"
+        id="maitres">
+            <div class="row" style="margin:0">
+                <div class="row" style="margin:0">
+                    <div data-ng-if="model.maitresCollection.length > 0"
+                         data-ng-repeat="dancer in model.maitresCollection"
+                         class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                        <div class="generic-post-container-222" style="border:none;height: 300px;">
+                            <div class="generic-post-feature-image-container-220">
+                                <a href="[[dancer.url]]">
+                                    <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                         data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                    <div class="generic-post-over"></div>
+                                </a>
+                            </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block linked to Tag "coreografos"-->
+        <div style="background:rgba(1,1,1,0.2);padding-top:10px">
+            <h3 class="font-family-france">Coreógrafos</h3>
+            <div class="container-fluid wow fadeInUpBig"
+             style="padding: 60px 0px;min-height:400px;max-width: 1280px;"
+             id="coreografos">
+                <div data-ng-if="model.choreographersCollection.length > 0"
+                     data-ng-repeat="dancer in model.choreographersCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block linked to Tag "coordinacion-del-trabajo-artistico"-->
+        <div class="wow fadeInUpBig">
+            <h3 class="font-family-france">Coordinación del Trabajo Artístico</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+                 id="coordinacion-del-trabajo-artistico">
+                <div data-ng-if="model.coordinatorsCollection.length > 0"
+                     data-ng-repeat="dancer in model.coordinatorsCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+{% endblock %}

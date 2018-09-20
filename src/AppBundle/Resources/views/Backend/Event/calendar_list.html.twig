@@ -1,0 +1,12 @@
+<!-- Nestable List (Tree) -->
+<div class="row">
+    <div class="col-md-12" style="position:relative;">
+        <!-- UICalendar directive -->
+        <div class="events-calendar" id="myCalendar" calendar="myCalendar"
+         ui-calendar="[[uiConfig.calendar]]"  ng-model="eventSources"></div>
+        <!-- Data Loader -->
+        <div data-ng-show="model.loadingData">
+            {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+        </div>
+    </div>
+</div>

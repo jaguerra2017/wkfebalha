@@ -1,0 +1,68 @@
+<table class="table table-hover table-light">
+    <thead>
+    <tr class="uppercase">
+        <th width="50">
+            <div class="icheckbox_square-blue checkbox-master [[model.allAwardsSelected ? 'checked' : '']]"
+                 data-ng-click="selectAllAwards($event)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+            </div>
+        </th>
+        <th class="table-header">
+            Nombre
+        </th>
+        <th class="table-header" width="120">
+            Status
+        </th>
+        <th class="table-header" width="150">
+            Autor
+        </th>
+        <th class="table-header" width="135">
+            Fecha creado
+        </th>
+        <th class="table-header" width="95">
+            Acciones
+        </th>
+    </tr>
+    </thead>
+    <tr data-ng-repeat="award in model.awardsCollection | limitTo : (model.awardsCurrentResultLimit - (model.awardsCurrentResultStart - 1)) : (model.awardsCurrentResultStart - 1) ">
+        <td>
+            <div class="icheckbox_square-blue checkbox-[[award.tree_slug]] [[award.selected ? 'checked' : '']]"
+                 data-ng-click="selectAwards($event,award)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+award.tree_slug, null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+award.tree_slug, null)">
+            </div>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectAwards($event,award)" data-ng-bind="award.title_es"></td>
+        <td class="cursor-pointer" data-ng-click="selectAwards($event,award)">
+            <span data-ng-bind="award.post_status_name"
+            class="label label-sm [[award.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] ">
+            </span>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectAwards($event,award)" data-ng-bind="award.author_name"></td>
+        <td class="cursor-pointer" data-ng-click="selectAwards($event,award)" data-ng-bind="award.created_date"></td>
+        <td>
+            {% if canEdit %}
+                <button data-ng-if="award.canEdit" class="btn btn-link"
+                data-ng-click="editAwards(award)">
+                    <i class="icon-pencil btn-blue"></i>
+                </button>
+            {% endif %}
+            {% if canDelete %}
+                <button data-ng-if="award.canDelete" class="btn btn-link"
+                data-ng-click="deleteAwards(award.id)">
+                    <i class="icon-trash btn-red"></i>
+                </button>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.awardsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

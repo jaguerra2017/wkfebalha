@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-xs-12 col-md-offset-4 col-md-8">
+        <button data-ng-if="!model.processingData" class="btn btn-default btn-footer"
+        data-ngf-select="updateSelectedImages($files)"
+        data-ngf-pattern="'*.jpg,*.jpeg,*.png'"
+        data-ngf-min-size="10" data-ngf-max-size="'[[model.mediaUploadRestrictionsCollection.max_size_upload]]MB'"
+        data-ngf-min-width="35" data-ngf-max-width="1921"
+        data-ngf-min-height="35" data-ngf-max-height="900"
+        data-ngf-multiple="true" accept="image/*" >
+            <i class="icon-docs"></i>
+            Seleccionar imágenes
+        </button>
+        <button data-ng-if="!model.processingData && model.selectedImages != null && model.selectedImages.length > 0"
+        class="btn blue btn-blue btn-footer"
+        data-ng-click="saveMediaImageData()">
+            Guardar
+        </button>
+        <button data-ng-if="model.processingData" class="btn btn-danger btn-footer"
+        data-ng-click="hideMediaForm()">
+            Cancelar
+        </button>
+    </div>
+</div>
+<div class="row" style="padding: 25px 15px;position:relative;min-height:255px;">
+    <div class="col-xs-12" style="margin-top: 20px;">
+        <div class="alert alert-warning alert-dismissable" data-auto-close="2" >
+            <button class="close" type="button" data-dismiss="alert" aria-hidden="true"></button>
+           <span style="font-size: 12px;color:#777;">
+               Solo se aceptarán imágenes, con extensiones <strong>.png</strong>,<strong> .jpg</strong> y
+               <strong> .jpeg</strong>.
+               Puede seleccionar varias al mismo tiempo.
+               Las imágenes seleccionadas deben de tener un peso <strong>entre 10kb
+                   y [[model.mediaUploadRestrictionsCollection.max_size_upload]]MB</strong>, con un <strong>ancho entre 35 y 1920px</strong> y un <strong>alto entre 35 y
+                   900px</strong>.</br>
+               Las imágenes que no cumplan con estos requisitos no se tendrán en cuenta.</br>
+               Tampoco se tendrán en cuenta aquellas imágenes repetidas y/o que ya existan en la biblioteca de imágenes.
+               <hr>
+               <strong>Recomendable :</strong></br>
+               Si va a seleccionar varias imágenes de alta calidad, asegúrese que no sean muchas (no más
+               de [[model.mediaUploadRestrictionsCollection.max_files_upload]]) para
+               que no se demore en cargar la imagen, luego guarde y vuelva a repetir la operación para el resto de las
+               imágenes que aun desee agregar.
+           </span>
+        </div>
+    </div>
+
+    <div data-ng-if="model.selectedImages.length > 0" class="col-xs-6 col-md-2"
+     style="margin-bottom:15px;"
+    data-ng-repeat="selectedImage in model.selectedImages">
+        <div class="media-image-selected-thumbnail-container">
+            <div class="selected-image-container">
+                <img data-ngf-src="selectedImage">
+            </div>
+            <span style="width:100%;padding:3px;font-size: 13px;color: #777;">
+                <strong>Tamaño : </strong></br>
+                <p style="margin-left:5px;margin-bottom:0;">
+                    [[selectedImage.size ]] bytes
+                </p>
+                <p style="margin-left:5px;margin-bottom:0;">
+                    [[(selectedImage.size / 1000) | number: 2]] kB
+                </p>
+                <p style="margin-left:5px;margin-bottom:0;">
+                    [[(selectedImage.size / 1000000) | number: 2]] MB
+                </p>
+            </span>
+            <span style="width:100%;padding:3px;font-size: 13px;color: #777;">
+                <strong>Dimensiones : </strong></br>
+                <p style="margin-left:5px;margin-bottom:0;">[[selectedImage.dimensions]]</p>
+            </span>
+            <span style="width:100%;padding:3px;font-size: 13px;color: #777;">
+                <strong>Extensión : </strong> [[selectedImage.extension]]
+            </span>
+        </div>
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</div>

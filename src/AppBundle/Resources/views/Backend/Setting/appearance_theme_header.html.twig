@@ -1,0 +1,47 @@
+<form class="form-horizontal">
+    <div class="form-body">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group [[model.appearanceWelcomeTextHasError?'has-error':'']]" style="padding: 10px 0px;">
+                    <label class="col-md-3 setting-label">
+                        Texto de bienvenida :
+                    </label>
+                    <div class="col-md-9">
+                        <input class="form-control form-control-inline" type="text"
+                        data-ng-model="model.appearanceSettingsObject.configurations[0].welcome_text"/>
+                        <span class="help-block">
+                            <p data-ng-if="model.appearanceWelcomeTextHasError">Valor incorrecto o en blanco.</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group" style="padding: 10px 0px;">
+                    <label class="col-md-3 setting-label">
+                        Imagen principal :
+                    </label>
+                    <div class="col-md-9">
+                        <div class="theme-presentation-main-image">
+                            <!-- Directive mediaSelector(media-selector) -->
+                            <media-selector selectedimage="model.welcomeImage"></media-selector>
+                            <img data-ng-src="[[model.appearanceSettingsObject.configurations[0].welcome_image_url]]">
+                        </div>
+                        <span class="help-block">
+                            Recomendado: imagen de 1920x900 píxeles.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <div class="row" style="margin-top:30px;">
+            <div class="col-xs-12 col-md-offset-5 col-md-7">
+                <button class="btn blue btn-blue btn-footer" type="submit"
+                data-ng-click="saveAppearanceThemeSectionData()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,80 @@
+<table class="table table-hover table-light">
+    <thead>
+    <tr class="uppercase">
+        <th width="50">
+            <div class="icheckbox_square-blue checkbox-master [[model.allNewsSelected ? 'checked' : '']]"
+                 data-ng-click="selectAllNews($event)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+            </div>
+        </th>
+        <th class="table-header" width="150">
+            Imagen principal
+        </th>
+        <th class="table-header">
+            Título
+        </th>
+        <th class="table-header" width="120">
+            Status
+        </th>
+        <th class="table-header" width="120">
+            Comentarios
+        </th>
+        <th class="table-header" width="150">
+            Autor
+        </th>
+        <th class="table-header" width="135">
+            Fecha creado
+        </th>
+        <th class="table-header" width="95">
+            Acciones
+        </th>
+    </tr>
+    </thead>
+    <tr data-ng-repeat="new in model.newsCollection | limitTo : (model.newsCurrentResultLimit - (model.newsCurrentResultStart - 1)) : (model.newsCurrentResultStart - 1) ">
+        <td>
+            <div class="icheckbox_square-blue checkbox-[[new.tree_slug]] [[new.selected ? 'checked' : '']]"
+                 data-ng-click="selectNews($event,new)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+new.tree_slug, null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+new.tree_slug, null)">
+            </div>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectNews($event,new)">
+            <div data-ng-if="new.have_featured_image == true" class="new-mini-thumbnail-container">
+                <img data-ng-src="[[new.web_filtered_list_featured_image_mini_thumbnail_url]]">
+            </div>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectNews($event,new)" data-ng-bind="new.title_es"></td>
+        <td class="cursor-pointer" data-ng-click="selectNews($event,new)">
+            <span data-ng-bind="new.post_status_name"
+            class="label label-sm [[new.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] ">
+            </span>
+        </td>
+        <td class="cursor-pointer text-center" data-ng-click="selectNews($event,new)" data-ng-bind="new.total_comments"></td>
+        <td class="cursor-pointer" data-ng-click="selectNews($event,new)" data-ng-bind="new.author_name"></td>
+        <td class="cursor-pointer" data-ng-click="selectNews($event,new)" data-ng-bind="new.created_date"></td>
+        <td>
+            {% if canEdit %}
+                <button data-ng-if="new.canEdit" class="btn btn-link"
+                data-ng-click="editNews(new)">
+                    <i class="icon-pencil btn-blue"></i>
+                </button>
+            {% endif %}
+            {% if canDelete %}
+                <button data-ng-if="new.canDelete" class="btn btn-link"
+                data-ng-click="deleteNews(new.id)">
+                    <i class="icon-trash btn-red"></i>
+                </button>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.newsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

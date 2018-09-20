@@ -1,0 +1,20 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block title %} Programación {% endblock %}
+
+{% block content %}
+    <!-- News Section -->
+    <section class="news-section" data-ng-controller="eventsCtrller" data-ng-cloak>
+        <h3 class="font-family-france">Programación</h3>
+        <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;">
+            <div class="row" style="margin:0">
+                <!-- UICalendar directive -->
+                <div class="events-calendar" id="myCalendar" calendar="myCalendar"
+                     ui-calendar="[[uiConfig.calendar]]"  ng-model="eventSources"></div>
+                <!-- Data Loader -->
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

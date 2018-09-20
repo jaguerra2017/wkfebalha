@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="es" class="ie8 no-js" data-ng-app="BncBackend"> <![endif]-->
+<!--[if IE 9]> <html lang="es" class="ie9 no-js" data-ng-app="BncBackend"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js" data-ng-app="BncBackend">
+    <!-- BEGIN HEAD -->
+    <head>
+        <base href="/">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+
+        <title>BNC | {% block title %} ¡Bienvenidos!{% endblock %}</title>
+        {% block stylesheets %}
+            <!-- Base css global mandatory styles -->
+            <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+            <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+            <link href="{{ asset('css/fonts/font-awesome/font-awesome.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+            <link href="{{ asset('css/fonts/simple-line-icons/simple-line-icons.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+            <link href="{{ asset('css/bootstrap/bootstrap.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+            <link href="{{ asset('css/plugins/uniform/uniform.default.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+
+            <!-- Plugins css theme styles -->
+            <link href="{{ asset('css/theme/components.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+            <link href="{{ asset('css/theme/plugins.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+            <link href="{{ asset('css/theme/layout.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+            <link href="{{ asset('css/theme/custom_backend.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
+
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <!-- END HEAD -->
+    <!-- BEGIN BODY -->
+    <body class="page-header-fixed page-quick-sidebar-over-content">
+        {% block body %}
+
+        {% endblock %}
+
+        {% block javascripts %}
+            <!-- Base js global mandatory scripts -->
+            <!--[if lt IE 9]>
+            <script src="{{ asset('js/plugins/respond.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+            <script src="{{ asset('js/plugins/excanvas.min.js') }}{{ assets_js_base_scripts_version }}"></script>
+            <![endif]-->
+            <script src="{{ asset('js/jquery/jquery.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+            <script src="{{ asset('js/jquery/jquery-migrate.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+            <script src="{{ asset('js/bootstrap/bootstrap.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+            <script src="{{ asset('js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+            <script src="{{ asset('js/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+            <script src="{{ asset('js/jquery/jquery.blockui.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+            <script src="{{ asset('js/plugins/uniform/jquery.uniform.min.js')}}{{ assets_js_base_scripts_version }}"></script>
+
+            <!-- Custom js and Plugins js theme scripts -->
+            <script src="{{ asset('js/theme/metronic.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+            <script src="{{ asset('js/theme/layout.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+            <script src="{{ asset('js/theme/quick-sidebar.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+
+            <!-- Symfony Fos Routing -->
+
+
+            <!-- Angular base scripts -->
+            <script src="{{ asset('js/angularjs/angular.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+            <script src="{{ asset('js/angularjs/angular-animate.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+            <script src="{{ asset('js/angularjs/angular-touch.min.js') }}{{ assets_js_base_angular_scripts_version }}" type="text/javascript"></script>
+            <script src="{{ asset('js/angularjs/ng-file-upload-shim.js') }}{{ assets_js_base_angular_scripts_version }}"></script>
+            <script src="{{ asset('js/angularjs/ng-file-upload.js') }}{{ assets_js_base_angular_scripts_version }}"></script>
+            <script src="{{ asset('js/angularjs/ui-bootstrap.min.js') }}{{ assets_js_base_angular_scripts_version }}"></script>
+            <script src="{{ asset('js/angularjs/sugar.min.js') }}{{ assets_js_base_angular_scripts_version }}"></script>
+
+            <!-- Angular App scripts -->
+            <script src="{{ asset('js/angularjsApp/Backend/BackendApplication.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+
+        {% endblock %}
+    </body>
+    <!-- END BODY -->
+</html>

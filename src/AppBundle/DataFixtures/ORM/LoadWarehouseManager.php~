@@ -1,0 +1,31 @@
+<?php
+
+namespace AppBundle\DataFixtures\ORM;
+
+use AppBundle\Entity\WarehouseManager;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+
+
+class LoadWarehouseManager implements FixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
+        $warehouseManager = new WarehouseManager();
+        $warehouseManager->setName('Warehouse Manager 1');
+        $warehouseManager->setAddress('Long Street,number 45.');
+        $manager->persist($warehouseManager);
+
+        $warehouseManager2 = new WarehouseManager();
+        $warehouseManager2->setName('Warehouse Manager 2');
+        $warehouseManager2->setAddress('Long Street,number 45.');
+        $manager->persist($warehouseManager2);
+
+        $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 9;
+    }
+}

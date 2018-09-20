@@ -1,0 +1,233 @@
+<div class="col-md-12" data-ng-if="!taxonomyModel.showTaxonomyForm">
+    <!-- BEGIN Portlet Taxonomies-List -->
+    <div class="portlet light bordered" style="min-height: 383px;">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase" data-ng-bind="taxonomyModel.selectedType.name_es">
+                </span>
+            </div>
+            <!-- Toolbar -->
+            <div class="actions custom-toolbar-actions">
+                <div class="btn-group btns-group">
+                    <!-- Nomenclature Types Selector (for small, medium and large devices)-->
+                    <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle hidden-xs"
+                    data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        Cambiar Taxonomía <i class="fa fa-angle-down"></i>
+                    </a>
+                    <div class="dropdown-menu hold-on-click dropdown-checkboxes hidden-xs pull-right" style="min-width: 275px;">
+                        <div class="skin skin-square">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="icheck-list">
+                                        <label data-ng-repeat="taxonomyType in taxonomyModel.taxonomyTypesCollection"
+                                        data-ng-mouseleave="updateICheckStyles($event,'radio','taxonomy-type','label-'+[[taxonomyType.tree_slug]])"
+                                        data-ng-mouseover="updateICheckStyles($event,'radio','taxonomy-type','label-'+[[taxonomyType.tree_slug]])"
+                                        class="taxonomy-type-icheck label-[[taxonomyType.tree_slug]]" style="cursor:pointer;">
+                                            <input type="radio" data-ng-model="taxonomyModel.type" name="[[taxonomyType.tree_slug]]"
+                                            value="[[taxonomyType.tree_slug]]" id="[[taxonomyType.tree_slug]]" class="icheck"
+                                            data-ng-click="updateSelectedTaxonomyType($event,taxonomyType)">
+                                            [[taxonomyType.name_es]]
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Nomenclature Types Selector (for extra-small devices)-->
+                    <a class="btn toolbar-btn-dropdown-text btn-sm btn-default hidden-sm hidden-md hidden-lg"
+                    data-toggle="modal" href="#taxonomy-types-modal-selector">
+                        Cambiar Taxonomía <i class="fa fa-angle-down"></i>
+                    </a>
+                    <div id="taxonomy-types-modal-selector" class="modal fade" tabindex="-1" data-width="480">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Cambiar Taxonomía</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="skin skin-square">
+                                <div class="row">
+                                    <div class="input-group">
+                                        <div class="icheck-list">
+                                            <div class="col-xs-10 col-xs-offset-2" data-ng-repeat="taxonomyType in taxonomyModel.taxonomyTypesCollection">
+                                                <label data-ng-mouseleave="updateICheckStyles($event,'radio','taxonomy-type','label-'+[[taxonomyType.tree_slug]])"
+                                                data-ng-mouseover="updateICheckStyles($event,'radio','taxonomy-type','label-'+[[taxonomyType.tree_slug]])"
+                                                class="taxonomy-type-icheck label-[[taxonomyType.tree_slug]]" style="cursor:pointer;padding-top:10px">
+                                                    <input type="radio" data-ng-model="taxonomyModel.type" name="[[taxonomyType.tree_slug]]"
+                                                    value="[[taxonomyType.tree_slug]]" id="[[taxonomyType.tree_slug]]" class="icheck"
+                                                    data-ng-click="updateSelectedTaxonomyType($event,taxonomyType)">
+                                                    [[taxonomyType.name_es]]
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if canCreate %}
+                    <a class="btn btn-add [[taxonomyModel.canCreateTaxonomy ? 'blue btn-blue' : '']] btn-circle btn-icon-only btn-default"
+                    data-ng-click="createTaxonomy()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                {% endif %}
+                {% if canDelete %}
+                <a data-ng-if="taxonomyModel.activeView != 'tree'"
+                class="btn [[taxonomyModel.canDeleteTaxonomy ? 'btn-danger' : '']] btn-circle btn-icon-only btn-default"
+                data-ng-click="deleteTaxonomy('all')"
+                   style="margin-left:10px;">
+                    <i class="icon-trash"></i>
+                </a>
+                {% endif %}
+                <a class="btn btn-circle btn-icon-only btn-default reload" style="margin-left:10px;"
+                data-ng-click="getTaxonomies()">
+                    <i class="icon-refresh"></i>
+                </a>
+                <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:40px;"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <!-- Search bar -->
+            <div class="inputs">
+                <div class="portlet-input input-small input-inline"
+                 style="width: 100% !important;border-bottom: 1px solid #eee;margin-bottom: 20px;padding-bottom: 20px;">
+                    <div class="input-icon right">
+                        <i class="icon-magnifier"></i>
+                        <input type="text" class="form-control form-control-solid" placeholder="Buscar..."
+                        data-ng-model="taxonomyModel.generalSearchValue" data-ng-keyup="searchTaxonomies($event)"
+                        style="color:#2a3239;">
+                    </div>
+                </div>
+            </div>
+            <!-- Paginator and View Mode-->
+            <div class="row">
+                <div data-ng-if="taxonomyModel.activeView == 'list'" class="col-xs-12 col-md-6 paginator">
+                    <span>
+                        Mostrar
+                    </span>
+                    <div class="form-group inline m-b-xs" style="float:left;">
+                        <select class="form-control input-xsmall"
+                        data-ng-model="taxonomyModel.taxonomiesCurrentPageSize"
+                        data-ng-options="entrySize for entrySize in taxonomyModel.entriesSizesCollection"
+                        data-ng-change="resetPaginationPages()">
+                        </select>
+                    </div>
+                    <span>
+                        entradas
+                    </span>
+
+                    <span style="border-left: 1px solid #eee;padding-left: 10px;">
+                        <strong>[[taxonomyModel.taxonomiesCurrentResultStart]]</strong>
+                    </span>
+                    <span>
+                         -
+                    </span>
+                    <span>
+                        <strong>[[taxonomyModel.taxonomiesCurrentResultLimit]]</strong>
+                    </span>
+                    <span>
+                        de <strong>[[taxonomyModel.taxonomiesCollection.length]]</strong> entradas
+                    </span>
+
+                    <span style="border-left: 1px solid #eee;padding-left: 10px;">
+                        Página
+                    </span>
+                    <div class="form-group inline m-b-xs" style="float:left;">
+                        <select class="form-control input-s-xs"
+                                data-ng-model="taxonomyModel.taxonomiesCurrentPage"
+                                data-ng-options="page for page in taxonomyModel.taxonomiesPagesCollection"
+                                data-ng-change="updatePaginationValues()">
+                        </select>
+                    </div>
+                    <span>
+                        de <strong>[[taxonomyModel.taxonomiesPagesCollection.length]]</strong>
+                    </span>
+                </div>
+                <div class="col-xs-12 [[taxonomyModel.activeView == 'list' ? 'col-md-6' : 'col-md-12']] view-mode">
+                    <btn data-ng-if="taxonomyModel.selectedType.tree_slug != 'tag'"
+                    class="btn btn-sm [[taxonomyModel.activeView == 'tree' ? 'grey-cascade' : 'default']]"
+                    data-ng-click="changeViewMode('tree')">
+                        <i class="fa fa-outdent"></i>
+                    </btn>
+                    <btn data-ng-if="taxonomyModel.selectedType.tree_slug != 'tag'"
+                     class="btn btn-sm [[taxonomyModel.activeView == 'list' ? 'grey-cascade' : 'default']]"
+                     data-ng-click="changeViewMode('list')">
+                        <i class="fa fa-list"></i>
+                    </btn>
+                </div>-
+            </div>
+            <!-- Nestable List (Tree) -->
+            <div data-ng-if="taxonomyModel.activeView == 'tree'">
+                {% include '@app_backend_template_directory/Taxonomy/tree_list.html.twig' %}
+            </div>
+            <!-- Data Table -->
+            <div data-ng-if="taxonomyModel.activeView == 'list'" class="table-scrollable table-scrollable-borderless" style="position:relative;">
+                <table class="table table-hover table-light">
+                    <thead>
+                    <tr class="uppercase">
+                        <th>
+                            <div class="icheckbox_square-blue checkbox-master [[taxonomyModel.allTaxonomiesSelected ? 'checked' : '']]"
+                             data-ng-click="SelectAllTaxonomies($event)"
+                             data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+                             data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+                            </div>
+                        </th>
+                        <th class="table-header">
+                            Nombre
+                        </th>
+                        <th class="table-header">
+                            Slug
+                        </th>
+                        <th class="table-header">
+                            Padre
+                        </th>
+                        <th class="table-header" width="150px">
+                            Autor
+                        </th>
+                        <th class="table-header" width="150px">
+                            Fecha creado
+                        </th>
+                        <th class="table-header" width="110px">
+                            Acciones
+                        </th>
+                    </tr>
+                    </thead>
+                    <tr data-ng-repeat="taxonomy in taxonomyModel.taxonomiesCollection | limitTo : (taxonomyModel.taxonomiesCurrentResultLimit - (taxonomyModel.taxonomiesCurrentResultStart - 1)) : (taxonomyModel.taxonomiesCurrentResultStart - 1) ">
+                        <td>
+                            <div class="icheckbox_square-blue checkbox-[[taxonomy.tree_slug]] [[taxonomy.selected ? 'checked' : '']]"
+                                 data-ng-click="SelectTaxonomy($event,taxonomy)"
+                                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+taxonomy.tree_slug, null)"
+                                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+taxonomy.tree_slug, null)">
+                            </div>
+                        </td>
+                        <td class="cursor-pointer" data-ng-click="SelectTaxonomy($event,taxonomy)" data-ng-bind="taxonomy.name_es"></td>
+                        <td class="cursor-pointer" data-ng-click="SelectTaxonomy($event,taxonomy)" data-ng-bind="taxonomy.url_slug_es"></td>
+                        <td class="cursor-pointer" data-ng-click="SelectTaxonomy($event,taxonomy)" data-ng-bind="taxonomy.parent_name"></td>
+                        <td class="cursor-pointer" data-ng-click="SelectTaxonomy($event,taxonomy)" data-ng-bind="taxonomy.author_user_name"></td>
+                        <td class="cursor-pointer" data-ng-click="SelectTaxonomy($event,taxonomy)" data-ng-bind="taxonomy.created_date"></td>
+                        <td>
+                            {% if canEdit %}
+                                <button data-ng-if="taxonomy.canEdit" class="btn btn-link" data-ng-click="editTaxonomy(taxonomy)">
+                                    <i class="icon-pencil btn-blue"></i>
+                                </button>
+                            {% endif %}
+                            {% if canDelete %}
+                                <button data-ng-if="taxonomy.canDelete" class="btn btn-link" data-ng-click="deleteTaxonomy(taxonomy.id)">
+                                    <i class="icon-trash btn-red"></i>
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                <!-- Message when isn't data to show -->
+                <div data-ng-show="taxonomyModel.taxonomiesCollection.length == 0">
+                    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+                </div>
+                <!-- Data Loader -->
+                <div data-ng-show="taxonomyModel.loadingData">
+                    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

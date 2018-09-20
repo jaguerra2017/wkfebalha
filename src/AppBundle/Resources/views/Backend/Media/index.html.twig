@@ -1,0 +1,221 @@
+{% extends "@app_backend_template_directory/Main/layout.html.twig" %}
+{% block title %} Media {% endblock %}
+
+{% block pagecontent %}
+    {# Initializing permissions value #}
+    {%  set userNotFrequentlyAccessFeaturesCollection,canRead,canCreate,canEdit,canDelete =
+    app.session.get('userNotFrequentlyAccessFeatures'),false,false,false,false %}
+    {% if userNotFrequentlyAccessFeaturesCollection is not empty %}
+        {% for userAccessFeature in userNotFrequentlyAccessFeaturesCollection %}
+            {% if userAccessFeature.tree_slug == 'functionality-media' and userAccessFeature.actions is not empty %}
+                {% for action in userAccessFeature.actions %}
+                    {% if 'read' in action.tree_slug %}
+                        {% set canRead = true %}
+                    {% elseif 'create' in action.tree_slug %}
+                        {% set canCreate = true %}
+                    {% elseif 'edit' in action.tree_slug %}
+                        {% set canEdit = true %}
+                    {% elseif 'delete' in action.tree_slug %}
+                        {% set canDelete = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {%  endif %}
+
+
+    <!-- Media content -->
+    <div class="row module-description-container">
+        <div class="col-xs-12" style="padding: 30px 15px;">
+            <span class="module-description">
+                <i class="icon-camera"></i> Media
+            </span>
+        </div>
+    </div>
+    <div class="page-content" id="go-to-top-anchor" data-ng-controller="mediaCtrller" data-ng-cloak>
+        {% if canRead %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- BEGIN Portlet Media-->
+                    <div class="portlet light bordered" style="min-height: 383px;">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption font-dark">
+                                <span class="caption-subject bold uppercase">
+                                    [[model.sectionTitle]]
+                                </span>
+                                <span class="caption-helper"> [[model.sectionSubTitle]]</span>
+                            </div>
+                            <!-- Toolbar -->
+                            <div class="actions custom-toolbar-actions">
+                                {% if canCreate %}
+                                    <a class="btn btn-add blue btn-blue btn-circle btn-icon-only btn-default tooltips"
+                                   data-ng-click="createMedia()" data-container="body" data-placement="top"
+                                   data-original-title="Agregar">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                {% endif %}
+                                <a class="btn btn-circle btn-icon-only btn-default reload tooltips" style="margin-left:10px;"
+                                   data-ng-click="getMediaData()" data-container="body" data-placement="top"
+                                   data-original-title="Refrescar">
+                                    <i class="icon-refresh"></i>
+                                </a>
+                                <a class="btn btn-circle btn-icon-only btn-default fullscreen tooltips"
+                                data-container="body" data-placement="top" data-original-title="Abrir / cerrar pantalla completa"
+                                style="margin-left:80px;"></a>
+                            </div>
+                            <!-- Tab nav -->
+                            <ul class="nav nav-tabs">
+                                <li class="[[model.activeView == 'image'?'active':'']]">
+                                    <a href="#media_images" data-toggle="tab"
+                                       data-ng-click="loadMediaSectionData('image')">
+                                        Imágenes
+                                    </a>
+                                </li>
+                                <li class="[[model.activeView == 'video'?'active':'']]">
+                                    <a href="#media_videos" data-toggle="tab"
+                                       data-ng-click="loadMediaSectionData('video')">
+                                        Videos
+                                    </a>
+                                </li>
+                                <li class="[[model.activeView == 'gallery'?'active':'']]">
+                                    <a href="#media_galleries" data-toggle="tab"
+                                    data-ng-click="loadMediaSectionData('gallery')">
+                                        Galerías
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <!-- Tab Media Images -->
+                                <div class="tab-pane [[model.mediaImagesLoaded?'active':'']]" id="media_images">
+                                    {% include '@app_backend_template_directory/Media/images.html.twig' %}
+                                </div>
+                                <!-- Tab Media Videos -->
+                                <div class="tab-pane [[model.mediaVideosLoaded?'active':'']]" id="media_videos">
+                                    {% include '@app_backend_template_directory/Media/videos.html.twig' %}
+                                </div>
+                                <!-- Tab Media Galleries -->
+                                <div class="tab-pane [[model.mediaGalleriesLoaded?'active':'']]" id="media_galleries">
+                                    {% include '@app_backend_template_directory/Media/galleries.html.twig' %}
+                                </div>
+                            </div>
+                            <!-- Modal CRUD for images/galleries -->
+                            <div id="images-gallery-crud-modal" class="modal fade" tabindex="-1" data-width="1200"
+                             data-backdrop="static" data-keyboard="false">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                    data-ng-click="hideMediaForm()"></button>
+                                    <h4 class="modal-title">[[model.mediaFormTitle]]</h4>
+                                </div>
+                                <div class="modal-body min-height-400">
+                                    <form class="form horizontal-form" style="position: relative;">
+                                        <div class="form-body">
+                                            <div data-ng-if="model.activeView == 'image' && model.createImageAction == true">
+                                                {% include '@app_backend_template_directory/Media/images_create_form.html.twig' %}
+                                            </div>
+                                            <div data-ng-if="model.activeView == 'image' && model.createImageAction == false">
+                                                {% include '@app_backend_template_directory/Media/images_edit_form.html.twig' %}
+                                            </div>
+                                            <div data-ng-if="model.activeView == 'image' && model.createImageAction == null">
+                                                {% include '@app_backend_template_directory/Media/images_see_form.html.twig' %}
+                                            </div>
+                                            <div data-ng-if="model.activeView == 'video'">
+                                                {% include '@app_backend_template_directory/Media/videos_crud_form.html.twig' %}
+                                            </div>
+                                            <div data-ng-if="model.activeView == 'gallery'">
+                                                {% include '@app_backend_template_directory/Media/galleries_crud_form.html.twig' %}
+                                            </div>
+                                        </div>
+                                        <div class="form-actions" style="background-color:white;">
+                                            <div class="row">
+                                                <div data-ng-if="model.activeView == 'image' && model.createImageAction != true"
+                                                 class="col-xs-12 col-md-offset-4 col-md-8">
+                                                    <button class="btn default btn-footer" type="button"
+                                                    data-ng-click="hideMediaForm()">
+                                                        [[model.createImageAction == null ? 'Cerrar' : 'Cancelar']]
+                                                    </button>
+                                                    <button data-ng-if="model.createImageAction == false"
+                                                    class="btn blue btn-blue btn-footer" type="submit"
+                                                    data-ng-click="saveMediaData()">
+                                                        Guardar
+                                                    </button>
+                                                </div>
+
+                                                <div data-ng-if="model.activeView == 'video'"
+                                                 class="col-xs-12 col-md-offset-4 col-md-8">
+                                                    <button class="btn default btn-footer" type="button"
+                                                    data-ng-click="hideMediaForm()">
+                                                        [[model.createVideoAction == null ? 'Cerrar' : 'Cancelar']]
+                                                    </button>
+                                                    <button data-ng-if="model.createVideoAction == true"
+                                                            class="btn blue btn-blue btn-footer" type="submit"
+                                                            data-ng-click="saveMediaData('clean')">
+                                                        Guardar y limpiar
+                                                    </button>
+                                                    <button class="btn blue btn-blue btn-footer" type="submit"
+                                                    data-ng-click="saveMediaData('close')">
+                                                        Guardar y cerrar
+                                                    </button>
+                                                </div>
+
+                                                <div data-ng-if="model.activeView == 'gallery'"
+                                                     class="col-xs-12 col-md-offset-4 col-md-8">
+                                                    <button class="btn default btn-footer" type="button"
+                                                            data-ng-click="hideMediaForm()">
+                                                        [[model.createVideoAction == null ? 'Cerrar' : 'Cancelar']]
+                                                    </button>
+                                                    <button data-ng-if="model.createGalleryAction == true"
+                                                            class="btn blue btn-blue btn-footer" type="submit"
+                                                            data-ng-click="saveMediaData('clean')">
+                                                        Guardar y limpiar
+                                                    </button>
+                                                    <button class="btn blue btn-blue btn-footer" type="submit"
+                                                            data-ng-click="saveMediaData('close')">
+                                                        Guardar y cerrar
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Modal Video Player-->
+                            <div id="video-play-modal" class="modal fade" tabindex="-1" data-width="1200"
+                                 data-backdrop="static" data-keyboard="false">
+                                <div class="modal-header">
+                                    <button type="button" class="close"
+                                            data-ng-click="hideVideoPlayModal()"></button>
+                                    <h4 class="modal-title">[[model.selectedVideo.name_es]]</h4>
+                                </div>
+                                <div class="modal-body min-height-400">
+                                    <form class="form horizontal-form">
+                                        <div class="form-body">
+                                            <div class="media-video-play-thumbnail" data-video-id="[[model.selectedVideo.id]]" style="text-align:center;">
+                                                <iframe class="media-video-play" allowfullscreen frameborder="0">
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions" style="background-color:white;">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-offset-5 col-md-7">
+                                                    <button class="btn default btn-footer" type="button"
+                                                            data-ng-click="hideVideoPlayModal()">
+                                                        Cerrar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {% include '@app_shared_template_directory/access_denied_advise.html.twig' %}
+        {%  endif %}
+    </div>
+{% endblock %}

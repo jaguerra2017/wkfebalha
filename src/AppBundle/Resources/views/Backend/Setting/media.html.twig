@@ -1,0 +1,67 @@
+<form class="form-horizontal" style="position: relative;">
+    <div class="form-body">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="form-group " style="padding: 10px 0px;">
+                    <label class="col-md-3 setting-label">
+                        Máximo peso permitido al subir ficheros :
+                    </label>
+                    <div class="col-md-2 [[model.mediaMaxSizeUploadHasError?'has-error':'']]">
+                        <div class="input-group">
+                            <input class="form-control" type="text"
+                            data-ng-model="model.mediaSettingsObject.max_size_upload">
+                            <div class="input-group-btn">
+                                <button class="btn default disabled" type="button">
+                                    MB
+                                </button>
+                            </div>
+                        </div>
+                        <span class="help-block">
+                            <p data-ng-if="!model.mediaMaxSizeUploadHasError">
+                                Entre 1 y [[model.mediaSettingsObject.system_max_filesize]] MB.
+                            </p>
+                            <p data-ng-if="model.mediaMaxSizeUploadHasError">
+                                Valor incorrecto o en blanco.
+                            </p>
+                        </span>
+                    </div>
+                    <label class="col-md-4 setting-label">
+                        Cantidad máxima de ficheros (al mismo tiempo) :
+                    </label>
+                    <div class="col-md-2 [[model.mediaMaxFilesUploadHasError?'has-error':'']]">
+                        <div class="input-group">
+                            <input class="form-control" type="text"
+                                   data-ng-model="model.mediaSettingsObject.max_files_upload">
+                            <div class="input-group-btn">
+                                <button class="btn default disabled" type="button">
+                                    ficheros
+                                </button>
+                            </div>
+                        </div>
+                        <span class="help-block">
+                            <p data-ng-if="!model.mediaMaxFilesUploadHasError">
+                                Entre 1 y [[model.mediaSettingsObject.system_max_filesupload]] ficheros.
+                            </p>
+                            <p data-ng-if="model.mediaMaxFilesUploadHasError">
+                                Valor incorrecto o en blanco.
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <div class="row" style="margin-top:30px;">
+            <div class="col-xs-12 col-md-offset-5 col-md-7">
+                <button class="btn blue btn-blue btn-footer" type="submit"
+                        data-ng-click="saveMediaSectionData()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div data-ng-show="model.loadingData">
+        {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+    </div>
+</form>

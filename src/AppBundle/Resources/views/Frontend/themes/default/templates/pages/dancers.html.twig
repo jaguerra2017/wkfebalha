@@ -1,0 +1,223 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block template_name %}
+    <!--**
+     * Template Name: Página Bailarines
+     *
+     * -->
+{% endblock %}
+{% block title %} Bailarines {% endblock %}
+
+{% block content %}
+    <!-- News Section -->
+    <section class="news-section" style="padding-bottom:50px;" data-ng-controller="dancersPageCtrller" data-ng-cloak>
+        <!-- Block linked to Tag "primeros-bailarines"-->
+        <h3 class="font-family-france">Primeros Bailarines</h3>
+        <div class="container-fluid wow fadeInUpBig" style="padding: 60px 0px; min-height:400px;"
+         id="primeros-bailarines">
+            <div class="row" style="margin:0">
+                <div data-ng-if="model.firstsDancersCollection.length > 0"
+                     data-ng-repeat="dancer in model.firstsDancersCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                        style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Block linked to Tag "primer-bailarin-de-caracter"-->
+        <div class="wow fadeInUpBig">
+            <h3 class="font-family-france">Primer Bailarín de Carácter</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+             id="primer-bailarin-de-caracter">
+                <div data-ng-if="model.firstCaractersDancersCollection.length > 0"
+                     data-ng-repeat="dancer in model.firstCaractersDancersCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Block linked to Tag "bailarines-principales"-->
+        <div class="wow fadeInUpBig">
+            <h3 class="font-family-france">Bailarines Principales</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+             id="bailarines-principales">
+                <div data-ng-if="model.mainDancersCollection.length > 0"
+                     data-ng-repeat="dancer in model.mainDancersCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Block linked to Tag "primeros-solistas"-->
+        <div style="background:rgba(1,1,1,0.2);padding-top:10px">
+            <h3 class="font-family-france">Primeros Solistas</h3>
+            <div class="container-fluid wow fadeInUpBig"
+             style="padding: 60px 0px;min-height:400px;max-width: 1280px;"
+             id="primeros-solistas">
+                <div data-ng-if="model.firstSolosCollection.length > 0"
+                 data-ng-repeat="dancer in model.firstSolosCollection"
+                 class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+             </div>
+         </div>
+
+
+         <!-- Block linked to Tag "solistas"-->
+        <div style="background:rgba(1,1,1,0.2);padding-top:10px">
+            <h3 class="font-family-france">Solistas</h3>
+            <div class="container-fluid wow fadeInUpBig"
+             style="padding: 60px 0px;min-height:400px;max-width: 1280px;"
+             id="solistas">
+                <div data-ng-if="model.solosCollection.length > 0"
+                     data-ng-repeat="dancer in model.solosCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Block linked to Tag "corifeos"-->
+        <div class="wow fadeInUpBig">
+            <h3 class="font-family-france">Corifeos</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+             id="corifeos">
+                <div data-ng-if="model.chorifeosCollection.length > 0"
+                     data-ng-repeat="dancer in model.chorifeosCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Block linked to Tag "cuerpo-de-baile"-->
+        <div class="wow fadeInUpBig">
+            <h3 class="font-family-france">Cuerpo de Baile</h3>
+            <div class="container-fluid" style="padding-top: 60px; padding-bottom:60px;min-height:400px;"
+             id="cuerpo-de-baile">
+                <div data-ng-if="model.danceBodyCollection.length > 0"
+                     data-ng-repeat="dancer in model.danceBodyCollection"
+                     class="col-xs-12 col-sm-4 col-md-3 wow fadeInUpBig" style="margin-bottom: 30px;">
+                    <div class="generic-post-container-222" style="border:none;height: 300px;">
+                        <div class="generic-post-feature-image-container-220">
+                            <a href="[[dancer.url]]">
+                                <img data-ng-if="dancer.have_featured_image == true && dancer.featured_image_url != ''"
+                                     data-ng-src="[[dancer.web_filtered_grid_featured_image_thumbnail_url]]">
+                                <div class="generic-post-over"></div>
+                            </a>
+                        </div>
+
+                        <span class="notifier-event-text "
+                              style="padding: 0 5px;margin-top: 10px;border-left: 2px solid #009dc7;font-size: 14px;
+                        height: auto !important;">
+                            [[dancer.title_es]]
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Comments section -->
+        <div data-ng-if="model.selectedPage != null" class="comments-section">
+            <comment-handler genericpostid="model.selectedPage.id"></comment-handler>
+        </div>
+
+    </section>
+
+
+
+{% endblock %}

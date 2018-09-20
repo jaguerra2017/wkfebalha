@@ -1,0 +1,104 @@
+{% extends "@app_backend_template_directory/Main/layout.html.twig" %}
+{% block title %} Configuración {% endblock %}
+
+{% block pagecontent %}
+    {# Initializing permissions value #}
+    {%  set userNotFrequentlyAccessFeaturesCollection,canRead,canCreate,canEdit,canDelete =
+    app.session.get('userNotFrequentlyAccessFeatures'),false,false,false,false %}
+    {% if userNotFrequentlyAccessFeaturesCollection is not empty %}
+        {% for userAccessFeature in userNotFrequentlyAccessFeaturesCollection %}
+            {% if userAccessFeature.tree_slug == 'functionality-settings' and userAccessFeature.actions is not empty %}
+                {% for action in userAccessFeature.actions %}
+                    {% if 'read' in action.tree_slug %}
+                        {% set canRead = true %}
+                    {% elseif 'create' in action.tree_slug %}
+                        {% set canCreate = true %}
+                    {% elseif 'edit' in action.tree_slug %}
+                        {% set canEdit = true %}
+                    {% elseif 'delete' in action.tree_slug %}
+                        {% set canDelete = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {%  endif %}
+
+
+    <!-- Settings content -->
+    <div class="row module-description-container">
+        <div class="col-xs-12" style="padding: 30px 15px;">
+            <span class="module-description">
+                <i class="icon-settings"></i> Configuración
+            </span>
+        </div>
+    </div>
+    <div class="page-content" id="go-to-top-anchor" style="min-height: 800px !important;" data-ng-controller="settingCtrller" data-ng-cloak>
+        {% if canRead %}
+            <div class="col-md-12">
+            <!-- BEGIN Portlet Settings -->
+            <div class="portlet light bordered" style="min-height: 383px;">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption font-dark">
+                        <span class="caption-subject bold uppercase">
+                            [[model.sectionTitle]]
+                        </span>
+                        <span class="caption-helper"> [[model.sectionSubTitle]]</span>
+                    </div>
+                    <!-- Toolbar -->
+                    <div class="actions custom-toolbar-actions">
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen tooltips"
+                       data-container="body" data-placement="top" data-original-title="Abrir / cerrar pantalla completa"
+                       style="margin-left:80px;"></a>
+                    </div>
+                    <!-- Tab nav -->
+                    <ul class="nav nav-tabs">
+                        <li class="[[model.availabilitySettingsLoaded?'active':'']]">
+                            <a href="#availability_settings" data-toggle="tab"
+                            data-ng-click="loadSettingsSectionData('availability')">
+                                Disponibilidad
+                            </a>
+                        </li>
+                        <li class="[[model.appearanceSettingsLoaded?'active':'']]">
+                            <a href="#appearance_settings" data-toggle="tab"
+                            data-ng-click="loadSettingsSectionData('appearance')">
+                                Apariencia
+                            </a>
+                        </li>
+                        <li class="[[model.notificationSettingsLoaded?'active':'']]">
+                            <a href="#notification_settings" data-toggle="tab"
+                            data-ng-click="loadSettingsSectionData('notification')">
+                                Notificaciones
+                            </a>
+                        </li>
+                        <li class="[[model.mediaSettingsLoaded?'active':'']]">
+                            <a href="#media_settings" data-toggle="tab"
+                            data-ng-click="loadSettingsSectionData('media')">
+                                Media
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="portlet-body">
+                    <div class="tab-content">
+                        <!-- Availability Settings -->
+                        <div class="tab-pane active" id="availability_settings">
+                            {% include '@app_backend_template_directory/Setting/availability.html.twig' %}
+                        </div>
+                        <div class="tab-pane" id="appearance_settings">
+                            {% include '@app_backend_template_directory/Setting/appearance.html.twig' %}
+                        </div>
+                        <div class="tab-pane" id="notification_settings">
+                            {% include '@app_backend_template_directory/Setting/notification.html.twig' %}
+                        </div>
+                        <div class="tab-pane" id="media_settings">
+                            {% include '@app_backend_template_directory/Setting/media.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            {% include '@app_shared_template_directory/access_denied_advise.html.twig' %}
+        {%  endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+<table class="table table-hover table-light">
+    <thead>
+    <tr class="uppercase">
+        <th width="50">
+            <div class="icheckbox_square-blue checkbox-master [[model.allEventsSelected ? 'checked' : '']]"
+                 data-ng-click="selectAllEvents($event)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+            </div>
+        </th>
+        <th class="table-header" width="150">
+            Imagen principal
+        </th>
+        <th class="table-header">
+            Nombre del evento
+        </th>
+        <th class="table-header">
+            Inicia
+        </th>
+        <th class="table-header">
+            Termina
+        </th>
+        <th class="table-header">
+            Status
+        </th>
+        <th class="table-header" width="150px">
+            Autor
+        </th>
+        <th class="table-header" width="150px">
+            Fecha creado
+        </th>
+        <th class="table-header" width="110px">
+            Acciones
+        </th>
+    </tr>
+    </thead>
+    <tr data-ng-repeat="event in model.eventsCollection | limitTo : (model.eventsCurrentResultLimit - (model.eventsCurrentResultStart - 1)) : (model.eventsCurrentResultStart - 1) ">
+        <td>
+            <div class="icheckbox_square-blue checkbox-[[event.tree_slug]] [[event.selected ? 'checked' : '']]"
+                 data-ng-click="selectEvents($event,event)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+event.tree_slug, null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+event.tree_slug, null)">
+            </div>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectEvents($event,event)">
+            <div data-ng-if="event.have_featured_image == true" class="text-center event-mini-thumbnail-container">
+                <img data-ng-src="[[event.web_filtered_list_featured_image_mini_thumbnail_url]]">
+            </div>
+        </td>
+        <td class="cursor-pointer" data-ng-click="SelectEvents($event,event)" data-ng-bind="event.title_es"></td>
+        <td class="cursor-pointer" data-ng-click="SelectEvents($event,event)" data-ng-bind="event.start_date"></td>
+        <td class="cursor-pointer" data-ng-click="SelectEvents($event,event)" data-ng-bind="event.end_date"></td>
+        <td class="cursor-pointer" data-ng-click="SelectEvents($event,event)">
+        <span data-ng-bind="event.post_status_name"
+              class="label label-sm [[event.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] ">
+        </span>
+        </td>
+        <td class="cursor-pointer" data-ng-click="SelectEvents($event,event)" data-ng-bind="event.author_name"></td>
+        <td class="cursor-pointer" data-ng-click="SelectEvents($event,event)" data-ng-bind="event.created_date"></td>
+        <td>
+            {% if canEdit %}
+                <button data-ng-if="event.canEdit" class="btn btn-link" data-ng-click="editEvents(event)">
+                    <i class="icon-pencil btn-blue"></i>
+                </button>
+            {% endif %}
+            {% if canDelete %}
+                <button data-ng-if="event.canDelete" class="btn btn-link" data-ng-click="deleteEvents(event.id)">
+                    <i class="icon-trash btn-red"></i>
+                </button>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.eventsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

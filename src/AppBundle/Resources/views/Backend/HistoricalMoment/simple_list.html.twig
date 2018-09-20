@@ -1,0 +1,73 @@
+<table class="table table-hover table-light">
+    <thead>
+    <tr class="uppercase">
+        <th width="50">
+            <div class="icheckbox_square-blue checkbox-master [[model.allHistoricalMomentsSelected ? 'checked' : '']]"
+                 data-ng-click="selectAllHistoricalMoments($event)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+            </div>
+        </th>
+        <th class="table-header" width="150">
+            Año
+        </th>
+        <th class="table-header">
+            Datos
+        </th>
+        <th class="table-header" width="120">
+            Status
+        </th>
+        <th class="table-header" width="150">
+            Autor
+        </th>
+        <th class="table-header" width="135">
+            Fecha creado
+        </th>
+        <th class="table-header" width="95">
+            Acciones
+        </th>
+    </tr>
+    </thead>
+    <tr data-ng-repeat="historicalMoment in model.historicalMomentsCollection | limitTo : (model.historicalMomentsCurrentResultLimit - (model.historicalMomentsCurrentResultStart - 1)) : (model.historicalMomentsCurrentResultStart - 1) ">
+        <td>
+            <div class="icheckbox_square-blue checkbox-[[historicalMoment.tree_slug]] [[historicalMoment.selected ? 'checked' : '']]"
+                 data-ng-click="selectHistoricalMoments($event,historicalMoment)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+historicalMoment.tree_slug, null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+historicalMoment.tree_slug, null)">
+            </div>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectHistoricalMoments($event,historicalMoment)" data-ng-bind="historicalMoment.year">
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectHistoricalMoments($event,historicalMoment)" data-ng-bind="historicalMoment.content_es"></td>
+        <td class="cursor-pointer" data-ng-click="selectHistoricalMoments($event,historicalMoment)">
+            <span data-ng-bind="historicalMoment.post_status_name"
+            class="label label-sm [[historicalMoment.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] ">
+            </span>
+        </td>
+        <td class="cursor-pointer" data-ng-click="selectHistoricalMoments($event,historicalMoment)" data-ng-bind="historicalMoment.author_name"></td>
+        <td class="cursor-pointer" data-ng-click="selectHistoricalMoments($event,historicalMoment)" data-ng-bind="historicalMoment.created_date"></td>
+        <td>
+            {% if canEdit %}
+                <button data-ng-if="historicalMoment.canEdit" class="btn btn-link"
+                data-ng-click="editHistoricalMoments(historicalMoment)">
+                    <i class="icon-pencil btn-blue"></i>
+                </button>
+            {% endif %}
+            {% if canDelete %}
+                <button data-ng-if="historicalMoment.canDelete" class="btn btn-link"
+                data-ng-click="deleteHistoricalMoments(historicalMoment.id)">
+                    <i class="icon-trash btn-red"></i>
+                </button>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.historicalMomentsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

@@ -1,0 +1,17 @@
+{% extends "base_error.html.twig" %}
+
+{% block title %} Error {% endblock %}
+
+{% block body %}
+    <h3 style="color: #ec8c8c;display: inline-block;font-size: 128px;font-weight: 300;letter-spacing: -10px;line-height: 128px;
+                margin-bottom: 20px;text-align: center;width: 100%;">
+       {{ status_code }}
+    </h3>
+
+    <div class="row">
+        <div class="col-xs-12" style="color: #444;font-size: 18px;margin-bottom: 40px;
+        text-align: center;">
+            {{ status_text }}
+        </div>
+    </div>
+{% endblock %}

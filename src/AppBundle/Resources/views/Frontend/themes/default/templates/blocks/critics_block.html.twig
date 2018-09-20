@@ -1,0 +1,306 @@
+{% extends "base_backend.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <!-- Main Layout -->
+    <div class="wrapper">
+        <!-- Header -->
+        <header class="page-header">
+            <nav class="navbar mega-menu" role="navigation">
+                <div class="container-fluid">
+                    <div class="clearfix navbar-fixed-top min-width-380">
+                        <div class="row">
+                            <div class="hidden-xs hidden-sm col-md-4">
+                                <!-- Search -->
+                                {% include "@app_backend_template_directory/Shared/general_search.html.twig" %}
+                            </div>
+                            <div class="col-xs-4 col-md-2">
+                                <!-- Logo -->
+                                <a id="index" class="page-logo" href="index.html">
+                                    <img src="{{ asset('images/default/bnc-main-logo.png') }}" alt="Logo">
+                                </a>
+                            </div>
+                            <div class="col-xs-8 col-md-6">
+                                <!-- Topbar Actions -->
+                                <div class="topbar-actions">
+
+                                    <!-- Group Notifications -->
+                                    <div class="btn-group-notification btn-group" id="header_notification_bar">
+                                        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            <i class="icon-bell"></i>
+                                            <span class="badge">3</span>
+                                        </button>
+                                        <ul class="dropdown-menu-v2">
+                                            <li class="external">
+                                                <h3><span class="bold">3 pendientes</span></h3>
+                                                <a href="#">Ver todas</a>
+                                            </li>
+                                            <li>
+                                                <ul class="dropdown-menu-list scroller" style="height: 200px; padding: 0;" data-handle-color="#637283">
+                                                    <li>
+                                                        <a href="javascript:;">
+													<span class="details">
+														<span class="label label-sm label-icon label-success">
+															<i class="fa fa-comment"></i>
+														</span>
+														Nuevo comentario pendiente.
+													</span>
+                                                            <span class="time">justo ahora</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:;">
+													<span class="details">
+														<span class="label label-sm label-icon label-success">
+															<i class="fa fa-comment"></i>
+														</span>
+														Nuevo comentario pendiente.
+													</span>
+                                                            <span class="time">3 mins</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:;">
+													<span class="details">
+														<span class="label label-sm label-icon label-success">
+															<i class="fa fa-comment"></i>
+														</span>
+														Nuevo comentario pendiente.
+													</span>
+                                                            <span class="time">10 mins</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Actions Shortcuts -->
+                                    <div class="btn-group-red btn-group">
+                                        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                        <ul class="dropdown-menu-v2" role="menu">
+                                            <li class="active">
+                                                <a href="#"><i class="icon-note"></i> Nueva Noticia</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#"><i class="icon-book-open"></i> Nueva Publicación</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#"><i class="icon-calendar"></i> Nuevo Evento</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#"><i class="icon-doc"></i> Nueva Página</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- User Profile -->
+                                    <div class="btn-group-img btn-group">
+                                        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                            <span>Hola, Administrador</span>
+                                            <img src="{{ asset('images/default/bnc-default-user-avatar.png') }}" alt="">
+                                        </button>
+                                        <ul class="dropdown-menu-v2 min-width-200" role="menu">
+                                            <li class="active">
+                                                <a href="#"><i class="icon-user"></i> Mi Perfil</a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="#"><i class="icon-screen-desktop"></i> Bloquear</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="icon-logout"></i> Salir</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Main menu button -->
+                                <button type="button" class="main-menu-button" data-toggle="collapse">
+                                    Menú
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                            </div>
+                            <div class="visible-xs visible-sm col-xs-12">
+                                <!-- Search -->
+                                {% include "@app_backend_template_directory/Shared/general_search.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
+                        <ul class="nav navbar-nav text-uppercase">
+                            <li class="dropdown dropdown-fw open-selected">
+                                <a href="javascript:;">
+                                    <i class="icon-home"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="dropdown more-dropdown">
+                                <a href="javascript:;" data-close-others="true">
+                                    <i class="icon-note"></i>
+                                    Noticias
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="fa fa-plus"></i>
+                                            Nueva
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown more-dropdown">
+                                <a href="javascript:;" data-close-others="true">
+                                    <i class="icon-book-open"></i>
+                                    Publicaciones
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="fa fa-plus"></i>
+                                            Nueva
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown more-dropdown">
+                                <a href="javascript:;" data-close-others="true">
+                                    <i class="icon-calendar"></i>
+                                    Eventos
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="fa fa-plus"></i>
+                                            Nueva
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown more-dropdown">
+                                <a href="javascript:;" data-close-others="true">
+                                    <i class="icon-doc"></i>
+                                    Paginas
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="fa fa-plus"></i>
+                                            Nueva
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown more-dropdown">
+                                <a href="javascript:;" data-close-others="true">
+                                    <i class="icon-bubbles"></i>
+                                    Comentarios
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-bell"></i>
+                                            Pendientes
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown more-dropdown">
+                                <a href="javascript:;" data-close-others="true">
+                                    <i class="icon-settings"></i>
+                                    Configuracion
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:;">Something</a></li>
+                                </ul>
+                            </li>
+
+                            <!--<li class="dropdown more-dropdown">
+                                <a href="javascript:;" data-close-others="true">
+                                    <i class="icon-docs"></i>
+                                    Contenido
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-note"></i>
+                                            Noticias
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-book-open"></i>
+                                            Publicaciones
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                             <i class="icon-calendar"></i>
+                                            Eventos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-doc"></i>
+                                            Paginas
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-camera"></i>
+                                            Media
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-bubbles"></i>
+                                            Comentarios
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;">
+                                            <i class="icon-map"></i>
+                                            Menu
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown more-dropdown">
+                                <a href="javascript:;" data-close-others="true">
+                                    <i class="icon-settings"></i>
+                                    Configuracion
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:;">Repertorio</a></li>
+                                    <li><a href="javascript:;">Criticas y opiniones</a></li>
+                                    <li><a href="javascript:;">Asociados y opiniones</a></li>
+                                    <li><a href="javascript:;">Datos del sitio</a></li>
+
+                                </ul>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Page content -->
+        <div class="container-fluid" style="margin-top: -1px;">
+                {% block pagecontent %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
