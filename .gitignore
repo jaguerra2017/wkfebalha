@@ -1,0 +1,26 @@
+#no .o or .a files, this files or objects can be the products of building the code
+*.[oa]
+
+#ignoring all files that ends with a tilde, wich is used by many text editors to mark temporary files
+
+
+# no.idea files,the results of PHPStorms IDE
+*.idea
+
+#ignoring all files in ".idea" directory
+.idea/
+
+#ignoring all files in "vendor" directory
+vendor/
+
+#ignoring all files in "app/cache/" directory
+app/cache/
+
+#ignoring all files in "app/logs/" directory
+app/logs/
+
+*.htaccess
+bin/
+tests/
+#/app/config/parameters.yml
+app/logs/
