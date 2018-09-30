@@ -179,4 +179,14 @@ class NomFunctionality
 
 
 
+
+    /**
+     * Get isUsedFrequently
+     *
+     * @return boolean
+     */
+    public function getIsUsedFrequently()
+    {
+        return $this->is_used_frequently;
+    }
 }

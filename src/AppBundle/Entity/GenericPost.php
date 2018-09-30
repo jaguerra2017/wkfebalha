@@ -26,12 +26,26 @@ class GenericPost
      */
     private $title_es;
 
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="title_en", type="string", length=200, nullable=true)
+   */
+  private $title_en;
+
     /**
      * @var string
      *
      * @ORM\Column(name="url_slug_es", type="string", length=200, nullable=true)
      */
     private $url_slug_es;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="url_slug_en", type="string", length=200, nullable=true)
+   */
+  private $url_slug_en;
 
     /**
      * @var string
@@ -43,9 +57,23 @@ class GenericPost
     /**
      * @var string
      *
+     * @ORM\Column(name="excerpt_en", type="string", length=1000, nullable=true)
+     */
+    private $excerpt_en;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="content_es", type="string",length=1000000000, nullable=true)
      */
     private $content_es;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="content_en", type="string",length=1000000000, nullable=true)
+   */
+  private $content_en;
 
     /**
      * @var boolean
@@ -148,9 +176,9 @@ class GenericPost
      * @param string $title
      * @return GenericPost
      */
-    public function setTitle($title)
+    public function setTitle($title, $language = 'es')
     {
-        $this->title_es = $title;
+        eval('$this->title_'.$language.' = $title;');
         return $this;
     }
 
@@ -159,9 +187,9 @@ class GenericPost
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle($language = 'es')
     {
-        return $this->title_es;
+        return eval(' return $this->title_'.$language.';');
     }
 
     /**
@@ -170,9 +198,9 @@ class GenericPost
      * @param string $content
      * @return GenericPost
      */
-    public function setContent($content)
+    public function setContent($content, $language = 'es')
     {
-        $this->content_es = $content;
+        eval('$this->content_'.$language.' = $content;');
         return $this;
     }
 
@@ -181,9 +209,9 @@ class GenericPost
      *
      * @return string
      */
-    public function getContent()
+    public function getContent($language = 'es')
     {
-        return $this->content_es;
+        return eval('return $this->content_'.$language.';');
     }
 
     /**
@@ -192,9 +220,9 @@ class GenericPost
      * @param string $url_slug
      * @return GenericPost
      */
-    public function setUrlSlug($url_slug)
+    public function setUrlSlug($url_slug, $language = 'es')
     {
-        $this->url_slug_es = $url_slug;
+        eval('$this->url_slug_'.$language.' = $url_slug;');
 
         return $this;
     }
@@ -204,9 +232,9 @@ class GenericPost
      *
      * @return string
      */
-    public function getUrlSlug()
+    public function getUrlSlug($language = 'es')
     {
-        return $this->url_slug_es;
+        return eval('return $this->url_slug_'.$language.';');
     }
 
     /**
@@ -215,9 +243,9 @@ class GenericPost
      * @param string $excerpt
      * @return GenericPost
      */
-    public function setExcerpt($excerpt)
+    public function setExcerpt($excerpt, $language = 'es')
     {
-        $this->excerpt_es = $excerpt;
+        eval('$this->excerpt_'.$language.' = $excerpt;');
 
         return $this;
     }
@@ -227,9 +255,9 @@ class GenericPost
      *
      * @return string
      */
-    public function getExcerpt()
+    public function getExcerpt($language = 'es')
     {
-        return $this->excerpt_es;
+        return eval('return $this->excerpt_'.$language.';');
     }
 
     /**
@@ -459,5 +487,197 @@ class GenericPost
     function __toString()
     {
         return $this->title_es;
+    }
+
+    /**
+     * Set titleEs
+     *
+     * @param string $titleEs
+     *
+     * @return GenericPost
+     */
+    public function setTitleEs($titleEs)
+    {
+        $this->title_es = $titleEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get titleEs
+     *
+     * @return string
+     */
+    public function getTitleEs()
+    {
+        return $this->title_es;
+    }
+
+    /**
+     * Set titleEn
+     *
+     * @param string $titleEn
+     *
+     * @return GenericPost
+     */
+    public function setTitleEn($titleEn)
+    {
+        $this->title_en = $titleEn;
+    
+        return $this;
+    }
+
+    /**
+     * Get titleEn
+     *
+     * @return string
+     */
+    public function getTitleEn()
+    {
+        return $this->title_en;
+    }
+
+    /**
+     * Set urlSlugEs
+     *
+     * @param string $urlSlugEs
+     *
+     * @return GenericPost
+     */
+    public function setUrlSlugEs($urlSlugEs)
+    {
+        $this->url_slug_es = $urlSlugEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get urlSlugEs
+     *
+     * @return string
+     */
+    public function getUrlSlugEs()
+    {
+        return $this->url_slug_es;
+    }
+
+    /**
+     * Set urlSlugEn
+     *
+     * @param string $urlSlugEn
+     *
+     * @return GenericPost
+     */
+    public function setUrlSlugEn($urlSlugEn)
+    {
+        $this->url_slug_en = $urlSlugEn;
+    
+        return $this;
+    }
+
+    /**
+     * Get urlSlugEn
+     *
+     * @return string
+     */
+    public function getUrlSlugEn()
+    {
+        return $this->url_slug_en;
+    }
+
+    /**
+     * Set excerptEs
+     *
+     * @param string $excerptEs
+     *
+     * @return GenericPost
+     */
+    public function setExcerptEs($excerptEs)
+    {
+        $this->excerpt_es = $excerptEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get excerptEs
+     *
+     * @return string
+     */
+    public function getExcerptEs()
+    {
+        return $this->excerpt_es;
+    }
+
+    /**
+     * Set excerptEn
+     *
+     * @param string $excerptEn
+     *
+     * @return GenericPost
+     */
+    public function setExcerptEn($excerptEn)
+    {
+        $this->excerpt_en = $excerptEn;
+    
+        return $this;
+    }
+
+    /**
+     * Get excerptEn
+     *
+     * @return string
+     */
+    public function getExcerptEn()
+    {
+        return $this->excerpt_en;
+    }
+
+    /**
+     * Set contentEs
+     *
+     * @param string $contentEs
+     *
+     * @return GenericPost
+     */
+    public function setContentEs($contentEs)
+    {
+        $this->content_es = $contentEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get contentEs
+     *
+     * @return string
+     */
+    public function getContentEs()
+    {
+        return $this->content_es;
+    }
+
+    /**
+     * Set contentEn
+     *
+     * @param string $contentEn
+     *
+     * @return GenericPost
+     */
+    public function setContentEn($contentEn)
+    {
+        $this->content_en = $contentEn;
+    
+        return $this;
+    }
+
+    /**
+     * Get contentEn
+     *
+     * @return string
+     */
+    public function getContentEn()
+    {
+        return $this->content_en;
     }
 }

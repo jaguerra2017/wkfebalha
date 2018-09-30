@@ -206,4 +206,28 @@ class MediaImage
 
 
 
+
+    /**
+     * Set alternativeTextEs
+     *
+     * @param string $alternativeTextEs
+     *
+     * @return MediaImage
+     */
+    public function setAlternativeTextEs($alternativeTextEs)
+    {
+        $this->alternative_text_es = $alternativeTextEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get alternativeTextEs
+     *
+     * @return string
+     */
+    public function getAlternativeTextEs()
+    {
+        return $this->alternative_text_es;
+    }
 }

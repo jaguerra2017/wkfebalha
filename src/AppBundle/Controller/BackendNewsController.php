@@ -35,7 +35,9 @@ class BackendNewsController extends Controller
             throw $this->createAccessDeniedException();
         }
         else {
-            return $this->render('@app_backend_template_directory/New/index.html.twig');
+            return $this->render('@app_backend_template_directory/New/index.html.twig',
+              array('languages'=> $this->container->getParameter('app.avaiableLanguajes'))
+            );
         }
 
     }
@@ -56,6 +58,7 @@ class BackendNewsController extends Controller
         else {
             $em = $this->getDoctrine()->getManager();
             $parametersCollection = array();
+            $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
             $parametersCollection['imagineCacheManager'] = $this->get('liip_imagine.cache.manager');
 
             $newsBussinessObj = new NewsBussiness($em);
@@ -74,6 +77,7 @@ class BackendNewsController extends Controller
             $initialsData['showNewsForm'] = $showNewsForm;
 
             $initialsData['bncDomain'] = $this->container->get('appbundle_site_settings')->getBncDomain();
+            $initialsData['languages'] = $this->container->getParameter('app.avaiableLanguajes');
 
             $parametersCollection = array();
             $parametersCollection['taxonomyTypeTreeSlug'] = 'new-category';
@@ -102,6 +106,7 @@ class BackendNewsController extends Controller
             $parametersCollection['generalSearchValue'] = $request->get('generalSearchValue');
             $parametersCollection['singleResult'] = $request->get('singleResult');
             $parametersCollection['newId'] = $request->get('newId');
+            $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
             $parametersCollection['imagineCacheManager'] = $this->get('liip_imagine.cache.manager');
 
             $em = $this->getDoctrine()->getManager();
@@ -133,6 +138,7 @@ class BackendNewsController extends Controller
                 $parametersCollection = $request->get('newData');
                 $parametersCollection['isCreating'] = true;
                 $parametersCollection['loggedUser'] = $this->getUser();
+                $parametersCollection['currentLanguage'] = $parametersCollection['currentLanguage'] ? $parametersCollection['currentLanguage'] : $this->container->getParameter('app.default_locale');
 
                 $newsBussinessObj = new NewsBussiness($em);
                 $response = $newsBussinessObj->saveNewData($parametersCollection);
@@ -163,6 +169,7 @@ class BackendNewsController extends Controller
             $parametersCollection = $request->get('newData');
             $parametersCollection['isCreating'] = false;
             $parametersCollection['loggedUser'] = $this->getUser();
+            $parametersCollection['currentLanguage'] = $parametersCollection['currentLanguage'] ? $parametersCollection['currentLanguage'] : $this->container->getParameter('app.default_locale');
 
             $newsBussinessObj = new NewsBussiness($em);
             $response = $newsBussinessObj->saveNewData($parametersCollection);

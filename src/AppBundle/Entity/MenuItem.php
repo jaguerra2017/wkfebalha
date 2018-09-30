@@ -428,4 +428,76 @@ class MenuItem
     {
         return $this->name_es;
     }
+
+    /**
+     * Set nameEs
+     *
+     * @param string $nameEs
+     *
+     * @return MenuItem
+     */
+    public function setNameEs($nameEs)
+    {
+        $this->name_es = $nameEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get nameEs
+     *
+     * @return string
+     */
+    public function getNameEs()
+    {
+        return $this->name_es;
+    }
+
+    /**
+     * Set descriptionEs
+     *
+     * @param string $descriptionEs
+     *
+     * @return MenuItem
+     */
+    public function setDescriptionEs($descriptionEs)
+    {
+        $this->description_es = $descriptionEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get descriptionEs
+     *
+     * @return string
+     */
+    public function getDescriptionEs()
+    {
+        return $this->description_es;
+    }
+
+    /**
+     * Set urlSlugEs
+     *
+     * @param string $urlSlugEs
+     *
+     * @return MenuItem
+     */
+    public function setUrlSlugEs($urlSlugEs)
+    {
+        $this->url_slug_es = $urlSlugEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get urlSlugEs
+     *
+     * @return string
+     */
+    public function getUrlSlugEs()
+    {
+        return $this->url_slug_es;
+    }
 }

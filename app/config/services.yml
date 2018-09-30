@@ -43,6 +43,9 @@ services:
      appbundle_generic_posts:
           class: AppBundle\Services\GenericPostServices
           arguments: [@session,@doctrine.orm.entity_manager]
+     appbundle_generate_seats:
+          class: AppBundle\Services\SeatsGenerationServices
+          arguments: [@session,@doctrine.orm.entity_manager]
 
 
 

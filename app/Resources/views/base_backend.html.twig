@@ -32,6 +32,7 @@
             <link href="{{ asset('css/backend/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet" media='print'>
             <link href="{{ asset('css/backend/plugins/bootstrap-toastr/toastr.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
             <link href="{{ asset('css/backend/plugins/jquery-nestable/jquery.nestable.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+            <link href="{{ asset('css/shared/theme/jquery.seat-charts.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
             <link href="{{ asset('css/backend/plugins/fullcalendar/fullcalendar.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
             <link href="{{ asset('css/backend/plugins/fullcalendar/fullcalendar.print.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet" media='print'>
             <!-- Theme styles -->
@@ -88,9 +89,11 @@
             <script src="{{ asset('js/backend/plugins/amcharts/amcharts/amcharts.js') }}{{ assets_js_plugins_scripts_version }}"></script>
             <script src="{{ asset('js/backend/plugins/amcharts/amcharts/serial.js') }}{{ assets_js_plugins_scripts_version }}"></script>
             <script src="{{ asset('js/backend/plugins/amcharts/amcharts/themes/light.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+            <script src="{{ asset('js/frontend/plugins/wow/wow.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
 
             <script src="{{ asset('js/backend/theme/metronic.js') }}{{ assets_js_plugins_scripts_version }}"></script>
             <script src="{{ asset('js/backend/theme/layout.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+            <script src="{{ asset('js/shared/jquery/jquery.seat-charts.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
 
             <!-- Symfony Fos Routing -->
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -129,6 +132,7 @@
             <script src="{{ asset('js/backend/angularjsApp/Controllers/RepertoryController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
             <script src="{{ asset('js/backend/angularjsApp/Controllers/AwardsController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
             <script src="{{ asset('js/backend/angularjsApp/Controllers/UsersController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+            <script src="{{ asset('js/backend/angularjsApp/Controllers/HeadQuartersController.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
 
             <script src="{{ asset('js/backend/angularjsApp/Factories/DashboardFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
             <script src="{{ asset('js/backend/angularjsApp/Factories/TaxonomyFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
@@ -148,6 +152,9 @@
             <script src="{{ asset('js/backend/angularjsApp/Factories/CompositionFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
             <script src="{{ asset('js/backend/angularjsApp/Factories/RepertoryFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
             <script src="{{ asset('js/backend/angularjsApp/Factories/AwardsFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+            <script src="{{ asset('js/backend/angularjsApp/Factories/HeadQuartersFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+            <script src="{{ asset('js/backend/angularjsApp/Factories/RoomFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+            <script src="{{ asset('js/backend/angularjsApp/Factories/ReserveFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
 
 
             <script src="{{ asset('js/backend/angularjsApp/Directives/InfoSummaryDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
@@ -158,6 +165,7 @@
             <script src="{{ asset('js/backend/angularjsApp/Directives/CommentHandlerDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
             <script src="{{ asset('js/backend/angularjsApp/Directives/CommentNotifierDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
             <script src="{{ asset('js/backend/angularjsApp/Directives/TaxonomyFilterDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+            <script src="{{ asset('js/backend/angularjsApp/Directives/ReserveDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
 
         {% endblock %}
     </body>

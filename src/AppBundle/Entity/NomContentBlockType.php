@@ -84,4 +84,14 @@ class NomContentBlockType
     }
 
 
+
+    /**
+     * Get isReusable
+     *
+     * @return boolean
+     */
+    public function getIsReusable()
+    {
+        return $this->is_reusable;
+    }
 }

@@ -573,4 +573,100 @@ class User implements AdvancedUserInterface, \Serializable
     }*/
 
 
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->is_active = $isActive;
+    
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * Set isAccountNonExpired
+     *
+     * @param boolean $isAccountNonExpired
+     *
+     * @return User
+     */
+    public function setIsAccountNonExpired($isAccountNonExpired)
+    {
+        $this->is_account_non_expired = $isAccountNonExpired;
+    
+        return $this;
+    }
+
+    /**
+     * Get isAccountNonExpired
+     *
+     * @return boolean
+     */
+    public function getIsAccountNonExpired()
+    {
+        return $this->is_account_non_expired;
+    }
+
+    /**
+     * Set isAccountNonLocked
+     *
+     * @param boolean $isAccountNonLocked
+     *
+     * @return User
+     */
+    public function setIsAccountNonLocked($isAccountNonLocked)
+    {
+        $this->is_account_non_locked = $isAccountNonLocked;
+    
+        return $this;
+    }
+
+    /**
+     * Get isAccountNonLocked
+     *
+     * @return boolean
+     */
+    public function getIsAccountNonLocked()
+    {
+        return $this->is_account_non_locked;
+    }
+
+    /**
+     * Set isCredentialNonExpire
+     *
+     * @param boolean $isCredentialNonExpire
+     *
+     * @return User
+     */
+    public function setIsCredentialNonExpire($isCredentialNonExpire)
+    {
+        $this->is_credential_non_expire = $isCredentialNonExpire;
+    
+        return $this;
+    }
+
+    /**
+     * Get isCredentialNonExpire
+     *
+     * @return boolean
+     */
+    public function getIsCredentialNonExpire()
+    {
+        return $this->is_credential_non_expire;
+    }
 }

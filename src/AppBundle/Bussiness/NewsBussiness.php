@@ -86,7 +86,6 @@ class NewsBussiness
                     if($new['published_date'] != null){
                         $newsCollection[$key]['published_date'] = date_format($new['published_date'],'d/m/Y');
                     }
-
                     /*handling featured image urls*/
                     if($new['have_featured_image'] == true){
                         $objMediaImage = $this->em->getRepository('AppBundle:MediaImage')->find($new['featured_image_id']);
@@ -160,7 +159,7 @@ class NewsBussiness
                     }
                     if($this->container != null){
                         $siteDomain = $this->container->get('appbundle_site_settings')->getBncDomain();
-                        $newsCollection[$key]['url'] = $siteDomain.'/es/noticias/'.$new['url_slug_es'];
+                        $newsCollection[$key]['url'] = $siteDomain.'/es/noticias/'.$new['url_slug'];
                     }
 
                     /*handling number of comments*/
@@ -206,7 +205,7 @@ class NewsBussiness
                 'tree_slug' => 'post'
             ));
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
-                'title_es' => $parametersCollection['title_es'],
+                'title_'.$parametersCollection['currentLanguage'] => $parametersCollection['title'],
                 'generic_post_type' => $objGenericPostType
             ));
             if(isset($objGenericPost)){
@@ -218,7 +217,7 @@ class NewsBussiness
                 }
             }
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
-                'url_slug_es' => $parametersCollection['url_slug_es']
+                'url_slug_'.$parametersCollection['currentLanguage'] => $parametersCollection['url_slug']
             ));
             if(isset($objGenericPost)){
                 if($parametersCollection['isCreating'] == true ||
@@ -244,12 +243,12 @@ class NewsBussiness
             else{
                 $objGenericPost->setCreatedAuthor($parametersCollection['loggedUser']);
             }
-            $objGenericPost->setTitle($parametersCollection['title_es']);
-            $objGenericPost->setUrlSlug($parametersCollection['url_slug_es']);
+            $objGenericPost->setTitle($parametersCollection['title'],$parametersCollection['currentLanguage']);
+            $objGenericPost->setUrlSlug($parametersCollection['url_slug'],$parametersCollection['currentLanguage']);
             $objGenericPost->setGenericPostType($objGenericPostType);
-            $objGenericPost->setContent($parametersCollection['content_es']);
-            if(isset($parametersCollection['excerpt_es'])){
-                $objGenericPost->setExcerpt($parametersCollection['excerpt_es']);
+            $objGenericPost->setContent($parametersCollection['content'],$parametersCollection['currentLanguage']);
+            if(isset($parametersCollection['excerpt'],$parametersCollection['currentLanguage'])){
+                $objGenericPost->setExcerpt($parametersCollection['excerpt'],$parametersCollection['currentLanguage']);
             }
             $objGenericPost->setHaveFeaturedImage(false);
 

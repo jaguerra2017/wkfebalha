@@ -251,7 +251,7 @@
   padding: 0;
   position: relative;
   line-height: normal;
-  background: #333c43;
+  background: #ffffff;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
@@ -265,7 +265,7 @@
   line-height: 1.4;
   display: inline-block;
   vertical-align: middle;
-  color: #009dc7;
+  color: #0082aa;
   text-transform: uppercase;
 }
 .page-header .navbar .topbar-actions .btn-group-img .btn > img {

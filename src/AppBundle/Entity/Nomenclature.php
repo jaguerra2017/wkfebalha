@@ -376,4 +376,52 @@ class Nomenclature
     {
         return $this->name_es;
     }
+
+    /**
+     * Set nameEs
+     *
+     * @param string $nameEs
+     *
+     * @return Nomenclature
+     */
+    public function setNameEs($nameEs)
+    {
+        $this->name_es = $nameEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get nameEs
+     *
+     * @return string
+     */
+    public function getNameEs()
+    {
+        return $this->name_es;
+    }
+
+    /**
+     * Set urlSlugEs
+     *
+     * @param string $urlSlugEs
+     *
+     * @return Nomenclature
+     */
+    public function setUrlSlugEs($urlSlugEs)
+    {
+        $this->url_slug_es = $urlSlugEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get urlSlugEs
+     *
+     * @return string
+     */
+    public function getUrlSlugEs()
+    {
+        return $this->url_slug_es;
+    }
 }

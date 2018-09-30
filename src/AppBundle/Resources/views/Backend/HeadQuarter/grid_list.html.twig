@@ -1,0 +1,58 @@
+<div class="row" style="margin-top:40px;">
+    <div data-ng-repeat="headquarter in model.headquartersCollection | limitTo : (model.headquartersCurrentResultLimit - (model.headquartersCurrentResultStart - 1)) : (model.headquartersCurrentResultStart - 1) "
+         class="col-xs-12 col-md-4">
+        <div class="generic-post-grid-container">
+            <div class="generic-post-grid-feature-image-container">
+                <img data-ng-if="headquarter.have_featured_image == true && headquarter.featured_image_url != ''"
+                     data-ng-src="[[headquarter.web_filtered_grid_featured_image_thumbnail_url]]">
+            </div>
+
+            <span style="float:left;width:100%; color:#777;padding:10px 15px;
+            border-top: 1px solid #eee;text-align:left;">
+                <span data-ng-bind="headquarter.post_status_name"
+                      class="label label-sm [[headquarter.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] pull-right">
+                </span>
+                [[headquarter.title]]
+            </span>
+
+            <div style="background-color: white; position: absolute;top: 0 !important;
+            margin-top: 5px;margin-left: 5px;width: 22px; height: 22px">
+                <div class="icheckbox_square-blue hover [[headquarter.selected ? 'checked' : '']]"
+                     data-ng-click="selectHeadQuarters($event,headquarter)"
+                     style="">
+                </div>
+            </div>
+
+            {% if canEdit %}
+                <a data-ng-if="headquarter.canEdit"
+                   class="btn btn-add blue btn-blue btn-circle btn-icon-only btn-default tooltips"
+                   data-ng-click="editHeadQuarters(headquarter)" data-container="body" data-placement="top"
+                   data-original-title="Editar publicacion"
+                   style="position: absolute;top: 40px;left:15px">
+                    <i class="icon-pencil"></i>
+                </a>
+            {% endif %}
+            {% if canDelete %}
+                <a data-ng-if="headquarter.canDelete"
+                   class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
+                   data-ng-click="deleteHeadQuarters(headquarter.id)"
+                   data-container="body" data-placement="top"
+                   data-original-title="Eliminar publicacion"
+                   style="position: absolute;top: 80px;left:15px">
+                    <i class="icon-trash"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.headquartersCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

@@ -243,4 +243,52 @@ class Gallery
         return $this->modified_author;
     }
 
+
+    /**
+     * Set nameEs
+     *
+     * @param string $nameEs
+     *
+     * @return Gallery
+     */
+    public function setNameEs($nameEs)
+    {
+        $this->name_es = $nameEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get nameEs
+     *
+     * @return string
+     */
+    public function getNameEs()
+    {
+        return $this->name_es;
+    }
+
+    /**
+     * Set descriptionEs
+     *
+     * @param string $descriptionEs
+     *
+     * @return Gallery
+     */
+    public function setDescriptionEs($descriptionEs)
+    {
+        $this->description_es = $descriptionEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get descriptionEs
+     *
+     * @return string
+     */
+    public function getDescriptionEs()
+    {
+        return $this->description_es;
+    }
 }

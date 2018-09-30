@@ -143,4 +143,28 @@ class Event
 
 
 
+
+    /**
+     * Set placeEs
+     *
+     * @param string $placeEs
+     *
+     * @return Event
+     */
+    public function setPlaceEs($placeEs)
+    {
+        $this->place_es = $placeEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get placeEs
+     *
+     * @return string
+     */
+    public function getPlaceEs()
+    {
+        return $this->place_es;
+    }
 }

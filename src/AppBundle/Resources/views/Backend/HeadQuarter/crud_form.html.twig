@@ -1,0 +1,124 @@
+<div class="col-md-12"  data-ng-show="model.showHeadQuartersForm">
+    <!-- BEGIN Portlet HeadQuarters-CRUD -->
+    <div class="portlet light bordered" style="position:relative;">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">
+                    [[model.createAction == true ? 'Crear' : 'Editar']] sede
+                </span>
+            </div>
+            <!-- Toolbar -->
+            <div class="actions custom-toolbar-actions">
+                <button class="btn default btn-footer width-auto-important" type="button" data-ng-click="hideHeadQuartersForm()">
+                    Cancelar
+                </button>
+                <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer width-auto-important"
+                        type="submit" data-ng-click="saveHeadQuartersData('stay')">
+                    Guardar
+                </button>
+                <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer width-auto-important"
+                        type="submit" data-ng-click="saveHeadQuartersData('clear')">
+                    Guardar y limpiar
+                </button>
+                <button class="btn blue btn-blue btn-footer width-auto-important" type="submit"
+                        data-ng-click="saveHeadQuartersData('close')">
+                    Guardar y cerrar
+                </button>
+                <div class="input-group" style="width: 75px">
+                    <div class="input-group-btn">
+                        <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                           style="text-align: left; font-size: 11px;"
+                           data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            [[model.selectedLanguage == null ? 'Seleccione' : model.selectedLanguage.text]] <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                             style="min-width: 75px;top: 25px;margin-left: 0px;">
+                            <label data-ng-repeat="language in model.languages">
+                                <a class="btn" style="width: 100%;text-align: left;"
+                                   data-ng-click="changeLoadDataOrSavedInfoByLanguage($event, 'form', language)"
+                                >
+                                    [[language.text]]
+                                </a>
+                            </label>
+                        </div>
+                </div>
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:40px;"></a>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <form class="horizontal-form">
+                <div class="form-body">
+                    <div class="tabbable-line">
+                        <!-- HeadQuarter sections -->
+                        <ul class="nav nav-tabs">
+                            <li class="[[model.formActiveView == 'general-info' ? 'active' : '']]">
+                                <a href="#headquarter_general_data" data-toggle="tab"
+                                   data-ng-click="updateFormSection('general-info')">
+                                    Datos generales
+                                </a>
+                            </li>
+                            <li class="[[model.formActiveView == 'room-view' ? 'active' : '']]">
+                                <a href="#headquarter_room_view" data-toggle="tab"
+                                   data-ng-click="updateFormSection('room-view')">
+                                    Salas
+                                </a>
+                            </li>
+                            <li class="[[model.formActiveView == 'blocks' ? 'active' : '']]">
+                                <a href="#headquarter_blocks" data-toggle="tab"
+                                   data-ng-click="updateFormSection('blocks')">
+                                    Bloques
+                                </a>
+                            </li>
+                            <li class="[[model.formActiveView == 'comments' ? 'active' : '']]">
+                                <a href="#headquarter_comments" data-toggle="tab"
+                                   data-ng-click="updateFormSection('comments')">
+                                    Comentarios
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-tab-container">
+                        <div class="tab-content">
+                            <!-- General info -->
+                            {% include '@app_backend_template_directory/HeadQuarter/crud_form_general_info.html.twig' %}
+                            <!-- Blocks -->
+                            {% include '@app_backend_template_directory/HeadQuarter/crud_form_blocks.html.twig' %}
+                            <!-- Comments -->
+                            {% include '@app_backend_template_directory/HeadQuarter/crud_form_comments.html.twig' %}
+
+                            {% include '@app_backend_template_directory/HeadQuarter/crud_form_rooms.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-offset-4 col-md-8">
+                            <button class="btn default btn-footer" type="button" data-ng-click="hideHeadQuartersForm()">
+                                Cancelar
+                            </button>
+                            <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer"
+                                    type="submit" data-ng-click="saveHeadQuartersData('stay')">
+                                Guardar
+                            </button>
+                            <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer"
+                                    type="submit" data-ng-click="saveHeadQuartersData('clear')">
+                                Guardar y limpiar
+                            </button>
+                            <button class="btn blue btn-blue btn-footer" type="submit"
+                                    data-ng-click="saveHeadQuartersData('close')">
+                                Guardar y cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Data Loader -->
+        <div data-ng-show="model.loadingData">
+            {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+        </div>
+    </div>
+</div>

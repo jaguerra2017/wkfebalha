@@ -369,4 +369,14 @@ class Role implements RoleInterface {
     }*/
 
 
+
+    /**
+     * Get seeSiteStatusOffline
+     *
+     * @return boolean
+     */
+    public function getSeeSiteStatusOffline()
+    {
+        return $this->see_site_status_offline;
+    }
 }

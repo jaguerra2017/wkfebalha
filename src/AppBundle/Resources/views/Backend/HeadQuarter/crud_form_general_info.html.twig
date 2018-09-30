@@ -1,0 +1,134 @@
+<div data-ng-show="model.formActiveView == 'general-info'" class="row" id="headquarter_general_data">
+    <div class="col-xs-12 col-md-5">
+        <div class="headquarter-feature-image-container">
+            <!-- Directive mediaSelector(media-selector) -->
+            <media-selector selectedimage="model.featureImage"></media-selector>
+            <img data-ng-if="model.featureImage.url != undefined && model.featureImage.url != ''"
+             data-ng-src="[[model.featureImage.url]]">
+        </div>
+        <div class="form-group">
+            <label class="control-label" style="padding:5px 1px;">
+                Imagen principal
+            </label>
+            <span style="color: #888;padding: 5px 2px;margin-top: 5px;font-size: 12px;">
+                (recomendado: 480x768 píxeles)
+            </span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-7">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group [[model.titleHasError ? 'has-error' : '']]">
+                    <label class="control-label">
+                        Nombre ([[model.selectedLanguage.text]])
+                    </label>
+                    <input class="form-control" type="text" placeholder="No más de 100 caracteres."
+                    data-ng-model="model.selectedHeadQuarter.title"
+                    data-ng-keyup="updateHeadQuartersForm($event, 'title')"
+                    maxlength="100">
+                    <span class="help-block">
+                        <p data-ng-if="model.titleHasError">Valor incorrecto o en blanco.</p>
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group margin-top-20 [[model.urlSlugHasError ? 'has-error' : '']]">
+                    <label class="control-label">
+                        Slug ([[model.selectedLanguage.text]])
+                    </label>
+                    <input class="form-control" type="text" placeholder="No más de 100 caracteres."
+                    data-ng-model="model.selectedHeadQuarter.url_slug" maxlength="100">
+                    <span class="help-block">
+                        <p data-ng-if="model.urlSlugHasError">Valor incorrecto o en blanco.</p>
+                    </span>
+                </div>
+            </div>
+            <div data-ng-if="model.createAction == false" class="col-xs-12">
+                <div class="form-group margin-top-20">
+                    <label class="control-label">
+                        Url del asociado
+                    </label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <a class="btn default" type="button" target="_blank"
+                               href="[[model.bncDomain]]/es/asociados/[[model.selectedHeadQuarter.url_slug]]"
+                               style="width:100%;text-align: left;" >
+                                [[model.bncDomain]]/es/asociados/[[model.selectedHeadQuarter.url_slug]]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <taxonomy-selector taxonomylabel="Categoría"
+                selectedtaxonomiescollection="model.selectedCategoriesCollection"
+                taxonomytypetreeslug="headquarter-category"></taxonomy-selector>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group margin-top-20">
+                    <label class="control-label">Status</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                               style="text-align: left; font-size: 14px;"
+                               data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                [[model.selectedPostStatus == null ? 'Seleccione' : model.selectedPostStatus.name_es]] <i class="fa fa-angle-down"></i>
+                            </a>
+                            <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                             style="min-width: 275px;top: 25px;margin-left: 0px;">
+                                <label data-ng-repeat="postStatus in model.postStatusCollection">
+                                    <a class="btn" style="width: 100%;text-align: left;"
+                                       data-ng-click="updateHeadQuartersForm($event, 'status', postStatus)">
+                                        [[postStatus.name_es]]
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group margin-top-20 [[model.publishedDateHasError ? 'has-error' : '']]">
+                    <label class="control-label">Fecha de publicación</label>
+                    <input data-ng-show="model.selectedPostStatus.tree_slug == 'generic-post-status-published'"
+                    class="form-control form-control-inline date-picker"
+                    size="16" type="text"
+                    data-ng-model="model.selectedHeadQuarter.published_date"/>
+                    <span class="help-block">
+                        <p data-ng-if="model.selectedPostStatus.tree_slug == 'generic-post-status-pending'">
+                            El status debe de estar "Publicado".
+                        </p>
+                        <p data-ng-if="!model.publishedDateHasError && model.selectedPostStatus.tree_slug == 'generic-post-status-published'">
+                            Ejemplo: 19/07/1985
+                        </p>
+                        <p data-ng-if="model.publishedDateHasError && model.selectedPostStatus.tree_slug == 'generic-post-status-published'">
+                            Valor incorrecto o en blanco.
+                        </p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group margin-top-20">
+            <label class="control-label">Dirección ([[model.selectedLanguage.text]])</label>
+            <textarea data-ng-model="model.selectedHeadQuarter.address" style="width: 100%;height:120px">
+            </textarea>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group margin-top-20">
+            <label class="control-label">Breve resumen ([[model.selectedLanguage.text]])</label>
+            <textarea data-ng-model="model.selectedHeadQuarter.excerpt" style="width: 100%;height:120px">
+            </textarea>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="form-group" style="margin-top:40px;">
+            <label class="control-label">
+                Descripción ([[model.selectedLanguage.text]])
+            </label>
+            <div id="textEditor"></div>
+        </div>
+    </div>
+</div>

@@ -85,4 +85,28 @@ class Opinion
 
 
 
+
+    /**
+     * Set referenceEs
+     *
+     * @param string $referenceEs
+     *
+     * @return Opinion
+     */
+    public function setReferenceEs($referenceEs)
+    {
+        $this->reference_es = $referenceEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get referenceEs
+     *
+     * @return string
+     */
+    public function getReferenceEs()
+    {
+        return $this->reference_es;
+    }
 }

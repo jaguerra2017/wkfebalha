@@ -275,4 +275,28 @@ class ContentBlock
     {
         return $this->title_es;
     }
+
+    /**
+     * Set titleEs
+     *
+     * @param string $titleEs
+     *
+     * @return ContentBlock
+     */
+    public function setTitleEs($titleEs)
+    {
+        $this->title_es = $titleEs;
+    
+        return $this;
+    }
+
+    /**
+     * Get titleEs
+     *
+     * @return string
+     */
+    public function getTitleEs()
+    {
+        return $this->title_es;
+    }
 }

@@ -20,6 +20,7 @@
             'BncBackend.commentHandlerDirective',
             'BncBackend.commentNotifierDirective',
             'BncBackend.taxonomyFilterDirective',
+            'BncBackend.reserveDirective',
 
             'BncBackend.dashboardController',
             'BncBackend.taxonomyController',
@@ -38,7 +39,8 @@
             'BncBackend.compositionController',
             'BncBackend.repertoryController',
             'BncBackend.awardsController',
-            'BncBackend.usersController'
+            'BncBackend.usersController',
+            'BncBackend.headquartersController'
         ]
     );
 
@@ -144,6 +146,9 @@
                 toggleFullScreen();
             });
         }
+        var handleWowAnimations = function(){
+            new WOW().init();
+          }
         /*var handleCalendar = function(){
             var date = new Date();
             var d = date.getDate();
@@ -306,6 +311,7 @@
         $('.tooltips').tooltip();
         /*handle Full Screen Mode*/
         handleFullScreenMode();
+        handleWowAnimations();
         /*handle Calendar*/
         /*handleCalendar();*/
         /*handle SUMMER-NOTE*/

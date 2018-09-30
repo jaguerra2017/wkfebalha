@@ -24,7 +24,26 @@
                         data-ng-click="saveNewsData('close')">
                     Guardar y cerrar
                 </button>
-                <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:40px;"></a>
+                <div class="input-group" style="width: 75px">
+                    <div class="input-group-btn">
+                        <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                           style="text-align: left; font-size: 11px;"
+                           data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            [[model.selectedLanguage == null ? 'Seleccione' : model.selectedLanguage.text]] <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                             style="min-width: 75px;top: 25px;margin-left: 0px;">
+                            <label data-ng-repeat="language in model.languages">
+                                <a class="btn" style="width: 100%;text-align: left;"
+                                   data-ng-click="changeLoadDataOrSavedInfoByLanguage($event, 'form', language)"
+                                >
+                                    [[language.text]]
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:40px;"></a>
+                </div>
             </div>
         </div>
         <div class="portlet-body form">

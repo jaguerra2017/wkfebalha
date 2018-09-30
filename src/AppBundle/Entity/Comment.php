@@ -421,4 +421,14 @@ class Comment
     {
         return $this->author_name;
     }
+
+    /**
+     * Get isAutoComment
+     *
+     * @return boolean
+     */
+    public function getIsAutoComment()
+    {
+        return $this->is_auto_comment;
+    }
 }

@@ -14,7 +14,7 @@
 
         /*
          * Global variables
-         * 
+         *
          * */
         var alfaNumericRegExpr = new RegExp("[A-Za-z]|[0-9]");
         var dateFilter = $filter("date");
@@ -23,7 +23,7 @@
 
         /*
          * Operations Functions
-         * 
+         *
          * */
         /* clear errors of the form */
         $scope.clearErrorsNewsForm = function(){
@@ -147,6 +147,7 @@
         {
             $scope.toggleDataLoader();
             var searchParametersCollection = {};
+            searchParametersCollection.currentLanguage = $scope.model.selectedLanguage.value;
             if($scope.model.generalSearchValue != null){
                 if(alfaNumericRegExpr.test($scope.model.generalSearchValue) &&
                     $scope.model.showNewsForm == false){
@@ -231,20 +232,20 @@
                 var canProceed = true;
                 $scope.clearErrorsNewsForm();
 
-                if($scope.model.selectedNew.title_es == null ||
-                    !alfaNumericRegExpr.test($scope.model.selectedNew.title_es) ||
-                    $scope.model.selectedNew.url_slug_es == null ||
-                    !alfaNumericRegExpr.test($scope.model.selectedNew.url_slug_es) ||
+                if($scope.model.selectedNew.title == null ||
+                    !alfaNumericRegExpr.test($scope.model.selectedNew.title) ||
+                    $scope.model.selectedNew.url_slug == null ||
+                    !alfaNumericRegExpr.test($scope.model.selectedNew.url_slug) ||
                     !checkPublishedDate()){
                     canProceed = false;
 
-                    if($scope.model.selectedNew.title_es == null ||
-                        !alfaNumericRegExpr.test($scope.model.selectedNew.title_es)){
+                    if($scope.model.selectedNew.title == null ||
+                        !alfaNumericRegExpr.test($scope.model.selectedNew.title)){
                         $scope.model.titleHasError = true;
                     }
 
-                    if($scope.model.selectedNew.url_slug_es == null ||
-                        !alfaNumericRegExpr.test($scope.model.selectedNew.url_slug_es)){
+                    if($scope.model.selectedNew.url_slug == null ||
+                        !alfaNumericRegExpr.test($scope.model.selectedNew.url_slug)){
                         $scope.model.urlSlugHasError = true;
                     }
 
@@ -254,7 +255,7 @@
                 }
 
                 if(canProceed){
-                    $scope.model.selectedNew.content_es = $('#textEditor').code();
+                    $scope.model.selectedNew.content = $('#textEditor').code();
                     if($scope.model.selectedPostStatus != null){
                         $scope.model.selectedNew.post_status_id = $scope.model.selectedPostStatus.id;
                     }
@@ -268,6 +269,7 @@
                             $scope.model.selectedNew.selected_categories_id.push($scope.model.selectedCategoriesCollection[i].id)
                         }
                     }
+                    $scope.model.selectedNew.currentLanguage = $scope.model.selectedLanguage.value;
                     var newsData = {newData: $scope.model.selectedNew};
                     var action = $scope.model.createAction == true ? 'create' : 'edit';
 
@@ -425,6 +427,7 @@
                     singleResult : true,
                     newId : $scope.model.selectedNew.id
                 };
+                searchParametersCollection.currentLanguage = $scope.model.selectedLanguage.value;
                 newsFact.getNewsData($scope, searchParametersCollection, function(response){
                     $scope.toggleDataLoader();
                     $scope.model.selectedNew = response.data.newData;
@@ -442,7 +445,7 @@
                             id : $scope.model.selectedNew.featured_image_id
                         }
                     }
-                    $('#textEditor').code($scope.model.selectedNew.content_es);
+                    $('#textEditor').code($scope.model.selectedNew.content);
 
                     if($scope.model.templatesCollection.length > 0){
                         for(var i=0; i<$scope.model.templatesCollection.length; i++){
@@ -555,12 +558,12 @@
         {
             switch(field){
                 case 'title':
-                    if($scope.model.selectedNew.title_es != null &&
-                        alfaNumericRegExpr.test($scope.model.selectedNew.title_es)){
-                        $scope.model.selectedNew.url_slug_es = slugify($scope.model.selectedNew.title_es);
+                    if($scope.model.selectedNew.title != null &&
+                        alfaNumericRegExpr.test($scope.model.selectedNew.title)){
+                        $scope.model.selectedNew.url_slug = slugify($scope.model.selectedNew.title);
                     }
                     else{
-                        $scope.model.selectedNew.url_slug_es = null;
+                        $scope.model.selectedNew.url_slug = null;
                     }
                     break;
                 case 'status':
@@ -583,7 +586,18 @@
         }
 
 
-
+      $scope.changeLoadDataOrSavedInfoByLanguage = function (event, from, language) {
+        $scope.model.selectedLanguage = language;
+        switch (from) {
+          case 'list':
+            $scope.model.newsCollection = [];
+            $scope.getNews()
+            break;
+          case 'form':
+            $scope.showNewsForm();
+            break;
+        }
+      }
 
 
         function init(){
@@ -627,6 +641,9 @@
                     if($scope.model.postStatusCollection.length > 0){
                         $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
                     }
+                    /* definiendo lenguajes */
+                    $scope.model.languages = response.data.initialsData.languages;
+                    $scope.model.selectedLanguage = $scope.model.languages[0];
                     $scope.model.bncDomain = response.data.initialsData.bncDomain;
                     if($scope.model.bncDomain == null || ($scope.model.bncDomain != null && $scope.model.bncDomain.length == 0)){
                         $scope.model.bncDomain = '(www.tudominio.com)';
