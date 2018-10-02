@@ -31,6 +31,13 @@ class ShowBussiness
             $parametersCollection['customOrderField'] = 'published_date';
             $parametersCollection['customOrderSort'] = 'DESC';
             $initialsData['showsDataCollection'] = $this->getShowsList($parametersCollection);
+            $parametersCollection['post_type_tree_slug'] = 'room';
+            $headquarterCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
+            $headquarterResult = array();
+            foreach ($headquarterCollection as $headquarter) {
+              $headquarterResult[$headquarter['id']] = $headquarter;
+            }
+            $initialsData['rooms'] = $headquarterResult;
 
             return $initialsData;
         }
@@ -286,8 +293,11 @@ class ShowBussiness
 
             /*persisting Show Object*/;
             $objShow->setId($objGenericPost);
-            if(isset($parametersCollection['address'])){
-                $objShow->setAddress($parametersCollection['address'], $parametersCollection['currentLanguage']);
+            if(isset($parametersCollection['seat_price'])){
+                $objShow->setSeatPrice($parametersCollection['seat_price']);
+            }
+            if(isset($parametersCollection['duration'])){
+              $objShow->setSeatPrice($parametersCollection['duration']);
             }
             $this->em->persist($objShow);
 

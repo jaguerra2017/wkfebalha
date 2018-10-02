@@ -250,7 +250,7 @@
                 !alfaNumericRegExpr.test($scope.model.selectedShow.title) ||
                 $scope.model.selectedShow.url_slug == null ||
                 !alfaNumericRegExpr.test($scope.model.selectedShow.url_slug) ||
-                !checkPublishedDate()){
+                !checkDate('published')){
                     canProceed = false;
 
                     if($scope.model.selectedShow.title == null ||
@@ -315,6 +315,10 @@
                 $scope.model.generalSearchValue = null;
                 $scope.getShows();
             }
+        }
+
+        $scope.changeRoom = function ($event, room) {
+          $scope.model.selectedShow.room = room.id;
         }
 
         /* selecting/deselecting all shows */
@@ -605,6 +609,7 @@
             $scope.model.showShowsForm = false;
             $scope.model.processingData = false;
             $scope.model.featureImage = {};
+            $scope.model.rooms = {};
             $scope.model.postStatusCollection = [];
             $scope.model.selectedCategoriesCollection = null;
             $scope.model.selectedShow = null;
@@ -621,6 +626,7 @@
                 $scope.model.languages = response.data.initialsData.languages;
                 $scope.model.selectedLanguage = $scope.model.languages[0];
                 $scope.model.bncDomain = response.data.initialsData.bncDomain;
+                $scope.model.rooms = response.data.initialsData.rooms;
                 if($scope.model.bncDomain == null || ($scope.model.bncDomain != null && $scope.model.bncDomain.length == 0)){
                     $scope.model.bncDomain = '(www.tudominio.com)';
                 }
