@@ -50,7 +50,7 @@ class BackendReserveController extends Controller
    * @Route("/datos-asientos", name="reserve_seats_data", options={"expose"=true})
    * @Method("POST")
    */
-  public function getSeats(Request $request){
+  public function getSeatsAction(Request $request){
     if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
     {
       throw $this->createAccessDeniedException();
@@ -67,4 +67,45 @@ class BackendReserveController extends Controller
     }
   }
 
+  /**
+   * Enable and disable seats for booking
+   *
+   * @Route("/habilitar-asientos", name="enable_seats_to_sale", options={"expose"=true})
+   * @Method("POST")
+   */
+  public function enableDisableSeatsAction(Request $request){
+    if(!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
+    {
+      throw $this->createAccessDeniedException();
+    }
+    else {
+      $em = $this->getDoctrine()->getManager();
+      $parametersCollection = array();
+      $parametersCollection['selectedSeats'] = $request->get('selectedSeats');
+      $parametersCollection['unselectedSeats'] = $request->get('unselectedSeats');
+      $parametersCollection['showid'] = $request->get('showid');
+      $reserveBussinessObj = new ReserveBussiness($em);
+
+      $result = $reserveBussinessObj->enableDisableSeats($parametersCollection);
+
+      return new JsonResponse($result);
+    }
+  }
+
+  /**
+   * Booking sale process
+   *
+   * @Route("/reservar-asientos", name="save_booking_data", options={"expose"=true})
+   * @Method("POST")
+   */
+  public function saveBookingDataAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $parametersCollection = array();
+      $parametersCollection = $request->get('bookingData');
+      $reserveBussinessObj = new ReserveBussiness($em);
+
+      $result = $reserveBussinessObj->saveBookingData($parametersCollection);
+
+      return new JsonResponse($result);
+    }
 }

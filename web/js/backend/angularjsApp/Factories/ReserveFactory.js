@@ -56,39 +56,21 @@
       });
     }
 
-    factory.saveHeadQuartersData = function($scope, data, option, action){
+    factory.enableSeatsToSale = function($scope, data, successCallBackFn){
       $http({
         method: "post",
-        url: Routing.generate('headquarters_'+action),
+        url: Routing.generate('enable_seats_to_sale'),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         data:$.param(data)
       }).then(function successCallback(response) {
-        $scope.model.processingData = false;
         $scope.toggleDataLoader();
-        if(response.data.success == 0){
-          toastr.options.timeOut = 5000;
-          toastr.error(response.data.message,"Error");
-        }
-        else{
-          $scope.clearErrorsHeadQuartersForm();
-          if(option == 'clear'){
-            $scope.clearHeadQuartersForm();
-          }
-          else if(option == 'close'){
-            $scope.clearHeadQuartersForm();
-            $scope.hideHeadQuartersForm();
-          }
-          else if(option == 'stay'){
-            $scope.model.createAction = false;
-            $scope.model.selectedHeadQuarter.id = response.data.headquarterId;
-          }
+        if(successCallBackFn != undefined && typeof successCallBackFn == 'function'){
           //toastr.options.timeOut = 3000;
           toastr.success(response.data.message,"¡Hecho!");
+          successCallBackFn(response);
         }
-
-        $scope.goToTop();
 
       }, function errorCallback(response) {
         $scope.model.processingData = true;
@@ -101,31 +83,27 @@
           toastr.error("Esta operación no ha podido ejecutarse.","¡Error!");
         }
       });
-
     }
 
-    factory.deleteHeadQuarters = function($scope, data){
-
+    factory.saveBookingData = function($scope, data, successCallBackFn){
       $http({
         method: "post",
-        url: Routing.generate('headquarters_delete'),
+        url: Routing.generate('save_booking_data'),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         data:$.param(data)
-      }).then(function successCallback(response)
-      {
-        if(response.data.success == 0){
-          toastr.options.timeOut = 5000;
-          toastr.error(response.data.message,"Error");
-        }
-        else{
+      }).then(function successCallback(response) {
+        $scope.toggleDataLoader();
+        if(successCallBackFn != undefined && typeof successCallBackFn == 'function'){
+          //toastr.options.timeOut = 3000;
           toastr.success(response.data.message,"¡Hecho!");
+          successCallBackFn(response);
         }
-
-        $scope.getHeadQuarters();
 
       }, function errorCallback(response) {
+        $scope.model.processingData = true;
+        $scope.toggleDataLoader();
         toastr.options.timeOut = 5000;
         if(response.data && response.data.message){
           toastr.error(response.data.message,"¡Error!");
@@ -134,7 +112,6 @@
           toastr.error("Esta operación no ha podido ejecutarse.","¡Error!");
         }
       });
-
 
     }
 

@@ -1,0 +1,13 @@
+<div data-ng-if="model.formActiveView == 'seats'" class="row" id="seats_avaiability">
+    <div data-ng-if="model.createAction == true" style="display:block;text-align: center; color:#93a2a9; padding: 20px;">
+        Primero debe de <strong>Guardar</strong> para poder gestionar disponibilidad de asientos a esta Espectáculo.
+    </div>
+    {% set role = 'ROLE_SALESMAN' %}
+    {#{% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}#}
+    {% if is_granted('ROLE_ADMIN') %}
+      {% set role = 'ROLE_ADMIN' %}
+    {% endif %}
+    <div data-ng-if="model.createAction == false && model.selectedShow.id != undefined">
+        <reserve showid="model.selectedShow.id" user-role="'{{ role }}'" current-language="model.selectedLanguage.value" selectedroom="model.selectedShow.room"></reserve>
+    </div>
+</div>

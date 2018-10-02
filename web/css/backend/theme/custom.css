@@ -1294,6 +1294,22 @@ span.seatCharts-legendDescription {
 	-moz-transition: 0.5s all;
 	-ms-transition: 0.5s all;
 }
+div.seatCharts-seat.unavailable {
+	background-color: red;
+	cursor: not-allowed;
+}
+
+div.seatCharts-seat.available_admin {
+	background-color: #63e154;
+}
+
+div.seatCharts-seat.available_admin.focused {
+	background-color: #63e154;
+}
+
+ul.seatCharts-legendList {
+	list-style: none;
+}
 
 .timeline-custom-badge {
 	width: 50px;
