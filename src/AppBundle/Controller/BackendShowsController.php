@@ -91,7 +91,7 @@ class BackendShowsController extends Controller
     /**
      * Load shows collection data
      *
-     * @Route("/datos-sedes", name="shows_data", options={"expose"=true})
+     * @Route("/datos-espectaculos", name="shows_data", options={"expose"=true})
      * @Security("is_granted('read', 'show')")
      * @Method("POST")
      */
@@ -185,7 +185,7 @@ class BackendShowsController extends Controller
     /**
      * Delete Show
      *
-     * @Route("/eliminar-sede", name="shows_delete", options={"expose"=true})
+     * @Route("/eliminar-espectaculo", name="shows_delete", options={"expose"=true})
      * @Security("is_granted('delete', 'show')")
      * @Method("POST")
      */

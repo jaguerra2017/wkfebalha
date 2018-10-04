@@ -196,6 +196,7 @@ class HeadQuarterBussiness
                     $objHeadQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($objGenericPost);
                     if(isset($objHeadQuarter)){
                         $headquartersCollection[$key]['address'] = $objHeadQuarter->getAddress($parametersCollection['currentLanguage']);
+                        $headquartersCollection[$key]['online_sale'] = $objHeadQuarter->getOnlineSale();
                     }
                 }
             }
@@ -284,6 +285,10 @@ class HeadQuarterBussiness
             $objHeadQuarter->setId($objGenericPost);
             if(isset($parametersCollection['address'])){
                 $objHeadQuarter->setAddress($parametersCollection['address'], $parametersCollection['currentLanguage']);
+            }
+            if(isset($parametersCollection['online_sale'])){
+              $value = ($parametersCollection['online_sale'] == 'false') ? 0 : 1;
+              $objHeadQuarter->setOnlineSale($value);
             }
             $this->em->persist($objHeadQuarter);
 

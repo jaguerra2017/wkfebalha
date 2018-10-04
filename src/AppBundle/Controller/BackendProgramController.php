@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Bussiness\ReserveBussiness;
+use AppBundle\Bussiness\ProgramBussiness;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -13,19 +13,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
- * BACKEND - Reserve controller.
+ * BACKEND - Program controller.
  *
- * @Route("backend/reserve")
+ * @Route("backend/program")
  */
-class BackendReserveController extends Controller
+class BackendProgramController extends Controller
 {
   /**
-   * Load initials data for Jewels view
+   * Load initials data for Program view
    *
-   * @Route("/datos-iniciales", name="reserve_initials_data", options={"expose"=true})
+   * @Route("/datos-iniciales", name="program_initials_data", options={"expose"=true})
    * @Method("POST")
    */
-  public function loadReserveInitialsDataAction(Request $request)
+  public function loadProgramInitialsDataAction(Request $request)
   {
     if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
     {
@@ -34,9 +34,9 @@ class BackendReserveController extends Controller
     else {
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
-      $parametersCollection = $request->get('reserveData');
-      $reserveBussinessObj = new ReserveBussiness($em);
-      $initialsData = $reserveBussinessObj->loadInitialsData($parametersCollection);
+      $parametersCollection = $request->get('programData');
+      $programBussinessObj = new ProgramBussiness($em);
+      $initialsData = $programBussinessObj->loadInitialsData($parametersCollection);
 
 
       $initialsData['bncDomain'] = $this->container->get('appbundle_site_settings')->getBncDomain();
@@ -45,9 +45,9 @@ class BackendReserveController extends Controller
     }
   }
   /**
-   * Load initials data for Reserve view
+   * Load initials data for Program view
    *
-   * @Route("/datos-asientos", name="reserve_seats_data", options={"expose"=true})
+   * @Route("/datos-asientos", name="program_seats_data", options={"expose"=true})
    * @Method("POST")
    */
   public function getSeatsAction(Request $request){
@@ -58,9 +58,9 @@ class BackendReserveController extends Controller
     else {
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
-      $parametersCollection = $request->get('reserveData');
-      $reserveBussinessObj = new ReserveBussiness($em);
-      $initialsData = $reserveBussinessObj->loadSeats($parametersCollection);
+      $parametersCollection = $request->get('programData');
+      $programBussinessObj = new ProgramBussiness($em);
+      $initialsData = $programBussinessObj->loadSeats($parametersCollection);
       $initialsData['bncDomain'] = $this->container->get('appbundle_site_settings')->getBncDomain();
 
       return new JsonResponse(array('seatsData' => $initialsData));
@@ -84,9 +84,9 @@ class BackendReserveController extends Controller
       $parametersCollection['selectedSeats'] = $request->get('selectedSeats');
       $parametersCollection['unselectedSeats'] = $request->get('unselectedSeats');
       $parametersCollection['showid'] = $request->get('showid');
-      $reserveBussinessObj = new ReserveBussiness($em);
+      $programBussinessObj = new ProgramBussiness($em);
 
-      $result = $reserveBussinessObj->enableDisableSeats($parametersCollection);
+      $result = $programBussinessObj->enableDisableSeats($parametersCollection);
 
       return new JsonResponse($result);
     }
@@ -102,9 +102,9 @@ class BackendReserveController extends Controller
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
       $parametersCollection = $request->get('bookingData');
-      $reserveBussinessObj = new ReserveBussiness($em);
+      $programBussinessObj = new ProgramBussiness($em);
 
-      $result = $reserveBussinessObj->saveBookingData($parametersCollection);
+      $result = $programBussinessObj->saveBookingData($parametersCollection);
       return new JsonResponse($result);
     }
 }

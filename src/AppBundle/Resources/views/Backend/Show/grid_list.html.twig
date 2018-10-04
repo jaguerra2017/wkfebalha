@@ -1,49 +1,14 @@
-<div class="row" style="margin-top:40px;">
-    <div data-ng-repeat="show in model.showsCollection | limitTo : (model.showsCurrentResultLimit - (model.showsCurrentResultStart - 1)) : (model.showsCurrentResultStart - 1) "
-         class="col-xs-12 col-md-4">
-        <div class="generic-post-grid-container">
-            <div class="generic-post-grid-feature-image-container">
-                <img data-ng-if="show.have_featured_image == true && show.featured_image_url != ''"
-                     data-ng-src="[[show.web_filtered_grid_featured_image_thumbnail_url]]">
-            </div>
+{% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}
+    {% if is_granted('ROLE_SALESMAN') %}
+      {% set role = 'ROLE_SALESMAN' %}
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+      {% set role = 'ROLE_ADMIN' %}
+    {% endif %}
 
-            <span style="float:left;width:100%; color:#777;padding:10px 15px;
-            border-top: 1px solid #eee;text-align:left;">
-                <span data-ng-bind="show.post_status_name"
-                      class="label label-sm [[show.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] pull-right">
-                </span>
-                [[show.title]]
-            </span>
 
-            <div style="background-color: white; position: absolute;top: 0 !important;
-            margin-top: 5px;margin-left: 5px;width: 22px; height: 22px">
-                <div class="icheckbox_square-blue hover [[show.selected ? 'checked' : '']]"
-                     data-ng-click="selectShows($event,show)"
-                     style="">
-                </div>
-            </div>
-
-            {% if canEdit %}
-                <a data-ng-if="show.canEdit"
-                   class="btn btn-add blue btn-blue btn-circle btn-icon-only btn-default tooltips"
-                   data-ng-click="editShows(show)" data-container="body" data-placement="top"
-                   data-original-title="Editar publicacion"
-                   style="position: absolute;top: 40px;left:15px">
-                    <i class="icon-pencil"></i>
-                </a>
-            {% endif %}
-            {% if canDelete %}
-                <a data-ng-if="show.canDelete"
-                   class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
-                   data-ng-click="deleteShows(show.id)"
-                   data-container="body" data-placement="top"
-                   data-original-title="Eliminar publicacion"
-                   style="position: absolute;top: 80px;left:15px">
-                    <i class="icon-trash"></i>
-                </a>
-            {% endif %}
-        </div>
-    </div>
+<div data-ng-show="model.showsCollection.length > 0">
+  <program delete-ctrl-fn="deleteShows(showid)" show-form-ctrl-fn="showShowsForm(from, extraData)" user-role="'{{ role }}'" current-language="model.selectedLanguage.value"></program>
 </div>
 
 

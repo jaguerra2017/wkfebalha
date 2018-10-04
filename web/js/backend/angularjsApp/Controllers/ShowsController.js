@@ -216,7 +216,6 @@
         /* Hide the CRUD form */
         $scope.hideShowsForm = function()
         {
-          console.log( $scope.model.selectedShow);
             $scope.model.showShowsForm = false;
             $scope.model.formActiveView = 'general-info';
             $scope.handleCrudOperations('reset');
@@ -399,8 +398,15 @@
         }
 
         /* show the form to Create/Edit Shows */
-        $scope.showShowsForm = function()
+        $scope.showShowsForm = function(from = 'controller', extraData = null)
         {
+            if(from == 'directive'){
+              $scope.model.createAction = true;
+              $scope.model.selectedShow = {};
+              $scope.model.selectedShow.room = extraData.room.id;
+              $scope.model.selectedShow.show_date = extraData.date;
+            }
+
             $scope.handleCrudOperations('disable');
             if($scope.model.createAction){
                 $scope.model.showShowsForm = true;

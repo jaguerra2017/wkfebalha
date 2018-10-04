@@ -72,6 +72,92 @@ body{
 .page-header .navbar .search .btn > i {
 	color: white;
 }
+
+.btn-outline {
+	background-color: transparent;
+	color: #023147 !important;
+	transition: all .5s;
+	border: solid 1px #023147;
+}
+
+.dummy {
+	margin-top: 100%;
+}
+.thumbnail {
+	position: absolute;
+	top: -10px;
+	bottom: 0;
+	left: 15px;
+	right: 0;
+	font-size: 16px;
+	text-align:center;
+	background-color: #023147;
+	color: white;
+	padding-top:calc(40% - 30px);
+}
+
+.thumbnail_show {
+	position: absolute;
+	top: 75px;
+	bottom: 0;
+	left: 15px;
+	right: 0;
+	font-size: 16px;
+	text-align:left;
+	color: white;
+	padding-top: 5px;
+	padding-left: 20px;
+	}
+
+.btn-circle-sm {
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	padding: 2px 0;
+	font-size: 20px;
+	line-height: 1.65;
+	border-radius: 30px !important;
+	float: right;
+	position: absolute;
+	top: -10px;
+	left: 145px;
+	z-index: 2;
+}
+
+.tumbnail_not_empty {
+	border: solid 1px #a5a5a5;
+	color: #a5a5a5;
+}
+
+.tumbnail_pair_empty {
+	background-color: #023147;
+	padding-top: calc(50% - 65px);
+	padding-left: calc(50% - 30px);
+}
+
+.tumbnail_odd_empty {
+	background-color: #ecb761;
+	padding-top: calc(50% - 65px);
+	padding-left: calc(50% - 30px);
+}
+
+	.app-text-color {
+		color: #013147 !important;
+	}
+
+
+.square {
+	float:left;
+	position: relative;
+	width: 30%;
+	padding-bottom : 30%; /* = width for a 1:1 aspect ratio */
+	margin:1.66%;
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+}
+
+
 .main-menu-button {
 	background: rgb(28,27,41) none repeat scroll 0 0 padding-box;
 	color:white;
@@ -1557,6 +1643,10 @@ ul.book-right li {
 
 	.timeline-body-custom {
 		margin-left: 0px;
+	}
+
+	.btn-circle-sm {
+		left: 135px;
 	}
 }
 @media (max-width: 414px){

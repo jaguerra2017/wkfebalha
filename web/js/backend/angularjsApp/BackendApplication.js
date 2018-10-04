@@ -21,6 +21,7 @@
             'BncBackend.commentNotifierDirective',
             'BncBackend.taxonomyFilterDirective',
             'BncBackend.reserveDirective',
+            'BncBackend.programDirective',
 
             'BncBackend.dashboardController',
             'BncBackend.taxonomyController',
@@ -222,6 +223,10 @@
             });
         }
 
+        var handleSwitch = function () {
+          $(".make-switch").bootstrapSwitch('state');
+        }
+
       var handleBootstrapSelect = function() {
         $('.bs-select').selectpicker({
           placeholder:'Seleccione',
@@ -338,6 +343,7 @@
         handleFullScreenMode();
         handleBootstrapSelect();
         handleWowAnimations();
+        handleSwitch();
         /*handle Calendar*/
         /*handleCalendar();*/
         /*handle SUMMER-NOTE*/

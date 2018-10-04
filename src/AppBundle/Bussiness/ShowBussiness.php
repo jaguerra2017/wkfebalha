@@ -32,12 +32,14 @@ class ShowBussiness
             $parametersCollection['customOrderSort'] = 'DESC';
             $initialsData['showsDataCollection'] = $this->getShowsList($parametersCollection);
             $parametersCollection['post_type_tree_slug'] = 'room';
-            $headquarterCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
-            $headquarterResult = array();
-            foreach ($headquarterCollection as $headquarter) {
-              $headquarterResult[$headquarter['id']] = $headquarter;
+            $roomCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
+            $roomResult = array();
+            foreach ($roomCollection as $room) {
+              $roomObj = $this->em->getRepository('AppBundle:Room')->find($room['id']);
+              $room['headquarter'] = $roomObj->getHeadquarter()->getTitle($parametersCollection['currentLanguage']);
+              $roomResult[$room['id']] = $room;
             }
-            $initialsData['rooms'] = $headquarterResult;
+            $initialsData['rooms'] = $roomResult;
 
             return $initialsData;
         }
@@ -207,6 +209,10 @@ class ShowBussiness
                         $showsCollection[$key]['show_time'] = $objShow->getShowDate()->format('H:i');
                         $showsCollection[$key]['duration'] = $objShow->getDuration();
                         $showsCollection[$key]['room'] = $objShow->getRoom()->getId();
+                        $room = $this->em->getRepository('AppBundle:Room')->find($objShow->getRoom()->getId());
+                        $headQuarterGP = $room->getHeadquarter();
+                        $headQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($headQuarterGP->getId());
+                        $showsCollection[$key]['canSellOnline'] = $headQuarter->getOnlineSale();
                     }
                 }
             }
@@ -297,8 +303,18 @@ class ShowBussiness
                 $objShow->setSeatPrice($parametersCollection['seat_price']);
             }
             if(isset($parametersCollection['duration'])){
-              $objShow->setSeatPrice($parametersCollection['duration']);
+              $objShow->setDuration($parametersCollection['duration']);
             }
+            if(isset($parametersCollection['show_date']) && isset($parametersCollection['show_time'])){
+              $date = new \DateTime(str_replace('/','-',$parametersCollection['show_date']).' '.$parametersCollection['show_time']);
+              $objShow->setShowDate($date);
+            }
+            if(isset($parametersCollection['room'])){
+              $room = $this->em->getRepository('AppBundle:GenericPost')->find($parametersCollection['room']);
+              if($room)
+              $objShow->setRoom($room);
+            }
+
             $this->em->persist($objShow);
 
             /*persisting relation Post Status - Show */
