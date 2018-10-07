@@ -5,7 +5,7 @@ parameters:
     app.avaiableLanguajes: [{value: es, text: Español}, {value: en, text: Inglés}]
     app.database_host: 127.0.0.1
     app.database_port: null
-    app.database_name: bnc_real
+    app.database_name: bnc_festival
     app.database_user: root
     app.database_password: root
     app.mailer_transport: smtp
