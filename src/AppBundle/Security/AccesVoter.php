@@ -46,7 +46,7 @@ class AccesVoter implements VoterInterface
         }
         else{
             if(
-              $object == 'show' || $object == 'rooms' || $object == 'headquarter' || $object == 'news' || $object == 'publications' || $object == 'pages' || $object == 'events'
+              $object == 'collateralactivities' || $object == 'show' || $object == 'rooms' || $object == 'headquarter' || $object == 'news' || $object == 'publications' || $object == 'pages' || $object == 'events'
                 || $object == 'comments' || $object == 'media' || $object == 'opinions'
                 || $object == 'taxonomy' || $object == 'partners' || $object == 'historical-moments'
                 || $object == 'jewels' || $object == 'composition' || $object == 'repertory'

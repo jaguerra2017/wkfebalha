@@ -54,6 +54,20 @@ class Booking
   private $totalAmount;
 
   /**
+   * @var string
+   *
+   * @ORM\Column(name="notrans", type="string", nullable=true)
+   */
+  private $notrans;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="codig", type="string", nullable=true)
+   */
+  private $codig;
+
+  /**
    * @ORM\ManyToOne(targetEntity="GenericPost")
    * @ORM\JoinColumn(name="show_id", referencedColumnName="id")
    */
@@ -332,5 +346,53 @@ class Booking
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set notrans
+     *
+     * @param string $notrans
+     *
+     * @return Booking
+     */
+    public function setNotrans($notrans)
+    {
+        $this->notrans = $notrans;
+    
+        return $this;
+    }
+
+    /**
+     * Get notrans
+     *
+     * @return string
+     */
+    public function getNotrans()
+    {
+        return $this->notrans;
+    }
+
+    /**
+     * Set codig
+     *
+     * @param string $codig
+     *
+     * @return Booking
+     */
+    public function setCodig($codig)
+    {
+        $this->codig = $codig;
+    
+        return $this;
+    }
+
+    /**
+     * Get codig
+     *
+     * @return string
+     */
+    public function getCodig()
+    {
+        return $this->codig;
     }
 }

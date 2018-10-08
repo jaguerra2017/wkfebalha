@@ -6,6 +6,7 @@ use AppBundle\Entity\Booking;
 use AppBundle\Entity\GenericPost;
 use AppBundle\Entity\ShowSeat;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 
@@ -13,9 +14,10 @@ class ReserveBussiness
 {
   private $em;
 
-  public function __construct(EntityManager $em)
+  public function __construct(EntityManager $em, ContainerInterface $container)
   {
     $this->em = $em;
+    $this->container = $container;
   }
 
   public function loadInitialsData($parametersCollection)
@@ -296,6 +298,21 @@ class ReserveBussiness
       'amount'=>$parametersCollection['amount'],
       'transaction'=> $booking->getTransaction()
     );
+
+
+    $sharedFileFinder  = new SharedFileFinderBussiness();
+    $mailConfig = $sharedFileFinder->getSettingsFile(array('decode_from_json'=>true,'section'=>'mail'));
+
+    $mailParams = array(
+      'subject' => 'SoyCubano Response',
+      'from'=> 'adminbnc@gmail.com',
+      'to'=> $booking->getEmail(),
+      'message' => $mailConfig['after_booking_message']
+    );
+
+    $this->container->get('appbundle_mail')->sendMail($mailParams);
+
+
     return array('message'=>'Operación realizada con exito', 'voucher'=>$voucherData);
 
   }

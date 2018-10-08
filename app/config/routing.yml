@@ -10,3 +10,9 @@ app_bundle:
 
 logout:
     path: /logout
+
+api:
+    type: rest
+    resource: "@AppBundle/Controller/ApiController.php"
+    prefix:   /api
+    methods:  [GET, POST, OPTIONS]

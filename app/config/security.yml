@@ -33,4 +33,5 @@ security:
     access_control:
         - { path: ^/,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/check_invoice,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/backend/*,  roles: IS_AUTHENTICATED_FULLY }

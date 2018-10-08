@@ -27,13 +27,22 @@ class MailServices
         ->setSubject($params['subject'])
         ->setFrom($params['from'])
         ->setTo($params['to'])
-        ->setBody(
+      ;
+
+      if($params['voucher']){
+        $message->setBody(
           $this->templating->render(
             '@app_shared_template_directory/voucher.html.twig',
             array('params' => $params)
           )
-        )
-      ;
+        );
+      }
+      else{
+        $message->setBody(
+          $params['message']
+        );
+      }
+
       $this->mailer->send($message);
 
       return 1;
