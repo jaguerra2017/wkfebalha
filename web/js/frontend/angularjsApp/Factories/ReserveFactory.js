@@ -6,7 +6,7 @@
   'use strict';
 
   /* Declare app level module which depends on views, and components */
-  angular.module('BncBackend.reserveFactory', []);
+  angular.module('BncFrontend.reserveFactory', []);
 
 
   /* Factory for handling HeadQuarters functions */
@@ -17,7 +17,7 @@
     factory.loadInitialsData = function($scope, searchParametersCollection, successCallBackFn, errorCallBackFn){
       $http({
         method: "post",
-        url: Routing.generate('reserve_initials_data'),
+        url: Routing.generate('frontend_reserve_initials_data'),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -38,7 +38,7 @@
     factory.loadSeats = function($scope,searchParametersCollection, successCallBackFn, errorCallBackFn){
       $http({
         method: "post",
-        url: Routing.generate('reserve_seats_data'),
+        url: Routing.generate('frontend_reserve_seats_data'),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -59,7 +59,7 @@
     factory.enableSeatsToSale = function($scope, data, successCallBackFn){
       $http({
         method: "post",
-        url: Routing.generate('enable_seats_to_sale'),
+        url: Routing.generate('frontend_enable_seats_to_sale'),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -88,7 +88,7 @@
     factory.saveBookingData = function($scope, data, successCallBackFn){
       $http({
         method: "post",
-        url: Routing.generate('save_booking_data'),
+        url: Routing.generate('frontend_save_booking_data'),
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -120,7 +120,7 @@
 
 
   /* Declare factories functions for this module */
-  angular.module('BncBackend.reserveFactory').factory('reserveFact',reserveFact);
+  angular.module('BncFrontend.reserveFactory').factory('reserveFact',reserveFact);
 
 
 })();

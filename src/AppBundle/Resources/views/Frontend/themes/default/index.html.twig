@@ -56,6 +56,12 @@
 
         {% endif %}
     </section>
+
+  {% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}
+
+    {#<div data-ng-show="model.showsCollection.length > 0">#}
+        <program home="true" user-role="'{{ role }}'" current-language="'es'"></program>
+    {#</div>#}
     <!-- News Summary -->
     <section class="home-news-summary">
         <h3 class="font-family-france app-text-color">Noticias</h3>

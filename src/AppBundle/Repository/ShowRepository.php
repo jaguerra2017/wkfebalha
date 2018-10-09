@@ -11,6 +11,7 @@ namespace AppBundle\Repository;
 class ShowRepository extends \Doctrine\ORM\EntityRepository
 {
   public function getShowsFullData($parametersCollection){
+    $date = new \DateTime();
     $qb = $this->getEntityManager()->createQueryBuilder();
 
     $selectChain = "sgp.id, sgp.title_{$parametersCollection['currentLanguage']} as title, 
@@ -21,6 +22,11 @@ class ShowRepository extends \Doctrine\ORM\EntityRepository
        ->innerJoin('s.id','sgp')
        ->innerJoin('s.room','r')
        ->orderBy('s.showDate');
+
+    if($parametersCollection['home'] != 'false'){
+      $qb->andWhere('s.showDate >= :show_date')
+        ->setParameter('show_date',$date);
+    }
 
     $qb->getQuery()->setQueryCacheLifetime(3600);
     $qb->getQuery()->setResultCacheLifetime(3600);

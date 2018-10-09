@@ -1,27 +1,27 @@
-<div class="col-md-12"  data-ng-show="model.showShowsForm">
-    <!-- BEGIN Portlet Shows-CRUD -->
+<div class="col-md-12"  data-ng-show="model.showCollateralActivitiesForm">
+    <!-- BEGIN Portlet CollateralActivities-CRUD -->
     <div class="portlet light bordered" style="position:relative;">
         <div class="portlet-title">
             <div class="caption font-dark">
                 <span class="caption-subject bold uppercase">
-                    [[model.createAction == true ? 'Crear' : 'Editar']] función
+                    [[model.createAction == true ? 'Crear' : 'Editar']] actividad colateral
                 </span>
             </div>
             <!-- Toolbar -->
             <div class="actions custom-toolbar-actions">
-                <button class="btn default btn-footer width-auto-important" type="button" data-ng-click="hideShowsForm()">
+                <button class="btn default btn-footer width-auto-important" type="button" data-ng-click="hideCollateralActivitiesForm()">
                     Cancelar
                 </button>
                 <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer width-auto-important"
-                        type="submit" data-ng-click="saveShowsData('stay')">
+                        type="submit" data-ng-click="saveCollateralActivitiesData('stay')">
                     Guardar
                 </button>
                 <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer width-auto-important"
-                        type="submit" data-ng-click="saveShowsData('clear')">
+                        type="submit" data-ng-click="saveCollateralActivitiesData('clear')">
                     Guardar y limpiar
                 </button>
                 <button class="btn blue btn-blue btn-footer width-auto-important" type="submit"
-                        data-ng-click="saveShowsData('close')">
+                        data-ng-click="saveCollateralActivitiesData('close')">
                     Guardar y cerrar
                 </button>
                 <div class="input-group" style="width: 75px">
@@ -50,31 +50,30 @@
             <form class="horizontal-form">
                 <div class="form-body">
                     <div class="tabbable-line">
-                        <!-- Show sections -->
+                        <!-- CollateralActivitie sections -->
                         <ul class="nav nav-tabs">
                             <li class="[[model.formActiveView == 'general-info' ? 'active' : '']]">
-                                <a href="#show_general_data" data-toggle="tab"
+                                <a href="#collateralactivitie_general_data" data-toggle="tab"
                                    data-ng-click="updateFormSection('general-info')">
                                     Datos generales
                                 </a>
                             </li>
+                            <li class="[[model.formActiveView == 'room-view' ? 'active' : '']]">
+                                <a href="#collateralactivitie_room_view" data-toggle="tab"
+                                   data-ng-click="updateFormSection('room-view')">
+                                    Salas
+                                </a>
+                            </li>
                             <li class="[[model.formActiveView == 'blocks' ? 'active' : '']]">
-                                <a href="#show_blocks" data-toggle="tab"
+                                <a href="#collateralactivitie_blocks" data-toggle="tab"
                                    data-ng-click="updateFormSection('blocks')">
                                     Bloques
                                 </a>
                             </li>
                             <li class="[[model.formActiveView == 'comments' ? 'active' : '']]">
-                                <a href="#show_comments" data-toggle="tab"
+                                <a href="#collateralactivitie_comments" data-toggle="tab"
                                    data-ng-click="updateFormSection('comments')">
                                     Comentarios
-                                </a>
-                            </li>
-
-                            <li class="[[model.formActiveView == 'seats' ? 'active' : '']]">
-                                <a href="#seats_avaiability" data-toggle="tab"
-                                   data-ng-click="updateFormSection('seats')">
-                                    Disponibilidad de asientos
                                 </a>
                             </li>
                         </ul>
@@ -83,32 +82,32 @@
                     <div class="sub-tab-container">
                         <div class="tab-content">
                             <!-- General info -->
-                            {% include '@app_backend_template_directory/Show/crud_form_general_info.html.twig' %}
+                            {% include '@app_backend_template_directory/CollateralActivitie/crud_form_general_info.html.twig' %}
                             <!-- Blocks -->
-                            {% include '@app_backend_template_directory/Show/crud_form_blocks.html.twig' %}
+                            {% include '@app_backend_template_directory/CollateralActivitie/crud_form_blocks.html.twig' %}
                             <!-- Comments -->
-                            {% include '@app_backend_template_directory/Show/crud_form_comments.html.twig' %}
-                            <!-- Seat Availability -->
-                          {% include '@app_backend_template_directory/Show/crud_form_seats_availability.html.twig' %}
+                            {% include '@app_backend_template_directory/CollateralActivitie/crud_form_comments.html.twig' %}
+
+                            {% include '@app_backend_template_directory/CollateralActivitie/crud_form_rooms.html.twig' %}
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-xs-12 col-md-offset-4 col-md-8">
-                            <button class="btn default btn-footer" type="button" data-ng-click="hideShowsForm()">
+                            <button class="btn default btn-footer" type="button" data-ng-click="hideCollateralActivitiesForm()">
                                 Cancelar
                             </button>
                             <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer"
-                                    type="submit" data-ng-click="saveShowsData('stay')">
+                                    type="submit" data-ng-click="saveCollateralActivitiesData('stay')">
                                 Guardar
                             </button>
                             <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer"
-                                    type="submit" data-ng-click="saveShowsData('clear')">
+                                    type="submit" data-ng-click="saveCollateralActivitiesData('clear')">
                                 Guardar y limpiar
                             </button>
                             <button class="btn blue btn-blue btn-footer" type="submit"
-                                    data-ng-click="saveShowsData('close')">
+                                    data-ng-click="saveCollateralActivitiesData('close')">
                                 Guardar y cerrar
                             </button>
                         </div>

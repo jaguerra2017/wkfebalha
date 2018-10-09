@@ -29,7 +29,7 @@ class MailServices
         ->setTo($params['to'])
       ;
 
-      if($params['voucher']){
+      if(isset($params['voucher'])){
         $message->setBody(
           $this->templating->render(
             '@app_shared_template_directory/voucher.html.twig',

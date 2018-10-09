@@ -49,6 +49,9 @@ services:
      appbundle_mail:
           class: AppBundle\Services\MailServices
           arguments: [@session,@doctrine.orm.entity_manager,@mailer,@templating]
+     appbundle_program_booking:
+          class: AppBundle\Services\ProgramBookingServices
+          arguments: [@session,@doctrine.orm.entity_manager,@service_container]
 
 
 

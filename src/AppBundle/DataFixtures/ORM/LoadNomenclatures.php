@@ -275,7 +275,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
 
         /*Publications*/
-        $nomPublicationsFunctionality = new Nomenclature();
+        /*$nomPublicationsFunctionality = new Nomenclature();
         $nomPublicationsFunctionality->setName('Publicaciones');
         $nomPublicationsFunctionality->setUrlSlug('publicaciones');
         $nomPublicationsFunctionality->setTreeSlug('functionality-publications');
@@ -335,11 +335,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomPublicationsChangeStatusAction->setNomType($objNomAction);
         $nomPublicationsChangeStatusAction->setParent($nomPublicationsFunctionality);
         $nomPublicationsChangeStatusAction->setPriority(5);
-        $manager->persist($nomPublicationsChangeStatusAction);
+        $manager->persist($nomPublicationsChangeStatusAction);*/
 
 
         /*Events*/
-        $nomEventsFunctionality = new Nomenclature();
+       /* $nomEventsFunctionality = new Nomenclature();
         $nomEventsFunctionality->setName('Eventos');
         $nomEventsFunctionality->setUrlSlug('eventos');
         $nomEventsFunctionality->setTreeSlug('functionality-events');
@@ -399,7 +399,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomEventsChangeStatusAction->setNomType($objNomAction);
         $nomEventsChangeStatusAction->setParent($nomEventsFunctionality);
         $nomEventsChangeStatusAction->setPriority(5);
-        $manager->persist($nomEventsChangeStatusAction);
+        $manager->persist($nomEventsChangeStatusAction);*/
 
         /*pages*/
         $nomPagesFunctionality = new Nomenclature();
@@ -584,7 +584,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
 
         /*Opinions*/
-        $nomOpinionsFunctionality = new Nomenclature();
+        /*$nomOpinionsFunctionality = new Nomenclature();
         $nomOpinionsFunctionality->setName('Críticas y Opiniones');
         $nomOpinionsFunctionality->setUrlSlug('opiniones');
         $nomOpinionsFunctionality->setTreeSlug('functionality-opinion');
@@ -643,11 +643,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomOpinionsChangeStatusAction->setNomType($objNomAction);
         $nomOpinionsChangeStatusAction->setParent($nomOpinionsFunctionality);
         $nomOpinionsChangeStatusAction->setPriority(5);
-        $manager->persist($nomOpinionsChangeStatusAction);
+        $manager->persist($nomOpinionsChangeStatusAction);*/
 
 
         /*Partners*/
-        $nomPartnersFunctionality = new Nomenclature();
+        /*$nomPartnersFunctionality = new Nomenclature();
         $nomPartnersFunctionality->setName('Socios');
         $nomPartnersFunctionality->setUrlSlug('socios');
         $nomPartnersFunctionality->setTreeSlug('functionality-partners');
@@ -706,11 +706,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomPartnersChangeStatusAction->setNomType($objNomAction);
         $nomPartnersChangeStatusAction->setParent($nomPartnersFunctionality);
         $nomPartnersChangeStatusAction->setPriority(5);
-        $manager->persist($nomPartnersChangeStatusAction);
+        $manager->persist($nomPartnersChangeStatusAction);*/
 
 
         /*Historical-Moments*/
-        $nomHistoricalMomentsFunctionality = new Nomenclature();
+        /*$nomHistoricalMomentsFunctionality = new Nomenclature();
         $nomHistoricalMomentsFunctionality->setName('Hitos Históricos');
         $nomHistoricalMomentsFunctionality->setUrlSlug('hitos-historicos');
         $nomHistoricalMomentsFunctionality->setTreeSlug('functionality-historical-moments');
@@ -769,11 +769,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomHistoricalMomentsChangeStatusAction->setNomType($objNomAction);
         $nomHistoricalMomentsChangeStatusAction->setParent($nomHistoricalMomentsFunctionality);
         $nomHistoricalMomentsChangeStatusAction->setPriority(5);
-        $manager->persist($nomHistoricalMomentsChangeStatusAction);
+        $manager->persist($nomHistoricalMomentsChangeStatusAction);*/
 
 
         /*Jewels*/
-        $nomJewelsFunctionality = new Nomenclature();
+        /*$nomJewelsFunctionality = new Nomenclature();
         $nomJewelsFunctionality->setName('Joyas del BNC');
         $nomJewelsFunctionality->setUrlSlug('joyas');
         $nomJewelsFunctionality->setTreeSlug('functionality-jewels');
@@ -832,11 +832,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomJewelsChangeStatusAction->setNomType($objNomAction);
         $nomJewelsChangeStatusAction->setParent($nomJewelsFunctionality);
         $nomJewelsChangeStatusAction->setPriority(4);
-        $manager->persist($nomJewelsChangeStatusAction);
+        $manager->persist($nomJewelsChangeStatusAction);*/
 
 
         /*Composition*/
-        $nomCompositionFunctionality = new Nomenclature();
+       /* $nomCompositionFunctionality = new Nomenclature();
         $nomCompositionFunctionality->setName('Composición del BNC');
         $nomCompositionFunctionality->setUrlSlug('composicion');
         $nomCompositionFunctionality->setTreeSlug('functionality-composition');
@@ -895,11 +895,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomCompositionChangeStatusAction->setNomType($objNomAction);
         $nomCompositionChangeStatusAction->setParent($nomCompositionFunctionality);
         $nomCompositionChangeStatusAction->setPriority(5);
-        $manager->persist($nomCompositionChangeStatusAction);
+        $manager->persist($nomCompositionChangeStatusAction);*/
 
 
         /*Repertory*/
-        $nomRepertoryFunctionality = new Nomenclature();
+        /*$nomRepertoryFunctionality = new Nomenclature();
         $nomRepertoryFunctionality->setName('Repertorio');
         $nomRepertoryFunctionality->setUrlSlug('repertorio');
         $nomRepertoryFunctionality->setTreeSlug('functionality-repertory');
@@ -958,11 +958,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomRepertoryChangeStatusAction->setNomType($objNomAction);
         $nomRepertoryChangeStatusAction->setParent($nomRepertoryFunctionality);
         $nomRepertoryChangeStatusAction->setPriority(5);
-        $manager->persist($nomRepertoryChangeStatusAction);
+        $manager->persist($nomRepertoryChangeStatusAction);*/
 
 
         /*Awards*/
-        $nomAwardsFunctionality = new Nomenclature();
+        /*$nomAwardsFunctionality = new Nomenclature();
         $nomAwardsFunctionality->setName('Distinciones');
         $nomAwardsFunctionality->setUrlSlug('distinciones');
         $nomAwardsFunctionality->setTreeSlug('functionality-awards');
@@ -1021,7 +1021,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomAwardsChangeStatusAction->setNomType($objNomAction);
         $nomAwardsChangeStatusAction->setParent($nomAwardsFunctionality);
         $nomAwardsChangeStatusAction->setPriority(5);
-        $manager->persist($nomAwardsChangeStatusAction);
+        $manager->persist($nomAwardsChangeStatusAction);*/
 
 
         /*Users*/
@@ -1214,8 +1214,8 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         /* Shows*/
         $nomShowsFunctionality = new Nomenclature();
-        $nomShowsFunctionality->setName('Gestionar espectáculo');
-        $nomShowsFunctionality->setUrlSlug(' espectaculo');
+        $nomShowsFunctionality->setName('Función');
+        $nomShowsFunctionality->setUrlSlug(' funcion');
         $nomShowsFunctionality->setTreeSlug('functionality-show');
         $nomShowsFunctionality->setNomType($objNomTypeFunctionality);
         $nomShowsFunctionality->setPriority(19);
@@ -1232,7 +1232,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         //Actions for Shows
         $nomShowReadAction = new Nomenclature();
         $nomShowReadAction->setName('Leer');
-        $nomShowReadAction->setUrlSlug(' espectaculos-accion-leer');
+        $nomShowReadAction->setUrlSlug(' funcions-accion-leer');
         $nomShowReadAction->setTreeSlug('functionality-show-action-read');
         $nomShowReadAction->setNomType($objNomAction);
         $nomShowReadAction->setParent($nomShowsFunctionality);
@@ -1241,7 +1241,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowCreateAction = new Nomenclature();
         $nomShowCreateAction->setName('Crear');
-        $nomShowCreateAction->setUrlSlug(' espectaculos-accion-crear');
+        $nomShowCreateAction->setUrlSlug(' funcions-accion-crear');
         $nomShowCreateAction->setTreeSlug('functionality-show-action-create');
         $nomShowCreateAction->setNomType($objNomAction);
         $nomShowCreateAction->setParent($nomShowsFunctionality);
@@ -1250,7 +1250,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowEditAction = new Nomenclature();
         $nomShowEditAction->setName('Editar');
-        $nomShowEditAction->setUrlSlug(' espectaculos-accion-editar');
+        $nomShowEditAction->setUrlSlug(' funcions-accion-editar');
         $nomShowEditAction->setTreeSlug('functionality-show-action-edit');
         $nomShowEditAction->setNomType($objNomAction);
         $nomShowEditAction->setParent($nomShowsFunctionality);
@@ -1259,7 +1259,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowDeleteAction = new Nomenclature();
         $nomShowDeleteAction->setName('Eliminar');
-        $nomShowDeleteAction->setUrlSlug(' espectaculos-accion-eliminar');
+        $nomShowDeleteAction->setUrlSlug(' funcions-accion-eliminar');
         $nomShowDeleteAction->setTreeSlug('functionality-show-action-delete');
         $nomShowDeleteAction->setNomType($objNomAction);
         $nomShowDeleteAction->setParent($nomShowsFunctionality);
@@ -1268,7 +1268,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowChangeStatusAction = new Nomenclature();
         $nomShowChangeStatusAction->setName('Cambiar Status');
-        $nomShowChangeStatusAction->setUrlSlug(' espectaculos-accion-cambiar-status');
+        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-cambiar-status');
         $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-change-status');
         $nomShowChangeStatusAction->setNomType($objNomAction);
         $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
@@ -1277,7 +1277,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowChangeStatusAction = new Nomenclature();
         $nomShowChangeStatusAction->setName('Leer disponibilidad');
-        $nomShowChangeStatusAction->setUrlSlug(' espectaculos-accion-leer-disponibilidad');
+        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-leer-disponibilidad');
         $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-read-availability');
         $nomShowChangeStatusAction->setNomType($objNomAction);
         $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
@@ -1286,7 +1286,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowChangeStatusAction = new Nomenclature();
         $nomShowChangeStatusAction->setName('Modificar disponibilidad');
-        $nomShowChangeStatusAction->setUrlSlug(' espectaculos-accion-modificar-disponibilidad');
+        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-modificar-disponibilidad');
         $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-edit-availability');
         $nomShowChangeStatusAction->setNomType($objNomAction);
         $nomShowChangeStatusAction->setParent($nomShowsFunctionality);

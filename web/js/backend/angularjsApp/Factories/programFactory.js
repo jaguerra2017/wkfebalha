@@ -120,7 +120,7 @@
 
 
   /* Declare factories functions for this module */
-  angular.module('BncBackend.headquartersFactory').factory('programFact',programFact);
+  angular.module('BncBackend.programFactory').factory('programFact',programFact);
 
 
 })();

@@ -1,13 +1,13 @@
-<div class="col-md-12" data-ng-if="!model.showShowsForm">
-    <!-- BEGIN Portlet Shows-List -->
+<div class="col-md-12" data-ng-if="!model.showCollateralActivitiesForm">
+    <!-- BEGIN Portlet CollateralActivities-List -->
     <div class="portlet light bordered" style="min-height: 383px;">
         <div class="portlet-title">
             <div class="caption font-dark">
                 <span class="caption-subject bold uppercase">
-                  Funci&oacute;n
+                  Sedes
                 </span>
                 <span class="caption-helper">
-                    Gestione las funciones del BNC ...
+                    Gestione las actividades colaterales del BNC ...
                 </span>
             </div>
             <div style="margin-left: 15px" class="actions custom-toolbar-actions">
@@ -35,20 +35,20 @@
             <!-- Toolbar -->
             <div class="actions custom-toolbar-actions">
                 {% if canCreate %}
-                    <a class="btn btn-add [[model.canCreateShows ? 'blue btn-blue' : '']] btn-circle btn-icon-only btn-default"
-                    data-ng-click="createShows()">
+                    <a class="btn btn-add [[model.canCreateCollateralActivities ? 'blue btn-blue' : '']] btn-circle btn-icon-only btn-default"
+                    data-ng-click="createCollateralActivities()">
                         <i class="fa fa-plus"></i>
                     </a>
                 {% endif %}
                 {% if canDelete %}
-                <a class="btn [[model.canDeleteShows ? 'btn-danger' : '']] btn-circle btn-icon-only btn-default"
-                data-ng-click="deleteShows('all')"
+                <a class="btn [[model.canDeleteCollateralActivities ? 'btn-danger' : '']] btn-circle btn-icon-only btn-default"
+                data-ng-click="deleteCollateralActivities('all')"
                    style="margin-left:10px;">
                     <i class="icon-trash"></i>
                 </a>
                 {% endif %}
                 <a class="btn btn-circle btn-icon-only btn-default reload" style="margin-left:10px;"
-                data-ng-click="getShows()">
+                data-ng-click="getCollateralActivities()">
                     <i class="icon-refresh"></i>
                 </a>
             </div>
@@ -61,7 +61,7 @@
                     <div class="input-icon right">
                         <i class="icon-magnifier"></i>
                         <input type="text" class="form-control form-control-solid" placeholder="Buscar..."
-                        data-ng-model="model.generalSearchValue" data-ng-keyup="searchShows($event)"
+                        data-ng-model="model.generalSearchValue" data-ng-keyup="searchCollateralActivities($event)"
                         style="color:#2a3239;">
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     </span>
                     <div class="form-group inline m-b-xs" style="float:left;">
                         <select class="form-control input-xsmall"
-                        data-ng-model="model.showsCurrentPageSize"
+                        data-ng-model="model.collateralactivitiesCurrentPageSize"
                         data-ng-options="entrySize for entrySize in model.entriesSizesCollection"
                         data-ng-change="resetPaginationPages()">
                         </select>
@@ -84,16 +84,16 @@
                     </span>
 
                     <span style="border-left: 1px solid #eee;padding-left: 10px;">
-                        <strong>[[model.showsCurrentResultStart]]</strong>
+                        <strong>[[model.collateralactivitiesCurrentResultStart]]</strong>
                     </span>
                     <span>
                          -
                     </span>
                     <span>
-                        <strong>[[model.showsCurrentResultLimit]]</strong>
+                        <strong>[[model.collateralactivitiesCurrentResultLimit]]</strong>
                     </span>
                     <span>
-                        de <strong>[[model.showsCollection.length]]</strong> entradas
+                        de <strong>[[model.collateralactivitiesCollection.length]]</strong> entradas
                     </span>
 
                     <span style="border-left: 1px solid #eee;padding-left: 10px;">
@@ -101,13 +101,13 @@
                     </span>
                     <div class="form-group inline m-b-xs" style="float:left;">
                         <select class="form-control input-s-xs"
-                                data-ng-model="model.showsCurrentPage"
-                                data-ng-options="page for page in model.showsPagesCollection"
+                                data-ng-model="model.collateralactivitiesCurrentPage"
+                                data-ng-options="page for page in model.collateralactivitiesPagesCollection"
                                 data-ng-change="updatePaginationValues()">
                         </select>
                     </div>
                     <span>
-                        de <strong>[[model.showsPagesCollection.length]]</strong>
+                        de <strong>[[model.collateralactivitiesPagesCollection.length]]</strong>
                     </span>
                 </div>
                 <div class="col-xs-12 col-md-6 view-mode">
@@ -123,11 +123,11 @@
             </div>
             <!-- Grid List Mode -->
             <div data-ng-if="model.activeView == 'grid_list'" style="position:relative;">
-                {% include '@app_backend_template_directory/Show/grid_list.html.twig' %}
+                {% include '@app_backend_template_directory/CollateralActivitie/grid_list.html.twig' %}
             </div>
             <!-- Simple List Mode -->
             <div data-ng-if="model.activeView == 'simple_list'" class="table-scrollable table-scrollable-borderless" style="position:relative;">
-                {% include '@app_backend_template_directory/Show/simple_list.html.twig' %}
+                {% include '@app_backend_template_directory/CollateralActivitie/simple_list.html.twig' %}
             </div>
         </div>
     </div>

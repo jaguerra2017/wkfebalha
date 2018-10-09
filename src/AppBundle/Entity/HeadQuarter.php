@@ -47,7 +47,7 @@ class HeadQuarter
      */
     public function __construct()
     {
-        $this->address = null;
+        $this->online_sale = true;
     }
 
     /**

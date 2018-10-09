@@ -6,10 +6,10 @@
   'use strict';
 
   /* Declare app level module which depends on views, and components */
-  angular.module('BncBackend.programDirective', ['BncBackend.programFactory']);
+  angular.module('BncFrontend.programDirective', ['BncFrontend.programFactory']);
 
   /* Declaring directive functions for this module */
-  angular.module('BncBackend.programDirective').directive('program', [function () {
+  angular.module('BncFrontend.programDirective').directive('program', [function () {
     var directiveDefinitionObject = {
       restrict: "E",
       replace: true,
@@ -70,6 +70,7 @@
         }
 
         function init() {
+          console.log('entra');
           /*generals variables*/
           $scope.model = {};
           if($scope.userRole == 'ROLE_ADMIN' || $scope.userRole == 'ROLE_SALESMAN'){
