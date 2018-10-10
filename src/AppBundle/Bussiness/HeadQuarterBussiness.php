@@ -197,6 +197,7 @@ class HeadQuarterBussiness
                     if(isset($objHeadQuarter)){
                         $headquartersCollection[$key]['address'] = $objHeadQuarter->getAddress($parametersCollection['currentLanguage']);
                         $headquartersCollection[$key]['online_sale'] = $objHeadQuarter->getOnlineSale();
+                        $headquartersCollection[$key]['email'] = $objHeadQuarter->getEmail();
                     }
                 }
             }
@@ -286,6 +287,9 @@ class HeadQuarterBussiness
             if(isset($parametersCollection['address'])){
                 $objHeadQuarter->setAddress($parametersCollection['address'], $parametersCollection['currentLanguage']);
             }
+          if(isset($parametersCollection['email'])){
+            $objHeadQuarter->setEmail($parametersCollection['email']);
+          }
             if(isset($parametersCollection['online_sale'])){
               $value = ($parametersCollection['online_sale'] == 'false') ? 0 : 1;
               $objHeadQuarter->setOnlineSale($value);
