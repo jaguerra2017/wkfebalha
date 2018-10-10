@@ -6,10 +6,10 @@
   'use strict';
 
   /* Declare app level module which depends on views, and components */
-  angular.module('BncBackend.reserveDirective', ['BncBackend.reserveFactory']);
+  angular.module('BncFrontend.reserveDirective', ['BncFrontend.reserveFactory']);
 
   /* Declaring directive functions for this module */
-  angular.module('BncBackend.reserveDirective').directive('reserve', [function () {
+  angular.module('BncFrontend.reserveDirective').directive('reserve', [function () {
     var directiveDefinitionObject = {
       restrict: "EA",
       replace: true,
@@ -40,7 +40,7 @@
       '<button type="button" class="close" title="Cancelar" data-ng-click="cancel()"></button>'+
       '<h4 class="modal-title"></h4>'+
       '</div>'+
-      '<div class="modal-body min-height-400">'+
+      '<div class="modal-body min-height-500">'+
       '<div class="timeline-item" id="block_1" data-ng-if="model.permission.block_1 && model.stepIndex > 0">' +
       '<!-- Loader -->' +
       '<div data-ng-show="model.loadingData">' +
@@ -380,7 +380,7 @@
               $scope.model.sc = null;
               $scope.model.voucherData = response.data.voucher;
             });
-            // $('#payment_gateway').submit()
+            $('#payment_gateway').submit()
           }
         }
 

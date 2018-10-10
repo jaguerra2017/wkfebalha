@@ -1,6 +1,6 @@
-<div data-ng-show="model.formActiveView == 'general-info'" class="row" id="headquarter_general_data">
+<div data-ng-show="model.formActiveView == 'general-info'" class="row" id="collateralactivitie_general_data">
     <div class="col-xs-12 col-md-5">
-        <div class="headquarter-feature-image-container">
+        <div class="collateralactivitie-feature-image-container">
             <!-- Directive mediaSelector(media-selector) -->
             <media-selector selectedimage="model.featureImage"></media-selector>
             <img data-ng-if="model.featureImage.url != undefined && model.featureImage.url != ''"
@@ -23,8 +23,8 @@
                         Nombre ([[model.selectedLanguage.text]])
                     </label>
                     <input class="form-control" type="text" placeholder="No más de 100 caracteres."
-                    data-ng-model="model.selectedHeadQuarter.title"
-                    data-ng-keyup="updateHeadQuartersForm($event, 'title')"
+                    data-ng-model="model.selectedCollateralActivitie.title"
+                    data-ng-keyup="updateCollateralActivitiesForm($event, 'title')"
                     maxlength="100">
                     <span class="help-block">
                         <p data-ng-if="model.titleHasError">Valor incorrecto o en blanco.</p>
@@ -37,7 +37,7 @@
                         Slug ([[model.selectedLanguage.text]])
                     </label>
                     <input class="form-control" type="text" placeholder="No más de 100 caracteres."
-                    data-ng-model="model.selectedHeadQuarter.url_slug" maxlength="100">
+                    data-ng-model="model.selectedCollateralActivitie.url_slug" maxlength="100">
                     <span class="help-block">
                         <p data-ng-if="model.urlSlugHasError">Valor incorrecto o en blanco.</p>
                     </span>
@@ -51,9 +51,9 @@
                     <div class="input-group">
                         <div class="input-group-btn">
                             <a class="btn default" type="button" target="_blank"
-                               href="[[model.bncDomain]]/es/asociados/[[model.selectedHeadQuarter.url_slug]]"
+                               href="[[model.bncDomain]]/es/asociados/[[model.selectedCollateralActivitie.url_slug]]"
                                style="width:100%;text-align: left;" >
-                                [[model.bncDomain]]/es/asociados/[[model.selectedHeadQuarter.url_slug]]
+                                [[model.bncDomain]]/es/asociados/[[model.selectedCollateralActivitie.url_slug]]
                             </a>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
             <div class="col-xs-12">
                 <taxonomy-selector taxonomylabel="Categoría"
                 selectedtaxonomiescollection="model.selectedCategoriesCollection"
-                taxonomytypetreeslug="headquarter-category"></taxonomy-selector>
+                taxonomytypetreeslug="collateralactivitie-category"></taxonomy-selector>
             </div>
             <div class="col-xs-12 col-md-6">
                 <div class="form-group margin-top-20">
@@ -78,7 +78,7 @@
                              style="min-width: 275px;top: 25px;margin-left: 0px;">
                                 <label data-ng-repeat="postStatus in model.postStatusCollection">
                                     <a class="btn" style="width: 100%;text-align: left;"
-                                       data-ng-click="updateHeadQuartersForm($event, 'status', postStatus)">
+                                       data-ng-click="updateCollateralActivitiesForm($event, 'status', postStatus)">
                                         [[postStatus.name_es]]
                                     </a>
                                 </label>
@@ -93,7 +93,7 @@
                     <input data-ng-show="model.selectedPostStatus.tree_slug == 'generic-post-status-published'"
                     class="form-control form-control-inline date-picker"
                     size="16" type="text"
-                    data-ng-model="model.selectedHeadQuarter.published_date"/>
+                    data-ng-model="model.selectedCollateralActivitie.published_date"/>
                     <span class="help-block">
                         <p data-ng-if="model.selectedPostStatus.tree_slug == 'generic-post-status-pending'">
                             El status debe de estar "Publicado".
@@ -107,17 +107,7 @@
                     </span>
                 </div>
             </div>
-       <div class="col-xs-12 col-md-7">
-          <div class="form-group margin-top-20">
-            <label class="control-label">
-              Correo electr&oacute;nico
-            </label>
-            <input class="form-control" type="email" placeholder="example@domain.com"
-                                        data-ng-model="model.selectedHeadQuarter.email">
-            <span class="help-block"> Para notificaciones </span>
-          </div>
-       </div>
-            <div class="col-xs-12 col-md-5">
+            <div class="col-xs-12">
                 <div class="form-group margin-top-20">
                     <label class="control-label">Disponible para venta online</label>
                     <div class="actions">
@@ -130,14 +120,14 @@
     <div class="col-xs-12">
         <div class="form-group margin-top-20">
             <label class="control-label">Dirección ([[model.selectedLanguage.text]])</label>
-            <textarea data-ng-model="model.selectedHeadQuarter.address" style="width: 100%;height:120px">
+            <textarea data-ng-model="model.selectedCollateralActivitie.address" style="width: 100%;height:120px">
             </textarea>
         </div>
     </div>
     <div class="col-xs-12">
         <div class="form-group margin-top-20">
             <label class="control-label">Breve resumen ([[model.selectedLanguage.text]])</label>
-            <textarea data-ng-model="model.selectedHeadQuarter.excerpt" style="width: 100%;height:120px">
+            <textarea data-ng-model="model.selectedCollateralActivitie.excerpt" style="width: 100%;height:120px">
             </textarea>
         </div>
     </div>

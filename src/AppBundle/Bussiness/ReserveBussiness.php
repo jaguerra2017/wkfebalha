@@ -145,7 +145,7 @@ class ReserveBussiness
               $seatsMap[$rowKey] .= 'a';
             }
             else{
-              $showSeat = $this->em->getRepository('AppBundle:ShowSeat')->findOneBy(array('show'=>$show,'seat'=>$seatsObj));
+              $showSeat = $this->em->getRepository('AppBundle:ShowSeat')->findOneBy(array('show'=>$show,'seat'=>$seat));
               if(in_array($seat->getId()->getId(),$avaiableSeatsInShow)){
                 $seatsMap[$rowKey] .= 'd';
                 $availablesadminId[] =$seat->getId()->getId();
@@ -164,11 +164,13 @@ class ReserveBussiness
           }
           if ($zoneRow->getSeatNomenclature()->getTreeSlug() == 'numbers') {
             $starter = 2;
+            $enderer = $zoneRow->getSeatCount() * 2;
             if($zoneRow->getSeatCounting()->getTreeSlug() == 'odd'){
               $starter = 1;
+              $enderer = ($zoneRow->getSeatCount() * 2)-1;
             }
             if($zoneRow->getSeatCounting()->getTreeSlug() != 'normal'){
-              for ($i = $starter; $i <= $zoneRow->getSeatCount(); $i+=2) {
+              for ($i = $starter; $i <= $enderer; $i+=2) {
                 $seatNames[$i] = $i;
               }
             }
@@ -307,7 +309,7 @@ class ReserveBussiness
       'subject' => 'SoyCubano Response',
       'from'=> 'adminbnc@gmail.com',
       'to'=> $booking->getEmail(),
-      'message' => $mailConfig['after_booking_message']
+      'message' => $mailConfig['after_booking_message_es']
     );
 
     $this->container->get('appbundle_mail')->sendMail($mailParams);

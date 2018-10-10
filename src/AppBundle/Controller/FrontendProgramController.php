@@ -13,35 +13,25 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
- * BACKEND - Program controller.
+ * FRONTEND - Program controller.
  *
- * @Route("backend/program")
+ * @Route("/program")
  */
-class BackendProgramController extends Controller
+class FrontendProgramController extends Controller
 {
   /**
    * Load initials data for Program view
    *
-   * @Route("/datos-iniciales", name="program_initials_data", options={"expose"=true})
+   * @Route("/datos-iniciales", name="frontend_program_initials_data", options={"expose"=true})
    * @Method("POST")
    */
   public function loadProgramInitialsDataAction(Request $request)
   {
-    if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
-    {
-      throw $this->createAccessDeniedException();
-    }
-    else {
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
       $parametersCollection = $request->get('programData');
-      $programBussinessObj = new ProgramBussiness($em);
-      $initialsData = $programBussinessObj->loadInitialsData($parametersCollection);
-
-
-      $initialsData['bncDomain'] = $this->container->get('appbundle_site_settings')->getBncDomain();
+      $initialsData = $this->get('appbundle_program_booking')->loadProgramInitialsData($parametersCollection);
 
       return new JsonResponse(array('initialsData' => $initialsData));
-    }
   }
 }

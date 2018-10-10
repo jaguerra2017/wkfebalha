@@ -10,32 +10,32 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-use AppBundle\Bussiness\ShowBussiness;
+use AppBundle\Bussiness\CollateralActivitiesBussiness;
 
 
 /**
- * BACKEND - Show controller.
+ * BACKEND - CollateralActivities controller.
  *
- * @Route("backend/funcions")
+ * @Route("backend/actividades_colateraless")
  */
-class BackendShowsController extends Controller
+class BackendCollateralActivitiesController extends Controller
 {
 
     /**
-     * Return the Show View
+     * Return the CollateralActivities View
      *
-     * @Route("/", name="shows_index")
-     * @Security("is_granted('read', 'show')")
+     * @Route("/", name="collateralactivities_index")
+     * @Security("is_granted('read', 'collateralactivities')")
      * @Method("GET")
      */
-    public function showsViewAction()
+    public function collateralactivitiessViewAction()
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
             throw $this->createAccessDeniedException();
         }
         else {
-            return $this->render('@app_backend_template_directory/Show/index.html.twig',
+            return $this->render('@app_backend_template_directory/CollateralActivities/index.html.twig',
               array('languages'=> $this->container->getParameter('app.avaiableLanguajes'))
             );
         }
@@ -43,13 +43,13 @@ class BackendShowsController extends Controller
     }
 
     /**
-     * Load initials data for Show view
+     * Load initials data for CollateralActivities view
      *
-     * @Route("/datos-iniciales", name="shows_view_initials_data", options={"expose"=true})
-     * @Security("is_granted('read', 'show')")
+     * @Route("/datos-iniciales", name="collateralactivitiess_view_initials_data", options={"expose"=true})
+     * @Security("is_granted('read', 'collateralactivities')")
      * @Method("POST")
      */
-    public function loadShowInitialsDataAction(Request $request)
+    public function loadCollateralActivitiesInitialsDataAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -61,26 +61,26 @@ class BackendShowsController extends Controller
             $parametersCollection['imagineCacheManager'] = $this->get('liip_imagine.cache.manager');
             $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
 
-            $showsBussinessObj = new ShowBussiness($em);
-            $initialsData = $showsBussinessObj->loadInitialsData($parametersCollection);
+            $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
+            $initialsData = $collateralactivitiessBussinessObj->loadInitialsData($parametersCollection);
 
             $parametersCollection = new \stdClass();
             $parametersCollection->filterByTreeSlug = true;
             $parametersCollection->treeSlug = 'post-status';
             $initialsData['postStatusDataCollection'] = $this->container->get('appbundle_nomenclatures')->getNomenclatures($parametersCollection);
 
-            $showShowForm = false;
+            $showCollateralActivitiesForm = false;
             if($request->getSession()->get('directAccessToCreate') == true){
-                $showShowForm = true;
+                $showCollateralActivitiesForm = true;
                 $request->getSession()->remove('directAccessToCreate');
             }
-            $initialsData['showShowForm'] = $showShowForm;
+            $initialsData['showCollateralActivitiesForm'] = $showCollateralActivitiesForm;
 
             $initialsData['bncDomain'] = $this->container->get('appbundle_site_settings')->getBncDomain();
             $initialsData['languages'] = $this->container->getParameter('app.avaiableLanguajes');
 
 //            $parametersCollection = array();
-//            $parametersCollection['taxonomyTypeTreeSlug'] = 'show-category';
+//            $parametersCollection['taxonomyTypeTreeSlug'] = 'collateralactivities-category';
 //            $parametersCollection['returnDataInTree'] = true;
 //            $initialsData['categoriesDataCollection'] = $this->container->get('appbundle_taxonomies')->getTaxonomies($parametersCollection);
 
@@ -89,13 +89,13 @@ class BackendShowsController extends Controller
     }
 
     /**
-     * Load shows collection data
+     * Load collateralactivitiess collection data
      *
-     * @Route("/datos-funcions", name="shows_data", options={"expose"=true})
-     * @Security("is_granted('read', 'show')")
+     * @Route("/datos-actividades_colateraless", name="collateralactivitiess_data", options={"expose"=true})
+     * @Security("is_granted('read', 'collateralactivities')")
      * @Method("POST")
      */
-    public function loadShowDataAction(Request $request)
+    public function loadCollateralActivitiesDataAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -106,7 +106,7 @@ class BackendShowsController extends Controller
             $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
             $parametersCollection['generalSearchValue'] = $request->get('generalSearchValue');
             $parametersCollection['singleResult'] = $request->get('singleResult');
-            $parametersCollection['showId'] = $request->get('showId');
+            $parametersCollection['collateralactivitiesId'] = $request->get('collateralactivitiesId');
             $parametersCollection['imagineCacheManager'] = $this->get('liip_imagine.cache.manager');
 
             $parametersCollection['returnByCustomOrder'] = true;
@@ -114,23 +114,23 @@ class BackendShowsController extends Controller
             $parametersCollection['customOrderSort'] = 'DESC';
 
             $em = $this->getDoctrine()->getManager();
-            $showsBussinessObj = new ShowBussiness($em);
-            $showsDataCollection = $showsBussinessObj->getShowsList($parametersCollection);
+            $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
+            $collateralactivitiessDataCollection = $collateralactivitiessBussinessObj->getCollateralActivitiessList($parametersCollection);
             if(isset($parametersCollection['singleResult'])){
-                return new JsonResponse(array('showData' => $showsDataCollection));
+                return new JsonResponse(array('collateralactivitiesData' => $collateralactivitiessDataCollection));
             }
-            return new JsonResponse(array('showsDataCollection' => $showsDataCollection));
+            return new JsonResponse(array('collateralactivitiessDataCollection' => $collateralactivitiessDataCollection));
         }
     }
 
     /**
-     * Save Show data (CREATE action)
+     * Save CollateralActivities data (CREATE action)
      *
-     * @Route("/crear", name="shows_create", options={"expose"=true})
-     * @Security("is_granted('create', 'show')")
+     * @Route("/crear", name="collateralactivitiess_create", options={"expose"=true})
+     * @Security("is_granted('create', 'collateralactivities')")
      *
      */
-    public function createShowAction(Request $request)
+    public function createCollateralActivitiesAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -139,31 +139,31 @@ class BackendShowsController extends Controller
         else {
             if($request->getMethod() == 'POST'){
                 $em = $this->getDoctrine()->getManager();
-                $parametersCollection = $request->get('showData');
+                $parametersCollection = $request->get('collateralactivitiesData');
                 //print_r($parametersCollection);die;
                 $parametersCollection['isCreating'] = true;
                 $parametersCollection['currentLanguage'] = $parametersCollection['currentLanguage'] ? $parametersCollection['currentLanguage'] : $this->container->getParameter('app.default_locale');
                 $parametersCollection['loggedUser'] = $this->getUser();
 
-                $showsBussinessObj = new ShowBussiness($em);
-                $response = $showsBussinessObj->saveShowData($parametersCollection);
+                $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
+                $response = $collateralactivitiessBussinessObj->saveCollateralActivitiesData($parametersCollection);
                 return new JsonResponse($response);
             }
             else{
                 $request->getSession()->set('directAccessToCreate', true);
-                return $this->redirectToRoute('shows_index');
+                return $this->redirectToRoute('collateralactivitiess_index');
             }
         }
     }
 
     /**
-     * Save Show data (EDIT action)
+     * Save CollateralActivities data (EDIT action)
      *
-     * @Route("/editar", name="shows_edit", options={"expose"=true})
-     * @Security("is_granted('edit', 'show')")
+     * @Route("/editar", name="collateralactivitiess_edit", options={"expose"=true})
+     * @Security("is_granted('edit', 'collateralactivities')")
      * @Method("POST")
      */
-    public function editShowAction(Request $request)
+    public function editCollateralActivitiesAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -171,25 +171,25 @@ class BackendShowsController extends Controller
         }
         else {
             $em = $this->getDoctrine()->getManager();
-            $parametersCollection = $request->get('showData');
+            $parametersCollection = $request->get('collateralactivitiesData');
             $parametersCollection['currentLanguage'] = $parametersCollection['currentLanguage'] ? $parametersCollection['currentLanguage'] : $this->container->getParameter('app.default_locale');
             $parametersCollection['isCreating'] = false;
             $parametersCollection['loggedUser'] = $this->getUser();
 
-            $showsBussinessObj = new ShowBussiness($em);
-            $response = $showsBussinessObj->saveShowData($parametersCollection);
+            $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
+            $response = $collateralactivitiessBussinessObj->saveCollateralActivitiesData($parametersCollection);
             return new JsonResponse($response);
         }
     }
 
     /**
-     * Delete Show
+     * Delete CollateralActivities
      *
-     * @Route("/eliminar-funcion", name="shows_delete", options={"expose"=true})
-     * @Security("is_granted('delete', 'show')")
+     * @Route("/eliminar-actividades_colaterales", name="collateralactivitiess_delete", options={"expose"=true})
+     * @Security("is_granted('delete', 'collateralactivities')")
      * @Method("POST")
      */
-    public function deleteShowAction(Request $request)
+    public function deleteCollateralActivitiesAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -198,11 +198,11 @@ class BackendShowsController extends Controller
         else {
             $em = $this->getDoctrine()->getManager();
             $parametersCollection = array();
-            $parametersCollection['showsId'] = $request->get('showsId');
+            $parametersCollection['collateralactivitiessId'] = $request->get('collateralactivitiessId');
             $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
 
-            $showsBussinessObj = new ShowBussiness($em);
-            $response = $showsBussinessObj->deleteShowData($parametersCollection);
+            $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
+            $response = $collateralactivitiessBussinessObj->deleteCollateralActivitiesData($parametersCollection);
             return new JsonResponse($response);
         }
     }

@@ -51,15 +51,37 @@ class SeatsGenerationServices
                 foreach ($zoneRows as $zoneRow) {
                   $seatOrientation = $zoneRow->getOrientation();
                   $seatNomenclature = $zoneRow->getSeatNomenclature();
+                  $seatCounting = $zoneRow->getSeatCounting();
+                  $starter = 2;
+                  $enderer = $zoneRow->getSeatCount() * 2;
+                  if($seatCounting->getTreeSlug() == 'odd'){
+                    $starter = 1;
+                    $enderer = ($zoneRow->getSeatCount() * 2)-1;
+                  }
                   switch ($seatOrientation->getTreeSlug()){
                     case 'row-orientation-right-to-left':
-                      for($i = $zoneRow->getSeatCount(); $i > 0; $i--){
-                       $this->seatCreateAux($i, $seatNomenclature, $letras, $zoneRow->getId());
+                      if($seatCounting->getTreeSlug() != 'normal'){
+
+                        for ($i = $enderer; $i > 0; $i-=2) {
+                          $this->seatCreateAux($i, $seatNomenclature, $letras, $zoneRow->getId());
+                        }
+                      }
+                      else{
+                        for($i = $zoneRow->getSeatCount(); $i > 0; $i--){
+                          $this->seatCreateAux($i, $seatNomenclature, $letras, $zoneRow->getId());
+                        }
                       }
                       break;
                     default:
-                      for($i = 1; $i <= $zoneRow->getSeatCount(); $i++){
-                       $this->seatCreateAux($i, $seatNomenclature, $letras, $zoneRow->getId());
+                      if($seatCounting->getTreeSlug() != 'normal'){
+                        for ($i = $starter; $i <= $zoneRow->getSeatCount(); $i+=2) {
+                          $this->seatCreateAux($i, $seatNomenclature, $letras, $zoneRow->getId());
+                        }
+                      }
+                      else{
+                        for($i = 1; $i <= $zoneRow->getSeatCount(); $i++){
+                          $this->seatCreateAux($i, $seatNomenclature, $letras, $zoneRow->getId());
+                        }
                       }
                       break;
                   }

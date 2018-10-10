@@ -198,8 +198,8 @@ class LoadGenericPostTypes extends AbstractFixture implements OrderedFixtureInte
       $manager->persist($seatGenericPostType);
 
       $seatGenericPostType = new GenericPostType();
-      $seatGenericPostType->setName('Espectáculo');
-      $seatGenericPostType->setDescription('Tipo de entrada que identifica a las entradas/espectáculo').
+      $seatGenericPostType->setName('Funciones');
+      $seatGenericPostType->setDescription('Tipo de entrada que identifica a las entradas/función').
       $seatGenericPostType->setUrlSlug('espectaculo');
       $seatGenericPostType->setName('Show','en');
       $seatGenericPostType->setDescription('Type of entry who identify show/posts','en').
@@ -217,7 +217,15 @@ class LoadGenericPostTypes extends AbstractFixture implements OrderedFixtureInte
       $seatGenericPostType->setTreeSlug('booking');
       $manager->persist($seatGenericPostType);
 
-
+      $collateralActivityGenericPostType = new GenericPostType();
+      $collateralActivityGenericPostType->setName('Actividad colateral');
+      $collateralActivityGenericPostType->setDescription('Tipo de entrada que identifica a las entradas/actividad colateral').
+      $collateralActivityGenericPostType->setUrlSlug('actividad_colateral');
+      $collateralActivityGenericPostType->setName('Collateral Activity','en');
+      $collateralActivityGenericPostType->setDescription('Type of entry who identify collateral activity/posts','en').
+      $collateralActivityGenericPostType->setUrlSlug('collateral_activity','en');
+      $collateralActivityGenericPostType->setTreeSlug('collateralactivitie');
+      $manager->persist($collateralActivityGenericPostType);
 
       $manager->flush();
     }

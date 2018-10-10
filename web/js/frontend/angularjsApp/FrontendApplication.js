@@ -15,6 +15,8 @@
             'BncFrontend.blockHandlerDirective',
             'BncFrontend.videoHandlerDirective',
             'BncFrontend.commentHandlerDirective',
+            'BncFrontend.programDirective',
+            'BncFrontend.reserveDirective',
 
             'BncFrontend.newsController',
             'BncFrontend.eventsController',

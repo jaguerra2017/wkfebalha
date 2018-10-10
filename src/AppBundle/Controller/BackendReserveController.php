@@ -35,7 +35,7 @@ class BackendReserveController extends Controller
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
       $parametersCollection = $request->get('reserveData');
-      $reserveBussinessObj = new ReserveBussiness($em);
+      $reserveBussinessObj = new ReserveBussiness($em, $this->container);
       $initialsData = $reserveBussinessObj->loadInitialsData($parametersCollection);
 
 
@@ -59,7 +59,7 @@ class BackendReserveController extends Controller
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
       $parametersCollection = $request->get('reserveData');
-      $reserveBussinessObj = new ReserveBussiness($em);
+      $reserveBussinessObj = new ReserveBussiness($em, $this->container);
       $initialsData = $reserveBussinessObj->loadSeats($parametersCollection);
       $initialsData['bncDomain'] = $this->container->get('appbundle_site_settings')->getBncDomain();
 
@@ -84,7 +84,7 @@ class BackendReserveController extends Controller
       $parametersCollection['selectedSeats'] = $request->get('selectedSeats');
       $parametersCollection['unselectedSeats'] = $request->get('unselectedSeats');
       $parametersCollection['showid'] = $request->get('showid');
-      $reserveBussinessObj = new ReserveBussiness($em);
+      $reserveBussinessObj = new ReserveBussiness($em, $this->container);
 
       $result = $reserveBussinessObj->enableDisableSeats($parametersCollection);
 
@@ -102,7 +102,7 @@ class BackendReserveController extends Controller
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
       $parametersCollection = $request->get('bookingData');
-      $reserveBussinessObj = new ReserveBussiness($em);
+      $reserveBussinessObj = new ReserveBussiness($em, $this->container);
 
       $result = $reserveBussinessObj->saveBookingData($parametersCollection);
       return new JsonResponse($result);

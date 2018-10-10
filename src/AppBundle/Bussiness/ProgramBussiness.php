@@ -60,16 +60,18 @@ class ProgramBussiness
       $result['rooms'] = $roomResult;
       $result['shows'] = array();
       if($parametersCollection['orderDates']){
-        foreach ($showsData as $show) {
+        foreach ($showsData as $index => $show) {
           $date_show = $show['date_show']->format('jS F Y');
           if($parametersCollection['currentLanguage'] == 'es')
           $date_show = $fecha =$show['date_show']->format('d')." de ".$meses[$show['date_show']->format('n') - 1]." del ".$show['date_show']->format('Y');
           $show_time = $show['date_show']->format('h:i a');
           $show['date_show'] = $show['date_show']->format('d/m/Y');
           $show['show_time'] = $show_time;
-          if(!isset($result['shows'][$date_show]))
+          if(!isset($result['shows'][$date_show])){
+            if($parametersCollection['home'] != 'false' && $index > 0)
+              continue;
             $result['shows'][$date_show] = array('dateGeneral'=>$show['date_show']);
-
+          }
             $result['shows'][$date_show][$show['idroom']] = $show;
          }
       }

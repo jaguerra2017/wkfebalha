@@ -60,7 +60,7 @@ class ApiBussiness
           'subject' => 'SoyCubano Response',
           'from'=> 'emailsoycubano@gmail.com',
           'to'=> $booking->getEmail(),
-          'message' => $mailConfig['after_booking_message']
+          'message' => $mailConfig['after_booking_confirm_message_es']
         );
 
         $this->container->get('appbundle_mail')->sendMail($mailParams);

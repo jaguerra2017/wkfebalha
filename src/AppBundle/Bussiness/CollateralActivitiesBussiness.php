@@ -3,7 +3,7 @@
 namespace AppBundle\Bussiness;
 
 use AppBundle\Entity\GenericPostTaxonomy;
-use AppBundle\Entity\Show;
+use AppBundle\Entity\CollateralActivities;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -13,7 +13,7 @@ use AppBundle\Entity\GenericPostNomenclature;
 
 
 
-class ShowBussiness
+class CollateralActivitiesBussiness
 {
     private $container;
 
@@ -30,16 +30,7 @@ class ShowBussiness
             $parametersCollection['returnByCustomOrder'] = true;
             $parametersCollection['customOrderField'] = 'published_date';
             $parametersCollection['customOrderSort'] = 'DESC';
-            $initialsData['showsDataCollection'] = $this->getShowsList($parametersCollection);
-            $parametersCollection['post_type_tree_slug'] = 'room';
-            $roomCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
-            $roomResult = array();
-            foreach ($roomCollection as $room) {
-              $roomObj = $this->em->getRepository('AppBundle:Room')->find($room['id']);
-              $room['headquarter'] = $roomObj->getHeadquarter()->getTitle($parametersCollection['currentLanguage']);
-              $roomResult[$room['id']] = $room;
-            }
-            $initialsData['rooms'] = $roomResult;
+            $initialsData['collateralactivitiesDataCollection'] = $this->getCollateralActivitiessList($parametersCollection);
 
             return $initialsData;
         }
@@ -48,117 +39,117 @@ class ShowBussiness
          }
     }
 
-    public function getShowsList($parametersCollection)
+    public function getCollateralActivitiessList($parametersCollection)
     {
         try{
             if(isset($parametersCollection['getFullTotal']) && $parametersCollection['getFullTotal'] == true){
                 return $this->em->getRepository('AppBundle:GenericPost')->getFullTotal($parametersCollection);
             }
 
-            $parametersCollection['post_type_tree_slug'] = 'show';
+            $parametersCollection['post_type_tree_slug'] = 'collateralactivitie';
             if(isset($parametersCollection['singleResult'])){
                 $parametersCollection['searchByIdsCollection'] = true;
                 $idsCollection = array();
-                $idsCollection[0] = $parametersCollection['showId'];
+                $idsCollection[0] = $parametersCollection['collateralactivitieId'];
                 $idsCollection = implode(',', $idsCollection);
                 $parametersCollection['idsCollection'] = $idsCollection;
-                $showsCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsFullData($parametersCollection);
+                $collateralactivitiesCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsFullData($parametersCollection);
             }
             else{
-                $showsCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
+                $collateralactivitiesCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
             }
-            if(isset($showsCollection[0])){
-                foreach($showsCollection as $key=>$show){
+            if(isset($collateralactivitiesCollection[0])){
+                foreach($collateralactivitiesCollection as $key=>$collateralactivitie){
                     $canEdit = 1;
                     $canDelete = 1;
-                    $showsCollection[$key]['canEdit'] = $canEdit;
-                    $showsCollection[$key]['canDelete'] = $canDelete;
+                    $collateralactivitiesCollection[$key]['canEdit'] = $canEdit;
+                    $collateralactivitiesCollection[$key]['canDelete'] = $canDelete;
 
                     /*handling Post Status*/
-                    $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->find($show['id']);
+                    $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->find($collateralactivitie['id']);
                     $objPostStatus = $this->em->getRepository('AppBundle:GenericPostNomenclature')->findOneBy(array(
                         'generic_post' => $objGenericPost,
                         'relation_slug' => 'post_status'
                     ));
                     if(isset($objPostStatus)){
-                        $showsCollection[$key]['post_status_name'] = $objPostStatus->getNomenclature()->getName();
+                        $collateralactivitiesCollection[$key]['post_status_name'] = $objPostStatus->getNomenclature()->getName();
                         if(isset($parametersCollection['singleResult'])){
-                            $showsCollection[$key]['post_status_id'] = $objPostStatus->getNomenclature()->getId();
+                            $collateralactivitiesCollection[$key]['post_status_id'] = $objPostStatus->getNomenclature()->getId();
                         }
                     }
 
                     /*handling dates*/
-                    $showsCollection[$key]['created_date'] = date_format($show['created_date'],'d/m/Y');
-                    if($show['modified_date'] != null){
-                        $showsCollection[$key]['modified_date'] = date_format($show['modified_date'],'d/m/Y');
+                    $collateralactivitiesCollection[$key]['created_date'] = date_format($collateralactivitie['created_date'],'d/m/Y');
+                    if($collateralactivitie['modified_date'] != null){
+                        $collateralactivitiesCollection[$key]['modified_date'] = date_format($collateralactivitie['modified_date'],'d/m/Y');
                     }
-                    if($show['published_date'] != null){
-                        $showsCollection[$key]['published_date'] = date_format($show['published_date'],'d/m/Y');
+                    if($collateralactivitie['published_date'] != null){
+                        $collateralactivitiesCollection[$key]['published_date'] = date_format($collateralactivitie['published_date'],'d/m/Y');
                     }
 
                     /*handling featured image urls*/
-                    if($show['have_featured_image'] == true){
-                        $objMediaImage = $this->em->getRepository('AppBundle:MediaImage')->find($show['featured_image_id']);
+                    if($collateralactivitie['have_featured_image'] == true){
+                        $objMediaImage = $this->em->getRepository('AppBundle:MediaImage')->find($collateralactivitie['featured_image_id']);
                         $featured_image_extension = $objMediaImage->getExtension();
                         $objSharedFileFinderBussiness = new SharedFileFinderBussiness();
                         /*Simple List Mini-thumbnail*/
                         if($objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                             'filter_name' => 'list_featured_image_mini_thumbnail',
-                            'image_name' => $show['featured_image_name'],
+                            'image_name' => $collateralactivitie['featured_image_name'],
                             'image_extension' => $featured_image_extension,
                             'just_check' => true,
                             'just_web_filtered_url' => false
                         ))){
-                            $showsCollection[$key]['web_filtered_list_featured_image_mini_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
+                            $collateralactivitiesCollection[$key]['web_filtered_list_featured_image_mini_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                                 'filter_name' => 'list_featured_image_mini_thumbnail',
-                                'image_name' => $show['featured_image_name'],
+                                'image_name' => $collateralactivitie['featured_image_name'],
                                 'image_extension' => $featured_image_extension,
                                 'just_check' => false,
                                 'just_web_filtered_url' => true
                             ));
                         }
                         else{
-                            $showsCollection[$key]['web_filtered_list_featured_image_mini_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($show['featured_image_url'], 'list_featured_image_mini_thumbnail');
+                            $collateralactivitiesCollection[$key]['web_filtered_list_featured_image_mini_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($collateralactivitie['featured_image_url'], 'list_featured_image_mini_thumbnail');
                         }
                         /*Grid List thumbnail*/
                         if($objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                             'filter_name' => 'grid_featured_image_thumbnail',
-                            'image_name' => $show['featured_image_name'],
+                            'image_name' => $collateralactivitie['featured_image_name'],
                             'image_extension' => $featured_image_extension,
                             'just_check' => true,
                             'just_web_filtered_url' => false
                         ))){
-                            $showsCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
+                            $collateralactivitiesCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                                 'filter_name' => 'grid_featured_image_thumbnail',
-                                'image_name' => $show['featured_image_name'],
+                                'image_name' => $collateralactivitie['featured_image_name'],
                                 'image_extension' => $featured_image_extension,
                                 'just_check' => false,
                                 'just_web_filtered_url' => true
                             ));
                         }
                         else{
-                            $showsCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($show['featured_image_url'], 'grid_featured_image_thumbnail');
+                            $collateralactivitiesCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($collateralactivitie['featured_image_url'], 'grid_featured_image_thumbnail');
                         }
 
                         /*Feature Image Single Post*/
                         if(isset($parametersCollection['singleResult']) && $parametersCollection['singleResult'] == true){
                             if($objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                                 'filter_name' => 'single_post_featured_image',
-                                'image_name' => $show['featured_image_name'],
+                                'image_name' => $collateralactivitie['featured_image_name'],
                                 'image_extension' => $featured_image_extension,
                                 'just_check' => true,
                                 'just_web_filtered_url' => false
                             ))){
-                                $showsCollection[$key]['web_filtered_single_post_feature_image_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
+                                $collateralactivitiesCollection[$key]['web_filtered_single_post_feature_image_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                                     'filter_name' => 'single_post_featured_image',
-                                    'image_name' => $show['featured_image_name'],
+                                    'image_name' => $collateralactivitie['featured_image_name'],
                                     'image_extension' => $featured_image_extension,
                                     'just_check' => false,
                                     'just_web_filtered_url' => true
                                 ));
                             }
                             else{
-                                $showsCollection[$key]['web_filtered_single_post_feature_image_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($show['featured_image_url'], 'single_post_featured_image');
+                                $collateralactivitiesCollection[$key]['web_filtered_single_post_feature_image_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($collateralactivitie['featured_image_url'], 'single_post_featured_image');
                             }
                         }
                     }
@@ -169,7 +160,7 @@ class ShowBussiness
                     }
                     if($this->container != null){
                         $siteDomain = $this->container->get('appbundle_site_settings')->getBncDomain();
-                        $showsCollection[$key]['url'] = $siteDomain.'/es/asociados/'.$show['url_slug_'.$parametersCollection['currentLanguage']];
+                        $collateralactivitiesCollection[$key]['url'] = $siteDomain.'/es/asociados/'.$collateralactivitie['url_slug_'.$parametersCollection['currentLanguage']];
                     }
 
                     /*handling number of comments*/
@@ -185,55 +176,48 @@ class ShowBussiness
                     /*handling data for Single Result*/
                     if(isset($parametersCollection['singleResult'])){
                         /*handling dates*/
-                        if($show['modified_date'] != null){
-                            $showsCollection[$key]['modified_date'] = date_format($show['modified_date'],'d/m/Y H:i');
+                        if($collateralactivitie['modified_date'] != null){
+                            $collateralactivitiesCollection[$key]['modified_date'] = date_format($collateralactivitie['modified_date'],'d/m/Y H:i');
                         }
-                        if($show['published_date'] != null){
-                            $showsCollection[$key]['published_date'] = date_format($show['published_date'],'d/m/Y H:i');
+                        if($collateralactivitie['published_date'] != null){
+                            $collateralactivitiesCollection[$key]['published_date'] = date_format($collateralactivitie['published_date'],'d/m/Y H:i');
                         }
                         /*handling Categories*/
                         $genericPostsId = array();
-                        $genericPostsId[0] = $show['id'];
+                        $genericPostsId[0] = $collateralactivitie['id'];
                         $categoriesCollection = $this->em->getRepository('AppBundle:GenericPostTaxonomy')->getGenericPostTaxonomies(array(
                             'searchByGenericPost' => true,
                             'genericPostsId' => implode(',', $genericPostsId)
                         ));
-                        $showsCollection[$key]['categoriesCollection'] = $categoriesCollection;
+                        $collateralactivitiesCollection[$key]['categoriesCollection'] = $categoriesCollection;
                     }
 
-                    /*handling data for Show Object*/
-                    $objShow = $this->em->getRepository('AppBundle:Show')->find($objGenericPost);
-                    if(isset($objShow)){
-                        $showsCollection[$key]['seat_price'] = $objShow->getSeatPrice();
-                        $showsCollection[$key]['show_date'] = $objShow->getShowDate()->format('d/m/Y');
-                        $showsCollection[$key]['show_time'] = $objShow->getShowDate()->format('H:i');
-                        $showsCollection[$key]['duration'] = $objShow->getDuration();
-                        $showsCollection[$key]['room'] = $objShow->getRoom()->getId();
-                        $room = $this->em->getRepository('AppBundle:Room')->find($objShow->getRoom()->getId());
-                        $headQuarterGP = $room->getHeadquarter();
-                        $headQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($headQuarterGP->getId());
-                        $showsCollection[$key]['canSellOnline'] = $headQuarter->getOnlineSale();
+                    /*handling data for CollateralActivities Object*/
+                    $objCollateralActivities = $this->em->getRepository('AppBundle:CollateralActivities')->find($objGenericPost);
+                    if(isset($objCollateralActivities)){
+                        $collateralactivitiesCollection[$key]['address'] = $objCollateralActivities->getAddress($parametersCollection['currentLanguage']);
+                        $collateralactivitiesCollection[$key]['online_sale'] = $objCollateralActivities->getOnlineSale();
                     }
                 }
             }
 
-            if(isset($parametersCollection['singleResult']) && isset($showsCollection[0])){
-                return $showsCollection[0];
+            if(isset($parametersCollection['singleResult']) && isset($collateralactivitiesCollection[0])){
+                return $collateralactivitiesCollection[0];
             }
-            return $showsCollection;
+            return $collateralactivitiesCollection;
         }
         catch(\Exception $e){
             throw new \Exception($e);
         }
     }
 
-    public function saveShowData($parametersCollection){
+    public function saveCollateralActivitiesData($parametersCollection){
         try{
 
             $message = 'Datos guardados.';
             /*checking previous existence*/
             $objGenericPostType = $this->em->getRepository('AppBundle:GenericPostType')->findOneBy(array(
-                'tree_slug' => 'show'
+                'tree_slug' => 'collateralactivitie'
             ));
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
                 'title_'.$parametersCollection['currentLanguage'] => $parametersCollection['title'],
@@ -243,7 +227,7 @@ class ShowBussiness
                 if($parametersCollection['isCreating'] == true ||
                     ($parametersCollection['isCreating'] == false &&
                         $objGenericPost->getId() != $parametersCollection['id'])){
-                    $message = 'Ya existe una función con ese nombre.';
+                    $message = 'Ya existe una sede con ese nombre.';
                     return $this->returnResponse(array('success'=>0,'message'=>$message));
                 }
             }
@@ -272,12 +256,12 @@ class ShowBussiness
                 $objGenericPost->setModifiedDate(new \DateTime());
                 $objGenericPost->setModifiedAuthor($parametersCollection['loggedUser']);
 
-                $objShow = $this->em->getRepository('AppBundle:Show')->find($objGenericPost);
+                $objCollateralActivities = $this->em->getRepository('AppBundle:CollateralActivities')->find($objGenericPost);
             }
             else{
                 $objGenericPost->setCreatedAuthor($parametersCollection['loggedUser']);
 
-                $objShow = new Show();
+                $objCollateralActivities = new CollateralActivities();
             }
             $objGenericPost->setTitle($parametersCollection['title'],$parametersCollection['currentLanguage']);
             $objGenericPost->setUrlSlug($parametersCollection['url_slug'],$parametersCollection['currentLanguage']);
@@ -297,27 +281,18 @@ class ShowBussiness
             $this->em->persist($objGenericPost);
             $this->em->flush($objGenericPost);
 
-            /*persisting Show Object*/;
-            $objShow->setId($objGenericPost);
-            if(isset($parametersCollection['seat_price'])){
-                $objShow->setSeatPrice($parametersCollection['seat_price']);
+            /*persisting CollateralActivities Object*/;
+            $objCollateralActivities->setId($objGenericPost);
+            if(isset($parametersCollection['address'])){
+                $objCollateralActivities->setAddress($parametersCollection['address'], $parametersCollection['currentLanguage']);
             }
-            if(isset($parametersCollection['duration'])){
-              $objShow->setDuration($parametersCollection['duration']);
+            if(isset($parametersCollection['online_sale'])){
+              $value = ($parametersCollection['online_sale'] == 'false') ? 0 : 1;
+              $objCollateralActivities->setOnlineSale($value);
             }
-            if(isset($parametersCollection['show_date']) && isset($parametersCollection['show_time'])){
-              $date = new \DateTime(str_replace('/','-',$parametersCollection['show_date']).' '.$parametersCollection['show_time']);
-              $objShow->setShowDate($date);
-            }
-            if(isset($parametersCollection['room'])){
-              $room = $this->em->getRepository('AppBundle:GenericPost')->find($parametersCollection['room']);
-              if($room)
-              $objShow->setRoom($room);
-            }
+            $this->em->persist($objCollateralActivities);
 
-            $this->em->persist($objShow);
-
-            /*persisting relation Post Status - Show */
+            /*persisting relation Post Status - CollateralActivities */
             if(isset($parametersCollection['post_status_id'])){
                 $objNomPostStatus = $this->em->getRepository('AppBundle:Nomenclature')->find($parametersCollection['post_status_id']);
                 if(isset($objNomPostStatus)) {
@@ -353,7 +328,7 @@ class ShowBussiness
                 }
             }
 
-            /*Handling relation Taxonomy - Show*/
+            /*Handling relation Taxonomy - CollateralActivities*/
             /*deleting previous association between Generic Post and Taxonomy*/
             $genericPostsId = array();
             $genericPostsId[0] = $objGenericPost->getId();
@@ -386,21 +361,21 @@ class ShowBussiness
 
             $this->em->flush();
 
-            return $this->returnResponse(array('success'=>1,'message'=>$message, 'showId'=>$objGenericPost->getId()));
+            return $this->returnResponse(array('success'=>1,'message'=>$message, 'collateralactivitieId'=>$objGenericPost->getId()));
         }
         catch(\Exception $e){
             throw new \Exception($e);
         }
     }
 
-    public function deleteShowData($parametersCollection){
+    public function deleteCollateralActivitiesData($parametersCollection){
         try{
             $message = 'Datos guardados.';
-            if(isset($parametersCollection['showsId'][0])) {
+            if(isset($parametersCollection['collateralactivitiesId'][0])) {
                 $objCommentBussiness = new CommentsBussiness($this->em);
-                $objCommentBussiness->updateCommentsPending(null, $parametersCollection['showsId']);
+                $objCommentBussiness->updateCommentsPending(null, $parametersCollection['collateralactivitiesId']);
 
-                $idsCollection = implode(',',$parametersCollection['showsId']);
+                $idsCollection = implode(',',$parametersCollection['collateralactivitiesId']);
                 $this->em->getRepository('AppBundle:GenericPost')->deleteByIdsCollection($idsCollection);
             }
             else{

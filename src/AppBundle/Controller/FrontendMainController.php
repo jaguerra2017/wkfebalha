@@ -171,7 +171,7 @@ class FrontendMainController extends Controller
         if($isAuthenticatedFully && $this->getUser()->getRole()->geSeeSiteStatusOffline() == true){
             $couldUserSeeSiteOffline = true;
         }
-        /* if the site is online or it's accessible by user */
+//        /* if the site is online or it's accessible by user */
         if($isSiteStatusOnline || (!$isSiteStatusOnline && $couldUserSeeSiteOffline)){
             return true;
         }
