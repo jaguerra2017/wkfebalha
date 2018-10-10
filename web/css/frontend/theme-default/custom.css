@@ -1,26 +1,29 @@
 /* here you can put your own css to customize and override the theme */
 /*FONTS*/
 @font-face {
-	font-family: "Francen";
-	src:url(../../../fonts/frontend/francen/francen.ttf) format('truetype');
-}
-@font-face {
-	font-family: "Helvetica LTStd Bold";
-	src:url(../../../fonts/frontend/helvetica/HelveticaLTStd-Bold.otf) format('opentype');
-}
-@font-face {
-	font-family: "Helvetica LTStd Roman";
-	src:url(../../../fonts/frontend/helvetica/HelveticaLTStd-Roman.otf) format('opentype');
-}
-@font-face {
-	font-family: "Play Fair Display Bold";
-	src:url(../../../fonts/frontend/playfairdisplay/PlayfairDisplay-Bold.ttf) format('truetype');
-}
-@font-face {
-	font-family: "Play Fair Display Regular";
-	src:url(../../../fonts/frontend/playfairdisplay/PlayfairDisplay-Regular.ttf) format('truetype');
+	font-family: "Abril Fatface Regular";
+	src:url(../../../fonts/frontend/abrilfatface/AbrilFatface-Regular.ttf) format('truetype');
 }
 
+@font-face {
+	font-family: "Arimo Regular";
+	src:url(../../../fonts/frontend/arimo/Arimo-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: "Arimo Bold";
+	src:url(../../../fonts/frontend/arimo/Arimo-Bold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: "Arimo Bold-Italic";
+	src:url(../../../fonts/frontend/arimo/Arimo-BoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: "Arimo Italic";
+	src:url(../../../fonts/frontend/arimo/Arimo-Italic.ttf) format('truetype');
+}
 
 /*
 	MOBILE FIRST DESIGN
@@ -31,7 +34,7 @@
 /*General styles*/
 body{
     background: rgb(255, 255, 255);
-	font-family: "Helvetica LTStd Roman";
+	font-family: "Arimo Regular";
 }
 .max-width-1920{
 	max-width: 1920px;
@@ -84,10 +87,26 @@ body{
 	display: table;
 	position: relative;
 }
-
+.language-selector,
+.language-active{
+	color: rgb(100,100,100);
+	font-size: 17px;
+}
+.language-selector:hover{
+	color: rgb(30,52,72);
+	text-decoration: none;
+}
+.language-active{
+	text-decoration: underline;
+}
 .app-text-color {
 	color: #013147 !important;
 }
+.bgcolor-odd{
+	background-color: rgb(231,231,233);
+}
+
+
 .mega-menu > .container-fluid{
 	padding-right: 0px;
 	padding-left: 0px;
@@ -110,10 +129,10 @@ body{
 	max-height: 21.5px !important;
 }
 .main-menu-button {
-	font-family: "Helvetica LTStd Bold";
+	font-family: "Arimo Bold";
 	font-size: 14px;
 	background: none;
-	color: #000000;
+	color: rgb(100,100,100);
 	border: medium none;
 	border-radius: 2px;
 	height: 35px;
@@ -124,12 +143,12 @@ body{
 	float:right;
 }
 .page-quick-sidebar-wrapper{
-	background: rgb(28,27,41);
+	background: rgb(30,52,72);/* changing 28,27,41 for 30,52,72 */
 	width:100%;
 	right: -100%;
 }
 .main-menu-header{
-	background: rgb(28,27,41);
+	background: rgb(30,52,72);
 	padding: 20px 25px;
 	display:block;
 	text-align: center;
@@ -146,7 +165,7 @@ body{
 	color:#009dc7 !important;
 }
 .main-menu-options-container{
-	background: rgb(28,27,41);
+	background: rgb(30,52,72);
 	padding-top:40px;
 	padding-bottom: 40px;
 }
@@ -186,57 +205,23 @@ body{
 	padding-right: 0 !important;
 	padding-left: 0 !important;
 }
-.home-banner{
+.title{
+	color: rgb(7,49,71);
+}
+.main-title{
+	font-family: "Abril Fatface Regular";
+	font-size: 50px;
+	text-align: center;
+	text-transform: uppercase;
+	margin-top: 50px;
+}
+.home-slider{
 	text-align:center;
 	height:100%;
 	max-height: 900px;
 	position: relative;
-}
-.home-banner > img{
-	width:100%;
-	max-width:1920px;
-	min-width: 320px;
-	max-height: 100%;
-}
-.theme-welcome-text-container{
-	width: 100%;
-	top: 30%;
-	left: 0;
-	position: absolute;
-}
-.theme-welcome-text{
-	font-size: 25px;
-	font-family: "Francen";
-	text-transform: uppercase;
-	color:white;
-	max-width: 320px !important;
-	display: block;
-	margin: auto;
-}
-.home-events-notifier{
-	padding: 20px 5px 5px;
-	background: rgba(28,27,41,0.6);
-	width: 100%;
-	bottom: 0;
-	left: 0;
-	position: absolute;
-}
-.notifier-event-date{
-	text-align: center;
-	width: 100%;
-	display: block;
-	font-family: "Helvetica LTStd Roman";
-	font-size: 16px;
-	color: #009dc7;
-}
-.notifier-event-text{
-	text-align: center;
-	width: 100%;
-	display: block;
-	font-family: "Play Fair Display Bold";
-	font-size: 18px;
-	text-transform: uppercase;
-	color: #fff;
+
+	min-height: 700px;
 }
 .custom-general-button{
 	background: none;
@@ -252,21 +237,12 @@ body{
 	color: #fff !important;
 	background-color: #009dc7;
 }
+
+.home-program-summary,
 .home-news-summary,
-.home-partners-summary{
+.home-guest-collateral-program{
 	min-height: 400px;
 	padding: 20px 0px;
-}
-.home-news-summary > h3,
-.news-section > h3,
-.news-section h3,
-.container-fluid > h3{
-	text-align: center;
-	text-transform: uppercase;
-	font-family: "Play Fair Display Bold";
-	font-size:20px;
-	color: #009dc7;
-	margin-top: 50px;
 }
 .news-summary{
 	margin-top: 80px;
@@ -309,7 +285,7 @@ body{
 	width: 100%;
 }
 .home-partner-over{
-	background: rgba(28,27,41, 0.5);
+	background: rgba(30,52,72, 0.5);
 	width:100%;
 	height: 100%;
 	position:absolute;
@@ -319,7 +295,7 @@ body{
 	cursor:pointer;
 }
 .home-partner-over:hover{
-	background: rgba(28,27,41, 0.3);
+	background: rgba(30,52,72, 0.3);
 	text-decoration: none;
 }
 .home-partner-title{
@@ -591,7 +567,7 @@ body{
 	border: none !important;
 }
 .modal-scrollable{
-	background:rgba(28,27,41,0.9) !important;
+	background:rgba(30,52,72,0.9) !important;
 }
 .modal-header{
 	background: none !important;
@@ -747,7 +723,7 @@ h4{
 	}
 	.home-events-notifier{
 		padding: 10px 5px;
-		background: rgba(28,27,41,0.6);
+		background: rgba(30,52,72,0.6);
 		width: 100%;
 		bottom: 0;
 		left: 0;
@@ -804,12 +780,12 @@ h4{
 	.custom-general-button{
 		float:left;
 	}
-	.home-news-summary > h3,
+	/*.home-news-summary > h3,
 	.news-section > h3,
 	.news-section h3,
 	.container-fluid > h3{
 		font-size:30px;
-	}
+	}*/
 	.news-summary .generic-post-grid-container{
 		/*max-width: 400px;*/
 		margin: auto;

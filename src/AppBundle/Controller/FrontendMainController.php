@@ -28,18 +28,30 @@ class FrontendMainController extends Controller
      */
     public function frontendIndexAction(Request $request)
     {
+        $currentLocale = $request->getSession()->get('_locale');
+        if(!isset($currentLocale)){
+            $request->getSession()->set('_locale', 'es');
+        }
         return $this->redirectToRoute('frontend_index_current_language',array(
-            "request"=>$request
-        ));
+             "request"=>$request
+         ));
     }
 
     /**
-     * @Route("/es", name="frontend_index_current_language")
+     * @Route("/{_locale}", name="frontend_index_current_language")
      * @Method("GET")
      */
     public function frontendIndexLanguageAction(Request $request)
     {
         if($this->checkIsSiteIsAvailableAction()){
+
+            $desiredLocale = $request->get('_locale');
+            $currentLocale = $request->getSession()->get('_locale');
+            if(isset($desiredLocale) && isset($currentLocale) && $desiredLocale != $currentLocale &&
+            ($desiredLocale == 'es' || $desiredLocale == 'en')){
+                $request->getSession()->set('_locale', 'es');
+            }
+
             $em = $this->getDoctrine()->getManager();
             $container = $this->container;
             $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
@@ -54,7 +66,7 @@ class FrontendMainController extends Controller
         }
     }
     /**
-     * @Route("/es/", name="_frontend_index_current_language")
+     * @Route("/{_locale}/", name="_frontend_index_current_language")
      * @Method("GET")
      */
     public function _frontendIndexLanguageAction(Request $request)
@@ -64,8 +76,9 @@ class FrontendMainController extends Controller
     }
 
 
+
     /**
-     * @Route("/es/{section}", name="frontend_section")
+     * @Route("/{_locale}/{section}", name="frontend_section")
      * @Method("GET")
      */
     public function frontendSectionAction(Request $request)
@@ -77,14 +90,14 @@ class FrontendMainController extends Controller
         $container = $this->container;
         $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
         $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
-        //print_r($requestHandler['themeConfigsData']);die;
+
         return $this->render($requestHandler['template_requested_directory'], array(
             'themeConfigsData' => $requestHandler['themeConfigsData']
         ));
 
     }
     /**
-     * @Route("/es/{section}/", name="_frontend_section")
+     * @Route("/{_locale}/{section}/", name="_frontend_section")
      * @Method("GET")
      */
     public function _frontendSectionAction(Request $request)
@@ -97,7 +110,7 @@ class FrontendMainController extends Controller
 
 
     /**
-     * @Route("/es/{section}/{url_slug}", name="frontend_section_element")
+     * @Route("/{_locale}/{section}/{url_slug}", name="frontend_section_element")
      * @Method("GET")
      */
     public function frontendSectionElementAction(Request $request)
@@ -115,7 +128,7 @@ class FrontendMainController extends Controller
         ));
     }
     /**
-     * @Route("/es/{section}/{url_slug}/", name="_frontend_section_element")
+     * @Route("/{_locale}/{section}/{url_slug}/", name="_frontend_section_element")
      * @Method("GET")
      */
     public function _frontendSectionElementAction(Request $request)
@@ -129,7 +142,7 @@ class FrontendMainController extends Controller
 
 
     /**
-     * @Route("/es/{section}/{url_slug}/{tag}", name="frontend_section_element_tag")
+     * @Route("/{_locale}/{section}/{url_slug}/{tag}", name="frontend_section_element_tag")
      * @Method("GET")
      */
     public function frontendSectionElementTagAction(Request $request)
@@ -148,7 +161,7 @@ class FrontendMainController extends Controller
         ));
     }
     /**
-     * @Route("/es/{section}/{url_slug}/{tag}/", name="_frontend_section_element_tag")
+     * @Route("/{_locale}/{section}/{url_slug}/{tag}/", name="_frontend_section_element_tag")
      * @Method("GET")
      */
     public function _frontendSectionElementTagAction(Request $request)

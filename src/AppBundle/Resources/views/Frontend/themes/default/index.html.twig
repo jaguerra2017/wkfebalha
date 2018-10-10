@@ -3,62 +3,29 @@
 
 {% block content %}
     <!-- Banner -->
-    <section class="home-banner" >
+    <section class="home-slider bgcolor-odd" >
+
         {% if themeConfigsData.headerConfigs is not empty %}
             {% if themeConfigsData.headerConfigs.welcome_image_url is not empty %}
                 <img src="{{ themeConfigsData.headerConfigs.welcome_image_url | imagine_filter('default_theme_banner')}}">
             {% endif %}
             {% if themeConfigsData.headerConfigs.welcome_text is not empty %}
-                <div class="theme-welcome-text-container hidden-xs">
+                {#<div class="theme-welcome-text-container hidden-xs">
                     <span class="theme-welcome-text wow bounceIn">{{ themeConfigsData.headerConfigs.welcome_text }}</span>
-                </div>
+                </div>#}
 
             {% endif %}
-
-            <!-- Hiding original design -->
-            {# {% if closerEventsData is not empty %}
-                <div class="home-events-notifier">
-                    <div class="row" style="margin-left:0px;margin-right:0px;">
-                        <div class="col-xs-12 col-sm-6 wow fadeInLeftBig">
-                            <span class="notifier-event-date">
-                                {{ closerEventsData[0].start_date }}
-                            </span>
-                            <span class="notifier-event-text pull-right">
-                                {{ closerEventsData[0].title }}
-                            </span>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 wow fadeInRightBig">
-                            <a href="{{closerEventsData[0].url}}" class="btn custom-general-button">
-                                Leer más
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}#}
-            <!-- Showing this instead -->
-            <div class="home-events-notifier">
-                <div class="row" style="margin-left:0px;margin-right:0px;">
-                    <div class="col-xs-12 col-sm-7 wow fadeInLeftBig">
-                            <span class="notifier-event-text pull-right"
-                            style="max-width: 100%;margin-top: 3px;">
-                                Patrimonio Cultural de la Nación
-                            </span>
-                    </div>
-                    <div class="col-xs-12 col-sm-5 wow fadeInRightBig">
-                        <a href="http://balletcuba.cult.cu/es/paginas/patrimonio-cultural-de-la-nacion"
-                        class="btn custom-general-button">
-                            Leer más
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-
         {% endif %}
     </section>
+
+    <!-- Program Summary -->
+    <section class="home-program-summary">
+        <h3 class="title main-title">Programa</h3>
+    </section>
+
     <!-- News Summary -->
-    <section class="home-news-summary">
-        <h3 class="font-family-france app-text-color">Noticias</h3>
+    <section class="home-news-summary bgcolor-odd">
+        <h3 class="title main-title">Noticias</h3>
         {% if newsSummaryData is not empty%}
             <div class="row news-summary" style="margin-left:0px;margin-right:0px;">
                 {% for key,newObj in newsSummaryData %}
@@ -211,38 +178,10 @@
             {% endif %}
     </section>
 
-    <!-- Partners Summary -->
-    <section class="home-partners-summary">
-        {% if partnersSummaryData is not empty%}
-            <div class="row home-partners-container wow fadeInUpBig" style="margin-left:0px;margin-right:0px;">
-            {% for partner in partnersSummaryData%}
-                <div class="col-xs-12 col-sm-12 col-md-3 home-partner">
-                    <img src="{{ partner.featured_image_url }}">
-                    <a class="home-partner-over"
-                    href="{{ partner.url}}">
-                        <span class="home-partner-title font-family-france">
-                            {{ partner.title }}
-                        </span>
-                        <span class="home-partner-excerpt">
-                            {{ partner.excerpt }}
-                        </span>
-                         <span class="home-partner-address">
-                            <p style="padding: 0 10px;">
-                                {% if partner.address is not empty%}
-                                    <i class="icon-pin"></i>
-                                    {{ partner.address }}
-                                {% endif %}
-                            </p>
-                        </span>
-                    </a>
-                </div>
-            {% endfor %}
-            </div>
-        {% endif %}
+    <!-- Guests & Collateral Program -->
+    <section class="home-guest-collateral-program">
+
     </section>
-
-    <!-- Banner -->
-
 
 
 {% endblock %}

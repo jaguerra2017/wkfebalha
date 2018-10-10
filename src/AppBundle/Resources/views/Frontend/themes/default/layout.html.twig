@@ -15,11 +15,13 @@
                     <div class="clearfix navbar-fixed-top ">
                         <div class="row">
                             <div class="col-xs-4 col-md-5" style="margin-top: 10px">
-                                <a href="{{ path('frontend_index') }}">
+                                <a class="language-selector language-active"
+                                href="{{ path('frontend_index_current_language',{'_locale':'es'}) }}">
                                     <strong>ES</strong>
                                 </a>
                                 /
-                                <a href="{{ path('frontend_index') }}">
+                                <a class="language-selector"
+                               href="{{ path('frontend_index_current_language',{'_locale':'en'}) }}">
                                     <strong>EN</strong>
                                 </a>
                                 <!-- Search -->
@@ -88,7 +90,7 @@
                                 <img src="{{ asset('images/shared/bnc-secundary-logo.png') }}" alt="Logo">
                             </a>
 
-                            <a class="page-quick-sidebar-toggler close-menu"><i class="fa fa-times"></i></a>
+                            <a class="page-quick-sidebar-toggler close-menu wow fadeInRight"><i class="fa fa-times"></i></a>
                         </div>
                     </div>
 
