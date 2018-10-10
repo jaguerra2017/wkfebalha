@@ -121,10 +121,10 @@
       '</div>'+
       '<div class="pairBlock col-xs-12">'+
       '<div class="timeline-body-content">'+
-      '   <div id="seat-map" class="col-lg-9 col-xs-12">\n' +
+      '   <div id="seat-map" class="col-lg-10 col-xs-12">\n' +
       '    <div class="front">[[model.selectedArea.title]] / [[model.selectedZone.title]]</div>\n' +
       '   </div>\n' +
-      '<div id="legend" class="col-lg-3 col-xs-12">' +
+      '<div id="legend" class="col-lg-2 col-xs-12">' +
       '<button type="button" style="margin-left: 5px;" data-ng-if="userRole == \'ROLE_ADMIN\'" class="btn checkout-button" data-ng-click="selectAll()">Habilitar todos</button>\n' +
       '</div>\n' +
       '<div class="row"> '+
@@ -274,11 +274,20 @@
         }
 
         $scope.changeZone = function (event, zone) {
+          if($scope.model.selectedZone != null){
+            $scope.model.sc = null;
+            $('.seatCharts-row').remove();
+            $('.seatCharts-legendItem').remove();
+            $('#seat-map,#seat-map *').unbind().removeData();
+          }
+          else{
+            $scope.changeStep('block_2');
+          }
+
           $scope.model.selectedZone = zone;
-          $scope.model.sc = null;
           $scope.showSeats();
           $scope.model.selectedSeats = null;
-          $scope.changeStep('block_2');
+
         }
 
         /* toggle data-loading message */

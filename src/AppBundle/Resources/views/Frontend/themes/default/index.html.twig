@@ -58,10 +58,17 @@
     </section>
 
   {% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}
-
-    {#<div data-ng-show="model.showsCollection.length > 0">#}
+  {% if is_granted('ROLE_SALESMAN') %}
+    {% set role = 'ROLE_SALESMAN' %}
+  {% endif %}
+  {% if is_granted('ROLE_ADMIN') %}
+    {% set role = 'ROLE_ADMIN' %}
+  {% endif %}
+  <section class="home-program">
+    {#<div class="row">#}
         <program home="true" user-role="'{{ role }}'" current-language="'es'"></program>
     {#</div>#}
+  </section>
     <!-- News Summary -->
     <section class="home-news-summary">
         <h3 class="font-family-france app-text-color">Noticias</h3>

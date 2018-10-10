@@ -255,7 +255,9 @@ body{
 }
 
 .pairBlock {
-	background-color: #f2f2f2;
+	border-top: solid 5px #f2f2f2;
+	min-height: 200px;
+	/*background-color: #f2f2f2;*/
 	top: -50px;
 	margin-left: 5px;
 }
@@ -1354,7 +1356,7 @@ div.seatCharts-legend {
 	padding-left: 0px;
 }
 ul.seatCharts-legendList {
-	padding-left: 0px;
+	padding-left: 10px;
 }
 .seatCharts-legendItem{
 	margin-top: 10px;
@@ -1636,7 +1638,9 @@ ul.book-right li {
 	}
 
 	.pairBlock {
-		background-color: #e3e3e3;
+		border-top: solid 5px #e3e3e3;
+		min-height: 200px;
+		/*background-color: #e3e3e3;*/
 		top: -30px;
 		margin-left: inherit;
 	}
@@ -1682,7 +1686,7 @@ ul.book-right li {
 		font-size: 20px;
 	}
 	div.seatCharts-cell {
-		margin: 2px 3px 2px 2px;
+		/*margin: 2px 3px 2px 2px;*/
 	}
 	.main {
 		margin: 28px auto;
@@ -1710,7 +1714,7 @@ ul.book-right li {
 		font-size: 18px;
 	}
 	div.seatCharts-cell {
-		margin: 2px 2px 2px 2px;
+		/*margin: 2px 2px 2px 2px;*/
 	}
 	.main {
 		padding: 15px 8px;

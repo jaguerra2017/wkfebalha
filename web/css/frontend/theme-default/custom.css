@@ -157,6 +157,16 @@ body{
 	color: #013147 !important;
 }
 
+/*-- movie ticket --*/
+.front{
+	margin: 5px 4px 45px 38px;
+	background-color: #013147;
+	color: #fff;
+	text-align: center;
+	padding: 9px 0;
+	border-radius: 3px;
+}
+
 .booking-details {
 	float: right;
 	width: 38%;
@@ -223,7 +233,7 @@ div.seatCharts-legend {
 	padding-left: 0px;
 }
 ul.seatCharts-legendList {
-	padding-left: 0px;
+	padding-left: 10px;
 }
 .seatCharts-legendItem{
 	margin-top: 10px;
@@ -310,9 +320,11 @@ ul.seatCharts-legendList {
 }
 
 .pairBlock {
-	background-color: #e3e3e3;
-	top: -30px;
-	margin-left: inherit;
+	border-top: solid 5px #f2f2f2;
+	min-height: 200px;
+	/*background-color: #e3e3e3;*/
+	top: -50px;
+	margin-left: 5px;
 }
 
 #selected-seats {
@@ -914,9 +926,9 @@ h4{
    	background: none;
 	color: #eee;
 }
-.has-error .control-label{
-	color:#fff !important;
-}
+/*.has-error .control-label{*/
+	/*color:#fff !important;*/
+/*}*/
 .has-error .form-control{
 	border-bottom-color: #F3565D;
 }
