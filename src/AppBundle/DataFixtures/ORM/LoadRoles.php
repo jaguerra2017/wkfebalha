@@ -28,6 +28,14 @@ class LoadRoles extends AbstractFixture implements OrderedFixtureInterface
         $roleAdmin->setSeeSiteStatusOffline(true);
         $manager->persist($roleAdmin);
 
+      /*Role for System Salesman*/
+      $roleSalesman = new Role();
+      $roleSalesman->setName('Gestor de ventas');
+      $roleSalesman->setDescription('ESte es el Rol usado por el Gestor de Ventas. Este Rol no es editable.');
+      $roleSalesman->setSlug('ROLE_SALESMAN');
+      $roleSalesman->setSeeSiteStatusOffline(true);
+      $manager->persist($roleSalesman);
+
         /*Settings, for Role-Functionality-Action*/
         $objNomTypeFunctionality = $manager->getRepository('AppBundle:NomType')->findOneBy(
             array(

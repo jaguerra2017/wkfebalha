@@ -1,0 +1,39 @@
+fos_rest:
+    param_fetcher_listener: true
+    allowed_methods_listener: true
+    zone:
+        - { path: ^/check_invoice }
+
+    exception:
+        enabled: true
+#        exception_controller: 'ALapiBundle\Controller\ALapiController::handleErrosAction'
+
+    routing_loader:
+        default_format: json
+
+    body_listener: true
+    format_listener:
+        enabled: true
+        rules:
+            - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: false }
+
+    disable_csrf_role: ROLE_API
+
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true
+
+    versioning:
+        enabled: true
+        default_version: v1
+        guessing_order:
+            - query
+            - custom_header
+            - media_type
+        resolvers:
+            query: true # Query parameter: /users?version=v1
+            custom_header: false # X-Accept-Version header
+            media_type: # Accept header
+                enabled: false
+                regex: '/(v|version)=(?P<version>[0-9\.]+)/'

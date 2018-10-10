@@ -58,6 +58,43 @@ class LoadMedia extends AbstractFixture implements OrderedFixtureInterface
             $defaultBncBannerMediaImage->setIsLoadedBySystem(true);
             $manager->persist($defaultBncBannerMediaImage);
 
+            /*Default media image for avellaneda hall map*/
+            $avellanedaHallMapMedia = new Media();
+            $avellanedaHallMapMedia->setName('bnc-avellaneda-hall-map');
+            $avellanedaHallMapMedia->setDescription('Imagen del mapa de la Sala Avellaneda');
+            $avellanedaHallMapMedia->setMediaType($nomImageMediaType);
+            $avellanedaHallMapMedia->setUrl('uploads/images/original/bnc-avellaneda-hall-map.jpeg');
+            $manager->persist($avellanedaHallMapMedia);
+            $manager->flush($avellanedaHallMapMedia);
+
+            $avellanedaHallMapMediaImage = new MediaImage();
+            $avellanedaHallMapMediaImage->setId($avellanedaHallMapMedia);
+            $avellanedaHallMapMediaImage->setAlternativeText('avellaneda-hall-map');
+            $avellanedaHallMapMediaImage->setExtension('jpeg');
+            $avellanedaHallMapMediaImage->setSize(3952);
+            $avellanedaHallMapMediaImage->setDimension('2550X3300');
+            $avellanedaHallMapMediaImage->setIsLoadedBySystem(true);
+            $manager->persist($avellanedaHallMapMediaImage);
+
+            /*Default media image for avellaneda hall map*/
+            $covarrubiasHallMapMedia = new Media();
+            $covarrubiasHallMapMedia->setName('bnc-covarrubias-hall-map');
+            $covarrubiasHallMapMedia->setDescription('Imagen del mapa de la Sala covarrubias');
+            $covarrubiasHallMapMedia->setMediaType($nomImageMediaType);
+            $covarrubiasHallMapMedia->setUrl('uploads/images/original/bnc-covarrubias-hall-map.jpeg');
+            $manager->persist($covarrubiasHallMapMedia);
+            $manager->flush($covarrubiasHallMapMedia);
+
+            $covarrubiasHallMapMediaImage = new MediaImage();
+            $covarrubiasHallMapMediaImage->setId($covarrubiasHallMapMedia);
+            $covarrubiasHallMapMediaImage->setAlternativeText('covarrubias-hall-map');
+            $covarrubiasHallMapMediaImage->setExtension('jpeg');
+            $covarrubiasHallMapMediaImage->setSize(2752);
+            $covarrubiasHallMapMediaImage->setDimension('2550X3300');
+            $covarrubiasHallMapMediaImage->setIsLoadedBySystem(true);
+            $manager->persist($covarrubiasHallMapMediaImage);
+
+
             $manager->flush();
         }
     }

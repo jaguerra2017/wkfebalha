@@ -118,6 +118,13 @@ class LoadNomenclatureTypes extends AbstractFixture implements OrderedFixtureInt
     $nomTypeSeatFlowStatus->setTreeSlug('seat-flow-status');
     $manager->persist($nomTypeSeatFlowStatus);
 
+    $nomTypeBookingStatus = new NomType();
+    $nomTypeBookingStatus->setName('Estado de la reserva');
+    $nomTypeBookingStatus->setDescription('Define el estado de la reserva (Ej: Cancelada)');
+    $nomTypeBookingStatus->setUrlSlug('booking-status');
+    $nomTypeBookingStatus->setTreeSlug('booking-status');
+    $manager->persist($nomTypeBookingStatus);
+
     $manager->flush();
   }
 

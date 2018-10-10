@@ -21,6 +21,7 @@
             'BncBackend.commentNotifierDirective',
             'BncBackend.taxonomyFilterDirective',
             'BncBackend.reserveDirective',
+            'BncBackend.programDirective',
 
             'BncBackend.dashboardController',
             'BncBackend.taxonomyController',
@@ -40,7 +41,8 @@
             'BncBackend.repertoryController',
             'BncBackend.awardsController',
             'BncBackend.usersController',
-            'BncBackend.headquartersController'
+            'BncBackend.headquartersController',
+            'BncBackend.showsController'
         ]
     );
 
@@ -220,16 +222,43 @@
                 language : 'es'
             });
         }
-        var handleDatetimePicker = function () {
 
-            $(".datetime-picker").datetimepicker({
-                autoclose: true,
-                orientation: "left",
-                format: "dd/mm/yyyy hh:ii",
-                pickerPosition: "bottom-left",
-                language : 'es'
-            });
+        var handleSwitch = function () {
+          $(".make-switch").bootstrapSwitch('state');
         }
+
+      var handleBootstrapSelect = function() {
+        $('.bs-select').selectpicker({
+          placeholder:'Seleccione',
+          iconBase: 'fa',
+          tickIcon: 'fa-check'
+        });
+      }
+
+        var handleTimePicker = function () {
+          $('.timepicker').timepicker({
+            autoclose: true,
+            minuteStep: 5,
+            showSeconds: false,
+            showMeridian: false
+          });
+          // handle input group button click
+          $('.timepicker').on('focus', function(e){
+            e.preventDefault();
+            $(this).timepicker('showWidget');
+          });
+        }
+
+      var handleDatetimePicker = function () {
+
+        $(".datetime-picker").datetimepicker({
+          autoclose: true,
+          orientation: "left",
+          format: "dd/mm/yyyy hh:ii",
+          pickerPosition: "bottom-left",
+          language : 'es'
+        });
+      }
         var handleSummernote = function () {
             $('#textEditor').summernote({
                 height: 500,
@@ -302,6 +331,7 @@
         handleDatePicker();
         /*handling datetime-pickers*/
         handleDatetimePicker();
+        handleTimePicker();
         /*handle bootstrap dropdown selector*/
         $('.bs-select').selectpicker({
             iconBase:'fa',
@@ -311,7 +341,9 @@
         $('.tooltips').tooltip();
         /*handle Full Screen Mode*/
         handleFullScreenMode();
+        handleBootstrapSelect();
         handleWowAnimations();
+        handleSwitch();
         /*handle Calendar*/
         /*handleCalendar();*/
         /*handle SUMMER-NOTE*/

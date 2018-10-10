@@ -1212,6 +1212,87 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomHeadquarterChangeStatusAction->setPriority(5);
         $manager->persist($nomHeadquarterChangeStatusAction);
 
+        /* Shows*/
+        $nomShowsFunctionality = new Nomenclature();
+        $nomShowsFunctionality->setName('Gestionar espectáculo');
+        $nomShowsFunctionality->setUrlSlug(' espectaculo');
+        $nomShowsFunctionality->setTreeSlug('functionality-show');
+        $nomShowsFunctionality->setNomType($objNomTypeFunctionality);
+        $nomShowsFunctionality->setPriority(19);
+        $manager->persist($nomShowsFunctionality);
+        $manager->flush();
+        $showFunctionality = new NomFunctionality();
+        $showFunctionality->setId($nomShowsFunctionality);
+        $showFunctionality->setIconClass('icon-support');
+        $showFunctionality->setUrlIndexAction('shows_index');
+        $showFunctionality->setKeywordSelectedClass($nomShowsFunctionality->getUrlSlug());
+        $showFunctionality->setIsUsedFrequently(false);
+        $manager->persist($showFunctionality);
+
+        //Actions for Shows
+        $nomShowReadAction = new Nomenclature();
+        $nomShowReadAction->setName('Leer');
+        $nomShowReadAction->setUrlSlug(' espectaculos-accion-leer');
+        $nomShowReadAction->setTreeSlug('functionality-show-action-read');
+        $nomShowReadAction->setNomType($objNomAction);
+        $nomShowReadAction->setParent($nomShowsFunctionality);
+        $nomShowReadAction->setPriority(1);
+        $manager->persist($nomShowReadAction);
+
+        $nomShowCreateAction = new Nomenclature();
+        $nomShowCreateAction->setName('Crear');
+        $nomShowCreateAction->setUrlSlug(' espectaculos-accion-crear');
+        $nomShowCreateAction->setTreeSlug('functionality-show-action-create');
+        $nomShowCreateAction->setNomType($objNomAction);
+        $nomShowCreateAction->setParent($nomShowsFunctionality);
+        $nomShowCreateAction->setPriority(2);
+        $manager->persist($nomShowCreateAction);
+
+        $nomShowEditAction = new Nomenclature();
+        $nomShowEditAction->setName('Editar');
+        $nomShowEditAction->setUrlSlug(' espectaculos-accion-editar');
+        $nomShowEditAction->setTreeSlug('functionality-show-action-edit');
+        $nomShowEditAction->setNomType($objNomAction);
+        $nomShowEditAction->setParent($nomShowsFunctionality);
+        $nomShowEditAction->setPriority(3);
+        $manager->persist($nomShowEditAction);
+
+        $nomShowDeleteAction = new Nomenclature();
+        $nomShowDeleteAction->setName('Eliminar');
+        $nomShowDeleteAction->setUrlSlug(' espectaculos-accion-eliminar');
+        $nomShowDeleteAction->setTreeSlug('functionality-show-action-delete');
+        $nomShowDeleteAction->setNomType($objNomAction);
+        $nomShowDeleteAction->setParent($nomShowsFunctionality);
+        $nomShowDeleteAction->setPriority(4);
+        $manager->persist($nomShowDeleteAction);
+
+        $nomShowChangeStatusAction = new Nomenclature();
+        $nomShowChangeStatusAction->setName('Cambiar Status');
+        $nomShowChangeStatusAction->setUrlSlug(' espectaculos-accion-cambiar-status');
+        $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-change-status');
+        $nomShowChangeStatusAction->setNomType($objNomAction);
+        $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
+        $nomShowChangeStatusAction->setPriority(5);
+        $manager->persist($nomShowChangeStatusAction);
+
+        $nomShowChangeStatusAction = new Nomenclature();
+        $nomShowChangeStatusAction->setName('Leer disponibilidad');
+        $nomShowChangeStatusAction->setUrlSlug(' espectaculos-accion-leer-disponibilidad');
+        $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-read-availability');
+        $nomShowChangeStatusAction->setNomType($objNomAction);
+        $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
+        $nomShowChangeStatusAction->setPriority(6);
+        $manager->persist($nomShowChangeStatusAction);
+
+        $nomShowChangeStatusAction = new Nomenclature();
+        $nomShowChangeStatusAction->setName('Modificar disponibilidad');
+        $nomShowChangeStatusAction->setUrlSlug(' espectaculos-accion-modificar-disponibilidad');
+        $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-edit-availability');
+        $nomShowChangeStatusAction->setNomType($objNomAction);
+        $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
+        $nomShowChangeStatusAction->setPriority(7);
+        $manager->persist($nomShowChangeStatusAction);
+
       }
     }
 
@@ -1330,12 +1411,59 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
       $manager->persist($nomSeatFlowStatus);
 
       $nomSeatFlowStatus = new Nomenclature();
-      $nomSeatFlowStatus->setName('Vendido');
-      $nomSeatFlowStatus->setUrlSlug('vendido');
+      $nomSeatFlowStatus->setName('No disponible');
+      $nomSeatFlowStatus->setUrlSlug('no-disponible');
       $nomSeatFlowStatus->setTreeSlug('unavailable');
       $nomSeatFlowStatus->setNomType($nomTypeSeatFlowStatus);
       $nomSeatFlowStatus->setPriority(2);
       $manager->persist($nomSeatFlowStatus);
+
+      $nomSeatFlowStatus = new Nomenclature();
+      $nomSeatFlowStatus->setName('En proceso');
+      $nomSeatFlowStatus->setUrlSlug('en-proceso');
+      $nomSeatFlowStatus->setTreeSlug('in-process');
+      $nomSeatFlowStatus->setNomType($nomTypeSeatFlowStatus);
+      $nomSeatFlowStatus->setPriority(3);
+      $manager->persist($nomSeatFlowStatus);
+
+      $nomSeatFlowStatus = new Nomenclature();
+      $nomSeatFlowStatus->setName('Vendido');
+      $nomSeatFlowStatus->setUrlSlug('vendido');
+      $nomSeatFlowStatus->setTreeSlug('selled');
+      $nomSeatFlowStatus->setNomType($nomTypeSeatFlowStatus);
+      $nomSeatFlowStatus->setPriority(4);
+      $manager->persist($nomSeatFlowStatus);
+    }
+
+    /*Nomenclature for Seat status*/
+    $nomTypeBookingStatus = $manager->getRepository('AppBundle:NomType')->findOneBy(array(
+      'tree_slug' => 'booking-status'
+    ));
+
+    if ($nomTypeBookingStatus) {
+      $nomBookingStatus = new Nomenclature();
+      $nomBookingStatus->setName('Terminada');
+      $nomBookingStatus->setUrlSlug('terminada');
+      $nomBookingStatus->setTreeSlug('finished');
+      $nomBookingStatus->setNomType($nomTypeBookingStatus);
+      $nomBookingStatus->setPriority(1);
+      $manager->persist($nomBookingStatus);
+
+      $nomBookingStatus = new Nomenclature();
+      $nomBookingStatus->setName('En proceso');
+      $nomBookingStatus->setUrlSlug('reserva-en-proceso');
+      $nomBookingStatus->setTreeSlug('booking-in-process');
+      $nomBookingStatus->setNomType($nomTypeBookingStatus);
+      $nomBookingStatus->setPriority(2);
+      $manager->persist($nomBookingStatus);
+
+      $nomBookingStatus = new Nomenclature();
+      $nomBookingStatus->setName('Cancelada');
+      $nomBookingStatus->setUrlSlug('cancelada');
+      $nomBookingStatus->setTreeSlug('cancelled');
+      $nomBookingStatus->setNomType($nomTypeBookingStatus);
+      $nomBookingStatus->setPriority(3);
+      $manager->persist($nomBookingStatus);
     }
 
     $manager->flush();

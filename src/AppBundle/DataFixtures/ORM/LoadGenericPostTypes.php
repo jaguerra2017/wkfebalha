@@ -197,6 +197,26 @@ class LoadGenericPostTypes extends AbstractFixture implements OrderedFixtureInte
       $seatGenericPostType->setTreeSlug('seat');
       $manager->persist($seatGenericPostType);
 
+      $seatGenericPostType = new GenericPostType();
+      $seatGenericPostType->setName('Espectáculo');
+      $seatGenericPostType->setDescription('Tipo de entrada que identifica a las entradas/espectáculo').
+      $seatGenericPostType->setUrlSlug('espectaculo');
+      $seatGenericPostType->setName('Show','en');
+      $seatGenericPostType->setDescription('Type of entry who identify show/posts','en').
+      $seatGenericPostType->setUrlSlug('show','en');
+      $seatGenericPostType->setTreeSlug('show');
+      $manager->persist($seatGenericPostType);
+
+      $seatGenericPostType = new GenericPostType();
+      $seatGenericPostType->setName('Reserva');
+      $seatGenericPostType->setDescription('Tipo de entrada que identifica a las entradas/reserva').
+      $seatGenericPostType->setUrlSlug('reserva');
+      $seatGenericPostType->setName('Booking','en');
+      $seatGenericPostType->setDescription('Type of entry who identify booking/posts','en').
+      $seatGenericPostType->setUrlSlug('booking','en');
+      $seatGenericPostType->setTreeSlug('booking');
+      $manager->persist($seatGenericPostType);
+
 
 
       $manager->flush();

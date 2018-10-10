@@ -7,6 +7,7 @@ use AppBundle\Entity\HeadQuarter;
 use AppBundle\Entity\NomType;
 use AppBundle\Entity\Room;
 use AppBundle\Entity\RoomArea;
+use AppBundle\Entity\Show;
 use AppBundle\Entity\Zone;
 use AppBundle\Entity\ZoneRow;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -99,14 +100,70 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
 
       $manager->flush();
 
+      $avellanedaMap = $manager->getRepository('AppBundle:Media')->findOneBy(array('name_es'=>'bnc-avellaneda-hall-map'));
+
       $avellanedaRoom = new Room();
       $avellanedaRoom->setId($avellanedaRoomGP);
       $avellanedaRoom->setHeadquarter($nationalTheaterGP);
+      $avellanedaRoom->setMapImage($avellanedaMap);
       $manager->persist($avellanedaRoom);
 
       $area = $manager->getRepository('AppBundle:GenericPostType')->findOneBy(array(
         'tree_slug' => 'salable-area'
       ));
+
+      /*creating a show*/
+      $show = $manager->getRepository('AppBundle:GenericPostType')->findOneBy(array(
+        'tree_slug' => 'show'
+      ));
+
+      $showGP = new GenericPost();
+      $showGP->setTitle('Giselle');
+      $showGP->setTitle('Giselle','en');
+      $showGP->setGenericPostType($show);
+      $showGP->setExcerpt('AAAAA');
+      $showGP->setExcerpt('AAAAA', 'en');
+      $showGP->setContent('JJJJJJJJJJJJ');
+      $showGP->setContent('JJJJJJJJJJJJ', 'en');
+      $showGP->setUrlSlug('gisella');
+      $showGP->setPostStatusSlug('generic-post-status-published');
+      $showGP->setCreatedAuthor($user);
+      $manager->persist($showGP);
+
+      $manager->flush();
+
+      $showEl = new Show();
+      $showEl->setId($showGP);
+      $showEl->setRoom($avellanedaRoomGP);
+      $showEl->setSeatPrice(54);
+      $showEl->setDuration(1);
+      $showEl->setShowDate(new \DateTime('2018-10-29 20:00'));
+      $manager->persist($showEl);
+
+
+      $showGP = new GenericPost();
+      $showGP->setTitle('La bella durmiente del bosque');
+      $showGP->setTitle('Sleeping beauty','en');
+      $showGP->setGenericPostType($show);
+      $showGP->setExcerpt('AAAAA');
+      $showGP->setExcerpt('AAAAA', 'en');
+      $showGP->setContent('JJJJJJJJJJJJ');
+      $showGP->setContent('JJJJJJJJJJJJ', 'en');
+      $showGP->setUrlSlug('sleeping-beauty');
+      $showGP->setPostStatusSlug('generic-post-status-published');
+      $showGP->setCreatedAuthor($user);
+      $manager->persist($showGP);
+
+      $manager->flush();
+
+      $showEl = new Show();
+      $showEl->setId($showGP);
+      $showEl->setRoom($avellanedaRoomGP);
+      $showEl->setSeatPrice(72);
+      $showEl->setDuration(2);
+      $showEl->setShowDate(new \DateTime('2018-10-29 21:00'));
+      $manager->persist($showEl);
+      /*end*/
 
       $plateaGP = new GenericPost();
       $plateaGP->setTitle('Platea');

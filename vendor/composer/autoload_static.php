@@ -59,6 +59,10 @@ class ComposerStaticInita0d598870ecf62b7514692f161bd1970
         array (
             'Psr\\Log\\' => 8,
         ),
+        'N' => 
+        array (
+            'Negotiation\\' => 12,
+        ),
         'M' => 
         array (
             'Monolog\\' => 8,
@@ -74,12 +78,17 @@ class ComposerStaticInita0d598870ecf62b7514692f161bd1970
             'Knp\\Snappy\\' => 11,
             'Knp\\Bundle\\SnappyBundle\\' => 24,
         ),
+        'J' => 
+        array (
+            'JMS\\SerializerBundle\\' => 21,
+        ),
         'I' => 
         array (
             'Incenteev\\ParameterHandler\\' => 27,
         ),
         'F' => 
         array (
+            'FOS\\RestBundle\\' => 15,
             'FOS\\JsRoutingBundle\\' => 20,
         ),
         'D' => 
@@ -201,6 +210,10 @@ class ComposerStaticInita0d598870ecf62b7514692f161bd1970
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'Negotiation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/negotiation/src/Negotiation',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -225,9 +238,17 @@ class ComposerStaticInita0d598870ecf62b7514692f161bd1970
         array (
             0 => __DIR__ . '/..' . '/knplabs/knp-snappy-bundle',
         ),
+        'JMS\\SerializerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jms/serializer-bundle',
+        ),
         'Incenteev\\ParameterHandler\\' => 
         array (
             0 => __DIR__ . '/..' . '/incenteev/composer-parameter-handler',
+        ),
+        'FOS\\RestBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/rest-bundle',
         ),
         'FOS\\JsRoutingBundle\\' => 
         array (
@@ -300,9 +321,24 @@ class ComposerStaticInita0d598870ecf62b7514692f161bd1970
             array (
                 0 => __DIR__ . '/..' . '/ocramius/proxy-manager/src',
             ),
+            'PhpOption\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
+            ),
+            'PhpCollection' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpcollection/phpcollection/src',
+            ),
             'PHPExcel' => 
             array (
                 0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
+            ),
+        ),
+        'M' => 
+        array (
+            'Metadata\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/metadata/src',
             ),
         ),
         'J' => 
@@ -310,6 +346,14 @@ class ComposerStaticInita0d598870ecf62b7514692f161bd1970
             'JsonpCallbackValidator' => 
             array (
                 0 => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src',
+            ),
+            'JMS\\Serializer' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/serializer/src',
+            ),
+            'JMS\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/jms/parser-lib/src',
             ),
         ),
         'I' => 

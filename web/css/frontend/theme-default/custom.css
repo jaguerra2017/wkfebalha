@@ -88,6 +88,59 @@ body{
 .app-text-color {
 	color: #013147 !important;
 }
+
+.dummy {
+	margin-top: 100%;
+}
+.thumbnail {
+	position: absolute;
+	top: -10px;
+	bottom: 0;
+	left: 15px;
+	right: 0;
+	font-size: 16px;
+	text-align:center;
+	background-color: #023147;
+	color: white;
+	padding-top:calc(40% - 30px);
+}
+
+.thumbnail_show {
+	position: absolute;
+	top: 75px;
+	bottom: 0;
+	left: 15px;
+	right: 0;
+	font-size: 16px;
+	text-align:left;
+	color: white;
+	padding-top: 5px;
+	padding-left: 20px;
+}
+
+.btn-circle-sm {
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	padding: 2px 0;
+	font-size: 20px;
+	line-height: 1.65;
+	border-radius: 30px !important;
+}
+
+	.tumbnail_not_empty {
+		border: solid 1px #a5a5a5;
+		color: #a5a5a5;
+	}
+
+	.tumbnail_pair_empty {
+		background-color: #023147;
+	}
+
+	.tumbnail_odd_empty {
+		background-color: #ecb761;
+	}
+
 .mega-menu > .container-fluid{
 	padding-right: 0px;
 	padding-left: 0px;

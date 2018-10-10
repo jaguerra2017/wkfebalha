@@ -20,7 +20,9 @@
         "friendsofsymfony/jsrouting-bundle": "^1.6",
         "doctrine/doctrine-migrations-bundle": "^1.0",
         "symfony/finder": "^3.4",
-        "liip/imagine-bundle": "^1.9"
+        "liip/imagine-bundle": "^1.9",
+        "friendsofsymfony/rest-bundle": "^2.4",
+        "jms/serializer-bundle": "^2.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

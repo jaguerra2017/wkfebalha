@@ -1,0 +1,17 @@
+# JMS\AopBundle Configuration
+#jms_aop:
+#    cache_dir: %kernel.cache_dir%/jms_aop
+
+# JMS\DiExtraBundle Configuration
+#jms_di_extra:
+#    locations:
+#        directories: ["%kernel.root_dir%/../src"]
+
+# Configuration
+jms_serializer:
+    metadata:
+        cache: file
+        debug: "%kernel.debug%"
+        file_cache:
+            dir: "%kernel.cache_dir%/serializer"
+        auto_detection: true

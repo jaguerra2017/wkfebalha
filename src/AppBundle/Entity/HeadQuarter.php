@@ -33,6 +33,13 @@ class HeadQuarter
      */
     private $address_en;
 
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="online_sale", type="boolean")
+   */
+  private $online_sale;
+
 
 
     /**
@@ -137,5 +144,29 @@ class HeadQuarter
     public function getAddressEn()
     {
         return $this->address_en;
+    }
+
+    /**
+     * Set onlineSale
+     *
+     * @param boolean $onlineSale
+     *
+     * @return HeadQuarter
+     */
+    public function setOnlineSale($onlineSale)
+    {
+        $this->online_sale = $onlineSale;
+    
+        return $this;
+    }
+
+    /**
+     * Get onlineSale
+     *
+     * @return boolean
+     */
+    public function getOnlineSale()
+    {
+        return $this->online_sale;
     }
 }
