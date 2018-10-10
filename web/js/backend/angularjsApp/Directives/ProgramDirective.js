@@ -113,12 +113,12 @@
       '</div>' +
       '  <div style="margin-top: -50px;" data-ng-repeat="room in model.rooms" class="col-md-2 col-sm-4 col-xs-6">\n' +
       '    <div class="dummy"></div>\n' +
-      '    <a data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty "><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
+      '    <div data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty "><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
       '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
       '<reserve from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
       '</div>'+
       // '<a data-ng-if="userRole == \'ROLE_ADMIN\'" title="Eliminar" data-ng-click="deleteShow(show[room.id])" class="btn btn-circle-sm btn-danger"><span><i class="icon-trash"></i></span> </a>' +
-      '</a>\n' +
+      '</div>\n' +
       '    <div data-ng-if="show[room.id] == null" class="thumbnail_show [[outerIndex % 2 == 0 ? \'tumbnail_odd_empty\' : \'tumbnail_pair_empty\']]">' +
       '<a style="color: white" data-ng-if="userRole == \'ROLE_ADMIN\'" data-ng-click="addShow(show.dateGeneral, room)" class="btn"><span><i style="font-size: 18px" class="icon-plus"></i></span> </a>' +
       '</div>\n' +
