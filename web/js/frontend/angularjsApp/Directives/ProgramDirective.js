@@ -44,19 +44,6 @@
           console.log(show);
         }
 
-        $scope.addShow = function (date, room) {
-          var extraData = {
-            date: date,
-            room: room
-          };
-          $scope.showFormCtrlFn({from:'directive', extraData: extraData});
-        }
-
-        $scope.deleteShow = function(show){
-          $scope.deleteCtrlFn({showid:show.id});
-        }
-
-
 
         $scope.scrollDown = function (element) {
           if(element == 'block_1'){
@@ -119,10 +106,8 @@
       '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
       '<reserve from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
       '</div>'+
-      // '<a data-ng-if="userRole == \'ROLE_ADMIN\'" title="Eliminar" data-ng-click="deleteShow(show[room.id])" class="btn btn-circle-sm btn-danger"><span><i class="icon-trash"></i></span> </a>' +
       '</a>\n' +
       '    <div data-ng-if="show[room.id] == null" class="thumbnail_show [[outerIndex % 2 == 0 ? \'tumbnail_odd_empty\' : \'tumbnail_pair_empty\']]">' +
-      // '<a style="color: white" data-ng-if="userRole == \'ROLE_ADMIN\'" data-ng-click="addShow(show.dateGeneral, room)" class="btn"><span><i style="font-size: 18px" class="icon-plus"></i></span> </a>' +
       '</div>\n' +
       '  </div>\n' +
       '</div>' +

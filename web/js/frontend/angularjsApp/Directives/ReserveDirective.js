@@ -15,21 +15,8 @@
       replace: true,
       template:
       '<div class="row"> '+
-      '<div class="col-xs-12" data-ng-if="model.availability != null && userRole ==\'ROLE_ADMIN\'">' +
-      '<div style="text-align: center">\n' +
-      '<p>\n' +
-      'Esta función tiene <strong>[[model.availability]]</strong> asientos disponibles para la venta online.' +
-      '</p>\n' +
-      '</div>'+
-      '</div>'+
       '<div class="col-lg-2 col-md-3 col-xs-6" data-ng-if="from == \'detail\'">' +
       '<div class="input-group-btn">' +
-      '<a data-ng-if="userRole ==\'ROLE_ADMIN\'" class="btn toolbar-btn-dropdown-text btn-sm btn-default" ' +
-      'style="text-align: left; font-size: 14px;" ' +
-      'data-ng-click="showSeatModal()">' +
-      '<i class="fa fa-bookmark"></i> ' +
-      '   Gestionar' +
-      '</a>' +
       '<button data-ng-click="showSeatModal()" data-ng-if="userRole !=\'ROLE_ADMIN\'" type="button" class="btn btn-outline btn-primary">Reservar</button>' +
       '</div>' +
       '</div>' +
@@ -125,12 +112,10 @@
       '    <div class="front">[[model.selectedArea.title]] / [[model.selectedZone.title]]</div>\n' +
       '   </div>\n' +
       '<div id="legend" class="col-lg-2 col-xs-12">' +
-      '<button type="button" style="margin-left: 5px;" data-ng-if="userRole == \'ROLE_ADMIN\'" class="btn checkout-button" data-ng-click="selectAll()">Habilitar todos</button>\n' +
       '</div>\n' +
       '<div class="row"> '+
       '<div class="col-xs-12 col-md-offset-3 col-xs-offset-2 col-md-8" style="margin-bottom: 10px"> '+
       '<button type="button" data-ng-if="userRole != \'ROLE_ADMIN\'" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="checkoutBooking(\'booking\')">Reservar</button>\n' +
-      '<button type="button" data-ng-if="userRole == \'ROLE_ADMIN\'" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="checkoutBooking(\'admin\')">Aplicar</button>\n' +
       '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">Cancelar</button>\n' +
       '</div>\n' +
       '</div>\n' +
@@ -499,22 +484,6 @@
                     $scope.changeStep('block_3');
                   }
                 }
-                break;
-              case 'admin':
-                if($scope.model.selectedSeats != null || $scope.model.unselectedSeats){
-                  $scope.toggleDataLoader();
-                  $scope.goToTop();
-                  var parameterCollection = {
-                    selectedSeats:$scope.model.sc.find('available_admin').seatIds,
-                    unselectedSeats:$scope.model.sc.find('available').seatIds,
-                    showid:$scope.showid
-                  }
-                  reserveFact.enableSeatsToSale($scope, parameterCollection, function (response) {
-                    $scope.model.availability = response.data.availability;
-                    $scope.cancel();
-                  });
-                }
-
                 break;
             }
         }
