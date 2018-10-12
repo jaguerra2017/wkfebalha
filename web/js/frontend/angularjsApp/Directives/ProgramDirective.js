@@ -40,11 +40,6 @@
           $('html, body').animate({scrollTop: pageHeading.height()}, 1000);
         }
 
-        $scope.goBooking = function (show) {
-          console.log(show);
-        }
-
-
         $scope.scrollDown = function (element) {
           if(element == 'block_1'){
             $('html, body').animate({scrollTop: $("#"+element).offset().top + 800}, 1000);
@@ -91,12 +86,12 @@
       '<div class="col-xs-12" style="margin-bottom: 20px">' +
       '<button style="float: right" type="button" class="btn btn-outline btn-primary">Descargar</button>' +
       '</div> '+
-      '<div data-ng-repeat="room in model.rooms" class="col-md-2 col-sm-4 col-xs-6">\n' +
+      '<div data-ng-repeat="room in model.rooms" class="hidden-xs hidden-sm  col-md-2 col-sm-4 col-xs-6">\n' +
       '    <div class="dummy"></div>\n' +
-      '    <div class="thumbnail purple">[[room.headquarter]]<br> ([[room.title]])</div>\n' +
+      '    <div class="thumbnail_mine purple">[[room.headquarter]]<br> ([[room.title]])</div>\n' +
       '  </div>'+
       '  </div>'+
-      '<div class="row" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
+      '<div class="row hidden-xs hidden-sm" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
       '<div class="col-xs-12">'+
       '<h3 class="app-text-color">[[key]]</h3>'+
       '</div>' +
@@ -104,13 +99,31 @@
       '    <div class="dummy"></div>\n' +
       '    <a href="[[model.domain]]/[[show[room.id].url_slug]]" data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty "><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
       '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
-      '<reserve from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
+      '<reserve view="\'large\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
       '</div>'+
       '</a>\n' +
       '    <div data-ng-if="show[room.id] == null" class="thumbnail_show [[outerIndex % 2 == 0 ? \'tumbnail_odd_empty\' : \'tumbnail_pair_empty\']]">' +
       '</div>\n' +
       '  </div>\n' +
       '</div>' +
+      '<div class="row hidden-lg hidden-md">' +
+      '<div data-ng-repeat="room in model.rooms">'+
+      '<div class="col-xs-12">\n' +
+      '    <div class="dummy"></div>\n' +
+      '    <div class="thumbnail_mine purple">[[room.headquarter]]<br> ([[room.title]])</div>\n' +
+      '  </div>'+
+      '<div class="col-xs-12" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
+      '<h3 style="text-align: center" class="app-text-color">[[key]]</h3>'+
+      '<div class="dummy_show"></div>\n' +
+      '<a href="[[model.domain]]/[[show[room.id].url_slug]]" data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty "><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
+      '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
+      '<reserve view="\'mobile\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
+      '</div>'+
+      '</a>\n' +
+      '    <div data-ng-if="show[room.id] == null" class="thumbnail_show tumbnail_odd_empty">' +
+      '</div>'+
+      '  </div>'+
+      '</div> '+
       '</div>'
     }
 

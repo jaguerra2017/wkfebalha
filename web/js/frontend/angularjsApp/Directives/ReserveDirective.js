@@ -22,7 +22,7 @@
       '</div>' +
       '<a data-ng-if="userRole != \'ROLE_ADMIN\' && from == \'program\'" title="Reservar" data-ng-click="showSeatModal()" class="btn btn-circle-sm btn-primary"><span><i class="icon-tag"></i></span> </a>' +
       '<div class="col-xs-12">' +
-      '<div id="seats-modal-[[showid]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
+      '<div id="seats-modal-[[showid]]-[[view]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
       '<div class="modal-header">'+
       '<button type="button" class="close" title="Cancelar" data-ng-click="cancel()"></button>'+
       '<h4 class="modal-title"></h4>'+
@@ -238,6 +238,7 @@
         showid: "=",
         from: "=",
         currentLanguage: "=",
+        view: "=",
         userRole: "="
       },
       controller: function ($scope, $element, reserveFact) {
@@ -288,11 +289,11 @@
         }
 
         $scope.hideSeatModal = function(){
-          $('#seats-modal-'+ $scope.showid).modal('hide');
+          $('#seats-modal-'+ $scope.showid + '-'+ $scope.view).modal('hide');
         }
 
         $scope.showSeatModal = function(){
-          $('#seats-modal-'+ $scope.showid).modal('show');
+          $('#seats-modal-'+ $scope.showid+ '-'+ $scope.view).modal('show');
         }
 
         $scope.cancel = function () {
