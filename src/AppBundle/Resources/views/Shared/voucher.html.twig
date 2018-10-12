@@ -1,1 +1,130 @@
-<h4>PRUEBA</h4>
+<style>
+
+  @page  {
+    margin-top: 0.2cm;
+    margin-left: 1.7cm;
+    margin-right: 0.5cm;
+  }
+  .table-bordered {
+    border: 1px solid #000000;
+  }
+  table {
+    font-size: 12px;
+    font-family: "Times New Roman";
+    max-width:100% !important;
+    width: 100% !important;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+  }
+  tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+  }
+  table.table-bordered thead th, table.table-bordered thead td {
+    border-left-width: 0;
+    border-top-width: 0;
+  }
+  .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td {
+    border-top: 0;
+  }
+  .table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
+    border-bottom-width: 1px;
+  }
+  .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #000000;
+  }
+  .table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #000000;
+  }
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;
+  }
+  th {
+    font-weight: bold;
+  }
+  td, th {
+    display: table-cell;
+    vertical-align: inherit;
+  }
+  tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+  }
+  table.table-bordered tbody th, table.table-bordered tbody td {
+    border-left-width: 0;
+    border-bottom-width: 0;
+  }
+</style>
+<table style="text-align: center;" class="table table-bordered">
+  <thead>
+  <tr>
+    <td>
+      <img style="width: 100px; height: 50px; float: left" src="{{ asset('images/shared/bnc-main-logo.png') }}">
+      <h2 style="padding-top: 20px">Pago online</h2>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+      <span style="float: right; font-size: 20px">{{ params['transaction'] }}</span>
+       {{ params['date'] }}
+      {#{{ 'now'|date('d-m-Y') }}<br>#}
+      Comercial:  <br>
+      VARIAS AGENCIAS PARADISO<br>
+      {{ params['country'] }}
+      {#Cuba#}
+    </td>
+  </tr>
+  <tr>
+    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+      Teatro: {{ params['theater'] }}<br>
+      Lugar: {{ params['area'] }}
+    </td>
+  </tr>
+
+  <tr>
+    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+      {% for key,row in params['seats'] %}
+        Fila: {{ key }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        Asientos:
+        {% for seat in row %}
+          {{ seat }} {% if loop.index != row|length %}, {% endif %}
+          {% endfor %}
+      {% endfor %}
+    </td>
+  </tr>
+  <tr>
+    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+      Función:  {{ params['showName'] }} <br>
+      Día:   {{ params['showDateTime']|date('d-m-Y') }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      Hora:  {{ params['showDateTime']|date('h:i a') }}
+    </td>
+  </tr>
+  <tr>
+    <td style="font-size:14px; text-align: left; border-right: none">
+      Usted ha pagado {{ params['price'] }} USD por cada asiento. Conserve esta factura y pres&eacute;ntela en la
+      taquilla del teatro como m&aacute;ximo una hora antes de que empiece la funci&oacute;n
+      para que se le haga entrega de su Ticket. Si no cuenta con una impresora, copie en una hoja toda la informaci&oacute;n
+      que aparece en el recibo de pago y no olvide el c&oacute;digo de la esquina superior derecha. Gracias.
+      Recuerde que la programaci&oacute;n puede estar sujeta a cambios de &uacute;ltima hora.
+    </td>
+  </tr>
+  </tbody>
+</table>
+<h3>!Aviso importante!:</h3> Este correo electr&oacute;nico ha sido enviado autom&aacute;ticamente.<br>
+Por favor, no responda al mismo.

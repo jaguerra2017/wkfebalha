@@ -41,7 +41,7 @@ class ApiController extends FOSRestController
     );
     $result = $apiBussiness->checkInvoice($params);
     if($result != 'error'){
-      /*send e-mail*/
+
     }
     return new JsonResponse($result);
   }

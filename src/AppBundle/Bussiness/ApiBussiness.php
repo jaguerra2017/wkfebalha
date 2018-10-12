@@ -19,7 +19,8 @@ class ApiBussiness
     }
 
     public function checkInvoice($params) {
-      $booking = $this->em->getRepository('AppBundle:Booking')->findOneBy(array('transaction'=>$params['id_transaction']));
+      $booking = $this->em->getRepository('AppBundle:Booking')->findOneBy(array('transaction'=> $params['id_transaction']));
+
       if($booking) {
         if($params['notrans']){
           $booking->setNotrans($params['notrans']);
@@ -27,22 +28,54 @@ class ApiBussiness
         if($params['codig']){
           $booking->setCodig($params['codig']);
         }
-        switch ($params['result']) {
+
+        $showSeats = $this->em->getRepository('AppBundle:ShowSeat')->findBy(array('booking'=>$booking->getId()));
+        $bookingSeats = array();
+        switch ($params['resultado']) {
           case 'APPROVED':
             $statusBooking = $this->em->getRepository('AppBundle:Nomenclature')->findOneBy(array('tree_slug'=>'finished'));
             $statusSeats = $this->em->getRepository('AppBundle:Nomenclature')->findOneBy(array('tree_slug'=>'selled'));
             $booking->setStatus($statusBooking);
-            foreach ($booking->getSeats() as $seat) {
+            foreach ($showSeats as $seat) {
+              $seatObj = $this->em->getRepository('AppBundle:Seat')->find($seat->getSeat());
+              $zoneRow = $this->em->getRepository('AppBundle:ZoneRow')->find($seatObj->getZoneRow());
+              $bookingSeats[$zoneRow->getIdentifier() ? $zoneRow->getIdentifier() : $zoneRow->getIdentifierNumber()][]
+                = $seatObj->getName();
               $seat->setStatus($statusSeats);
               $seat->setAvailable(0);
               $this->em->persist($seat);
             }
+
+            $sharedFileFinder  = new SharedFileFinderBussiness();
+            $mailConfig = $sharedFileFinder->getSettingsFile(array('decode_from_json'=>true,'section'=>'mail'));
+
+            $showObj = $this->em->getRepository('AppBundle:Show')->find($booking->getShow());
+            $roomArea = $this->em->getRepository('AppBundle:RoomArea')->findOneBy(array('room'=>$showObj->getRoom()));
+
+
+            $mailParams = array(
+              'subject' => 'Pago online',
+              'from'=> 'emailsoycubano@gmail.com',
+              'to'=> $booking->getEmail(),
+              'voucher'=>true,
+              'transaction'=>$booking->getTransaction(),
+              'price'=> $showObj->getSeatPrice(),
+              'date'=>date('d-m-Y'),
+              'theater'=>$showObj->getRoom()->getTitle('es'),
+              'showName'=>$showObj->getId()->getTitle('es'),
+              'showDateTime'=>$showObj->getShowDate(),
+              'area'=>$roomArea->getId()->getTitle('es'),
+              'seats'=>$bookingSeats,
+              'country'=>$booking->getCountryName(),
+              'message' => $mailConfig['after_booking_confirm_message_es']
+            );
+            $this->container->get('appbundle_mail')->sendMail($mailParams);
             break;
           default:
             $statusBooking = $this->em->getRepository('AppBundle:Nomenclature')->findOneBy(array('tree_slug'=>'cancelled'));
             $statusSeats = $this->em->getRepository('AppBundle:Nomenclature')->findOneBy(array('tree_slug'=>'avaiable'));
             $booking->setStatus($statusBooking);
-            foreach ($booking->getSeats() as $seat) {
+            foreach ($showSeats as $seat) {
               $seat->setStatus($statusSeats);
               $seat->setAvailable(1);
               $this->em->persist($seat);
@@ -51,19 +84,6 @@ class ApiBussiness
         }
         $this->em->persist($booking);
         $this->em->flush();
-
-
-        $sharedFileFinder  = new SharedFileFinderBussiness();
-        $mailConfig = $sharedFileFinder->getSettingsFile(array('decode_from_json'=>true,'section'=>'mail'));
-
-        $mailParams = array(
-          'subject' => 'SoyCubano Response',
-          'from'=> 'emailsoycubano@gmail.com',
-          'to'=> $booking->getEmail(),
-          'message' => $mailConfig['after_booking_confirm_message_es']
-        );
-
-        $this->container->get('appbundle_mail')->sendMail($mailParams);
 
         return $params;
       }
