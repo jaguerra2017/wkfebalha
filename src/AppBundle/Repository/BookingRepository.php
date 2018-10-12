@@ -12,5 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class BookingRepository extends EntityRepository
 {
+  public function getBookingData($params){
+    $qb = $this->getEntityManager()->createQueryBuilder();
+    $qb->select('b')
+      ->from('AppBundle:Booking','b')
+      ->innerJoin('b.id','bgp')
+      ->where('b.transaction = :transaction')
+      ->setParameter('transaction',$params['id_transaction']);
 
+    $qb->getQuery()->setQueryCacheLifetime(3600);
+    $qb->getQuery()->setResultCacheLifetime(3600);
+    $qb->getQuery()->useQueryCache(true);
+    return $qb->getQuery()->getSingleResult(2);
+  }
 }

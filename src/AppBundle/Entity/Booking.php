@@ -69,14 +69,9 @@ class Booking
 
   /**
    * @ORM\ManyToOne(targetEntity="GenericPost")
-   * @ORM\JoinColumn(name="show_id", referencedColumnName="id")
+   * @ORM\JoinColumn(name="show_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
    */
   private $show;
-
-  /**
-   * @ORM\OneToMany(targetEntity="ShowSeat", mappedBy="booking",cascade={"persist","remove"})
-   */
-  private $seats;
 
   /**
    * @ORM\ManyToOne(targetEntity="Country")
@@ -96,38 +91,19 @@ class Booking
    */
   public function __construct()
   {
-    $this->avaiable = true;
+
   }
 
-  /**
-   * Set id
-   *
-   * @param \AppBundle\Entity\GenericPost $id
-   * @return HeadQuarter
-   */
-  public function setId($id)
-  {
-    $this->id = $id;
-
-    return $this;
-  }
-
-  /**
-   * Get id
-   *
-   * @return \AppBundle\Entity\GenericPost
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
+    public function getCountryName(){
+      return $this->country->getCountryName();
+    }
 
     /**
      * Set name
      *
      * @param string $name
      *
-     * @return Seat
+     * @return Booking
      */
     public function setName($name)
     {
@@ -243,6 +219,78 @@ class Booking
     }
 
     /**
+     * Set notrans
+     *
+     * @param string $notrans
+     *
+     * @return Booking
+     */
+    public function setNotrans($notrans)
+    {
+        $this->notrans = $notrans;
+    
+        return $this;
+    }
+
+    /**
+     * Get notrans
+     *
+     * @return string
+     */
+    public function getNotrans()
+    {
+        return $this->notrans;
+    }
+
+    /**
+     * Set codig
+     *
+     * @param string $codig
+     *
+     * @return Booking
+     */
+    public function setCodig($codig)
+    {
+        $this->codig = $codig;
+    
+        return $this;
+    }
+
+    /**
+     * Get codig
+     *
+     * @return string
+     */
+    public function getCodig()
+    {
+        return $this->codig;
+    }
+
+    /**
+     * Set id
+     *
+     * @param \AppBundle\Entity\GenericPost $id
+     *
+     * @return Booking
+     */
+    public function setId(\AppBundle\Entity\GenericPost $id)
+    {
+        $this->id = $id;
+    
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return \AppBundle\Entity\GenericPost
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set show
      *
      * @param \AppBundle\Entity\GenericPost $show
@@ -264,40 +312,6 @@ class Booking
     public function getShow()
     {
         return $this->show;
-    }
-
-    /**
-     * Add seat
-     *
-     * @param \AppBundle\Entity\ShowSeat $seat
-     *
-     * @return Booking
-     */
-    public function addSeat(\AppBundle\Entity\ShowSeat $seat)
-    {
-        $this->seats[] = $seat;
-    
-        return $this;
-    }
-
-    /**
-     * Remove seat
-     *
-     * @param \AppBundle\Entity\ShowSeat $seat
-     */
-    public function removeSeat(\AppBundle\Entity\ShowSeat $seat)
-    {
-        $this->seats->removeElement($seat);
-    }
-
-    /**
-     * Get seats
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSeats()
-    {
-        return $this->seats;
     }
 
     /**
@@ -346,53 +360,5 @@ class Booking
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * Set notrans
-     *
-     * @param string $notrans
-     *
-     * @return Booking
-     */
-    public function setNotrans($notrans)
-    {
-        $this->notrans = $notrans;
-    
-        return $this;
-    }
-
-    /**
-     * Get notrans
-     *
-     * @return string
-     */
-    public function getNotrans()
-    {
-        return $this->notrans;
-    }
-
-    /**
-     * Set codig
-     *
-     * @param string $codig
-     *
-     * @return Booking
-     */
-    public function setCodig($codig)
-    {
-        $this->codig = $codig;
-    
-        return $this;
-    }
-
-    /**
-     * Get codig
-     *
-     * @return string
-     */
-    public function getCodig()
-    {
-        return $this->codig;
     }
 }
