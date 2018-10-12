@@ -6,6 +6,10 @@
                 <source>site.welcome_text</source>
                 <target>Welcome!</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>btn.see_more_text</source>
+                <target>See more</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

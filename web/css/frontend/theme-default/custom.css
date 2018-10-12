@@ -45,6 +45,9 @@ body{
 .margin-0{
 	margin:0;
 }
+.text-center{
+	text-align:center;
+}
 .text-left{
 	text-align:left;
 }
@@ -574,17 +577,20 @@ ul.book-right li {
 }
 .custom-general-button{
 	background: none;
-	border: 2px solid #009dc7;
-	color: #009dc7;
+	border: solid 1px #a5a5a5;
+	color: #a5a5a5;
 	text-transform: uppercase;
 	padding: 7px 20px 5px;
-	font-family: "Helvetica LTStd Bold";
+	font-family: "Arimo Bold";
 	width: auto !important;
-	font-size:12px;
+	font-size:13px;
 }
 .custom-general-button:hover{
-	color: #fff !important;
-	background-color: #009dc7;
+	background-color: rgb(7,49,71);
+	color:white;
+	/*color: #fff !important;
+	background-color: #009dc7;*/
+
 }
 
 .title-separator{
@@ -633,6 +639,7 @@ ul.book-right li {
 	font-size: 16px;
 	padding: 10px 0;
 }
+
 .news-summary .custom-general-button,
 .generic-post-container .custom-general-button,
 .generic-post-container-222 .custom-general-button,
@@ -1117,6 +1124,11 @@ h4{
 	}
 	.custom-general-button{
 		float:left;
+	}
+	.home-program-summary .custom-general-button{
+		float: none;
+		margin-top: 70px;
+		margin-bottom: 40px;
 	}
 	.summary-first .notifier-event-date,
 	.summary-second .notifier-event-date,
