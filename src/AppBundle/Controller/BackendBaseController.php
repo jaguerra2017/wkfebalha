@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * BACKEND - Base controller.
  *
- * @Route("backend")
+ * @Route("{_locale}/backend", defaults={"_locale"="es"}, requirements={"_locale"="es"})
  */
 class BackendBaseController extends Controller
 {

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="es" class="ie8 no-js" data-ng-app="BncFrontend"> <![endif]-->
-<!--[if IE 9]> <html lang="es" class="ie9 no-js" data-ng-app="BncFrontend"> <![endif]-->
+<!--[if IE 8]> <html lang="{{ app.session.get('_locale') }}" class="ie8 no-js" data-ng-app="BncFrontend"> <![endif]-->
+<!--[if IE 9]> <html lang="{{ app.session.get('_locale') }}" class="ie9 no-js" data-ng-app="BncFrontend"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="es" class="no-js" data-ng-app="BncFrontend">
+<html lang="{{ app.session.get('_locale') }}" class="no-js" data-ng-app="BncFrontend">
 <!-- BEGIN HEAD -->
 {% block template_name %}{% endblock %}
 <head>
@@ -12,7 +12,7 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
 
-    <title>BNC | {% block title %} ¡Bienvenidos!{% endblock %}</title>
+    <title>FIBHA | {% block title %} {{ "site.welcome_text" | trans({}, 'general', app.session.get('_locale')) }}{% endblock %}</title>
     {% block stylesheets %}
         <link href="{{ asset('css/backend/fonts/font-awesome/font-awesome.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
         <link href="{{ asset('css/backend/fonts/simple-line-icons/simple-line-icons.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
@@ -26,6 +26,8 @@
         <link href="{{ asset('css/backend/plugins/icheck/icheck.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
         <link href="{{ asset('css/backend/plugins/fullcalendar/fullcalendar.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
         <link href="{{ asset('css/frontend/plugins/blueimp/css/blueimp-gallery.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/backend/plugins/bootstrap-toastr/toastr.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
+        <link href="{{ asset('css/shared/theme/jquery.seat-charts.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
 
         <!-- Theme styles -->
         <link href="{{ asset('css/backend/theme/timeline.css') }}{{ assets_css_plugins_scripts_version }}" rel="stylesheet">
@@ -70,6 +72,8 @@
         <script src="{{ asset('js/backend/theme/layout.js') }}{{ assets_js_plugins_scripts_version }}"></script>
         <script src="{{ asset('js/frontend/plugins/wow/wow.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
         <script src="{{ asset('js/frontend/plugins/blueimp/jquery.blueimp-gallery.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/backend/plugins/bootstrap-toastr/toastr.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
+        <script src="{{ asset('js/shared/jquery/jquery.seat-charts.min.js') }}{{ assets_js_plugins_scripts_version }}"></script>
 
         <!-- Symfony Fos Routing -->
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -115,11 +119,15 @@
         <script src="{{ asset('js/frontend/angularjsApp/Factories/CompositionFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
         <script src="{{ asset('js/frontend/angularjsApp/Factories/AliciaPageFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
         <script src="{{ asset('js/frontend/angularjsApp/Factories/DefaultPageFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/programFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Factories/ReserveFactory.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
 
 
         <script src="{{ asset('js/frontend/angularjsApp/Directives/BlockHandlerDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
         <script src="{{ asset('js/frontend/angularjsApp/Directives/VideoHandlerDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
         <script src="{{ asset('js/frontend/angularjsApp/Directives/CommentHandlerDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Directives/ProgramDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
+        <script src="{{ asset('js/frontend/angularjsApp/Directives/ReserveDirective.js') }}{{ assets_js_app_angular_scripts_version }}" type="text/javascript"></script>
 
 
     {% endblock %}

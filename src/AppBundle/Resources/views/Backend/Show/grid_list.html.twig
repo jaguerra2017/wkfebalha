@@ -1,0 +1,23 @@
+{% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}
+    {% if is_granted('ROLE_SALESMAN') %}
+      {% set role = 'ROLE_SALESMAN' %}
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+      {% set role = 'ROLE_ADMIN' %}
+    {% endif %}
+
+
+<div data-ng-show="model.showsCollection.length > 0">
+  <program delete-ctrl-fn="deleteShows(showid)" show-form-ctrl-fn="showShowsForm(from, extraData)" user-role="'{{ role }}'" current-language="model.selectedLanguage.value"></program>
+</div>
+
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.showsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

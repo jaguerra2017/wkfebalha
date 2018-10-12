@@ -19,24 +19,11 @@ class Seat
   private $id;
 
   /**
-   * @ORM\ManyToOne(targetEntity="Nomenclature" )
-   * @ORM\JoinColumn(name="status_id", referencedColumnName="id")
-   */
-  protected $status;
-
-  /**
    * @var string
    *
    * @ORM\Column(name="name", type="string")
    */
   private $name;
-
-  /**
-   * @var boolean
-   *
-   * @ORM\Column(name="avaiable", type="boolean")
-   */
-  private $avaiable;
 
   /**
    * @ORM\ManyToOne(targetEntity="GenericPost")
@@ -76,30 +63,6 @@ class Seat
     return $this->id;
   }
 
-  /**
-   * Set status
-   *
-   * @param \AppBundle\Entity\Nomenclature $status
-   *
-   * @return Seat
-   */
-  public function setStatus(\AppBundle\Entity\Nomenclature $status = null)
-  {
-    $this->status = $status;
-
-    return $this;
-  }
-
-  /**
-   * Get status
-   *
-   * @return \AppBundle\Entity\Nomenclature
-   */
-  public function getStatus()
-  {
-    return $this->status;
-  }
-
     /**
      * Set name
      *
@@ -122,30 +85,6 @@ class Seat
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set avaiable
-     *
-     * @param boolean $avaiable
-     *
-     * @return Seat
-     */
-    public function setAvaiable($avaiable)
-    {
-        $this->avaiable = $avaiable;
-    
-        return $this;
-    }
-
-    /**
-     * Get avaiable
-     *
-     * @return boolean
-     */
-    public function getAvaiable()
-    {
-        return $this->avaiable;
     }
 
     /**

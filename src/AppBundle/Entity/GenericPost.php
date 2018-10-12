@@ -146,9 +146,13 @@ class GenericPost
     public function __construct()
     {
         $this->title_es = null;
+        $this->title_en = null;
         $this->url_slug_es = null;
+        $this->url_slug_en = null;
         $this->excerpt_es = null;
+        $this->excerpt_en = null;
         $this->content_es = null;
+        $this->content_en = null;
         $this->have_featured_image = false;
         $this->featured_image = null;
         $this->priority = null;

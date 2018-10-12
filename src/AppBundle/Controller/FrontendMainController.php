@@ -23,34 +23,40 @@ class FrontendMainController extends Controller
 {
 
     /**
-     * @Route("/", name="frontend_index")
+     * @Route("/", name="_frontend_index")
+     * @Method("GET")
+     */
+    public function _frontendIndexAction(Request $request)
+    {
+        return $this->redirectToRoute('frontend_index');
+    }
+
+    /**
+     * @Route("/{_locale}", name="frontend_index", requirements={"_locale"="es|en"})
      * @Method("GET")
      */
     public function frontendIndexAction(Request $request)
     {
-        $currentLocale = $request->getSession()->get('_locale');
-        if(!isset($currentLocale)){
-            $request->getSession()->set('_locale', 'es');
+        $desiredLocale = $request->get('_locale');
+        if(!isset($desiredLocale)){
+            return $this->redirect($this->generateUrl('frontend_index', array(
+            "request"=>$request,
+            "_locale" =>'es')));
         }
-        return $this->redirectToRoute('frontend_index_current_language',array(
-             "request"=>$request
-         ));
-    }
-
-    /**
-     * @Route("/{_locale}", name="frontend_index_current_language")
-     * @Method("GET")
-     */
-    public function frontendIndexLanguageAction(Request $request)
-    {
-        if($this->checkIsSiteIsAvailableAction()){
-
-            $desiredLocale = $request->get('_locale');
+        else {
             $currentLocale = $request->getSession()->get('_locale');
-            if(isset($desiredLocale) && isset($currentLocale) && $desiredLocale != $currentLocale &&
-            ($desiredLocale == 'es' || $desiredLocale == 'en')){
-                $request->getSession()->set('_locale', 'es');
+            if(!isset($currentLocale)){
+                $request->getSession()->set('_locale', $desiredLocale);
             }
+            else {
+                if($desiredLocale != $currentLocale){
+                    $request->getSession()->set('_locale', $desiredLocale);
+                }
+            }
+        }
+
+
+        if($this->checkIsSiteIsAvailableAction()){
 
             $em = $this->getDoctrine()->getManager();
             $container = $this->container;
@@ -66,19 +72,19 @@ class FrontendMainController extends Controller
         }
     }
     /**
-     * @Route("/{_locale}/", name="_frontend_index_current_language")
+     * @Route("/{_locale}/", name="_frontend_index_current_language", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
      * @Method("GET")
      */
     public function _frontendIndexLanguageAction(Request $request)
     {
-        return $this->redirectToRoute('frontend_index_current_language');
+        return $this->redirectToRoute('frontend_index');
 
     }
 
 
 
     /**
-     * @Route("/{_locale}/{section}", name="frontend_section")
+     * @Route("/{_locale}/{section}", name="frontend_section", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
      * @Method("GET")
      */
     public function frontendSectionAction(Request $request)
@@ -86,18 +92,23 @@ class FrontendMainController extends Controller
         $parametersCollection = array();
         $parametersCollection['request_object'] = $request;
         $parametersCollection['section'] = $request->get('section');
-        $em = $this->getDoctrine()->getManager();
+
+        return $this->redirectToRoute('backend_index', array(
+            "request"=>$request,
+            "_locale" =>$request->getSession()->get('_locale')
+        ));
+
+        /*$em = $this->getDoctrine()->getManager();
         $container = $this->container;
         $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
         $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
 
         return $this->render($requestHandler['template_requested_directory'], array(
             'themeConfigsData' => $requestHandler['themeConfigsData']
-        ));
-
+        ));*/
     }
     /**
-     * @Route("/{_locale}/{section}/", name="_frontend_section")
+     * @Route("/{_locale}/{section}/", name="_frontend_section", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
      * @Method("GET")
      */
     public function _frontendSectionAction(Request $request)
@@ -110,7 +121,7 @@ class FrontendMainController extends Controller
 
 
     /**
-     * @Route("/{_locale}/{section}/{url_slug}", name="frontend_section_element")
+     * @Route("/{_locale}/{section}/{url_slug}", name="frontend_section_element", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
      * @Method("GET")
      */
     public function frontendSectionElementAction(Request $request)
@@ -128,7 +139,7 @@ class FrontendMainController extends Controller
         ));
     }
     /**
-     * @Route("/{_locale}/{section}/{url_slug}/", name="_frontend_section_element")
+     * @Route("/{_locale}/{section}/{url_slug}/", name="_frontend_section_element", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
      * @Method("GET")
      */
     public function _frontendSectionElementAction(Request $request)
@@ -142,7 +153,7 @@ class FrontendMainController extends Controller
 
 
     /**
-     * @Route("/{_locale}/{section}/{url_slug}/{tag}", name="frontend_section_element_tag")
+     * @Route("/{_locale}/{section}/{url_slug}/{tag}", name="frontend_section_element_tag", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
      * @Method("GET")
      */
     public function frontendSectionElementTagAction(Request $request)
@@ -161,7 +172,7 @@ class FrontendMainController extends Controller
         ));
     }
     /**
-     * @Route("/{_locale}/{section}/{url_slug}/{tag}/", name="_frontend_section_element_tag")
+     * @Route("/{_locale}/{section}/{url_slug}/{tag}/", name="_frontend_section_element_tag", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
      * @Method("GET")
      */
     public function _frontendSectionElementTagAction(Request $request)

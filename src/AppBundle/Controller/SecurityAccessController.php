@@ -20,7 +20,7 @@ class SecurityAccessController extends Controller
 {
 
     /**
-     * @Route("/login", name="login")
+     * @Route("{_locale}/login", name="login", defaults={"_locale"="es"}, requirements={"_locale"="es"})
      */
     public function loginAction(Request $request)
     {

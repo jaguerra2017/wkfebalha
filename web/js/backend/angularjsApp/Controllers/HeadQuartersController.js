@@ -228,6 +228,7 @@
         $scope.saveHeadQuartersData = function(option)
         {
             if($scope.model.processingData == false){
+                $scope.model.selectedHeadQuarter.online_sale = $("#online_sale").is(":checked");
                 $scope.model.processingData = true;
                 $scope.toggleDataLoader();
                 var canProceed = true;
@@ -381,6 +382,7 @@
         $scope.showHeadQuartersForm = function()
         {
             $scope.handleCrudOperations('disable');
+          $("#online_sale").bootstrapSwitch('state', $scope.model.selectedHeadQuarter.online_sale);
             if($scope.model.createAction){
                 $scope.model.showHeadQuartersForm = true;
                 $scope.goToTop();
@@ -607,7 +609,6 @@
                     $scope.model.bncDomain = '(www.tudominio.com)';
                 }
                 var showHeadQuartersForm = response.data.initialsData.showHeadQuartersForm;
-
                     $scope.updatePaginationValues();
                     $scope.clearErrorsHeadQuartersForm();
 

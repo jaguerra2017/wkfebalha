@@ -33,6 +33,20 @@ class HeadQuarter
      */
     private $address_en;
 
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="email", type="string", length=200, nullable=true)
+   */
+    private $email;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="online_sale", type="boolean")
+   */
+  private $online_sale;
+
 
 
     /**
@@ -40,7 +54,7 @@ class HeadQuarter
      */
     public function __construct()
     {
-        $this->address = null;
+        $this->online_sale = true;
     }
 
     /**
@@ -137,5 +151,53 @@ class HeadQuarter
     public function getAddressEn()
     {
         return $this->address_en;
+    }
+
+    /**
+     * Set onlineSale
+     *
+     * @param boolean $onlineSale
+     *
+     * @return HeadQuarter
+     */
+    public function setOnlineSale($onlineSale)
+    {
+        $this->online_sale = $onlineSale;
+    
+        return $this;
+    }
+
+    /**
+     * Get onlineSale
+     *
+     * @return boolean
+     */
+    public function getOnlineSale()
+    {
+        return $this->online_sale;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return HeadQuarter
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

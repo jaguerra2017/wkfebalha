@@ -2,7 +2,7 @@
 parameters:
     app.locale: es
     app.default_locale: es
-    app.localeValues: es|es
+    app.localeValues: es|e
     app.avaiableLanguajes: [{value: es, text: Español}, {value: en, text: Inglés}]
     app.database_host: 127.0.0.1
     app.database_port: null

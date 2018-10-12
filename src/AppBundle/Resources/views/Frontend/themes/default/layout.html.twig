@@ -15,22 +15,22 @@
                     <div class="clearfix navbar-fixed-top ">
                         <div class="row">
                             <div class="col-xs-4 col-md-5" style="margin-top: 10px">
-                                <a class="language-selector language-active"
-                                href="{{ path('frontend_index_current_language',{'_locale':'es'}) }}">
-                                    <strong>ES</strong>
+                                <a class="language-selector {{  app.session.get('_locale') == 'es' ? 'language-active' }}"
+                                href="{{ path('frontend_index',{'_locale':'es'}) }}">
+                                    ES
                                 </a>
-                                /
-                                <a class="language-selector"
-                               href="{{ path('frontend_index_current_language',{'_locale':'en'}) }}">
-                                    <strong>EN</strong>
+                                |
+                                <a class="language-selector {{  app.session.get('_locale') == 'en' ? 'language-active' }}"
+                               href="{{ path('frontend_index',{'_locale':'en'}) }}">
+                                    EN
                                 </a>
                                 <!-- Search -->
                                 {#{% include "@app_backend_template_directory/Shared/general_search.html.twig" %}#}
                             </div>
                             <div class="col-xs-5 col-md-2">
                                 <!-- Logo -->
-                                <a id="index" class="app-text-color" href="{{ path('frontend_index') }}">
-                                    <span>Festival de Ballet <br> <strong>de La Habana</strong></span>
+                                <a id="index" class="page-logo" href="{{ path('frontend_index') }}">
+                                    <img src="{{ asset('images/shared/app-main-logo.png') }}" alt="Logo">
                                 </a>
                             </div>
                             <div class="col-xs-3 col-md-5">
@@ -83,14 +83,14 @@
             </nav>
             <!-- Begin Main Menu -->
             <div class="page-quick-sidebar-wrapper">
-                <div class="page-quick-sidebar">
+                <div class="page-quick-sidebar close-menu wow fadeInRight">
                     <div class="row" >
                         <div class="col-xs-12 main-menu-header">
                             <a id="index" class="main-menu-logo" href="{{ path('frontend_index') }}">
-                                <img src="{{ asset('images/shared/bnc-secundary-logo.png') }}" alt="Logo">
+                               <img src="{{ asset('images/shared/app-main-logo.png') }}" alt="Logo">
                             </a>
 
-                            <a class="page-quick-sidebar-toggler close-menu wow fadeInRight"><i class="fa fa-times"></i></a>
+                            <a class="page-quick-sidebar-toggler"><i class="fa fa-times"></i></a>
                         </div>
                     </div>
 

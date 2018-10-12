@@ -2,6 +2,7 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Country;
 use AppBundle\Entity\NomContentBlockType;
 use AppBundle\Entity\Nomenclature;
 use AppBundle\Entity\NomFunctionality;
@@ -275,7 +276,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
 
         /*Publications*/
-        $nomPublicationsFunctionality = new Nomenclature();
+        /*$nomPublicationsFunctionality = new Nomenclature();
         $nomPublicationsFunctionality->setName('Publicaciones');
         $nomPublicationsFunctionality->setUrlSlug('publicaciones');
         $nomPublicationsFunctionality->setTreeSlug('functionality-publications');
@@ -335,11 +336,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomPublicationsChangeStatusAction->setNomType($objNomAction);
         $nomPublicationsChangeStatusAction->setParent($nomPublicationsFunctionality);
         $nomPublicationsChangeStatusAction->setPriority(5);
-        $manager->persist($nomPublicationsChangeStatusAction);
+        $manager->persist($nomPublicationsChangeStatusAction);*/
 
 
         /*Events*/
-        $nomEventsFunctionality = new Nomenclature();
+       /* $nomEventsFunctionality = new Nomenclature();
         $nomEventsFunctionality->setName('Eventos');
         $nomEventsFunctionality->setUrlSlug('eventos');
         $nomEventsFunctionality->setTreeSlug('functionality-events');
@@ -399,7 +400,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomEventsChangeStatusAction->setNomType($objNomAction);
         $nomEventsChangeStatusAction->setParent($nomEventsFunctionality);
         $nomEventsChangeStatusAction->setPriority(5);
-        $manager->persist($nomEventsChangeStatusAction);
+        $manager->persist($nomEventsChangeStatusAction);*/
 
         /*pages*/
         $nomPagesFunctionality = new Nomenclature();
@@ -584,7 +585,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
 
         /*Opinions*/
-        $nomOpinionsFunctionality = new Nomenclature();
+        /*$nomOpinionsFunctionality = new Nomenclature();
         $nomOpinionsFunctionality->setName('Críticas y Opiniones');
         $nomOpinionsFunctionality->setUrlSlug('opiniones');
         $nomOpinionsFunctionality->setTreeSlug('functionality-opinion');
@@ -643,11 +644,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomOpinionsChangeStatusAction->setNomType($objNomAction);
         $nomOpinionsChangeStatusAction->setParent($nomOpinionsFunctionality);
         $nomOpinionsChangeStatusAction->setPriority(5);
-        $manager->persist($nomOpinionsChangeStatusAction);
+        $manager->persist($nomOpinionsChangeStatusAction);*/
 
 
         /*Partners*/
-        $nomPartnersFunctionality = new Nomenclature();
+        /*$nomPartnersFunctionality = new Nomenclature();
         $nomPartnersFunctionality->setName('Socios');
         $nomPartnersFunctionality->setUrlSlug('socios');
         $nomPartnersFunctionality->setTreeSlug('functionality-partners');
@@ -706,11 +707,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomPartnersChangeStatusAction->setNomType($objNomAction);
         $nomPartnersChangeStatusAction->setParent($nomPartnersFunctionality);
         $nomPartnersChangeStatusAction->setPriority(5);
-        $manager->persist($nomPartnersChangeStatusAction);
+        $manager->persist($nomPartnersChangeStatusAction);*/
 
 
         /*Historical-Moments*/
-        $nomHistoricalMomentsFunctionality = new Nomenclature();
+        /*$nomHistoricalMomentsFunctionality = new Nomenclature();
         $nomHistoricalMomentsFunctionality->setName('Hitos Históricos');
         $nomHistoricalMomentsFunctionality->setUrlSlug('hitos-historicos');
         $nomHistoricalMomentsFunctionality->setTreeSlug('functionality-historical-moments');
@@ -769,11 +770,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomHistoricalMomentsChangeStatusAction->setNomType($objNomAction);
         $nomHistoricalMomentsChangeStatusAction->setParent($nomHistoricalMomentsFunctionality);
         $nomHistoricalMomentsChangeStatusAction->setPriority(5);
-        $manager->persist($nomHistoricalMomentsChangeStatusAction);
+        $manager->persist($nomHistoricalMomentsChangeStatusAction);*/
 
 
         /*Jewels*/
-        $nomJewelsFunctionality = new Nomenclature();
+        /*$nomJewelsFunctionality = new Nomenclature();
         $nomJewelsFunctionality->setName('Joyas del BNC');
         $nomJewelsFunctionality->setUrlSlug('joyas');
         $nomJewelsFunctionality->setTreeSlug('functionality-jewels');
@@ -832,11 +833,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomJewelsChangeStatusAction->setNomType($objNomAction);
         $nomJewelsChangeStatusAction->setParent($nomJewelsFunctionality);
         $nomJewelsChangeStatusAction->setPriority(4);
-        $manager->persist($nomJewelsChangeStatusAction);
+        $manager->persist($nomJewelsChangeStatusAction);*/
 
 
         /*Composition*/
-        $nomCompositionFunctionality = new Nomenclature();
+       /* $nomCompositionFunctionality = new Nomenclature();
         $nomCompositionFunctionality->setName('Composición del BNC');
         $nomCompositionFunctionality->setUrlSlug('composicion');
         $nomCompositionFunctionality->setTreeSlug('functionality-composition');
@@ -895,11 +896,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomCompositionChangeStatusAction->setNomType($objNomAction);
         $nomCompositionChangeStatusAction->setParent($nomCompositionFunctionality);
         $nomCompositionChangeStatusAction->setPriority(5);
-        $manager->persist($nomCompositionChangeStatusAction);
+        $manager->persist($nomCompositionChangeStatusAction);*/
 
 
         /*Repertory*/
-        $nomRepertoryFunctionality = new Nomenclature();
+        /*$nomRepertoryFunctionality = new Nomenclature();
         $nomRepertoryFunctionality->setName('Repertorio');
         $nomRepertoryFunctionality->setUrlSlug('repertorio');
         $nomRepertoryFunctionality->setTreeSlug('functionality-repertory');
@@ -958,11 +959,11 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomRepertoryChangeStatusAction->setNomType($objNomAction);
         $nomRepertoryChangeStatusAction->setParent($nomRepertoryFunctionality);
         $nomRepertoryChangeStatusAction->setPriority(5);
-        $manager->persist($nomRepertoryChangeStatusAction);
+        $manager->persist($nomRepertoryChangeStatusAction);*/
 
 
         /*Awards*/
-        $nomAwardsFunctionality = new Nomenclature();
+        /*$nomAwardsFunctionality = new Nomenclature();
         $nomAwardsFunctionality->setName('Distinciones');
         $nomAwardsFunctionality->setUrlSlug('distinciones');
         $nomAwardsFunctionality->setTreeSlug('functionality-awards');
@@ -1021,7 +1022,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomAwardsChangeStatusAction->setNomType($objNomAction);
         $nomAwardsChangeStatusAction->setParent($nomAwardsFunctionality);
         $nomAwardsChangeStatusAction->setPriority(5);
-        $manager->persist($nomAwardsChangeStatusAction);
+        $manager->persist($nomAwardsChangeStatusAction);*/
 
 
         /*Users*/
@@ -1212,6 +1213,87 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomHeadquarterChangeStatusAction->setPriority(5);
         $manager->persist($nomHeadquarterChangeStatusAction);
 
+        /* Shows*/
+        $nomShowsFunctionality = new Nomenclature();
+        $nomShowsFunctionality->setName('Función');
+        $nomShowsFunctionality->setUrlSlug(' funcion');
+        $nomShowsFunctionality->setTreeSlug('functionality-show');
+        $nomShowsFunctionality->setNomType($objNomTypeFunctionality);
+        $nomShowsFunctionality->setPriority(19);
+        $manager->persist($nomShowsFunctionality);
+        $manager->flush();
+        $showFunctionality = new NomFunctionality();
+        $showFunctionality->setId($nomShowsFunctionality);
+        $showFunctionality->setIconClass('icon-support');
+        $showFunctionality->setUrlIndexAction('shows_index');
+        $showFunctionality->setKeywordSelectedClass($nomShowsFunctionality->getUrlSlug());
+        $showFunctionality->setIsUsedFrequently(false);
+        $manager->persist($showFunctionality);
+
+        //Actions for Shows
+        $nomShowReadAction = new Nomenclature();
+        $nomShowReadAction->setName('Leer');
+        $nomShowReadAction->setUrlSlug(' funcions-accion-leer');
+        $nomShowReadAction->setTreeSlug('functionality-show-action-read');
+        $nomShowReadAction->setNomType($objNomAction);
+        $nomShowReadAction->setParent($nomShowsFunctionality);
+        $nomShowReadAction->setPriority(1);
+        $manager->persist($nomShowReadAction);
+
+        $nomShowCreateAction = new Nomenclature();
+        $nomShowCreateAction->setName('Crear');
+        $nomShowCreateAction->setUrlSlug(' funcions-accion-crear');
+        $nomShowCreateAction->setTreeSlug('functionality-show-action-create');
+        $nomShowCreateAction->setNomType($objNomAction);
+        $nomShowCreateAction->setParent($nomShowsFunctionality);
+        $nomShowCreateAction->setPriority(2);
+        $manager->persist($nomShowCreateAction);
+
+        $nomShowEditAction = new Nomenclature();
+        $nomShowEditAction->setName('Editar');
+        $nomShowEditAction->setUrlSlug(' funcions-accion-editar');
+        $nomShowEditAction->setTreeSlug('functionality-show-action-edit');
+        $nomShowEditAction->setNomType($objNomAction);
+        $nomShowEditAction->setParent($nomShowsFunctionality);
+        $nomShowEditAction->setPriority(3);
+        $manager->persist($nomShowEditAction);
+
+        $nomShowDeleteAction = new Nomenclature();
+        $nomShowDeleteAction->setName('Eliminar');
+        $nomShowDeleteAction->setUrlSlug(' funcions-accion-eliminar');
+        $nomShowDeleteAction->setTreeSlug('functionality-show-action-delete');
+        $nomShowDeleteAction->setNomType($objNomAction);
+        $nomShowDeleteAction->setParent($nomShowsFunctionality);
+        $nomShowDeleteAction->setPriority(4);
+        $manager->persist($nomShowDeleteAction);
+
+        $nomShowChangeStatusAction = new Nomenclature();
+        $nomShowChangeStatusAction->setName('Cambiar Status');
+        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-cambiar-status');
+        $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-change-status');
+        $nomShowChangeStatusAction->setNomType($objNomAction);
+        $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
+        $nomShowChangeStatusAction->setPriority(5);
+        $manager->persist($nomShowChangeStatusAction);
+
+        $nomShowChangeStatusAction = new Nomenclature();
+        $nomShowChangeStatusAction->setName('Leer disponibilidad');
+        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-leer-disponibilidad');
+        $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-read-availability');
+        $nomShowChangeStatusAction->setNomType($objNomAction);
+        $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
+        $nomShowChangeStatusAction->setPriority(6);
+        $manager->persist($nomShowChangeStatusAction);
+
+        $nomShowChangeStatusAction = new Nomenclature();
+        $nomShowChangeStatusAction->setName('Modificar disponibilidad');
+        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-modificar-disponibilidad');
+        $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-edit-availability');
+        $nomShowChangeStatusAction->setNomType($objNomAction);
+        $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
+        $nomShowChangeStatusAction->setPriority(7);
+        $manager->persist($nomShowChangeStatusAction);
+
       }
     }
 
@@ -1330,12 +1412,316 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
       $manager->persist($nomSeatFlowStatus);
 
       $nomSeatFlowStatus = new Nomenclature();
-      $nomSeatFlowStatus->setName('Vendido');
-      $nomSeatFlowStatus->setUrlSlug('vendido');
+      $nomSeatFlowStatus->setName('No disponible');
+      $nomSeatFlowStatus->setUrlSlug('no-disponible');
       $nomSeatFlowStatus->setTreeSlug('unavailable');
       $nomSeatFlowStatus->setNomType($nomTypeSeatFlowStatus);
       $nomSeatFlowStatus->setPriority(2);
       $manager->persist($nomSeatFlowStatus);
+
+      $nomSeatFlowStatus = new Nomenclature();
+      $nomSeatFlowStatus->setName('En proceso');
+      $nomSeatFlowStatus->setUrlSlug('en-proceso');
+      $nomSeatFlowStatus->setTreeSlug('in-process');
+      $nomSeatFlowStatus->setNomType($nomTypeSeatFlowStatus);
+      $nomSeatFlowStatus->setPriority(3);
+      $manager->persist($nomSeatFlowStatus);
+
+      $nomSeatFlowStatus = new Nomenclature();
+      $nomSeatFlowStatus->setName('Vendido');
+      $nomSeatFlowStatus->setUrlSlug('vendido');
+      $nomSeatFlowStatus->setTreeSlug('selled');
+      $nomSeatFlowStatus->setNomType($nomTypeSeatFlowStatus);
+      $nomSeatFlowStatus->setPriority(4);
+      $manager->persist($nomSeatFlowStatus);
+    }
+
+    /*Nomenclature for Seat status*/
+    $nomTypeBookingStatus = $manager->getRepository('AppBundle:NomType')->findOneBy(array(
+      'tree_slug' => 'booking-status'
+    ));
+
+    if ($nomTypeBookingStatus) {
+      $nomBookingStatus = new Nomenclature();
+      $nomBookingStatus->setName('Terminada');
+      $nomBookingStatus->setUrlSlug('terminada');
+      $nomBookingStatus->setTreeSlug('finished');
+      $nomBookingStatus->setNomType($nomTypeBookingStatus);
+      $nomBookingStatus->setPriority(1);
+      $manager->persist($nomBookingStatus);
+
+      $nomBookingStatus = new Nomenclature();
+      $nomBookingStatus->setName('En proceso');
+      $nomBookingStatus->setUrlSlug('reserva-en-proceso');
+      $nomBookingStatus->setTreeSlug('booking-in-process');
+      $nomBookingStatus->setNomType($nomTypeBookingStatus);
+      $nomBookingStatus->setPriority(2);
+      $manager->persist($nomBookingStatus);
+
+      $nomBookingStatus = new Nomenclature();
+      $nomBookingStatus->setName('Cancelada');
+      $nomBookingStatus->setUrlSlug('cancelada');
+      $nomBookingStatus->setTreeSlug('cancelled');
+      $nomBookingStatus->setNomType($nomTypeBookingStatus);
+      $nomBookingStatus->setPriority(3);
+      $manager->persist($nomBookingStatus);
+    }
+
+
+    $countries = array(
+      'AF' => 'Afghanistan',
+      'AL' => 'Albania',
+      'DZ' => 'Algeria',
+      'DS' => 'American Samoa',
+      'AD' => 'Andorra',
+      'AO' => 'Angola',
+      'AI' => 'Anguilla',
+      'AQ' => 'Antarctica',
+      'AG' => 'Antigua and Barbuda',
+      'AR' => 'Argentina',
+      'AM' => 'Armenia',
+      'AW' => 'Aruba',
+      'AU' => 'Australia',
+      'AT' => 'Austria',
+      'AZ' => 'Azerbaijan',
+      'BS' => 'Bahamas',
+      'BH' => 'Bahrain',
+      'BD' => 'Bangladesh',
+      'BB' => 'Barbados',
+      'BY' => 'Belarus',
+      'BE' => 'Belgium',
+      'BZ' => 'Belize',
+      'BJ' => 'Benin',
+      'BM' => 'Bermuda',
+      'BT' => 'Bhutan',
+      'BO' => 'Bolivia',
+      'BA' => 'Bosnia and Herzegovina',
+      'BW' => 'Botswana',
+      'BV' => 'Bouvet Island',
+      'BR' => 'Brazil',
+      'IO' => 'British Indian Ocean Territory',
+      'BN' => 'Brunei Darussalam',
+      'BG' => 'Bulgaria',
+      'BF' => 'Burkina Faso',
+      'BI' => 'Burundi',
+      'KH' => 'Cambodia',
+      'CM' => 'Cameroon',
+      'CA' => 'Canada',
+      'CV' => 'Cape Verde',
+      'KY' => 'Cayman Islands',
+      'CF' => 'Central African Republic',
+      'TD' => 'Chad',
+      'CL' => 'Chile',
+      'CN' => 'China',
+      'CX' => 'Christmas Island',
+      'CC' => 'Cocos (Keeling) Islands',
+      'CO' => 'Colombia',
+      'KM' => 'Comoros',
+      'CG' => 'Congo',
+      'CK' => 'Cook Islands',
+      'CR' => 'Costa Rica',
+      'HR' => 'Croatia (Hrvatska)',
+      'CU' => 'Cuba',
+      'CY' => 'Cyprus',
+      'CZ' => 'Czech Republic',
+      'DK' => 'Denmark',
+      'DJ' => 'Djibouti',
+      'DM' => 'Dominica',
+      'DO' => 'Dominican Republic',
+      'TP' => 'East Timor',
+      'EC' => 'Ecuador',
+      'EG' => 'Egypt',
+      'SV' => 'El Salvador',
+      'GQ' => 'Equatorial Guinea',
+      'ER' => 'Eritrea',
+      'EE' => 'Estonia',
+      'ET' => 'Ethiopia',
+      'FK' => 'Falkland Islands (Malvinas)',
+      'FO' => 'Faroe Islands',
+      'FJ' => 'Fiji',
+      'FI' => 'Finland',
+      'FR' => 'France',
+      'FX' => 'France, Metropolitan',
+      'GF' => 'French Guiana',
+      'PF' => 'French Polynesia',
+      'TF' => 'French Southern Territories',
+      'GA' => 'Gabon',
+      'GM' => 'Gambia',
+      'GE' => 'Georgia',
+      'DE' => 'Germany',
+      'GH' => 'Ghana',
+      'GI' => 'Gibraltar',
+      'GK' => 'Guernsey',
+      'GR' => 'Greece',
+      'GL' => 'Greenland',
+      'GD' => 'Grenada',
+      'GP' => 'Guadeloupe',
+      'GU' => 'Guam',
+      'GT' => 'Guatemala',
+      'GN' => 'Guinea',
+      'GW' => 'Guinea-Bissau',
+      'GY' => 'Guyana',
+      'HT' => 'Haiti',
+      'HM' => 'Heard and Mc Donald Islands',
+      'HN' => 'Honduras',
+      'HK' => 'Hong Kong',
+      'HU' => 'Hungary',
+      'IS' => 'Iceland',
+      'IN' => 'India',
+      'IM' => 'Isle of Man',
+      'ID' => 'Indonesia',
+      'IR' => 'Iran (Islamic Republic of)',
+      'IQ' => 'Iraq',
+      'IE' => 'Ireland',
+      'IL' => 'Israel',
+      'IT' => 'Italy',
+      'CI' => 'Ivory Coast',
+      'JE' => 'Jersey',
+      'JM' => 'Jamaica',
+      'JP' => 'Japan',
+      'JO' => 'Jordan',
+      'KZ' => 'Kazakhstan',
+      'KE' => 'Kenya',
+      'KI' => 'Kiribati',
+      'KP' => 'Korea, Democratic People\'s Republic of',
+      'KR' => 'Korea, Republic of',
+      'XK' => 'Kosovo',
+      'KW' => 'Kuwait',
+      'KG' => 'Kyrgyzstan',
+      'LA' => 'Lao People\'s Democratic Republic',
+      'LV' => 'Latvia',
+      'LB' => 'Lebanon',
+      'LS' => 'Lesotho',
+      'LR' => 'Liberia',
+      'LY' => 'Libyan Arab Jamahiriya',
+      'LI' => 'Liechtenstein',
+      'LT' => 'Lithuania',
+      'LU' => 'Luxembourg',
+      'MO' => 'Macau',
+      'MK' => 'Macedonia',
+      'MG' => 'Madagascar',
+      'MW' => 'Malawi',
+      'MY' => 'Malaysia',
+      'MV' => 'Maldives',
+      'ML' => 'Mali',
+      'MT' => 'Malta',
+      'MH' => 'Marshall Islands',
+      'MQ' => 'Martinique',
+      'MR' => 'Mauritania',
+      'MU' => 'Mauritius',
+      'TY' => 'Mayotte',
+      'MX' => 'Mexico',
+      'FM' => 'Micronesia, Federated States of',
+      'MD' => 'Moldova, Republic of',
+      'MC' => 'Monaco',
+      'MN' => 'Mongolia',
+      'ME' => 'Montenegro',
+      'MS' => 'Montserrat',
+      'MA' => 'Morocco',
+      'MZ' => 'Mozambique',
+      'MM' => 'Myanmar',
+      'NA' => 'Namibia',
+      'NR' => 'Nauru',
+      'NP' => 'Nepal',
+      'NL' => 'Netherlands',
+      'AN' => 'Netherlands Antilles',
+      'NC' => 'New Caledonia',
+      'NZ' => 'New Zealand',
+      'NI' => 'Nicaragua',
+      'NE' => 'Niger',
+      'NG' => 'Nigeria',
+      'NU' => 'Niue',
+      'NF' => 'Norfolk Island',
+      'MP' => 'Northern Mariana Islands',
+      'NO' => 'Norway',
+      'OM' => 'Oman',
+      'PK' => 'Pakistan',
+      'PW' => 'Palau',
+      'PS' => 'Palestine',
+      'PA' => 'Panama',
+      'PG' => 'Papua New Guinea',
+      'PY' => 'Paraguay',
+      'PE' => 'Peru',
+      'PH' => 'Philippines',
+      'PN' => 'Pitcairn',
+      'PL' => 'Poland',
+      'PT' => 'Portugal',
+      'PR' => 'Puerto Rico',
+      'QA' => 'Qatar',
+      'RE' => 'Reunion',
+      'RO' => 'Romania',
+      'RU' => 'Russian Federation',
+      'RW' => 'Rwanda',
+      'KN' => 'Saint Kitts and Nevis',
+      'LC' => 'Saint Lucia',
+      'VC' => 'Saint Vincent and the Grenadines',
+      'WS' => 'Samoa',
+      'SM' => 'San Marino',
+      'ST' => 'Sao Tome and Principe',
+      'SA' => 'Saudi Arabia',
+      'SN' => 'Senegal',
+      'RS' => 'Serbia',
+      'SC' => 'Seychelles',
+      'SL' => 'Sierra Leone',
+      'SG' => 'Singapore',
+      'SK' => 'Slovakia',
+      'SI' => 'Slovenia',
+      'SB' => 'Solomon Islands',
+      'SO' => 'Somalia',
+      'ZA' => 'South Africa',
+      'SS' => 'South Sudan',
+      'GS' => 'South Georgia South Sandwich Islands',
+      'ES' => 'Spain',
+      'LK' => 'Sri Lanka',
+      'SH' => 'St. Helena',
+      'PM' => 'St. Pierre and Miquelon',
+      'SD' => 'Sudan',
+      'SR' => 'Suriname',
+      'SJ' => 'Svalbard and Jan Mayen Islands',
+      'SZ' => 'Swaziland',
+      'SE' => 'Sweden',
+      'CH' => 'Switzerland',
+      'SY' => 'Syrian Arab Republic',
+      'TW' => 'Taiwan',
+      'TJ' => 'Tajikistan',
+      'TZ' => 'Tanzania, United Republic of',
+      'TH' => 'Thailand',
+      'TG' => 'Togo',
+      'TK' => 'Tokelau',
+      'TO' => 'Tonga',
+      'TT' => 'Trinidad and Tobago',
+      'TN' => 'Tunisia',
+      'TR' => 'Turkey',
+      'TM' => 'Turkmenistan',
+      'TC' => 'Turks and Caicos Islands',
+      'TV' => 'Tuvalu',
+      'UG' => 'Uganda',
+      'UA' => 'Ukraine',
+      'AE' => 'United Arab Emirates',
+      'GB' => 'United Kingdom',
+      'US' => 'United States',
+      'UM' => 'United States minor outlying islands',
+      'UY' => 'Uruguay',
+      'UZ' => 'Uzbekistan',
+      'VU' => 'Vanuatu',
+      'VA' => 'Vatican City State',
+      'VE' => 'Venezuela',
+      'VN' => 'Vietnam',
+      'VG' => 'Virgin Islands (British)',
+      'VI' => 'Virgin Islands (U.S.)',
+      'WF' => 'Wallis and Futuna Islands',
+      'EH' => 'Western Sahara',
+      'YE' => 'Yemen',
+      'ZR' => 'Zaire',
+      'ZM' => 'Zambia',
+      'ZW' => 'Zimbabwe'
+    );
+
+    foreach ($countries as $key => $country) {
+      $countryObj = new Country();
+      $countryObj->setCountryCode($key);
+      $countryObj->setCountryName($country);
+      $manager->persist($countryObj);
     }
 
     $manager->flush();

@@ -3,28 +3,28 @@
 */
 /*Main Frame*/
 @keyframes window-loader-container-animation{
-	10% {background-color: rgba(28,27,41, 0.99);}
-	20% {background-color: rgba(28,27,41, 0.98);}
-	30% {background-color: rgba(28,27,41, 0.97);}
-	40% {background-color: rgba(28,27,41, 0.96);}
-	50% {background-color: rgba(28,27,41, 0.95);}
-	60% {background-color: rgba(28,27,41, 0.95);}
-	70% {background-color: rgba(28,27,41, 0.96);}
-	80% {background-color: rgba(28,27,41, 0.97);}
-	90% {background-color: rgba(28,27,41, 0.98);}
-	100% {background-color: rgba(28,27,41, 0.99);}
+	10% {background-color: rgba(255,255,255, 0.99);}/*28,27,41*/
+	20% {background-color: rgba(255,255,255, 0.98);}
+	30% {background-color: rgba(255,255,255, 0.97);}
+	40% {background-color: rgba(255,255,255, 0.96);}
+	50% {background-color: rgba(255,255,255, 0.95);}
+	60% {background-color: rgba(255,255,255, 0.95);}
+	70% {background-color: rgba(255,255,255, 0.96);}
+	80% {background-color: rgba(255,255,255, 0.97);}
+	90% {background-color: rgba(255,255,255, 0.98);}
+	100% {background-color: rgba(255,255,255, 0.99);}
 }
 @-webkit-keyframes window-loader-container-animation{
-	10% {background-color: rgba(28,27,41, 0.99);}
-	20% {background-color: rgba(28,27,41, 0.98);}
-	30% {background-color: rgba(28,27,41, 0.97);}
-	40% {background-color: rgba(28,27,41, 0.96);}
-	50% {background-color: rgba(28,27,41, 0.95);}
-	60% {background-color: rgba(28,27,41, 0.95);}
-	70% {background-color: rgba(28,27,41, 0.96);}
-	80% {background-color: rgba(28,27,41, 0.97);}
-	90% {background-color: rgba(28,27,41, 0.98);}
-	100% {background-color: rgba(28,27,41, 0.99);}
+	10% {background-color: rgba(255,255,255, 0.99);}
+	20% {background-color: rgba(255,255,255, 0.98);}
+	30% {background-color: rgba(255,255,255, 0.97);}
+	40% {background-color: rgba(255,255,255, 0.96);}
+	50% {background-color: rgba(255,255,255, 0.95);}
+	60% {background-color: rgba(255,255,255, 0.95);}
+	70% {background-color: rgba(255,255,255, 0.96);}
+	80% {background-color: rgba(255,255,255, 0.97);}
+	90% {background-color: rgba(255,255,255, 0.98);}
+	100% {background-color: rgba(255,255,255, 0.99);}/*30,52,72*/
 }
 .window-loader{
 	width: 100%;
@@ -33,7 +33,7 @@
 	top:0;
 	left:0;
 	z-index: 10000;
-	background: rgba(28,27,41, 0.99);
+	background: rgba(255,255,255, 0.99);
 
 	animation-name: window-loader-container-animation;
 	-moz-animation-name: window-loader-container-animation;
@@ -61,7 +61,7 @@
 .sk-spinner-three-bounce div {
 	width: 18px;
 	height: 18px;
-	background-color: #009dc7;
+	background-color: rgb(30,52,72)/*#009dc7*/;
 	border-radius: 100% !important;
 	-moz-border-radius: 100% !important;
 	-webkit-border-radius: 100% !important;
