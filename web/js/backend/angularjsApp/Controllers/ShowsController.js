@@ -398,8 +398,15 @@
         }
 
         /* show the form to Create/Edit Shows */
-        $scope.showShowsForm = function(from = 'controller', extraData = null)
+        $scope.showShowsForm = function(from, extraData)
         {
+            if(!from || from == undefined){
+                from = 'controller';
+            }
+            if(extraData == undefined){
+                extraData = null;
+            }
+
             if(from == 'directive'){
               $scope.model.createAction = true;
               $scope.model.selectedShow = {};

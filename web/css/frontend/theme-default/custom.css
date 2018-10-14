@@ -70,8 +70,8 @@ body{
 }
 .page-header .navbar-fixed-top {
 	padding: 10px 25px;
-	/*background: rgba(28,27,41,0.9);*/
-	background: rgba(255,255,255,0.9) !important;
+	/*background: rgba(28,27,41,0.9);
+	background: rgba(255,255,255,0.9) !important;*/
 	background: white;
 }
 .page-on-scroll .page-header .navbar-fixed-top{
@@ -138,16 +138,18 @@ body{
 	margin-top: 100%;
 }
 .thumbnail_mine {
-	position: absolute;
+	/*position: absolute;
 	top: -10px;
 	bottom: 0;
 	left: 15px;
-	right: 0;
-	font-size: 16px;
+	right: 0;*/
+	font-size: 17px;
 	text-align:center;
 	background-color: #023147;
 	color: white;
-	padding-top:calc(40% - 30px);
+	/*padding-top:calc(40% - 30px);*/
+	min-height: 200px;
+	padding:30px;
 }
 
 .thumbnail_show {
@@ -183,6 +185,8 @@ body{
 .tumbnail_not_empty {
 	border: solid 1px #a5a5a5;
 	color: #a5a5a5;
+
+	min-height: 150px;
 }
 
 .tumbnail_pair_empty {
@@ -551,6 +555,8 @@ ul.book-right li {
 	height:100%;
 	max-height: 900px;
 	position: relative;
+
+	padding-top: 50px;
 }
 .home-slider > img{
 	width:100%;
@@ -1148,8 +1154,8 @@ h4{
 	}
 	.page-header .navbar-fixed-top {
 		padding: 10px 25px;
-		/*background: rgba(28,27,41,0.97);*/
-		background: rgba(255,255,255,0.9) !important;
+		/*background: rgba(28,27,41,0.97);
+		background: rgba(255,255,255,0.9) !important;*/
 		background: white;
 	}
 	.theme-welcome-text-container{

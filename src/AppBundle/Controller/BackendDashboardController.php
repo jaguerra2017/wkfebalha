@@ -17,7 +17,7 @@ use AppBundle\Bussiness\DashboardBussiness;
 /**
  * BACKEND - Dashboard controller.
  *
- * @Route("backend/dashboard")
+ * @Route("/backend/dashboard")
  */
 class BackendDashboardController extends Controller
 {

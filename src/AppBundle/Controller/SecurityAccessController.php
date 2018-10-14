@@ -20,7 +20,7 @@ class SecurityAccessController extends Controller
 {
 
     /**
-     * @Route("{_locale}/login", name="login", defaults={"_locale"="es"}, requirements={"_locale"="es"})
+     * @Route("/login", name="login")
      */
     public function loginAction(Request $request)
     {
@@ -28,15 +28,11 @@ class SecurityAccessController extends Controller
             $this->isGranted ('IS_AUTHENTICATED_REMEMBERED') ){
             return $this->redirectToRoute('dashboard_index');
         }
-
         $authenticationUtils = $this->get('security.authentication_utils');
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('@app_backend_template_directory/SecurityAccess/index.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,

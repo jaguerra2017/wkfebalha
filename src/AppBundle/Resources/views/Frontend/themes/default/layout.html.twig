@@ -16,12 +16,12 @@
                         <div class="row">
                             <div class="col-xs-4 col-md-5" style="margin-top: 10px">
                                 <a class="language-selector {{  app.session.get('_locale') == 'es' ? 'language-active' }}"
-                                href="{{ path('frontend_index',{'_locale':'es'}) }}">
+                                href="{{ path('frontend_index_es') }}">
                                     ES
                                 </a>
                                 |
                                 <a class="language-selector {{  app.session.get('_locale') == 'en' ? 'language-active' }}"
-                               href="{{ path('frontend_index',{'_locale':'en'}) }}">
+                               href="{{ path('frontend_index_en') }}">
                                     EN
                                 </a>
                                 <!-- Search -->
@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-xs-5 col-md-2">
                                 <!-- Logo -->
-                                <a id="index" class="page-logo" href="{{ path('frontend_index') }}">
+                                <a id="index" class="page-logo" href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
                                     <img src="{{ asset('images/shared/app-main-logo.png') }}" alt="Logo">
                                 </a>
                             </div>
@@ -86,7 +86,7 @@
                 <div class="page-quick-sidebar close-menu wow fadeInRight">
                     <div class="row" >
                         <div class="col-xs-12 main-menu-header">
-                            <a id="index" class="main-menu-logo" href="{{ path('frontend_index') }}">
+                            <a id="index" class="main-menu-logo" href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
                                <img src="{{ asset('images/shared/app-main-logo.png') }}" alt="Logo">
                             </a>
 
@@ -210,7 +210,7 @@
                     </div>
                     <div class="col-xs-12 col-md-4 text-center footer-link">
                         <!-- Logo -->
-                        <a id="index" class="footer-logo" href="{{ path('frontend_index') }}"
+                        <a id="index" class="footer-logo" href="{{ path('frontend_index_'~app.session.get('_locale')) }}"
                         style="border-right: 2px solid #009dc7;margin-right: 5px;">
                             <img src="{{ asset('images/shared/bnc-main-logo.png') }}" alt="Logo">
                         </a>

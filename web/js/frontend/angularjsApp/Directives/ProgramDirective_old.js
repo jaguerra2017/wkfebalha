@@ -83,24 +83,27 @@
       template:
       '<div>'+
       '<div class="row" style="margin-top:40px;"> '+
-      '<div data-ng-repeat="room in model.rooms" class="hidden-xs hidden-sm col-md-3 col-sm-4 col-xs-6">\n' +
+      /*'<div class="col-xs-12" style="margin-bottom: 20px">' +
+      '<button style="float: right" type="button" class="btn btn-outline btn-primary">Descargar</button>' +
+      '</div> '+*/
+      '<div data-ng-repeat="room in model.rooms" class="hidden-xs hidden-sm  col-md-3 col-sm-4 col-xs-6">\n' +
+      '    <div class="dummy"></div>\n' +
       '    <div class="thumbnail_mine purple schedule-header">[[room.headquarter]]<br> ([[room.title]])</div>\n' +
       '  </div>'+
       '  </div>'+
       '<div class="row hidden-xs hidden-sm" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
-      ' <div class="col-xs-12">'+
-      '   <h3 class="app-text-color schedule-date-title">[[key]]</br><p class="title-separator" style="float:left;"></p></h3>'+
-      ' </div>' +
-      '  <div style="" data-ng-repeat="room in model.rooms" class="col-md-3 col-sm-4 col-xs-6">\n' +
-      '    <a href="[[model.domain]]/[[show[room.id].url_slug]]" ' +
-          'data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty ">' +
-            '<strong>[[show[room.id].show_time]]</strong><br>' +
-            '[[show[room.id].title]]' +
-            '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
-                '<reserve view="\'large\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
-            '</div>'+
-          '</a>\n' +
-      '   <div data-ng-if="show[room.id] == null" class="thumbnail_show [[outerIndex % 2 == 0 ? \'tumbnail_odd_empty\' : \'tumbnail_pair_empty\']]">' +
+      '<div class="row" data-ng-repeat="(key, show) in model.showData" data-ng-init="outerIndex = $index">\n' +
+      '<div class="col-xs-12">'+
+      '<h3 class="app-text-color schedule-date-title">[[key]]</h3>'+
+      '</div>' +
+      '  <div style="margin-top: -50px;" data-ng-repeat="room in model.rooms" class="col-md-3 col-sm-4 col-xs-6">\n' +
+      '    <div class="dummy"></div>\n' +
+      '    <a href="[[model.domain]]/[[show[room.id].url_slug]]" data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty "><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
+      '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
+      '<reserve view="\'large\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
+      '</div>'+
+      '</a>\n' +
+      '    <div data-ng-if="show[room.id] == null" class="thumbnail_show [[outerIndex % 2 == 0 ? \'tumbnail_odd_empty\' : \'tumbnail_pair_empty\']]">' +
       '</div>\n' +
       '  </div>\n' +
       '</div>' +

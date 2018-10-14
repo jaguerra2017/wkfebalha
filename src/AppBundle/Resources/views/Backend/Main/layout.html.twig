@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-xs-4 col-md-2">
                                 <!-- Logo -->
-                                <a id="index" class="page-logo" href="{{ path('frontend_index') }}">
+                                <a id="index" class="page-logo" href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
                                     <img src="{{ asset('images/shared/bnc-main-logo.png') }}" alt="Logo">
                                 </a>
                             </div>
@@ -109,7 +109,7 @@
                                             </li>
                                             <li class="divider"></li>
                                             <li>
-                                                <a href="{{ path('frontend_index') }}">
+                                                <a href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
                                                     <i class="icon-directions"></i>
                                                     Ir a la Portada
                                                 </a>
@@ -220,7 +220,7 @@
                     <div class="page-quick-sidebar">
                         <div class="row" >
                             <div class="col-xs-12 main-menu-header">
-                                <a id="index" class="main-menu-logo" href="{{ path('frontend_index') }}">
+                                <a id="index" class="main-menu-logo" href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
                                     <img src="{{ asset('images/shared/bnc-secundary-logo.png') }}" alt="Logo">
                                 </a>
 

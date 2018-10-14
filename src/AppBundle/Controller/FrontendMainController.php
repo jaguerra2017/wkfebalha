@@ -28,33 +28,17 @@ class FrontendMainController extends Controller
      */
     public function _frontendIndexAction(Request $request)
     {
-        return $this->redirectToRoute('frontend_index');
+        return $this->redirectToRoute('frontend_index_es');
     }
 
     /**
-     * @Route("/{_locale}", name="frontend_index", requirements={"_locale"="es|en"})
+     * @Route("/es", name="frontend_index_es")
      * @Method("GET")
      */
-    public function frontendIndexAction(Request $request)
+    public function frontendIndexEsAction(Request $request)
     {
-        $desiredLocale = $request->get('_locale');
-        if(!isset($desiredLocale)){
-            return $this->redirect($this->generateUrl('frontend_index', array(
-            "request"=>$request,
-            "_locale" =>'es')));
-        }
-        else {
-            $currentLocale = $request->getSession()->get('_locale');
-            if(!isset($currentLocale)){
-                $request->getSession()->set('_locale', $desiredLocale);
-            }
-            else {
-                if($desiredLocale != $currentLocale){
-                    $request->getSession()->set('_locale', $desiredLocale);
-                }
-            }
-        }
 
+        $this->checkLocaleValues($request);
 
         if($this->checkIsSiteIsAvailableAction()){
 
@@ -72,48 +56,111 @@ class FrontendMainController extends Controller
         }
     }
     /**
-     * @Route("/{_locale}/", name="_frontend_index_current_language", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
+     * @Route("/es/", name="_frontend_index_es")
      * @Method("GET")
      */
-    public function _frontendIndexLanguageAction(Request $request)
+    public function _frontendIndexEsAction(Request $request)
     {
-        return $this->redirectToRoute('frontend_index');
+        return $this->redirectToRoute('frontend_index_es');
+
+    }
+    /**
+     * @Route("/en", name="frontend_index_en")
+     * @Method("GET")
+     */
+    public function frontendIndexEnAction(Request $request)
+    {
+
+        $this->checkLocaleValues($request, 'en');
+
+        if($this->checkIsSiteIsAvailableAction()){
+
+            $em = $this->getDoctrine()->getManager();
+            $container = $this->container;
+            $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
+            $homeData = $objFrontendHomeBussiness->getHomeData();
+
+            $currentTheme = $this->get('appbundle_site_settings')->getCurrentTheme();
+            return $this->render('@app_frontend_template_directory/themes/'.$currentTheme.'/index.html.twig',
+                $homeData);
+        }
+        else{/*show the OFFLINE screen */
+            return $this->showOfflineScreenAction();
+        }
+    }
+    /**
+     * @Route("/en/", name="_frontend_index_en")
+     * @Method("GET")
+     */
+    public function _frontendIndexEnAction(Request $request)
+    {
+        return $this->redirectToRoute('frontend_index_en');
 
     }
 
 
 
     /**
-     * @Route("/{_locale}/{section}", name="frontend_section", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
+     * @Route("/es/{section}", name="frontend_section_es")
      * @Method("GET")
      */
-    public function frontendSectionAction(Request $request)
+    public function frontendSectionEsAction(Request $request)
     {
+
+        $this->checkLocaleValues($request);
+
         $parametersCollection = array();
         $parametersCollection['request_object'] = $request;
         $parametersCollection['section'] = $request->get('section');
 
-        return $this->redirectToRoute('backend_index', array(
-            "request"=>$request,
-            "_locale" =>$request->getSession()->get('_locale')
-        ));
-
-        /*$em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $container = $this->container;
         $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
         $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
 
         return $this->render($requestHandler['template_requested_directory'], array(
             'themeConfigsData' => $requestHandler['themeConfigsData']
-        ));*/
+        ));
     }
     /**
-     * @Route("/{_locale}/{section}/", name="_frontend_section", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
+     * @Route("/es/{section}/", name="_frontend_section_es")
      * @Method("GET")
      */
-    public function _frontendSectionAction(Request $request)
+    public function _frontendSectionEsAction(Request $request)
     {
-        return $this->redirectToRoute('frontend_section',array(
+        return $this->redirectToRoute('frontend_section_es',array(
+            "section"=>$request->get('section')
+        ));
+    }
+    /**
+     * @Route("/en/{section}", name="frontend_section_en")
+     * @Method("GET")
+     */
+    public function frontendSectionEnAction(Request $request)
+    {
+
+        $this->checkLocaleValues($request, 'en');
+
+        $parametersCollection = array();
+        $parametersCollection['request_object'] = $request;
+        $parametersCollection['section'] = $request->get('section');
+
+        $em = $this->getDoctrine()->getManager();
+        $container = $this->container;
+        $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
+        $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
+
+        return $this->render($requestHandler['template_requested_directory'], array(
+            'themeConfigsData' => $requestHandler['themeConfigsData']
+        ));
+    }
+    /**
+     * @Route("/en/{section}/", name="_frontend_section_en")
+     * @Method("GET")
+     */
+    public function _frontendSectionEnAction(Request $request)
+    {
+        return $this->redirectToRoute('frontend_section_en',array(
             "section"=>$request->get('section')
         ));
 
@@ -121,11 +168,13 @@ class FrontendMainController extends Controller
 
 
     /**
-     * @Route("/{_locale}/{section}/{url_slug}", name="frontend_section_element", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
+     * @Route("/es/{section}/{url_slug}", name="frontend_section_element_es")
      * @Method("GET")
      */
-    public function frontendSectionElementAction(Request $request)
+    public function frontendSectionElementEsAction(Request $request)
     {
+        $this->checkLocaleValues($request);
+
         $parametersCollection = array();
         $parametersCollection['request_object'] = $request;
         $parametersCollection['section'] = $request->get('section');
@@ -139,12 +188,44 @@ class FrontendMainController extends Controller
         ));
     }
     /**
-     * @Route("/{_locale}/{section}/{url_slug}/", name="_frontend_section_element", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
+     * @Route("/es/{section}/{url_slug}/", name="_frontend_section_element_es")
      * @Method("GET")
      */
-    public function _frontendSectionElementAction(Request $request)
+    public function _frontendSectionElementEsAction(Request $request)
     {
-        return $this->redirectToRoute('frontend_section',array(
+        return $this->redirectToRoute('frontend_section_element_es',array(
+            "section"=>$request->get('section'),
+            "url_slug"=>$request->get('url_slug')
+        ));
+
+    }
+    /**
+     * @Route("/en/{section}/{url_slug}", name="frontend_section_element_en")
+     * @Method("GET")
+     */
+    public function frontendSectionElementEnAction(Request $request)
+    {
+        $this->checkLocaleValues($request, 'en');
+
+        $parametersCollection = array();
+        $parametersCollection['request_object'] = $request;
+        $parametersCollection['section'] = $request->get('section');
+        $parametersCollection['url_slug'] = $request->get('url_slug');
+        $em = $this->getDoctrine()->getManager();
+        $container = $this->container;
+        $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
+        $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
+        return $this->render($requestHandler['template_requested_directory'], array(
+            'themeConfigsData' => $requestHandler['themeConfigsData']
+        ));
+    }
+    /**
+     * @Route("/en/{section}/{url_slug}/", name="_frontend_section_element_en")
+     * @Method("GET")
+     */
+    public function _frontendSectionElementEnAction(Request $request)
+    {
+        return $this->redirectToRoute('frontend_section_element_en',array(
             "section"=>$request->get('section'),
             "url_slug"=>$request->get('url_slug')
         ));
@@ -153,11 +234,13 @@ class FrontendMainController extends Controller
 
 
     /**
-     * @Route("/{_locale}/{section}/{url_slug}/{tag}", name="frontend_section_element_tag", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
+     * @Route("/es/{section}/{url_slug}/{tag}", name="frontend_section_element_tag_es")
      * @Method("GET")
      */
-    public function frontendSectionElementTagAction(Request $request)
+    public function frontendSectionElementTagEsAction(Request $request)
     {
+        $this->checkLocaleValues($request);
+
         $parametersCollection = array();
         $parametersCollection['request_object'] = $request;
         $parametersCollection['section'] = $request->get('section');
@@ -172,12 +255,47 @@ class FrontendMainController extends Controller
         ));
     }
     /**
-     * @Route("/{_locale}/{section}/{url_slug}/{tag}/", name="_frontend_section_element_tag", defaults={"_locale"="es"}, requirements={"_locale"="es|en"})
+     * @Route("/es/{section}/{url_slug}/{tag}/", name="_frontend_section_element_tag_es")
      * @Method("GET")
      */
-    public function _frontendSectionElementTagAction(Request $request)
+    public function _frontendSectionElementTagEsAction(Request $request)
     {
-        return $this->redirectToRoute('frontend_section',array(
+        return $this->redirectToRoute('frontend_section_element_tag_es',array(
+            "section"=>$request->get('section'),
+            "url_slug"=>$request->get('url_slug'),
+            "tag"=>$request->get('tag')
+        ));
+
+    }
+    /**
+     * @Route("/en/{section}/{url_slug}/{tag}", name="frontend_section_element_tag_en")
+     * @Method("GET")
+     */
+    public function frontendSectionElementTagEnAction(Request $request)
+    {
+        $this->checkLocaleValues($request, 'en');
+
+        $parametersCollection = array();
+        $parametersCollection['request_object'] = $request;
+        $parametersCollection['section'] = $request->get('section');
+        $parametersCollection['url_slug'] = $request->get('url_slug');
+        $parametersCollection['tag'] = $request->get('tag');
+        $em = $this->getDoctrine()->getManager();
+        $container = $this->container;
+        $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
+        $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
+        return $this->render($requestHandler['template_requested_directory'], array(
+            'themeConfigsData' => $requestHandler['themeConfigsData']
+        ));
+    }
+    /**
+     * @Route("/en/{section}/{url_slug}/{tag}/", name="_frontend_section_element_tag_en")
+     * @Method("GET")
+     */
+    public function _frontendSectionElementTagEnAction(Request $request)
+    {
+
+        return $this->redirectToRoute('frontend_section_element_tag_en',array(
             "section"=>$request->get('section'),
             "url_slug"=>$request->get('url_slug'),
             "tag"=>$request->get('tag')
@@ -212,6 +330,23 @@ class FrontendMainController extends Controller
             'twitterLink'=>$appearanceSettings['configurations'][1]['twitter_url'],
             'youTubeLink'=>$appearanceSettings['configurations'][1]['youtube_url']
         ));
+    }
+
+    public function checkLocaleValues($request, $desiredLocale = 'es'){
+        if(!isset($desiredLocale)){
+            return $this->redirect($this->generateUrl('frontend_index_'.$desiredLocale));
+        }
+        else {
+            $currentLocale = $request->getSession()->get('_locale');
+            if(!isset($currentLocale)){
+                $request->getSession()->set('_locale', $desiredLocale);
+            }
+            else {
+                if($desiredLocale != $currentLocale){
+                    $request->getSession()->set('_locale', $desiredLocale);
+                }
+            }
+        }
     }
 
 }
