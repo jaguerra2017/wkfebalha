@@ -11,7 +11,7 @@
         <meta content="" name="description"/>
         <meta content="" name="author"/>
 
-        <title>BNC | {% block title %} Error 404 {% endblock %}</title>
+        <title>FIBHA | {% block title %} Error 404 {% endblock %}</title>
 
         <!-- Base css global mandatory styles -->
         <link href="{{ asset('css/backend/fonts/font-awesome/font-awesome.min.css') }}{{ assets_css_base_scripts_version }}" rel="stylesheet">
@@ -37,8 +37,8 @@
             <div class="login-form">
                 <!-- Begin Logo -->
                 <div style=" text-align:center;margin-bottom: 50px;">
-                    <a href="{{ path('frontend_index') }}">
-                        <img src="{{ asset('images/shared/bnc-secundary-logo.png') }}" alt="Logo del BNC" width="138" height="60">
+                    <a href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
+                        <img src="{{ asset('images/shared/app-secundary-logo-blanco.png') }}" alt="Logo del FIBHA" width="138" height="100">
                     </a>
                 </div>
 

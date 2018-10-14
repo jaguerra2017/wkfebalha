@@ -224,8 +224,8 @@ body{
 }
 .page-logo img,
 .main-menu-logo img{
-	max-width: 100px !important;
-	max-height: 43px !important;
+	max-width: 150px !important;
+	max-height: 50px !important;
 }
 .module-description-container{
 	margin: 0;
