@@ -16,7 +16,7 @@ use AppBundle\Bussiness\ShowBussiness;
 /**
  * BACKEND - Show controller.
  *
- * @Route("backend/funcions")
+ * @Route("backend/funciones")
  */
 class BackendShowsController extends Controller
 {
@@ -91,7 +91,7 @@ class BackendShowsController extends Controller
     /**
      * Load shows collection data
      *
-     * @Route("/datos-funcions", name="shows_data", options={"expose"=true})
+     * @Route("/datos-funciones", name="shows_data", options={"expose"=true})
      * @Security("is_granted('read', 'show')")
      * @Method("POST")
      */

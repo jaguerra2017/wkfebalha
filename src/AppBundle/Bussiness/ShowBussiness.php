@@ -169,7 +169,7 @@ class ShowBussiness
                     }
                     if($this->container != null){
                         $siteDomain = $this->container->get('appbundle_site_settings')->getBncDomain();
-                        $showsCollection[$key]['url'] = $siteDomain.'/es/asociados/'.$show['url_slug_'.$parametersCollection['currentLanguage']];
+                        $showsCollection[$key]['url'] = $siteDomain.'/es/funciones/'.$show['url_slug_'.$parametersCollection['currentLanguage']];
                     }
 
                     /*handling number of comments*/
@@ -266,7 +266,7 @@ class ShowBussiness
 
                 $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->find($parametersCollection['id']);
                 if(!isset($objGenericPost)){
-                    $message = 'El asociado que desea editar ya no existe.';
+                    $message = 'Funcion que desea editar ya no existe.';
                     return $this->returnResponse(array('success'=>0,'message'=>$message));
                 }
                 $objGenericPost->setModifiedDate(new \DateTime());

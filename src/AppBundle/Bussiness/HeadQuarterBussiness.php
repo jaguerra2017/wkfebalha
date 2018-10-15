@@ -160,7 +160,7 @@ class HeadQuarterBussiness
                     }
                     if($this->container != null){
                         $siteDomain = $this->container->get('appbundle_site_settings')->getBncDomain();
-                        $headquartersCollection[$key]['url'] = $siteDomain.'/es/asociados/'.$headquarter['url_slug_'.$parametersCollection['currentLanguage']];
+                        $headquartersCollection[$key]['url'] = $siteDomain.'/es/sedes/'.$headquarter['url_slug_'.$parametersCollection['currentLanguage']];
                     }
 
                     /*handling number of comments*/
@@ -251,7 +251,7 @@ class HeadQuarterBussiness
 
                 $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->find($parametersCollection['id']);
                 if(!isset($objGenericPost)){
-                    $message = 'El asociado que desea editar ya no existe.';
+                    $message = 'La sede que desea editar ya no existe.';
                     return $this->returnResponse(array('success'=>0,'message'=>$message));
                 }
                 $objGenericPost->setModifiedDate(new \DateTime());
