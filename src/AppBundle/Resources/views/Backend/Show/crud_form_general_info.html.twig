@@ -51,9 +51,9 @@
                     <div class="input-group">
                         <div class="input-group-btn">
                             <a class="btn default" type="button" target="_blank"
-                               href="[[model.bncDomain]]/es/funciones/[[model.selectedShow.url_slug]]"
+                               href="[[model.bncDomain]]/[[model.selectedLanguage.value]]/[[model.selectedLanguage.value == 'es' ? 'funciones' : 'shows' ]]/[[model.selectedShow.url_slug]]"
                                style="width:100%;text-align: left;" >
-                                [[model.bncDomain]]/es/funciones/[[model.selectedShow.url_slug]]
+                                [[model.bncDomain]]/[[model.selectedLanguage.value]]/[[model.selectedLanguage.value == 'es' ? 'funciones' : 'shows' ]]/[[model.selectedShow.url_slug]]
                             </a>
                         </div>
                     </div>
