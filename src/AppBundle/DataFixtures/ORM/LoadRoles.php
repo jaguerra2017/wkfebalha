@@ -28,6 +28,14 @@ class LoadRoles extends AbstractFixture implements OrderedFixtureInterface
         $roleAdmin->setSeeSiteStatusOffline(true);
         $manager->persist($roleAdmin);
 
+        /*Role for System WebMaster*/
+        $roleWebMaster = new Role();
+        $roleWebMaster->setName('Web Master');
+        $roleWebMaster->setDescription('ESte es el Rol usado por el Webmaster. Este Rol no es editable.');
+        $roleWebMaster->setSlug('ROLE_WEBMASTER');
+        $roleWebMaster->setSeeSiteStatusOffline(true);
+        $manager->persist($roleWebMaster);
+
         /*Role for System Salesman*/
         $roleSalesman = new Role();
         $roleSalesman->setName('Gestor de ventas');
@@ -43,6 +51,8 @@ class LoadRoles extends AbstractFixture implements OrderedFixtureInterface
         $roleTester->setSlug('ROLE_TESTER');
         $roleTester->setSeeSiteStatusOffline(true);
         $manager->persist($roleTester);
+
+
 
         /*Settings, for Role-Functionality-Action*/
         $objNomTypeFunctionality = $manager->getRepository('AppBundle:NomType')->findOneBy(
@@ -97,6 +107,8 @@ class LoadRoles extends AbstractFixture implements OrderedFixtureInterface
                     //}
                 }
             }
+
+            /*AQUI DEBE DE IR LAS ASIGNACIONES DE FUNCIONALIDADES PARA EL RESTO DE LOS ROLES, SEGUN LO CONVENIADO*/
         }
 
 

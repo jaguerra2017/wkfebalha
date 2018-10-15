@@ -76,7 +76,7 @@ class LoadMedia extends AbstractFixture implements OrderedFixtureInterface
             $avellanedaHallMapMediaImage->setIsLoadedBySystem(true);
             $manager->persist($avellanedaHallMapMediaImage);
 
-            /*Default media image for avellaneda hall map*/
+            /*Default media image for covarrubias hall map*/
             $covarrubiasHallMapMedia = new Media();
             $covarrubiasHallMapMedia->setName('bnc-covarrubias-hall-map');
             $covarrubiasHallMapMedia->setDescription('Imagen del mapa de la Sala covarrubias');
@@ -93,6 +93,24 @@ class LoadMedia extends AbstractFixture implements OrderedFixtureInterface
             $covarrubiasHallMapMediaImage->setDimension('2550X3300');
             $covarrubiasHallMapMediaImage->setIsLoadedBySystem(true);
             $manager->persist($covarrubiasHallMapMediaImage);
+
+            /*Default media image for mella hall map*/
+            $mellaHallMapMedia = new Media();
+            $mellaHallMapMedia->setName('fibha-mella-hall-map');
+            $mellaHallMapMedia->setDescription('Imagen del mapa de la Sala mella');
+            $mellaHallMapMedia->setMediaType($nomImageMediaType);
+            $mellaHallMapMedia->setUrl('uploads/images/original/fibha-mella-hall-map.jpeg');
+            $manager->persist($mellaHallMapMedia);
+            $manager->flush($mellaHallMapMedia);
+
+            $mellaHallMapMediaImage = new MediaImage();
+            $mellaHallMapMediaImage->setId($mellaHallMapMedia);
+            $mellaHallMapMediaImage->setAlternativeText('mella-hall-map');
+            $mellaHallMapMediaImage->setExtension('jpeg');
+            $mellaHallMapMediaImage->setSize(2752);
+            $mellaHallMapMediaImage->setDimension('2550X3300');
+            $mellaHallMapMediaImage->setIsLoadedBySystem(true);
+            $manager->persist($mellaHallMapMediaImage);
 
 
             $manager->flush();

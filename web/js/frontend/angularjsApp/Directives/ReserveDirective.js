@@ -207,7 +207,7 @@
       '</div>'+
       '<div class="col-xs-12 col-xs-offset-3 col-md-offset-4" style="margin-bottom: 5px">' +
       '<button type="button" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="paySubmit()">[[model.languageTags.buy]]</button>\n' +
-      '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">[[model.languageTags.country]]</button>\n' +
+      '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">[[model.languageTags.cancel]]</button>\n' +
       '</div> '+
       '</div>'+
       '</div>\n' +

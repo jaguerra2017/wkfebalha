@@ -382,10 +382,14 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
 
     $manager->flush();
 
+    $covarrubiasMap = $manager->getRepository('AppBundle:Media')->findOneBy(array('name_es'=>'bnc-covarrubias-hall-map'));
+
     $covarrubiasRoom = new Room();
     $covarrubiasRoom->setId($covarrubiasRoomGP);
     $covarrubiasRoom->setHeadquarter($nationalTheaterGP);
+    $covarrubiasRoom->setMapImage($covarrubiasMap);
     $manager->persist($covarrubiasRoom);
+
 
     $showGP = new GenericPost();
     $showGP->setTitle('Giselle');
@@ -582,9 +586,12 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
 
     $manager->flush();
 
+    $mellaMap = $manager->getRepository('AppBundle:Media')->findOneBy(array('name_es'=>'fibha-mella-hall-map'));
+
     $mellaRoom = new Room();
     $mellaRoom->setId($mellaRoomGP);
     $mellaRoom->setHeadquarter($mellaTheaterGP);
+    $mellaRoom->setMapImage($mellaMap);
     $manager->persist($mellaRoom);
 
     $area = $manager->getRepository('AppBundle:GenericPostType')->findOneBy(array(
