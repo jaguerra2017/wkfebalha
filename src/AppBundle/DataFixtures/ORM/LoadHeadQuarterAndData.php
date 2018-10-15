@@ -48,7 +48,7 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
       $nationalTheaterGP->setExcerpt('AAAAA', 'en');
       $nationalTheaterGP->setGenericPostType($headquarter);
       $nationalTheaterGP->setUrlSlug('teatro-nacional');
-      $nationalTheaterGP->setUrlSlug('national-theater');
+      $nationalTheaterGP->setUrlSlug('national-theater','en');
       $nationalTheaterGP->setContent('JJJJJJJJJJJJ');
       $nationalTheaterGP->setContent('JJJJJJJJJJJJ', 'en');
       $nationalTheaterGP->setPostStatusSlug('generic-post-status-published');
@@ -71,7 +71,7 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
       $habanaTheaterGP->setExcerpt('AAAAA', 'en');
       $habanaTheaterGP->setGenericPostType($headquarter);
       $habanaTheaterGP->setUrlSlug('teatro-habana');
-      $habanaTheaterGP->setUrlSlug('habana-theater');
+      $habanaTheaterGP->setUrlSlug('habana-theater','en');
       $habanaTheaterGP->setContent('JJJJJJJJJJJJ');
       $habanaTheaterGP->setContent('JJJJJJJJJJJJ', 'en');
       $habanaTheaterGP->setPostStatusSlug('generic-post-status-published');
@@ -94,7 +94,7 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
       $martiTheaterGP->setExcerpt('AAAAA', 'en');
       $martiTheaterGP->setGenericPostType($headquarter);
       $martiTheaterGP->setUrlSlug('teatro-nacional');
-      $martiTheaterGP->setUrlSlug('marti-theater');
+      $martiTheaterGP->setUrlSlug('marti-theater','en');
       $martiTheaterGP->setContent('JJJJJJJJJJJJ');
       $martiTheaterGP->setContent('JJJJJJJJJJJJ', 'en');
       $martiTheaterGP->setPostStatusSlug('generic-post-status-published');
@@ -121,7 +121,7 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
       $mellaTheaterGP->setContent('JJJJJJJJJJJJ');
       $mellaTheaterGP->setContent('JJJJJJJJJJJJ', 'en');
       $mellaTheaterGP->setUrlSlug('teatro-mella');
-      $mellaTheaterGP->setUrlSlug('mella-theater');
+      $mellaTheaterGP->setUrlSlug('mella-theater','en');
       $mellaTheaterGP->setPostStatusSlug('generic-post-status-published');
       $mellaTheaterGP->setCreatedAuthor($user);
       $manager->persist($mellaTheaterGP);
@@ -158,34 +158,10 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
       $area = $manager->getRepository('AppBundle:GenericPostType')->findOneBy(array(
         'tree_slug' => 'salable-area'
       ));
-
       /*creating a show*/
       $show = $manager->getRepository('AppBundle:GenericPostType')->findOneBy(array(
         'tree_slug' => 'show'
       ));
-
-      $showGP = new GenericPost();
-      $showGP->setTitle('Giselle');
-      $showGP->setTitle('Giselle','en');
-      $showGP->setGenericPostType($show);
-      $showGP->setExcerpt('AAAAA');
-      $showGP->setExcerpt('AAAAA', 'en');
-      $showGP->setContent('JJJJJJJJJJJJ');
-      $showGP->setContent('JJJJJJJJJJJJ', 'en');
-      $showGP->setUrlSlug('gisella');
-      $showGP->setPostStatusSlug('generic-post-status-published');
-      $showGP->setCreatedAuthor($user);
-      $manager->persist($showGP);
-
-      $manager->flush();
-
-      $showEl = new Show();
-      $showEl->setId($showGP);
-      $showEl->setRoom($avellanedaRoomGP);
-      $showEl->setSeatPrice(54);
-      $showEl->setDuration(1);
-      $showEl->setShowDate(new \DateTime('2018-10-29 20:00'));
-      $manager->persist($showEl);
 
 
       $showGP = new GenericPost();
@@ -196,7 +172,8 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
       $showGP->setExcerpt('AAAAA', 'en');
       $showGP->setContent('JJJJJJJJJJJJ');
       $showGP->setContent('JJJJJJJJJJJJ', 'en');
-      $showGP->setUrlSlug('sleeping-beauty');
+      $showGP->setUrlSlug('bella-durmiente');
+      $showGP->setUrlSlug('sleeping-beauty','en');
       $showGP->setPostStatusSlug('generic-post-status-published');
       $showGP->setCreatedAuthor($user);
       $manager->persist($showGP);
@@ -409,6 +386,30 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
     $covarrubiasRoom->setId($covarrubiasRoomGP);
     $covarrubiasRoom->setHeadquarter($nationalTheaterGP);
     $manager->persist($covarrubiasRoom);
+
+    $showGP = new GenericPost();
+    $showGP->setTitle('Giselle');
+    $showGP->setTitle('Giselle','en');
+    $showGP->setGenericPostType($show);
+    $showGP->setExcerpt('AAAAA');
+    $showGP->setExcerpt('AAAAA', 'en');
+    $showGP->setContent('JJJJJJJJJJJJ');
+    $showGP->setContent('JJJJJJJJJJJJ', 'en');
+    $showGP->setUrlSlug('giselle');
+    $showGP->setUrlSlug('giselle','en');
+    $showGP->setPostStatusSlug('generic-post-status-published');
+    $showGP->setCreatedAuthor($user);
+    $manager->persist($showGP);
+
+    $manager->flush();
+
+    $showEl = new Show();
+    $showEl->setId($showGP);
+    $showEl->setRoom($covarrubiasRoomGP);
+    $showEl->setSeatPrice(54);
+    $showEl->setDuration(1);
+    $showEl->setShowDate(new \DateTime('2018-10-29 20:00'));
+    $manager->persist($showEl);
 
     $area = $manager->getRepository('AppBundle:GenericPostType')->findOneBy(array(
       'tree_slug' => 'salable-area'
@@ -1122,6 +1123,21 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
     );
     $this->container->get('appbundle_generate_seats')->generateSeats($parametersCollection);
     /*end gran theater*/
+
+
+    /*Creating Marti Main Hall*/
+    $martiMainRoomGP = new GenericPost();
+    $martiMainRoomGP->setTitle('Principal');
+    $martiMainRoomGP->setTitle('Principal Hall', 'en');
+    $martiMainRoomGP->setGenericPostType($room);
+    $manager->persist($martiMainRoomGP);
+
+    $manager->flush();
+
+    $martiMainRoom = new Room();
+    $martiMainRoom->setId($martiMainRoomGP);
+    $martiMainRoom->setHeadquarter($martiTheaterGP);
+    $manager->persist($martiMainRoom);
 
     $manager->flush();
   }

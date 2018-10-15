@@ -41,18 +41,12 @@ class FrontendReserveController extends Controller
    * @Method("POST")
    */
   public function getSeatsAction(Request $request){
-    if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
-    {
-      throw $this->createAccessDeniedException();
-    }
-    else {
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
       $parametersCollection = $request->get('reserveData');
       $initialsData = $this->get('appbundle_program_booking')->getSeats($parametersCollection);
 
       return new JsonResponse(array('seatsData' => $initialsData));
-    }
   }
 
   /**

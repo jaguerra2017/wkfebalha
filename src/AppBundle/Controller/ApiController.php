@@ -26,7 +26,7 @@ class ApiController extends FOSRestController
    */
   public function checkInvoiceAction(Request $request)
   {
-    $result = array();
+    /*$result = array();
     $id_transaccion = $request->get('id_transaccion');
     $notrans = $request->get('notrans');
     $resultado = $request->get('resultado');
@@ -43,6 +43,6 @@ class ApiController extends FOSRestController
     if($result != 'error'){
 
     }
-    return new JsonResponse($result);
+    return new JsonResponse($result);*/
   }
 }

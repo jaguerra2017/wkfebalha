@@ -20,9 +20,9 @@
       '<button data-ng-click="showSeatModal()" data-ng-if="userRole !=\'ROLE_ADMIN\'" type="button" class="btn btn-outline btn-primary">Reservar</button>' +
       '</div>' +
       '</div>' +
-      '<a data-ng-if="userRole != \'ROLE_ADMIN\' && from == \'program\'" title="Reservar" data-ng-click="showSeatModal()" class="btn btn-circle-sm btn-primary"><span><i class="icon-tag"></i></span> </a>' +
+      '<a data-ng-if="userRole != \'ROLE_ADMIN\' && from == \'program\'" title="[[model.languageTags.button]]" data-ng-click="showSeatModal()" class="btn btn-circle-sm btn-primary"><span><i class="icon-tag"></i></span> </a>' +
       '<div class="col-xs-12">' +
-      '<div id="seats-modal-[[showid]]-[[view]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
+      '<div style="overflow-y: scroll !important;" id="seats-modal-[[showid]]-[[view]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
       '<div class="modal-header">'+
       '<button type="button" class="close" title="Cancelar" data-ng-click="cancel()"></button>'+
       '<h4 class="modal-title"></h4>'+
@@ -49,17 +49,17 @@
       '<div class="col-xs-12 col-md-8">' +
       '<img class="img-responsive" ng-src="[[model.mapImageUrl]]"> </div>' +
       '<div class="col-xs-12 col-md-4">' +
-      '<strong>Obra: </strong> [[model.showData.title]] <br>' +
-      '<strong>Fecha: </strong> [[model.showData.date]] <br>' +
-      '<strong>Hora: </strong> [[model.showData.time]] <br>' +
-      '<strong>Precio: </strong> $[[model.showData.price]] <br>' +
+      '<strong>[[model.languageTags.show]]: </strong> [[model.showData.title]] <br>' +
+      '<strong>[[model.languageTags.date]]: </strong> [[model.showData.date]] <br>' +
+      '<strong>[[model.languageTags.hour]]: </strong> [[model.showData.time]] <br>' +
+      '<strong>[[model.languageTags.price]]: </strong> $[[model.showData.price]] <br>' +
       '<div class="actions custom-toolbar-actions">' +
       ' <div class="input-group" style="width: 75px">\n' +
       '                    <div class="input-group-btn">\n' +
       '                        <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"\n' +
       '                           style="text-align: left; font-size: 11px;"\n' +
       '                           data-toggle="dropdown" data-hover="dropdown" data-close-others="true">\n' +
-      '                            [[model.selectedArea == null ? \'Seleccione un área\' : model.selectedArea.title]] <i class="fa fa-angle-down"></i>\n' +
+      '                            [[model.selectedArea == null ? model.languageTags.area : model.selectedArea.title]] <i class="fa fa-angle-down"></i>\n' +
       '                        </a>\n' +
       '                        <div class="dropdown-menu hold-on-click dropdown-checkboxes "\n' +
       '                             style="min-width: 75px;top: 25px;margin-left: 0px;">\n' +
@@ -76,7 +76,7 @@
       '                        <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle  [[model.selectedArea == null ? \'disabled\' : \'\']]"\n' +
       '                           style="text-align: left; font-size: 11px; margin-left: 10px;"\n' +
       '                           data-toggle="dropdown" data-hover="dropdown" data-close-others="true">\n' +
-      '                            [[model.selectedZone == null ? \'Seleccione la zona\' : model.selectedZone.title]] <i class="fa fa-angle-down"></i>\n' +
+      '                            [[model.selectedZone == null ? model.languageTags.zone : model.selectedZone.title]] <i class="fa fa-angle-down"></i>\n' +
       '                        </a>\n' +
       '                        <div class="dropdown-menu hold-on-click dropdown-checkboxes "\n' +
       '                             style="min-width: 75px;top: 25px;margin-left: 0px;">\n' +
@@ -115,8 +115,8 @@
       '</div>\n' +
       '<div class="row"> '+
       '<div class="col-xs-12 col-md-offset-3 col-xs-offset-2 col-md-8" style="margin-bottom: 10px"> '+
-      '<button type="button" data-ng-if="userRole != \'ROLE_ADMIN\'" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="checkoutBooking(\'booking\')">Reservar</button>\n' +
-      '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">Cancelar</button>\n' +
+      '<button type="button" data-ng-if="userRole != \'ROLE_ADMIN\'" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="checkoutBooking(\'booking\')">[[model.languageTags.booking]]</button>\n' +
+      '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">[[model.languageTags.cancel]]</button>\n' +
       '</div>\n' +
       '</div>\n' +
       '</div>\n' +
@@ -133,8 +133,8 @@
       '<div class="timeline-body-content" data-ng-if="model.currentStep == \'block_3\'">'+
       '<div data-ng-if="model.currentStep == \'block_3\'" class="note note-info">\n' +
       '<p>\n' +
-      '<strong>Cantidad de asientos:</strong> [[model.selectedSeats.length]] &nbsp;&nbsp;&nbsp;' +
-      '<strong>Monto total:</strong> $ [[model.amountUSD]]<br>' +
+      '<strong>[[model.languageTags.seatsCount]]:</strong> [[model.selectedSeats.length]] &nbsp;&nbsp;&nbsp;' +
+      '<strong>[[model.languageTags.amount]]:</strong> $ [[model.amountUSD]]<br>' +
       '</p>\n' +
       '</div>'+
       // '<div data-ng-if="model.checkError" class="note note-warning">\n' +
@@ -157,53 +157,57 @@
       '    <div class="col-xs-12 col-md-4">\n' +
       '                <div class="form-group margin-top-20 [[model.nameHasError ? \'has-error\' : \'\']]">\n' +
       '                    <label class="control-label">\n' +
-      '                        Nombres\n' +
+      '                        [[model.languageTags.name]]\n' +
       '                    </label>\n' +
       '                    <input class="form-control" type="text" placeholder=""\n' +
       '                    data-ng-model="model.clientData.name">\n' +
       ' <span class="help-block">\n' +
-      '      <p data-ng-if="model.nameHasError">Valor incorrecto o en blanco.</p>\n' +
+      '      <p data-ng-if="model.nameHasError && currentLanguage == \'es\'">Valor incorrecto o en blanco.</p>\n' +
+      '      <p data-ng-if="model.nameHasError && currentLanguage == \'en\'">Incorrect or blank value.</p>\n' +
       ' </span>' +
       '             </div>\n' +
       '     </div>\n' +
       '    <div class="col-xs-12 col-md-4">\n' +
       '                <div class="form-group margin-top-20 [[model.lastNameHasError ? \'has-error\' : \'\']]">\n' +
       '                    <label class="control-label">\n' +
-      '                        Apellidos\n' +
+      '                        [[model.languageTags.lastName]]\n' +
       '                    </label>\n' +
       '                    <input class="form-control" type="text" placeholder=""\n' +
       '                    data-ng-model="model.clientData.lastName">\n' +
       ' <span class="help-block">\n' +
-      '      <p data-ng-if="model.lastNameHasError">Valor incorrecto o en blanco.</p>\n' +
+      '      <p data-ng-if="model.nameHasError && currentLanguage == \'es\'">Valor incorrecto o en blanco.</p>\n' +
+      '      <p data-ng-if="model.nameHasError && currentLanguage == \'en\'">Incorrect or blank value.</p>\n' +
       ' </span>' +
       '             </div>\n' +
       '     </div>\n' +
       '    <div class="col-xs-12 col-md-4">\n' +
       '                <div class="form-group margin-top-20 [[model.emailAddressHasError ? \'has-error\' : \'\']]">\n' +
       '                    <label class="control-label">\n' +
-      '                        Correo electr&oacute;nico\n' +
+      '                        [[model.languageTags.email]]\n' +
       '                    </label>\n' +
       '                    <input class="form-control" type="email" placeholder="example@domain.com"\n' +
       '                    data-ng-model="model.clientData.email_addres">\n' +
       ' <span class="help-block">\n' +
-      '      <p data-ng-if="model.emailAddressHasError">Valor incorrecto o en blanco.</p>\n' +
+      '      <p data-ng-if="model.nameHasError && currentLanguage == \'es\'">Valor incorrecto o en blanco.</p>\n' +
+      '      <p data-ng-if="model.nameHasError && currentLanguage == \'en\'">Incorrect or blank value.</p>\n' +
       ' </span>' +
       '             </div>\n' +
       '     </div>\n' +
       '<div class="col-xs-12 col-md-4">\n' +
       '<div class="form-group [[model.countryHasError ? \'has-error\' : \'\']]">\n' +
-      '<label class="control-label">Pa&iacute;s</label>\n' +
+      '<label class="control-label">[[model.languageTags.country]]</label>\n' +
       '<select data-ng-model="model.clientData.country" class="bs-select form-control" data-live-search="true" data-size="8">\n' +
       ' <option data-ng-repeat="country in model.countries" ng-value="country">[[country.name]]</option>\n' +
       '</select>\n' +
       ' <span class="help-block">\n' +
-      '      <p data-ng-if="model.countryHasError">Debe seleccionar un país.</p>\n' +
+      '      <p data-ng-if="model.countryHasError && currentLanguage == \'es\'">Debe seleccionar un país.</p>\n' +
+      '      <p data-ng-if="model.countryHasError && currentLanguage == \'en\'">You must select a country.</p>\n' +
       ' </span>' +
       '</div>'+
       '</div>'+
       '<div class="col-xs-12 col-xs-offset-3 col-md-offset-4" style="margin-bottom: 5px">' +
-      '<button type="button" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="paySubmit()">Comprar</button>\n' +
-      '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">Cancelar</button>\n' +
+      '<button type="button" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="paySubmit()">[[model.languageTags.buy]]</button>\n' +
+      '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">[[model.languageTags.country]]</button>\n' +
       '</div> '+
       '</div>'+
       '</div>\n' +
@@ -218,13 +222,9 @@
       '</div>'+
       '<div class="pairBlock col-xs-12">'+
       '<div class="timeline-body-content">'+
-      '<h4 class="block">Voucher</h4>\n' +
       '<p>\n' +
-      'Usted ha reservado los asietos: ' +
-      '<ul style="list-style: none">' +
-      '<li data-ng-repeat="seat in model.voucherData.seats">[[seat]]</li>' +
-      '</ul><br>' +
-      'Por un monto total de <strong>[[model.voucherData.amount]]</strong> USD' +
+      '[[model.languageTags.step4message1]] <strong>[[model.voucherData.seats.length]]</strong> ' +
+      '[[model.languageTags.step4message2]] <strong>[[model.voucherData.amount]]</strong> USD' +
       '</p>\n' +
       '</div>'+
       '</div>\n' +
@@ -308,7 +308,7 @@
 
         $scope.scrollDown = function (element) {
           if(element == 'block_1'){
-            $('#seats-modal').animate({scrollTop: $("#"+element).offset().top + 800}, 1000);
+            $('#seats-modal-'+ $scope.showid+ '-'+ $scope.view).animate({scrollTop: $(".modal-body").offset().top + 800}, 1000);
           }
         }
 
@@ -384,6 +384,7 @@
             area: $scope.model.selectedArea.id,
             zone: $scope.model.selectedZone.id,
             showid: $scope.showid,
+            currentLanguage: $scope.currentLanguage,
             role: $scope.userRole,
           };
           var reserveData = {reserveData: searchParametersCollection};
@@ -452,6 +453,52 @@
 
         $scope.selectAll = function () {
           $scope.model.sc.find('available').status('available_admin');
+        }
+
+        $scope.initLanguageTags = function () {
+          $scope.model.languageTags = {};
+          switch ($scope.currentLanguage){
+            case 'en':
+              $scope.model.languageTags.button = 'Buy ticket';
+              $scope.model.languageTags.area = 'Select area';
+              $scope.model.languageTags.zone = 'Select zone';
+              $scope.model.languageTags.show = 'Function';
+              $scope.model.languageTags.date = 'Date';
+              $scope.model.languageTags.hour = 'Time';
+              $scope.model.languageTags.price = 'Price';
+              $scope.model.languageTags.booking = 'Ok';
+              $scope.model.languageTags.cancel = 'Cancel';
+              $scope.model.languageTags.seatsCount = 'Number of seats';
+              $scope.model.languageTags.amount = 'Total amount';
+              $scope.model.languageTags.name = 'Name(s)';
+              $scope.model.languageTags.lastName = 'Last name';
+              $scope.model.languageTags.email = 'E-mail';
+              $scope.model.languageTags.country = 'Country';
+              $scope.model.languageTags.buy = 'Buy';
+              $scope.model.languageTags.step4message1 = 'You have initiated a ';
+              $scope.model.languageTags.step4message2 = '-seat reservation process for a total amount of';
+              break;
+            default:
+              $scope.model.languageTags.button = 'Comprar ticket';
+              $scope.model.languageTags.area = 'Seleccione un área';
+              $scope.model.languageTags.zone = 'Seleccione la zona';
+              $scope.model.languageTags.show = 'Obra';
+              $scope.model.languageTags.date = 'Fecha';
+              $scope.model.languageTags.hour = 'Hora';
+              $scope.model.languageTags.price = 'Precio';
+              $scope.model.languageTags.booking = 'Aceptar';
+              $scope.model.languageTags.cancel = 'Cancelar';
+              $scope.model.languageTags.seatsCount = 'Cantidad de asientos';
+              $scope.model.languageTags.amount = 'Monto total';
+              $scope.model.languageTags.name = 'Nombre(s)';
+              $scope.model.languageTags.lastName = 'Apellidos';
+              $scope.model.languageTags.email = 'Correo electrónico';
+              $scope.model.languageTags.country = 'País';
+              $scope.model.languageTags.buy = 'Comprar';
+              $scope.model.languageTags.step4message1 = 'Usted ha iniciado un proceso de reserva de ';
+              $scope.model.languageTags.step4message2 = ' asientos por un monto total de ';
+              break
+          }
         }
 
         $scope.checkoutBooking = function (from) {
@@ -562,6 +609,7 @@
             $scope.model.mapImageUrl = response.data.initialsData.reserveDataCollection.mapImageUrl;
             $scope.model.countries = response.data.initialsData.reserveDataCollection.countries;
             $scope.model.price = response.data.initialsData.reserveDataCollection.showData.price;
+            $scope.initLanguageTags();
             $scope.initVisualization();
           });
         }

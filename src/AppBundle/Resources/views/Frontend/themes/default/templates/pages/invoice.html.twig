@@ -1,0 +1,23 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block template_name %}
+    <!--**
+     * Template Name: Página Invoice
+     *
+     * -->
+{% endblock %}
+{% block title %} Invoice {% endblock %}
+
+{% block content %}
+    <!-- News Section -->
+    <section class="news-section" style="padding-bottom:50px; display: flex">
+        <div class="container-fluid wow fadeInUpBig" style="padding: 60px 0px; min-height:400px;">
+            <div class="row" style="margin:0; display: flex; flex-direction: column">
+               <span class="schedule-date-title" style="width: 100%">  {{ "invoice_title" | trans({}, 'invoice', app.session.get('_locale')) }} </span>
+                <span style="width: 100%; margin-top: 20px">{{ "invoice_message" | trans({}, 'invoice', app.session.get('_locale')) }}</span>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

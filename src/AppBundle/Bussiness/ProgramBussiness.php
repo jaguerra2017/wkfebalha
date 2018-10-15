@@ -48,13 +48,20 @@ class ProgramBussiness
         "Diciembre",
       );
       $result = array();
+      $result['type_url_slug'] =
+        $this->em->getRepository('AppBundle:GenericPostType')->findOneBy(array('tree_slug'=>'show'))->getUrlSlug($parametersCollection['currentLanguage']);
+      $result['headquarter_type_url_slug'] =
+        $this->em->getRepository('AppBundle:GenericPostType')->findOneBy(array('tree_slug'=>'headquarter'))->getUrlSlug($parametersCollection['currentLanguage']);
       $showsData = $this->em->getRepository('AppBundle:Show')->getShowsFullData($parametersCollection);
       $parametersCollection['post_type_tree_slug'] = 'room';
       $roomCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
       $roomResult = array();
       foreach ($roomCollection as $room) {
         $roomObj = $this->em->getRepository('AppBundle:Room')->find($room['id']);
+        $headquarterObj = $this->em->getRepository('AppBundle:HeadQuarter')->find($roomObj->getHeadquarter());
         $room['headquarter'] = $roomObj->getHeadquarter()->getTitle($parametersCollection['currentLanguage']);
+        $room['url_slug'] = $roomObj->getHeadquarter()->getUrlSlug($parametersCollection['currentLanguage']);
+        $room['online_sale'] = $headquarterObj->getOnlineSale();
         $roomResult[$room['id']] = $room;
       }
       $result['rooms'] = $roomResult;

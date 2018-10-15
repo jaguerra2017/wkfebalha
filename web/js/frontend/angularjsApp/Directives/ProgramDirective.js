@@ -62,6 +62,8 @@
           $scope.model.outerIndex = null;
           $scope.model.selectedShow = null;
           $scope.model.domain = null;
+          $scope.model.url_slug = null;
+          $scope.model.headquarter_url_slug = null;
 
           $scope.toggleDataLoader();
           var searchParametersCollection = {
@@ -74,6 +76,8 @@
             $scope.model.rooms = response.data.initialsData.programDataCollection.rooms;
             $scope.model.showData = response.data.initialsData.programDataCollection.shows;
             $scope.model.domain = response.data.initialsData.bncDomain;
+            $scope.model.url_slug = response.data.initialsData.programDataCollection.type_url_slug;
+            $scope.model.headquarter_url_slug = response.data.initialsData.programDataCollection.headquarter_type_url_slug;
             $scope.initVisualization();
           });
         }
@@ -82,43 +86,48 @@
       },
       template:
       '<div>'+
-      '<div class="row" style="margin-top:40px;"> '+
+      '<div class="row" style="margin-top:40px; display: flex;"> '+
       '<div data-ng-repeat="room in model.rooms" class="hidden-xs hidden-sm col-md-3 col-sm-4 col-xs-6">\n' +
-      '    <div class="thumbnail_mine purple schedule-header">[[room.headquarter]]<br> ([[room.title]])</div>\n' +
+      '    <div class="thumbnail_mine purple schedule-header">' +
+      '<a style="color: white" href="[[model.domain]]/[[model.headquarter_url_slug]]/[[currentLanguage]]/[[room.url_slug]]"> [[room.headquarter]]<br> ([[room.title]])</a></div>\n' +
       '  </div>'+
       '  </div>'+
-      '<div class="row hidden-xs hidden-sm" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
+      '<div style="display: flex; flex-direction: column;" class="row hidden-xs hidden-sm" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
       ' <div class="col-xs-12">'+
       '   <h3 class="app-text-color schedule-date-title">[[key]]</br><p class="title-separator" style="float:left;"></p></h3>'+
       ' </div>' +
-      '  <div style="" data-ng-repeat="room in model.rooms" class="col-md-3 col-sm-4 col-xs-6">\n' +
-      '    <a href="[[model.domain]]/[[show[room.id].url_slug]]" ' +
-          'data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty ">' +
+       '<div style="display: flex; width: 100%; margin-top: 38px" >'+
+      '  <div data-ng-repeat="room in model.rooms" class="col-md-3 col-sm-4 col-xs-6">\n' +
+        '<div class="thumbnail_show tumbnail_not_empty" data-ng-if="show[room.id] != null">'+
+      '    <a href="[[model.domain]]/[[model.url_slug]]/[[currentLanguage]]/[[show[room.id].url_slug]]" ' +
+          '>' +
             '<strong>[[show[room.id].show_time]]</strong><br>' +
             '[[show[room.id].title]]' +
-            '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
-                '<reserve view="\'large\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
-            '</div>'+
           '</a>\n' +
+      '<div data-ng-if="(userRole == \'IS_AUTHENTICATED_ANONYMOUSLY\' || userRole == \'ROLE_TESTER\') && room.online_sale == true">' +
+      '<reserve view="\'large\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
+      '</div>'+
+      '</div>\n' +
       '   <div data-ng-if="show[room.id] == null" class="thumbnail_show [[outerIndex % 2 == 0 ? \'tumbnail_odd_empty\' : \'tumbnail_pair_empty\']]">' +
       '</div>\n' +
       '  </div>\n' +
+        '</div>'+
       '</div>' +
-      '<div class="row hidden-lg hidden-md">' +
-      '<div data-ng-repeat="room in model.rooms">'+
+      '<div style="display: flex; flex-direction: column;" class="row hidden-lg hidden-md">' +
+      '<div style="margin-bottom: 38px" data-ng-repeat="room in model.rooms">'+
       '<div class="col-xs-12">\n' +
-      '    <div class="dummy"></div>\n' +
-      '    <div class="thumbnail_mine purple">[[room.headquarter]]<br> ([[room.title]])</div>\n' +
+      '    <div class="thumbnail_mine purple schedule-header"><a style="color: white" href="[[model.domain]]/[[model.headquarter_url_slug]]/[[currentLanguage]]/[[room.url_slug]]">[[room.headquarter]]<br> ([[room.title]])</a></div>\n' +
       '  </div>'+
-      '<div class="col-xs-12" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
-      '<h3 style="text-align: center" class="app-text-color">[[key]]</h3>'+
-      '<div class="dummy_show"></div>\n' +
-      '<a href="[[model.domain]]/[[show[room.id].url_slug]]" data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty "><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
-      '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
+      '<div  class="col-xs-12" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
+      '   <h3 class="app-text-color schedule-date-title">[[key]]</br><p class="title-separator" style="float:left;"></p></h3>'+
+      '<div style="margin-top: 30px" class="thumbnail_show tumbnail_not_empty" data-ng-if="show[room.id] != null">'+
+      '<a href="[[model.domain]]/[[model.url_slug]]/[[currentLanguage]]/[[show[room.id].url_slug]]"><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
+      '</a>\n' +
+      '<div data-ng-if="(userRole == \'IS_AUTHENTICATED_ANONYMOUSLY\' || userRole == \'ROLE_TESTER\') && room.online_sale == true">' +
       '<reserve view="\'mobile\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
       '</div>'+
-      '</a>\n' +
-      '    <div data-ng-if="show[room.id] == null" class="thumbnail_show tumbnail_odd_empty">' +
+      '</div>'+
+      '    <div style="margin-top: 30px" data-ng-if="show[room.id] == null" class="thumbnail_show tumbnail_odd_empty">' +
       '</div>'+
       '  </div>'+
       '</div> '+

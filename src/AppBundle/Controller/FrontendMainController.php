@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Bussiness\ApiBussiness;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -174,18 +175,52 @@ class FrontendMainController extends Controller
     public function frontendSectionElementEsAction(Request $request)
     {
         $this->checkLocaleValues($request);
+        /*getting soy cubano parameters*/
+        $id_transaccion = $request->get('id_transaccion');
+        $notrans = $request->get('notrans');
+        $resultado = $request->get('resultado');
+        $codig = $request->get('codig');
 
-        $parametersCollection = array();
-        $parametersCollection['request_object'] = $request;
-        $parametersCollection['section'] = $request->get('section');
-        $parametersCollection['url_slug'] = $request->get('url_slug');
-        $em = $this->getDoctrine()->getManager();
-        $container = $this->container;
-        $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
-        $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
-        return $this->render($requestHandler['template_requested_directory'], array(
+        /*checking if the requeste comes from soy cubano*/
+        if($id_transaccion && $id_transaccion != ''
+        && $notrans && $notrans != ''
+        && $resultado && $resultado != ''
+        && $codig && $codig != ''
+        ){
+          try{
+            $em = $this->getDoctrine()->getManager();
+            $apiBussiness = new ApiBussiness($em, $this->container);
+            $params = array(
+              'id_transaction'=>$id_transaccion,
+              'notrans'=>$notrans,
+              'resultado'=>$resultado,
+              'codig'=>$codig
+            );
+            $result = $apiBussiness->checkInvoice($params);
+            if($result != 'error'){
+              return $this->render('@app_frontend_template_directory/themes/default/templates/pages/invoice.html.twig');
+            } else {
+              $excep = new \Exception("No existe la reserva",204);
+              throw new \Exception($excep);
+            }
+          }
+          catch (\Exception $e){
+            throw new \Exception($e);
+          }
+        }
+        else {
+          $parametersCollection = array();
+          $parametersCollection['request_object'] = $request;
+          $parametersCollection['section'] = $request->get('section');
+          $parametersCollection['url_slug'] = $request->get('url_slug');
+          $em = $this->getDoctrine()->getManager();
+          $container = $this->container;
+          $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
+          $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
+          return $this->render($requestHandler['template_requested_directory'], array(
             'themeConfigsData' => $requestHandler['themeConfigsData']
-        ));
+          ));
+        }
     }
     /**
      * @Route("/es/{section}/{url_slug}/", name="_frontend_section_element_es")
@@ -207,6 +242,42 @@ class FrontendMainController extends Controller
     {
         $this->checkLocaleValues($request, 'en');
 
+      /*getting soy cubano parameters*/
+      $id_transaccion = $request->get('id_transaccion');
+      $notrans = $request->get('notrans');
+      $resultado = $request->get('resultado');
+      $codig = $request->get('codig');
+
+
+      /*checking if the requeste comes from soy cubano*/
+      if($id_transaccion && $id_transaccion != ''
+        && $notrans && $notrans != ''
+        && $resultado && $resultado != ''
+        && $codig && $codig != ''
+      ){
+        try{
+          $em = $this->getDoctrine()->getManager();
+          $apiBussiness = new ApiBussiness($em, $this->container);
+          $params = array(
+            'id_transaction'=>$id_transaccion,
+            'notrans'=>$notrans,
+            'resultado'=>$resultado,
+            'codig'=>$codig
+          );
+          $result = $apiBussiness->checkInvoice($params);
+        if($result != 'error'){
+          return $this->render('@app_frontend_template_directory/themes/default/templates/pages/invoice.html.twig');
+        } else {
+          $excep = new \Exception("No existe la reserva",204);
+          throw new \Exception($excep);
+        }
+        }
+        catch (\Exception $e){
+          throw new \Exception($e);
+        }
+
+      }
+      else{
         $parametersCollection = array();
         $parametersCollection['request_object'] = $request;
         $parametersCollection['section'] = $request->get('section');
@@ -216,8 +287,9 @@ class FrontendMainController extends Controller
         $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
         $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
         return $this->render($requestHandler['template_requested_directory'], array(
-            'themeConfigsData' => $requestHandler['themeConfigsData']
+          'themeConfigsData' => $requestHandler['themeConfigsData']
         ));
+      }
     }
     /**
      * @Route("/en/{section}/{url_slug}/", name="_frontend_section_element_en")

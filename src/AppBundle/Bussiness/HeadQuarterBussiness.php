@@ -257,20 +257,33 @@ class HeadQuarterBussiness
                 $objGenericPost->setModifiedDate(new \DateTime());
                 $objGenericPost->setModifiedAuthor($parametersCollection['loggedUser']);
 
+
+                $objGenericPost->setTitle($parametersCollection['title'],$parametersCollection['currentLanguage']);
+                $objGenericPost->setUrlSlug($parametersCollection['url_slug'],$parametersCollection['currentLanguage']);
+                $objGenericPost->setContent($parametersCollection['content'],$parametersCollection['currentLanguage']);
+                if(isset($parametersCollection['excerpt'])){
+                  $objGenericPost->setExcerpt($parametersCollection['excerpt'], $parametersCollection['currentLanguage']);
+                }
+
                 $objHeadQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($objGenericPost);
             }
             else{
                 $objGenericPost->setCreatedAuthor($parametersCollection['loggedUser']);
 
+                $objGenericPost->setTitle($parametersCollection['title'],'es');
+                $objGenericPost->setTitle($parametersCollection['title'],'en');
+                $objGenericPost->setUrlSlug($parametersCollection['url_slug'],'es');
+                $objGenericPost->setUrlSlug($parametersCollection['url_slug'],'en');
+                $objGenericPost->setContent($parametersCollection['content'],'es');
+                $objGenericPost->setContent($parametersCollection['content'],'en');
+                if(isset($parametersCollection['excerpt'])){
+                  $objGenericPost->setExcerpt($parametersCollection['excerpt'], 'es');
+                  $objGenericPost->setExcerpt($parametersCollection['excerpt'], 'en');
+                }
+
                 $objHeadQuarter = new HeadQuarter();
             }
-            $objGenericPost->setTitle($parametersCollection['title'],$parametersCollection['currentLanguage']);
-            $objGenericPost->setUrlSlug($parametersCollection['url_slug'],$parametersCollection['currentLanguage']);
             $objGenericPost->setGenericPostType($objGenericPostType);
-            $objGenericPost->setContent($parametersCollection['content'],$parametersCollection['currentLanguage']);
-            if(isset($parametersCollection['excerpt'])){
-                $objGenericPost->setExcerpt($parametersCollection['excerpt'], $parametersCollection['currentLanguage']);
-            }
             $objGenericPost->setHaveFeaturedImage(false);
             if(isset($parametersCollection['featured_image_id'])){
                 $objFeatureImage = $this->em->getRepository('AppBundle:Media')->find($parametersCollection['featured_image_id']);

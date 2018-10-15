@@ -72,6 +72,25 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
         $roleAdmin->setTotalUsersAssigned(1);
         $manager->persist($roleAdmin);
 
+        /*User System Tester*/
+        $userTester = new User();
+        $userTester->setFullName('Tester de Sistema');
+        $userTester->setEmail('bnctester@bnc.cult.cu');
+        $userTester->setUserName('tester');
+        $userTester->setPassword($this->encodePassword($userTester, 'tester'));
+        $roleTester = $manager->getRepository('AppBundle:Role')->findOneBy(array(
+          'slug' => 'ROLE_TESTER'
+        ));
+        if(isset($roleTester)){
+          $userTester->setRole($roleTester);
+        }
+        if(isset($defaultAvatarMedia)){
+          $userTester->setAvatar($defaultAvatarMedia);
+        }
+        $manager->persist($userTester);
+        $roleTester->setTotalUsersAssigned(1);
+        $manager->persist($roleTester);
+
 
 
         $manager->flush();

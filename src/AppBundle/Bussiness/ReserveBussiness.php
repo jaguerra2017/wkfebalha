@@ -92,13 +92,26 @@ class ReserveBussiness
     $unavailablesId = array();
     $availablesadminId = array();
     $selledId = array();
+    $languageTags = array(
+      'es'=>array(
+        'available'=>'Disponible',
+        'unavailable'=>'No disponible',
+        'selected'=>'Reservado por usted',
+      ),
+      'en'=>array(
+        'available'=>'Available',
+        'unavailable'=>'Unavailable',
+        'selected'=>'Selected',
+      )
+    );
 
     if($parametersCollection['role'] == 'IS_AUTHENTICATED_ANONYMOUSLY' ||
-      $parametersCollection['role'] == 'ROLE_SALESMAN'){
+      $parametersCollection['role'] == 'ROLE_SALESMAN'
+      || $parametersCollection['role'] == 'ROLE_TESTER'){
       $seatsItemsLegend = array(
-        array('a', 'available', 'Disponible'),
-        array('a', 'unavailable', 'No disponible'),
-        array('a', 'selected', 'Reservado por usted')
+        array('a', 'available', $languageTags[$parametersCollection['currentLanguage']]['available']),
+        array('a', 'unavailable', $languageTags[$parametersCollection['currentLanguage']]['unavailable']),
+        array('a', 'selected', $languageTags[$parametersCollection['currentLanguage']]['selected'])
       );
     }
     else{
@@ -138,7 +151,8 @@ class ReserveBussiness
             $seatsMap[$rowKey] = isset($seatsMap[$rowKey]) ? $seatsMap[$rowKey] : '';
 
             if($parametersCollection['role'] == 'IS_AUTHENTICATED_ANONYMOUSLY' ||
-              $parametersCollection['role'] == 'ROLE_SALESMAN'){
+              $parametersCollection['role'] == 'ROLE_SALESMAN'
+              || $parametersCollection['role'] == 'ROLE_TESTER'){
               if(!in_array($seat->getId()->getId(),$avaiableSeatsInShow)){
                 $unavailablesId[] = $seat->getId()->getId();
               }

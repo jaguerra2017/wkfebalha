@@ -3,8 +3,8 @@
 
 {% block content %}
     {% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}
-    {% if is_granted('ROLE_SALESMAN') %}
-        {% set role = 'ROLE_SALESMAN' %}
+    {% if is_granted('ROLE_TESTER') %}
+        {% set role = 'ROLE_TESTER' %}
     {% endif %}
     {% if is_granted('ROLE_ADMIN') %}
         {% set role = 'ROLE_ADMIN' %}
@@ -86,7 +86,7 @@
             <p class="title-separator"></p>
         </h3>
         <div class="container wow fadeInUpBig">
-            <program home="true" user-role="'{{ role }}'" current-language="'es'"></program>
+            <program home="true" user-role="'{{ role }}'" current-language="'{{ app.session.get('_locale') }}'"></program>
 
             <div class="row">
                 <div class="col-md-12 text-center">
