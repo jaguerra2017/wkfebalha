@@ -1233,7 +1233,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         //Actions for Shows
         $nomShowReadAction = new Nomenclature();
         $nomShowReadAction->setName('Leer');
-        $nomShowReadAction->setUrlSlug(' funcions-accion-leer');
+        $nomShowReadAction->setUrlSlug(' funciones-accion-leer');
         $nomShowReadAction->setTreeSlug('functionality-show-action-read');
         $nomShowReadAction->setNomType($objNomAction);
         $nomShowReadAction->setParent($nomShowsFunctionality);
@@ -1242,7 +1242,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowCreateAction = new Nomenclature();
         $nomShowCreateAction->setName('Crear');
-        $nomShowCreateAction->setUrlSlug(' funcions-accion-crear');
+        $nomShowCreateAction->setUrlSlug(' funciones-accion-crear');
         $nomShowCreateAction->setTreeSlug('functionality-show-action-create');
         $nomShowCreateAction->setNomType($objNomAction);
         $nomShowCreateAction->setParent($nomShowsFunctionality);
@@ -1251,7 +1251,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowEditAction = new Nomenclature();
         $nomShowEditAction->setName('Editar');
-        $nomShowEditAction->setUrlSlug(' funcions-accion-editar');
+        $nomShowEditAction->setUrlSlug(' funciones-accion-editar');
         $nomShowEditAction->setTreeSlug('functionality-show-action-edit');
         $nomShowEditAction->setNomType($objNomAction);
         $nomShowEditAction->setParent($nomShowsFunctionality);
@@ -1260,7 +1260,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowDeleteAction = new Nomenclature();
         $nomShowDeleteAction->setName('Eliminar');
-        $nomShowDeleteAction->setUrlSlug(' funcions-accion-eliminar');
+        $nomShowDeleteAction->setUrlSlug(' funciones-accion-eliminar');
         $nomShowDeleteAction->setTreeSlug('functionality-show-action-delete');
         $nomShowDeleteAction->setNomType($objNomAction);
         $nomShowDeleteAction->setParent($nomShowsFunctionality);
@@ -1269,7 +1269,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowChangeStatusAction = new Nomenclature();
         $nomShowChangeStatusAction->setName('Cambiar Status');
-        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-cambiar-status');
+        $nomShowChangeStatusAction->setUrlSlug(' funciones-accion-cambiar-status');
         $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-change-status');
         $nomShowChangeStatusAction->setNomType($objNomAction);
         $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
@@ -1278,7 +1278,7 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowChangeStatusAction = new Nomenclature();
         $nomShowChangeStatusAction->setName('Leer disponibilidad');
-        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-leer-disponibilidad');
+        $nomShowChangeStatusAction->setUrlSlug(' funciones-accion-leer-disponibilidad');
         $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-read-availability');
         $nomShowChangeStatusAction->setNomType($objNomAction);
         $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
@@ -1287,13 +1287,49 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         $nomShowChangeStatusAction = new Nomenclature();
         $nomShowChangeStatusAction->setName('Modificar disponibilidad');
-        $nomShowChangeStatusAction->setUrlSlug(' funcions-accion-modificar-disponibilidad');
+        $nomShowChangeStatusAction->setUrlSlug(' funciones-accion-modificar-disponibilidad');
         $nomShowChangeStatusAction->setTreeSlug('functionality-show-action-edit-availability');
         $nomShowChangeStatusAction->setNomType($objNomAction);
         $nomShowChangeStatusAction->setParent($nomShowsFunctionality);
         $nomShowChangeStatusAction->setPriority(7);
         $manager->persist($nomShowChangeStatusAction);
 
+
+
+        /* Booking*/
+        $nomBookingFunctionality = new Nomenclature();
+        $nomBookingFunctionality->setName('Reservas');
+        $nomBookingFunctionality->setUrlSlug(' reservas');
+        $nomBookingFunctionality->setTreeSlug('functionality-booking');
+        $nomBookingFunctionality->setNomType($objNomTypeFunctionality);
+        $nomBookingFunctionality->setPriority(20);
+        $manager->persist($nomBookingFunctionality);
+        $manager->flush();
+        $bookingFunctionality = new NomFunctionality();
+        $bookingFunctionality->setId($nomBookingFunctionality);
+        $bookingFunctionality->setIconClass('icon-briefcase');
+        $bookingFunctionality->setUrlIndexAction('booking_index');
+        $bookingFunctionality->setKeywordSelectedClass($nomBookingFunctionality->getUrlSlug());
+        $bookingFunctionality->setIsUsedFrequently(false);
+        $manager->persist($bookingFunctionality);
+
+        $nomBookingReadAction = new Nomenclature();
+        $nomBookingReadAction->setName('Leer reservas');
+        $nomBookingReadAction->setUrlSlug(' reservas-accion-leer-reservas');
+        $nomBookingReadAction->setTreeSlug('functionality-booking-action-read-booking');
+        $nomBookingReadAction->setNomType($objNomAction);
+        $nomBookingReadAction->setParent($nomBookingFunctionality);
+        $nomBookingReadAction->setPriority(1);
+        $manager->persist($nomBookingReadAction);
+
+        $nomBookingAction = new Nomenclature();
+        $nomBookingAction->setName('Reservar');
+        $nomBookingAction->setUrlSlug(' reservas-accion-reservar');
+        $nomBookingAction->setTreeSlug('functionality-booking-action-booking');
+        $nomBookingAction->setNomType($objNomAction);
+        $nomBookingAction->setParent($nomBookingFunctionality);
+        $nomBookingAction->setPriority(2);
+        $manager->persist($nomBookingAction);
       }
     }
 
