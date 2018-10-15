@@ -318,12 +318,17 @@ class ReserveBussiness
 
     $sharedFileFinder  = new SharedFileFinderBussiness();
     $mailConfig = $sharedFileFinder->getSettingsFile(array('decode_from_json'=>true,'section'=>'mail'));
+    $pay = 'Reserva';
+    if($parametersCollection['currentLanguage'] == 'en'){
+      $pay = 'Booking';
+    }
+
 
     $mailParams = array(
-      'subject' => 'SoyCubano Response',
-      'from'=> 'adminbnc@gmail.com',
+      'subject' => $pay.' Online',
+      'from'=> 'adminfibha@gmail.com',
       'to'=> $booking->getEmail(),
-      'message' => $mailConfig['after_booking_message_es']
+      'message' => $mailConfig['after_booking_message_'.$parametersCollection['currentLanguage']]
     );
 
     $this->container->get('appbundle_mail')->sendMail($mailParams);

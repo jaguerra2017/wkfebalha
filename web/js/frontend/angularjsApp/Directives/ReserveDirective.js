@@ -345,6 +345,7 @@
             $scope.model.currentStep = 'block_4';
             var bookingData = {
               role: $scope.userRole,
+              currentLanguage: $scope.currentLanguage,
               amount: $scope.model.amountUSD,
               transactionId: $scope.model.transactionNumber,
               seats: $scope.model.selectedSeats.seatIds,
