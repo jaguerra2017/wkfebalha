@@ -23,13 +23,13 @@
         {% endfor %}
     {%  endif %}
 
-  {#{% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}#}
-  {#{% if is_granted('ROLE_SALESMAN') %}#}
+  {% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}
+  {% if is_granted('ROLE_SALESMAN') %}
     {% set role = 'ROLE_SALESMAN' %}
-  {#{% endif %}#}
-  {#{% if is_granted('ROLE_ADMIN') %}#}
-    {#{% set role = 'ROLE_ADMIN' %}#}
-  {#{% endif %}#}
+  {% endif %}
+  {% if is_granted('ROLE_ADMIN') %}
+    {% set role = 'ROLE_ADMIN' %}
+  {% endif %}
     <!-- Main content -->
     <div class="row module-description-container">
         <div class="col-xs-12" style="padding: 30px 15px;">
