@@ -33,7 +33,7 @@
       '<button data-ng-click="showSeatModal()" data-ng-if="userRole !=\'ROLE_ADMIN\'" type="button" class="btn btn-outline btn-primary">Reservar</button>' +
       '</div>' +
       '</div>' +
-      '<a data-ng-if="userRole != \'ROLE_ADMIN\' && from == \'program\'" title="Reservar" data-ng-click="showSeatModal()" class="btn btn-circle-sm btn-primary"><span><i class="icon-tag"></i></span> </a>' +
+      '<a style="right: -7px !important; left: auto !important;" data-ng-if="userRole != \'ROLE_ADMIN\' && from == \'program\'" title="Reservar" data-ng-click="showSeatModal()" class="btn btn-circle-sm btn-primary"><span><i class="icon-tag"></i></span> </a>' +
       '<div class="col-xs-12">' +
       '<div id="seats-modal-[[showid]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
       '<div class="modal-header">'+
@@ -364,6 +364,7 @@
               seats: $scope.model.selectedSeats.seatIds,
               showid: $scope.showid,
               name: $scope.model.clientData.name,
+              currentLanguage: $scope.currentLanguage,
               lastName: $scope.model.clientData.lastName,
               email_address: $scope.model.clientData.email_addres,
               countryId: $scope.model.clientData.country.id
@@ -397,6 +398,7 @@
           var searchParametersCollection = {
             area: $scope.model.selectedArea.id,
             zone: $scope.model.selectedZone.id,
+            currentLanguage: $scope.currentLanguage,
             showid: $scope.showid,
             role: $scope.userRole,
           };
@@ -482,6 +484,7 @@
                       amount: $scope.model.amountUSD,
                       transactionId: $scope.model.transactionNumber,
                       seats: $scope.model.selectedSeats.seatIds,
+                      currentLanguage: $scope.currentLanguage,
                       showid: $scope.showid
                     };
 

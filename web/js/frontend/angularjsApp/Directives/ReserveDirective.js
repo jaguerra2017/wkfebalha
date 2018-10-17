@@ -22,28 +22,27 @@
       '</div>' +
       '<a data-ng-if="userRole != \'ROLE_ADMIN\' && from == \'program\'" title="[[model.languageTags.button]]" data-ng-click="showSeatModal()" class="btn btn-circle-sm btn-primary"><span><i class="icon-tag"></i></span> </a>' +
       '<div class="col-xs-12">' +
-      '<div style="overflow-y: scroll !important;" id="seats-modal-[[showid]]-[[view]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
+      '<div id="seats-modal-[[showid]]-[[view]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
       '<div class="modal-header">'+
       '<button type="button" class="close" title="Cancelar" data-ng-click="cancel()"></button>'+
       '<h4 class="modal-title"></h4>'+
       '</div>'+
-      '<div class="modal-body min-height-500">'+
-      '<div class="timeline-item" id="block_1" data-ng-if="model.permission.block_1 && model.stepIndex > 0">' +
-      '<!-- Loader -->' +
-      '<div data-ng-show="model.loadingData">' +
-      '<div class="data-loader">' +
-      '<div class="sk-data-loader-spinner sk-spinner-three-bounce">' +
-      '<div class="sk-bounce1"></div>' +
-      '<div class="sk-bounce2"></div>' +
-      '<div class="sk-bounce3"></div>' +
-      '</div>' +
-      '</div>' +
-      '</div>' +
-      '<div class="timeline-badge" style="z-index: 1;">' +
+      '<div class="modal-body min-height-500" style="overflow: hidden !important;">'+
+      '<div class="timeline-badge" style="z-index: 1; display: flex; width: 100%">' +
       '<div class="timeline-custom-badge [[model.currentStep == \'block_1\' ? \'active-badge\' : \'\']]">' +
       '                    <span>1</span>\n' +
       '                </div>' +
+      '<div class="ml timeline-custom-badge [[model.currentStep == \'block_2\' ? \'active-badge\' : \'\']]">' +
+      '                    <span>2</span>\n' +
+      '                </div>' +
+      '<div class="ml timeline-custom-badge [[model.currentStep == \'block_3\' ? \'active-badge\' : \'\']]">' +
+      '                    <span>3</span>\n' +
+      '                </div>' +
+      '<div  class="ml timeline-custom-badge [[model.currentStep == \'block_4\' ? \'active-badge\' : \'\']]">' +
+      '                    <span>4</span>\n' +
+      '                </div>' +
       '</div>'+
+      '<div class="timeline-item" id="block_1" data-ng-if="model.permission.block_1 && model.stepIndex == 1">' +
       '<div class="pairBlock col-xs-12">'+
       '<div class="timeline-body-content">'+
       '<div class="col-xs-12 col-md-8">' +
@@ -100,12 +99,12 @@
       '                </div>\n' +
       '</div>' +
       '<!-- Seats blocks -->' +
-      '<div id="block_2" class="timeline-item col-xs-12" data-ng-if="model.permission.block_2 && model.stepIndex > 1">' +
-      '<div class="timeline-badge" style="z-index: 1;">' +
-      '<div class="timeline-custom-badge [[model.currentStep == \'block_2\' ? \'active-badge\' : \'\']]">' +
-      '                    <span>2</span>\n' +
-      '                </div>' +
-      '</div>'+
+      '<div id="block_2" class="timeline-item col-xs-12" data-ng-if="model.permission.block_2 && model.stepIndex == 2">' +
+      // '<div class="timeline-badge" style="z-index: 1;">' +
+      // '<div class="timeline-custom-badge [[model.currentStep == \'block_2\' ? \'active-badge\' : \'\']]">' +
+      // '                    <span>2</span>\n' +
+      // '                </div>' +
+      // '</div>'+
       '<div class="pairBlock col-xs-12">'+
       '<div class="timeline-body-content">'+
       '   <div id="seat-map" class="col-lg-10 col-xs-12">\n' +
@@ -114,6 +113,16 @@
       '<div id="legend" class="col-lg-2 col-xs-12">' +
       '</div>\n' +
       '<div class="row"> '+
+      '<!-- Loader -->' +
+      '<div data-ng-show="model.loadingData">' +
+      '<div class="data-loader" style="background: rgba(255,255,255, 0.9) !important;">' +
+      '<div class="sk-data-loader-spinner sk-spinner-three-bounce">' +
+      '<div class="sk-bounce1"></div>' +
+      '<div class="sk-bounce2"></div>' +
+      '<div class="sk-bounce3"></div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
       '<div class="col-xs-12 col-md-offset-3 col-xs-offset-2 col-md-8" style="margin-bottom: 10px"> '+
       '<button type="button" data-ng-if="userRole != \'ROLE_ADMIN\'" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="checkoutBooking(\'booking\')">[[model.languageTags.booking]]</button>\n' +
       '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">[[model.languageTags.cancel]]</button>\n' +
@@ -123,12 +132,12 @@
       '</div>\n' +
       '</div>\n' +
       '<!-- Form block -->' +
-      '<div id="block_3" class="timeline-item col-xs-12" data-ng-if="model.permission.block_3 && model.stepIndex > 2">' +
-      '<div class="timeline-badge" style="z-index: 1;">' +
-      '<div class="timeline-custom-badge [[model.currentStep == \'block_3\' ? \'active-badge\' : \'\']]">' +
-      '                    <span>3</span>\n' +
-      '                </div>' +
-      '</div>'+
+      '<div id="block_3" class="timeline-item col-xs-12" data-ng-if="model.permission.block_3 && model.stepIndex == 3">' +
+      // '<div class="timeline-badge" style="z-index: 1;">' +
+      // '<div class="timeline-custom-badge [[model.currentStep == \'block_3\' ? \'active-badge\' : \'\']]">' +
+      // '                    <span>3</span>\n' +
+      // '                </div>' +
+      // '</div>'+
       '<div class="pairBlock col-xs-12">'+
       '<div class="timeline-body-content" data-ng-if="model.currentStep == \'block_3\'">'+
       '<div data-ng-if="model.currentStep == \'block_3\'" class="note note-info">\n' +
@@ -205,8 +214,26 @@
       ' </span>' +
       '</div>'+
       '</div>'+
-      '<div class="col-xs-12 col-xs-offset-3 col-md-offset-4" style="margin-bottom: 5px">' +
-      '<button type="button" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="paySubmit()">[[model.languageTags.buy]]</button>\n' +
+      '<div class="col-xs-12 col-md-4">\n' +
+      '                <div class="form-group">\n' +
+      '                    <label class="control-label"><a href="#"> [[model.languageTags.terms]]</a></label>\n' +
+      '                    <div class="actions">\n' +
+      '                        <input id="terms_conditions-[[showid]]-[[view]]" type="checkbox" class="make-switch" data-on-text="Si" data-off-text="No">\n' +
+      '                    </div>\n' +
+      '                </div>\n' +
+      '            </div>'+
+      '<div data-ng-if="model.isARobot" class="col-xs-12 margin-top-20" ' +
+      'style="color:#009dc7;">' +
+      ' <div class="form-group">\n' +
+      '<div class="icheckbox_square-blue hover [[!model.isARobot ? \'checked\' : \'\']]" ' +
+      'data-ng-click="confirmIsNotARobot($event)" ' +
+      'style="display: block;float: left;">' +
+      '</div>' +
+      'Confirma que no eres un ROBOT.'+
+      '</div>'+
+      '</div>'+
+      '<div class="col-xs-12" style="margin-bottom: 5px">' +
+      '<button data-ng-if="!model.isARobot" type="button" class="btn blue btn-blue btn-footer width-auto-important" data-ng-click="paySubmit()">[[model.languageTags.buy]]</button>\n' +
       '<button type="button" class="btn default btn-footer width-auto-important" data-ng-click="cancel()">[[model.languageTags.cancel]]</button>\n' +
       '</div> '+
       '</div>'+
@@ -215,11 +242,11 @@
       '</div>\n' +
       '<!-- Message block -->' +
       '<div id="block_4" class="timeline-item col-xs-12" data-ng-if="model.permission.block_4 && model.stepIndex == 0">' +
-      '<div class="timeline-badge" style="z-index: 1;">' +
-      '<div class="timeline-custom-badge [[model.currentStep == \'block_4\' ? \'active-badge\' : \'\']]">' +
-      '                    <span>4</span>\n' +
-      '                </div>' +
-      '</div>'+
+      // '<div class="timeline-badge" style="z-index: 1;">' +
+      // '<div class="timeline-custom-badge [[model.currentStep == \'block_4\' ? \'active-badge\' : \'\']]">' +
+      // '                    <span>4</span>\n' +
+      // '                </div>' +
+      // '</div>'+
       '<div class="pairBlock col-xs-12">'+
       '<div class="timeline-body-content">'+
       '<p>\n' +
@@ -274,6 +301,13 @@
           $scope.showSeats();
           $scope.model.selectedSeats = null;
 
+        }
+
+        /*confirm is Not a Robot*/
+        $scope.confirmIsNotARobot = function(event){
+          if(event != undefined && typeof event.originalEvent == 'object' && event.type == 'click'){
+            $scope.model.isARobot = false;
+          }
         }
 
         /* toggle data-loading message */
@@ -340,7 +374,8 @@
             $scope.model.checkError = false;
           }
 
-          if($scope.model.checkError == false){
+
+          if($scope.model.checkError == false && $("#terms_conditions-"+ $scope.showid+ '-'+ $scope.view).is(":checked")){
             $scope.model.stepIndex = 0;
             $scope.model.currentStep = 'block_4';
             var bookingData = {
@@ -478,6 +513,7 @@
               $scope.model.languageTags.buy = 'Buy';
               $scope.model.languageTags.step4message1 = 'You have initiated a ';
               $scope.model.languageTags.step4message2 = '-seat reservation process for a total amount of';
+              $scope.model.languageTags.terms = 'Accept terms and contitions.';
               break;
             default:
               $scope.model.languageTags.button = 'Comprar ticket';
@@ -498,6 +534,7 @@
               $scope.model.languageTags.buy = 'Comprar';
               $scope.model.languageTags.step4message1 = 'Usted ha iniciado un proceso de reserva de ';
               $scope.model.languageTags.step4message2 = ' asientos por un monto total de ';
+              $scope.model.languageTags.terms = 'Acepto los términos y condiciones.';
               break
           }
         }
@@ -531,6 +568,10 @@
                   else{
                     $scope.model.showCheckout = true;
                     $scope.changeStep('block_3');
+                    setTimeout(function(){
+                      $("#terms_conditions-"+ $scope.showid+ '-'+ $scope.view).bootstrapSwitch('state', false);
+                    }, 100);
+                    clearInterval();
                   }
                 }
                 break;
@@ -562,6 +603,7 @@
             'block_4': true
           }
 
+          $scope.model.isARobot = true;
           if($scope.userRole == 'ROLE_ADMIN' || $scope.userRole == 'ROLE_SALESMAN'){
             $scope.model.permission.block_3 = false;
             $scope.model.permission.block_4 = false;

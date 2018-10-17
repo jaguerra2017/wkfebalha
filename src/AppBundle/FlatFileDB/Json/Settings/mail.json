@@ -1,2 +1,7 @@
 {"after_booking_message_es":"Usted ha iniciado un proceso de reserva.",
-"after_booking_confirm_message_es": ""}
+  "after_booking_message_en":"Usted ha iniciado un proceso de reserva.",
+"after_booking_mail_notifications":"true",
+"after_booking_mail_voucher":"true",
+"after_booking_mail_theater":"true",
+"after_booking_mail_interested":"true",
+"after_booking_mail_interested":"correo1@gmail.com,correo2@gmail.com,correo3@gmail.com"}

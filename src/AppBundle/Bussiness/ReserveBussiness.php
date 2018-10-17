@@ -116,9 +116,9 @@ class ReserveBussiness
     }
     else{
       $seatsItemsLegend = array(
-        array('n', 'available', 'Disponible'),
+        array('n', 'available', 'No disponible'),
         array('s', 'selled', 'Vendido'),
-        array('d', 'available_admin', 'Vendible')
+        array('d', 'available_admin', 'Disponible')
       );
     }
 
@@ -273,11 +273,14 @@ class ReserveBussiness
 
     switch ($parametersCollection['role']) {
       case 'ROLE_SALESMAN':
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
         $status = $this->em->getRepository('AppBundle:Nomenclature')->findOneBy(array('tree_slug'=>'finished'));
         $country = $this->em->getRepository('AppBundle:Country')->findOneBy(array('country_code'=>'CU'));
-        $booking->setName('Gestor de ventas');
+        $booking->setName('Gestor de ventas ('.$user->getUserName().')');
         $booking->setLastname('');
-        $booking->setEmail('gestor@bnc.com');
+        $booking->setEmail($user->getEmail());
+        $booking->setBookingDate(new \DateTime('now'));
         $booking->setStatus($status);
         $booking->setCountry($country);
         break;
@@ -287,6 +290,7 @@ class ReserveBussiness
         $booking->setName($parametersCollection['name']);
         $booking->setLastname($parametersCollection['lastName']);
         $booking->setEmail($parametersCollection['email_address']);
+        $booking->setBookingDate(new \DateTime('now'));
         $booking->setStatus($status);
         $booking->setCountry($country);
         break;

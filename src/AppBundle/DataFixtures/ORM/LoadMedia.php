@@ -112,6 +112,24 @@ class LoadMedia extends AbstractFixture implements OrderedFixtureInterface
             $mellaHallMapMediaImage->setIsLoadedBySystem(true);
             $manager->persist($mellaHallMapMediaImage);
 
+          /*Default media image for mella hall map*/
+          $gthhaHallMapMedia = new Media();
+          $gthhaHallMapMedia->setName('fibha-gthha-hall-map');
+          $gthhaHallMapMedia->setDescription('Imagen del mapa de la Sala del Gran teatro de la habana');
+          $gthhaHallMapMedia->setMediaType($nomImageMediaType);
+          $gthhaHallMapMedia->setUrl('uploads/images/original/fibha-gthha-hall-map.jpeg');
+          $manager->persist($gthhaHallMapMedia);
+          $manager->flush($gthhaHallMapMedia);
+
+          $gthhaHallMapMediaImage = new MediaImage();
+          $gthhaHallMapMediaImage->setId($gthhaHallMapMedia);
+          $gthhaHallMapMediaImage->setAlternativeText('gthha-hall-map');
+          $gthhaHallMapMediaImage->setExtension('jpeg');
+          $gthhaHallMapMediaImage->setSize(2752);
+          $gthhaHallMapMediaImage->setDimension('2550X3300');
+          $gthhaHallMapMediaImage->setIsLoadedBySystem(true);
+          $manager->persist($gthhaHallMapMediaImage);
+
 
             $manager->flush();
         }

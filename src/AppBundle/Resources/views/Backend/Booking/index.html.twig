@@ -1,0 +1,59 @@
+{% extends "@app_backend_template_directory/Main/layout.html.twig" %}
+{% block title %} Reservas {% endblock %}
+
+{% block pagecontent %}
+    {# Initializing permissions value #}
+    {%  set userNotFrequentlyAccessFeaturesCollection,canRead,canCreate,canEdit,canDelete =
+    app.session.get('userNotFrequentlyAccessFeatures'),false,false,false,false %}
+    {% if userNotFrequentlyAccessFeaturesCollection is not empty %}
+        {% for userAccessFeature in userNotFrequentlyAccessFeaturesCollection %}
+            {% if userAccessFeature.tree_slug == 'functionality-partners' and userAccessFeature.actions is not empty %}
+                {% for action in userAccessFeature.actions %}
+                    {% if 'read' in action.tree_slug %}
+                        {% set canRead = true %}
+                    {% elseif 'create' in action.tree_slug %}
+                        {% set canCreate = true %}
+                    {% elseif 'edit' in action.tree_slug %}
+                        {% set canEdit = true %}
+                    {% elseif 'delete' in action.tree_slug %}
+                        {% set canDelete = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {%  endif %}
+
+  {#{% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}#}
+  {#{% if is_granted('ROLE_SALESMAN') %}#}
+    {% set role = 'ROLE_SALESMAN' %}
+  {#{% endif %}#}
+  {#{% if is_granted('ROLE_ADMIN') %}#}
+    {#{% set role = 'ROLE_ADMIN' %}#}
+  {#{% endif %}#}
+    <!-- Main content -->
+    <div class="row module-description-container">
+        <div class="col-xs-12" style="padding: 30px 15px;">
+            <span class="module-description">
+                <i class="icon-briefcase"></i> Reservas
+            </span>
+        </div>
+    </div>
+
+    <div class="page-content" id="go-to-top-anchor" style="min-height: 500px !important;" {#data-ng-controller="partnersCtrller" data-ng-cloak#}>
+    <div class="portlet light bordered" style="min-height: 383px;">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">
+                 Reservar
+                </span>
+                <span class="caption-helper">
+                    Reservre los asientos para una funci&oacute;n...
+                </span>
+            </div>
+        </div>
+        <div class="portlet-body ">
+            <program user-role="'{{ role }}'" current-language="'es'"></program>
+        </div>
+    </div>
+    </div>
+{% endblock %}

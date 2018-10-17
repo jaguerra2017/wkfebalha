@@ -26,6 +26,18 @@ class Booking
   private $name;
 
   /**
+   * @ORM\Column(name="booking_date", type="datetime")
+   */
+  private $bookingDate;
+
+  /**
+   * @var boolean
+   *
+   * @ORM\Column(name="terms_conditions", type="boolean")
+   */
+  private $terms_conditions;
+
+  /**
    * @var string
    *
    * @ORM\Column(name="lastname", type="string")
@@ -91,7 +103,7 @@ class Booking
    */
   public function __construct()
   {
-
+    $this->terms_conditions = true;
   }
 
     public function getCountryName(){
@@ -360,5 +372,53 @@ class Booking
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set bookingDate
+     *
+     * @param \DateTime $bookingDate
+     *
+     * @return Booking
+     */
+    public function setBookingDate($bookingDate)
+    {
+        $this->bookingDate = $bookingDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get bookingDate
+     *
+     * @return \DateTime
+     */
+    public function getBookingDate()
+    {
+        return $this->bookingDate;
+    }
+
+    /**
+     * Set termsConditions
+     *
+     * @param boolean $termsConditions
+     *
+     * @return Booking
+     */
+    public function setTermsConditions($termsConditions)
+    {
+        $this->terms_conditions = $termsConditions;
+    
+        return $this;
+    }
+
+    /**
+     * Get termsConditions
+     *
+     * @return boolean
+     */
+    public function getTermsConditions()
+    {
+        return $this->terms_conditions;
     }
 }

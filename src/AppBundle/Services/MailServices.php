@@ -30,7 +30,9 @@ class MailServices
       ;
 
       if(isset($params['voucher'])){
-        $message->setBody(
+        $message
+		->setContentType("text/html")
+		->setBody(
           $this->templating->render(
             '@app_shared_template_directory/voucher.html.twig',
             array('params' => $params)

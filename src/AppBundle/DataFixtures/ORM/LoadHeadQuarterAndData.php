@@ -107,6 +107,7 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
       $martiTheater->setId($martiTheaterGP);
       $martiTheater->setAddress('');
       $martiTheater->setAddress('', 'en');
+      $martiTheater->setOnlineSale(0);
       $manager->persist($martiTheater);
 
 
@@ -579,7 +580,7 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
 
     /*Creating Mella Hall*/
     $mellaRoomGP = new GenericPost();
-    $mellaRoomGP->setTitle('Mella');
+    $mellaRoomGP->setTitle('Sala Mella');
     $mellaRoomGP->setTitle('Mella Hall', 'en');
     $mellaRoomGP->setGenericPostType($room);
     $manager->persist($mellaRoomGP);
@@ -769,16 +770,19 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
 
     /*Creating Great Theater Main Hall*/
     $habanaMainRoomGP = new GenericPost();
-    $habanaMainRoomGP->setTitle('Principal');
-    $habanaMainRoomGP->setTitle('Principal Hall', 'en');
+    $habanaMainRoomGP->setTitle('Sala García Lorca');
+    $habanaMainRoomGP->setTitle('García Lorca Hall', 'en');
     $habanaMainRoomGP->setGenericPostType($room);
     $manager->persist($habanaMainRoomGP);
 
     $manager->flush();
 
+    $habanaTheaterMap = $manager->getRepository('AppBundle:Media')->findOneBy(array('name_es'=>'fibha-gthha-hall-map'));
+
     $habanaMainRoom = new Room();
     $habanaMainRoom->setId($habanaMainRoomGP);
     $habanaMainRoom->setHeadquarter($habanaTheaterGP);
+    $habanaMainRoom->setMapImage($habanaTheaterMap);
     $manager->persist($habanaMainRoom);
 
     $area = $manager->getRepository('AppBundle:GenericPostType')->findOneBy(array(
@@ -1134,8 +1138,8 @@ class LoadHeadQuarterAndData extends AbstractFixture implements OrderedFixtureIn
 
     /*Creating Marti Main Hall*/
     $martiMainRoomGP = new GenericPost();
-    $martiMainRoomGP->setTitle('Principal');
-    $martiMainRoomGP->setTitle('Principal Hall', 'en');
+    $martiMainRoomGP->setTitle('Sala Martí');
+    $martiMainRoomGP->setTitle('Martí Hall', 'en');
     $martiMainRoomGP->setGenericPostType($room);
     $manager->persist($martiMainRoomGP);
 

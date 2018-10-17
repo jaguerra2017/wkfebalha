@@ -170,42 +170,44 @@ class FrontendMainController extends Controller
 
     /**
      * @Route("/es/{section}/{url_slug}", name="frontend_section_element_es")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      */
     public function frontendSectionElementEsAction(Request $request)
     {
         $this->checkLocaleValues($request);
-        /*getting soy cubano parameters*/
-        $id_transaccion = $request->get('id_transaccion');
-        $notrans = $request->get('notrans');
-        $resultado = $request->get('resultado');
-        $codig = $request->get('codig');
+        if($request->getMethod() == 'POST'){
+          /*getting soy cubano parameters*/
+          $id_transaccion = $request->get('id_transaccion');
+          $notrans = $request->get('notrans');
+          $resultado = $request->get('resultado');
+          $codig = $request->get('codig');
 
-        /*checking if the requeste comes from soy cubano*/
-        if($id_transaccion && $id_transaccion != ''
-        && $notrans && $notrans != ''
-        && $resultado && $resultado != ''
-        && $codig && $codig != ''
-        ){
-          try{
-            $em = $this->getDoctrine()->getManager();
-            $apiBussiness = new ApiBussiness($em, $this->container);
-            $params = array(
-              'id_transaction'=>$id_transaccion,
-              'notrans'=>$notrans,
-              'resultado'=>$resultado,
-              'codig'=>$codig
-            );
-            $result = $apiBussiness->checkInvoice($params);
-            if($result != 'error'){
-              return $this->render('@app_frontend_template_directory/themes/default/templates/pages/invoice.html.twig');
-            } else {
-              $excep = new \Exception("No existe la reserva",204);
-              throw new \Exception($excep);
+          /*checking if the requeste comes from soy cubano*/
+          if($id_transaccion && $id_transaccion != ''
+            && $notrans && $notrans != ''
+            && $resultado && $resultado != ''
+            && $codig && $codig != ''
+          ){
+            try{
+              $em = $this->getDoctrine()->getManager();
+              $apiBussiness = new ApiBussiness($em, $this->container);
+              $params = array(
+                'id_transaction'=>$id_transaccion,
+                'notrans'=>$notrans,
+                'resultado'=>$resultado,
+                'codig'=>$codig
+              );
+              $result = $apiBussiness->checkInvoice($params);
+              if($result != 'error'){
+                return $this->render('@app_frontend_template_directory/themes/default/templates/pages/invoice.html.twig');
+              } else {
+                $excep = new \Exception("No existe la reserva",204);
+                throw new \Exception($excep);
+              }
             }
-          }
-          catch (\Exception $e){
-            throw new \Exception($e);
+            catch (\Exception $e){
+              throw new \Exception($e);
+            }
           }
         }
         else {

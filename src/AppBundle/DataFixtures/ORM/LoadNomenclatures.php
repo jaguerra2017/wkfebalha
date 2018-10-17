@@ -1298,8 +1298,8 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
 
         /* Booking*/
         $nomBookingFunctionality = new Nomenclature();
-        $nomBookingFunctionality->setName('Reservas');
-        $nomBookingFunctionality->setUrlSlug(' reservas');
+        $nomBookingFunctionality->setName('Reservar');
+        $nomBookingFunctionality->setUrlSlug(' reservar');
         $nomBookingFunctionality->setTreeSlug('functionality-booking');
         $nomBookingFunctionality->setNomType($objNomTypeFunctionality);
         $nomBookingFunctionality->setPriority(20);

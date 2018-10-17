@@ -39,7 +39,7 @@
             $scope.model.selectedShow = {};
             $scope.model.featureImage = {};
             $scope.model.selectedCategoriesCollection = null;
-            $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
+            $scope.model.selectedPostStatus = $scope.model.postStatusCollection[1];
             $('#textEditor').code(null);
 
         }
@@ -633,7 +633,7 @@
                 $scope.model.showsCollection = response.data.initialsData.showsDataCollection;
                 $scope.model.postStatusCollection = response.data.initialsData.postStatusDataCollection;
                 if($scope.model.postStatusCollection.length > 0){
-                    $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
+                    $scope.model.selectedPostStatus = $scope.model.postStatusCollection[1];
                 }
                 /* definiendo lenguajes */
                 $scope.model.languages = response.data.initialsData.languages;

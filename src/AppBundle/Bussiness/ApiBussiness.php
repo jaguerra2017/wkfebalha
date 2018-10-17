@@ -51,25 +51,79 @@ class ApiBussiness
 
             $showObj = $this->em->getRepository('AppBundle:Show')->find($booking->getShow());
             $roomArea = $this->em->getRepository('AppBundle:RoomArea')->findOneBy(array('room'=>$showObj->getRoom()));
+            $room = $this->em->getRepository('AppBundle:Room')->find($showObj->getRoom());
+            $headquarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($room->getHeadquarter());
+	
+
+            if($mailConfig['after_booking_mail_notifications'] == "true"){				
+              if($mailConfig['after_booking_mail_voucher'] == "true"){
+                $mailParams = array(
+                  'subject' => 'Pago online',
+                  'from'=> 'noreply@balletcuba.cult.cu',
+                  'to'=> $booking->getEmail(),
+                  'voucher'=>true,
+                  'transaction'=>$booking->getTransaction(),
+                  'price'=> $showObj->getSeatPrice(),
+                  'date'=>date('d-m-Y'),
+                  'theater'=>$showObj->getRoom()->getTitle('es'),
+                  'showName'=>$showObj->getId()->getTitle('es'),
+                  'showDateTime'=>$showObj->getShowDate(),
+                  'area'=>$roomArea->getId()->getTitle('es'),
+                  'seats'=>$bookingSeats,
+                  'country'=>$booking->getCountryName(),
+                  'message' => $mailConfig['after_booking_message_es']
+                );
+				
+                $this->container->get('appbundle_mail')->sendMail($mailParams);
+              }
+
+              if($mailConfig['after_booking_mail_theater'] == "true"){
+                $mailParams = array(
+                  'subject' => 'Pago online',
+                  'from'=> 'noreply@balletcuba.cult.cu',
+                  'to'=> $headquarter->getEmail(),
+                  'voucher'=>($mailConfig['after_booking_mail_voucher'] == "true") ? true:false,
+                  'transaction'=>$booking->getTransaction(),
+                  'price'=> $showObj->getSeatPrice(),
+                  'date'=>date('d-m-Y'),
+                  'theater'=>$showObj->getRoom()->getTitle('es'),
+                  'showName'=>$showObj->getId()->getTitle('es'),
+                  'showDateTime'=>$showObj->getShowDate(),
+                  'area'=>$roomArea->getId()->getTitle('es'),
+                  'seats'=>$bookingSeats,
+                  'country'=>$booking->getCountryName(),
+                  'message' => $mailConfig['after_booking_message_es']
+                );
+                $this->container->get('appbundle_mail')->sendMail($mailParams);
+              }
+
+              if ($mailConfig['after_booking_mail_interested'] == "true") {
+                $emails = explode(',',$mailConfig['after_booking_mail_interested']);
+                foreach ($emails as $email) {
+                  $mailParams = array(
+                    'subject' => 'Pago online',
+                    'from'=> 'noreply@balletcuba.cult.cu',
+                    'to'=> $email,
+                    'voucher'=>($mailConfig['after_booking_mail_voucher'] == "true") ? true:false,
+                    'transaction'=>$booking->getTransaction(),
+                    'price'=> $showObj->getSeatPrice(),
+                    'date'=>date('d-m-Y'),
+                    'theater'=>$showObj->getRoom()->getTitle('es'),
+                    'showName'=>$showObj->getId()->getTitle('es'),
+                    'showDateTime'=>$showObj->getShowDate(),
+                    'area'=>$roomArea->getId()->getTitle('es'),
+                    'seats'=>$bookingSeats,
+                    'country'=>$booking->getCountryName(),
+                    'message' => $mailConfig['after_booking_message_es']
+                  );
+                  $this->container->get('appbundle_mail')->sendMail($mailParams);
+
+                }
+
+              }
+            }
 
 
-            $mailParams = array(
-              'subject' => 'Pago online',
-              'from'=> 'emailsoycubano@gmail.com',
-              'to'=> $booking->getEmail(),
-              'voucher'=>true,
-              'transaction'=>$booking->getTransaction(),
-              'price'=> $showObj->getSeatPrice(),
-              'date'=>date('d-m-Y'),
-              'theater'=>$showObj->getRoom()->getTitle('es'),
-              'showName'=>$showObj->getId()->getTitle('es'),
-              'showDateTime'=>$showObj->getShowDate(),
-              'area'=>$roomArea->getId()->getTitle('es'),
-              'seats'=>$bookingSeats,
-              'country'=>$booking->getCountryName(),
-              'message' => $mailConfig['after_booking_confirm_message_es']
-            );
-            $this->container->get('appbundle_mail')->sendMail($mailParams);
             break;
           default:
             $statusBooking = $this->em->getRepository('AppBundle:Nomenclature')->findOneBy(array('tree_slug'=>'cancelled'));

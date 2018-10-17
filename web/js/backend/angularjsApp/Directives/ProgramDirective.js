@@ -100,7 +100,7 @@
       '<div>'+
       '<div class="row" style="margin-top:40px;"> '+
       '<div class="col-xs-12" style="margin-bottom: 20px">' +
-      '<button style="float: right" type="button" class="btn btn-outline btn-primary">Descargar</button>' +
+      // '<button style="float: right" type="button" class="btn btn-outline btn-primary">Descargar</button>' +
       '</div> '+
       '<div data-ng-repeat="room in model.rooms" class="col-md-2 col-sm-4 col-xs-6">\n' +
       '    <div class="dummy"></div>\n' +
@@ -114,7 +114,7 @@
       '  <div style="margin-top: -50px;" data-ng-repeat="room in model.rooms" class="col-md-2 col-sm-4 col-xs-6">\n' +
       '    <div class="dummy"></div>\n' +
       '    <div data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty "><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
-      '<div data-ng-if="userRole != \'ROLE_ADMIN\'">' +
+      '<div data-ng-if="userRole == \'ROLE_SALESMAN\'">' +
       '<reserve from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
       '</div>'+
       // '<a data-ng-if="userRole == \'ROLE_ADMIN\'" title="Eliminar" data-ng-click="deleteShow(show[room.id])" class="btn btn-circle-sm btn-danger"><span><i class="icon-trash"></i></span> </a>' +

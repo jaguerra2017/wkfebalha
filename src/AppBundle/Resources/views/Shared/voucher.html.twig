@@ -5,10 +5,9 @@
     margin-left: 1.7cm;
     margin-right: 0.5cm;
   }
-  .table-bordered {
-    border: 1px solid #000000;
-  }
+ 
   table {
+	border: 1px solid #000000;
     font-size: 12px;
     font-family: "Times New Roman";
     max-width:100% !important;
@@ -26,17 +25,17 @@
     vertical-align: inherit;
     border-color: inherit;
   }
-  table.table-bordered thead th, table.table-bordered thead td {
+  table thead th, table thead td {
     border-left-width: 0;
     border-top-width: 0;
   }
   .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td {
     border-top: 0;
   }
-  .table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
+  table > thead > tr > th, table > thead > tr > td {
     border-bottom-width: 1px;
   }
-  .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
     border: 1px solid #000000;
   }
   .table > thead > tr > th {
@@ -61,16 +60,15 @@
     vertical-align: middle;
     border-color: inherit;
   }
-  table.table-bordered tbody th, table.table-bordered tbody td {
+  tabletable tbody th, tabletable tbody td {
     border-left-width: 0;
     border-bottom-width: 0;
   }
 </style>
-<table style="text-align: center;" class="table table-bordered">
+<table style="text-align: center; border: 1px solid #000000;">
   <thead>
   <tr>
     <td>
-      <img style="width: 100px; height: 50px; float: left" src="{{ asset('images/shared/bnc-main-logo.png') }}">
       <h2 style="padding-top: 20px">Pago online / Online payment</h2>
     </td>
   </tr>
@@ -94,18 +92,20 @@
     </td>
   </tr>
 
-  <tr>
-    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+  
       {% for key,row in params['seats'] %}
+	  <tr>
+    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
         Fila / Row: {{ key }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
         Asientos / Seats:
         {% for seat in row %}
           {{ seat }} {% if loop.index != row|length %}, {% endif %}
           {% endfor %}
-      {% endfor %}
-    </td>
+		    </td>
   </tr>
+      {% endfor %}
+ 
   <tr>
     <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
       Función / Show:  {{ params['showName'] }} <br>
@@ -135,8 +135,8 @@
   </tr>
   </tbody>
 </table>
-<h3>!Aviso importante!:</h3> Este correo electr&oacute;nico ha sido enviado autom&aacute;ticamente.<br>
+<h3>¡Aviso importante!:</h3> Este correo electr&oacute;nico ha sido enviado autom&aacute;ticamente.<br>
 Por favor, no responda al mismo.
-<h3>!IMPORTANT!:</h3>
+<h3>IMPORTANT!:</h3>
 This e-mail has been sent automatically. <br>
 Please, do not respond to it.
