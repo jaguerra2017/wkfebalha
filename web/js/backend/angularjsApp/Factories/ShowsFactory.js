@@ -82,6 +82,7 @@
                     else if(option == 'stay'){
                         $scope.model.createAction = false;
                         $scope.model.selectedShow.id = response.data.showId;
+                        $scope.model.selectedShow.canSellOnline = response.data.saleOnline;
                     }
                     //toastr.options.timeOut = 3000;
                     toastr.success(response.data.message,"¡Hecho!");

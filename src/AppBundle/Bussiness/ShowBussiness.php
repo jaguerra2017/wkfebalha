@@ -239,14 +239,14 @@ class ShowBussiness
                 'title_'.$parametersCollection['currentLanguage'] => $parametersCollection['title'],
                 'generic_post_type' => $objGenericPostType
             ));
-            if(isset($objGenericPost)){
+           /* if(isset($objGenericPost)){
                 if($parametersCollection['isCreating'] == true ||
                     ($parametersCollection['isCreating'] == false &&
                         $objGenericPost->getId() != $parametersCollection['id'])){
                     $message = 'Ya existe una función con ese nombre.';
                     return $this->returnResponse(array('success'=>0,'message'=>$message));
                 }
-            }
+            }*/
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
                 'url_slug_'.$parametersCollection['currentLanguage'] => $parametersCollection['url_slug']/*,
                 'generic_post_type' => $objGenericPostType*/
@@ -398,7 +398,11 @@ class ShowBussiness
 
             $this->em->flush();
 
-            return $this->returnResponse(array('success'=>1,'message'=>$message, 'showId'=>$objGenericPost->getId()));
+          $room = $this->em->getRepository('AppBundle:Room')->find($objShow->getRoom()->getId());
+          $headQuarterGP = $room->getHeadquarter();
+          $headQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($headQuarterGP->getId());
+
+          return $this->returnResponse(array('success'=>1,'message'=>$message, 'showId'=>$objGenericPost->getId(), 'saleOnline'=>$headQuarter->getOnlineSale()));
         }
         catch(\Exception $e){
             throw new \Exception($e);

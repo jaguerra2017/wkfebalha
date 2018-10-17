@@ -1,81 +1,36 @@
-<style>
-
-  @page  {
-    margin-top: 0.2cm;
-    margin-left: 1.7cm;
-    margin-right: 0.5cm;
-  }
- 
-  table {
-	border: 1px solid #000000;
+<table style="
+    text-align: center;
+    border: 1px solid #000000;
     font-size: 12px;
-    font-family: "Times New Roman";
     max-width:100% !important;
     width: 100% !important;
     border-collapse: collapse;
-    border-spacing: 0;
-  }
-  thead {
+    border-spacing: 0;">
+  <thead style="
     display: table-header-group;
     vertical-align: middle;
-    border-color: inherit;
-  }
-  tr {
-    display: table-row;
+    border-color: inherit;">
+  <tr style=" display: table-row;
     vertical-align: inherit;
-    border-color: inherit;
-  }
-  table thead th, table thead td {
-    border-left-width: 0;
-    border-top-width: 0;
-  }
-  .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td {
-    border-top: 0;
-  }
-  table > thead > tr > th, table > thead > tr > td {
-    border-bottom-width: 1px;
-  }
-  table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
-    border: 1px solid #000000;
-  }
-  .table > thead > tr > th {
-    vertical-align: bottom;
-    border-bottom: 1px solid #000000;
-  }
-  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-color: inherit;">
+    <th colspan="2" style=" border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
     padding: 3px;
     line-height: 1.42857143;
     vertical-align: top;
-    border-top: 1px solid #000000;
-  }
-  th {
-    font-weight: bold;
-  }
-  td, th {
-    display: table-cell;
-    vertical-align: inherit;
-  }
-  tbody {
-    display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
-  }
-  tabletable tbody th, tabletable tbody td {
-    border-left-width: 0;
-    border-bottom-width: 0;
-  }
-</style>
-<table style="text-align: center; border: 1px solid #000000;">
-  <thead>
-  <tr>
-    <td>
+    border-top: 1px solid #000000;">
       <h2 style="padding-top: 20px">Pago online / Online payment</h2>
-    </td>
+    </th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+  <tr >
+    <td colspan="2" style="font-size:14px; font-weight: bold; text-align: left; border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;">
       <span style="float: right; font-size: 20px">Código de transacción/ Transaction code: {{ params['transaction'] }}</span>
        Fecha de compra / Booking date: {{ params['date'] }}
       {#{{ 'now'|date('d-m-Y') }}<br>#}
@@ -86,7 +41,12 @@
     </td>
   </tr>
   <tr>
-    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+    <td colspan="2" style="border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;font-size:14px; font-weight: bold; text-align: left; border-right: none">
       Teatro / Theater: {{ params['theater'] }}<br>
       Lugar / Place: {{ params['area'] }}
     </td>
@@ -95,7 +55,12 @@
   
       {% for key,row in params['seats'] %}
 	  <tr>
-    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+    <td colspan="2" style="border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;font-size:14px; font-weight: bold; text-align: left; border-right: none">
         Fila / Row: {{ key }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
         Asientos / Seats:
@@ -107,7 +72,12 @@
       {% endfor %}
  
   <tr>
-    <td style="font-size:14px; font-weight: bold; text-align: left; border-right: none">
+    <td colspan="2" style="border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;font-size:14px; font-weight: bold; text-align: left; border-right: none">
       Función / Show:  {{ params['showName'] }} <br>
       Día / Date:   {{ params['showDateTime']|date('d-m-Y') }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -116,16 +86,24 @@
     </td>
   </tr>
   <tr>
-    <td style="font-size:14px; text-align: left; border-right: none">
+    <td  style="border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;font-size:14px; text-align: left; border-right: none">
       Usted ha pagado {{ params['price'] }} USD por cada asiento. Conserve esta factura y pres&eacute;ntela en la
       taquilla del teatro como m&aacute;ximo una hora antes de que empiece la funci&oacute;n
       para que se le haga entrega de su Ticket. Si no cuenta con una impresora, copie en una hoja toda la informaci&oacute;n
       que aparece en el recibo de pago y no olvide el c&oacute;digo de la esquina superior derecha. Gracias.
       Recuerde que la programaci&oacute;n puede estar sujeta a cambios de &uacute;ltima hora.
     </td>
-  </tr>
-  <tr>
-    <td style="font-size:14px; text-align: left; border-right: none">
+    <td style="border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;font-size:14px; text-align: left; border-right: none">
       You have paid {{ params['price'] }} USD for each seat. Keep this invoice and prescribe it in the
       theater box office at the most one hour before the function begins.
       to receive your Ticket. If you do not have a printer, copy all the information on a sheet.
@@ -133,10 +111,24 @@
       Remember that programming may be subject to last-minute changes.
     </td>
   </tr>
+
   </tbody>
 </table>
-<h3>¡Aviso importante!:</h3> Este correo electr&oacute;nico ha sido enviado autom&aacute;ticamente.<br>
+<div style="margin-top: 10px;display: flex">
+<div style="width: 50%">
+<h3>¡Aviso importante!:</h3>
+  Este correo electr&oacute;nico ha sido enviado autom&aacute;ticamente.<br>
 Por favor, no responda al mismo.
-<h3>IMPORTANT!:</h3>
+</div>
+  <div style="width: 50%">
+<h3>Important!:</h3>
 This e-mail has been sent automatically. <br>
 Please, do not respond to it.
+  </div>
+</div>
+<div style="margin-top: 50px;font-size: 12px; font-weight: bold">
+  26 Festival de Ballet de la Habana<br>
+  Calzada #510, entre D y E, Vedado, Plaza de la Revolución. CP 10400<br>
+  Tel: (+53)78353920.<br>
+  <a href="http://balletcuba.cult.cu"> http://balletcuba.cult.cu</a><br>
+</div>

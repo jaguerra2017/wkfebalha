@@ -229,7 +229,7 @@
       'data-ng-click="confirmIsNotARobot($event)" ' +
       'style="display: block;float: left;">' +
       '</div>' +
-      'Confirma que no eres un ROBOT.'+
+      '[[model.languageTags.robot]]'+
       '</div>'+
       '</div>'+
       '<div class="col-xs-12" style="margin-bottom: 5px">' +
@@ -514,6 +514,7 @@
               $scope.model.languageTags.step4message1 = 'You have initiated a ';
               $scope.model.languageTags.step4message2 = '-seat reservation process for a total amount of';
               $scope.model.languageTags.terms = 'Accept terms and contitions.';
+              $scope.model.languageTags.robot = 'Confirm that you are not a ROBOT.';
               break;
             default:
               $scope.model.languageTags.button = 'Comprar ticket';
@@ -535,6 +536,7 @@
               $scope.model.languageTags.step4message1 = 'Usted ha iniciado un proceso de reserva de ';
               $scope.model.languageTags.step4message2 = ' asientos por un monto total de ';
               $scope.model.languageTags.terms = 'Acepto los términos y condiciones.';
+              $scope.model.languageTags.robot = 'Confirma que no eres un ROBOT.';
               break
           }
         }

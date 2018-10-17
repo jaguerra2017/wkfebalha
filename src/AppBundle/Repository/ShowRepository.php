@@ -21,6 +21,7 @@ class ShowRepository extends \Doctrine\ORM\EntityRepository
        ->from('AppBundle:Show','s')
        ->innerJoin('s.id','sgp')
        ->innerJoin('s.room','r')
+       ->where("sgp.post_status_slug = '{$parametersCollection['postStatusSlug']}'")
        ->orderBy('s.showDate');
 
     if($parametersCollection['home'] != 'false'){

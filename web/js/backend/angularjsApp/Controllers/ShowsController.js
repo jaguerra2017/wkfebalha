@@ -39,7 +39,7 @@
             $scope.model.selectedShow = {};
             $scope.model.featureImage = {};
             $scope.model.selectedCategoriesCollection = null;
-            $scope.model.selectedPostStatus = $scope.model.postStatusCollection[1];
+            $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
             $('#textEditor').code(null);
 
         }
@@ -249,7 +249,8 @@
                 !alfaNumericRegExpr.test($scope.model.selectedShow.title) ||
                 $scope.model.selectedShow.url_slug == null ||
                 !alfaNumericRegExpr.test($scope.model.selectedShow.url_slug) ||
-                !checkDate('published')){
+                !checkDate('published') || $scope.model.selectedShow.room == null
+                  || $scope.model.selectedShow.duration == null || $scope.model.selectedShow.seat_price == null){
                     canProceed = false;
 
                     if($scope.model.selectedShow.title == null ||
@@ -633,7 +634,7 @@
                 $scope.model.showsCollection = response.data.initialsData.showsDataCollection;
                 $scope.model.postStatusCollection = response.data.initialsData.postStatusDataCollection;
                 if($scope.model.postStatusCollection.length > 0){
-                    $scope.model.selectedPostStatus = $scope.model.postStatusCollection[1];
+                    $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
                 }
                 /* definiendo lenguajes */
                 $scope.model.languages = response.data.initialsData.languages;

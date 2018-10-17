@@ -29,7 +29,7 @@ class MailServices
         ->setTo($params['to'])
       ;
 
-      if(isset($params['voucher'])){
+      if(isset($params['voucher']) && $params['voucher']==true){
         $message
 		->setContentType("text/html")
 		->setBody(
@@ -40,9 +40,14 @@ class MailServices
         );
       }
       else{
-        $message->setBody(
-          $params['message']
-        );
+        $message
+          ->setContentType("text/html")
+          ->setBody(
+            $this->templating->render(
+              '@app_shared_template_directory/simpleMail.html.twig',
+              array('params' => $params)
+            )
+          );
       }
 
       $this->mailer->send($message);

@@ -52,6 +52,9 @@ class ProgramBussiness
         $this->em->getRepository('AppBundle:GenericPostType')->findOneBy(array('tree_slug'=>'show'))->getUrlSlug($parametersCollection['currentLanguage']);
       $result['headquarter_type_url_slug'] =
         $this->em->getRepository('AppBundle:GenericPostType')->findOneBy(array('tree_slug'=>'headquarter'))->getUrlSlug($parametersCollection['currentLanguage']);
+
+//      $parametersCollection['searchByPostStatusSlug'] = true;
+      $parametersCollection['postStatusSlug'] = 'generic-post-status-published';
       $showsData = $this->em->getRepository('AppBundle:Show')->getShowsFullData($parametersCollection);
       $parametersCollection['post_type_tree_slug'] = 'room';
       $roomCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
@@ -62,7 +65,9 @@ class ProgramBussiness
         $room['headquarter'] = $roomObj->getHeadquarter()->getTitle($parametersCollection['currentLanguage']);
         $room['url_slug'] = $roomObj->getHeadquarter()->getUrlSlug($parametersCollection['currentLanguage']);
         $room['online_sale'] = $headquarterObj->getOnlineSale();
-        $roomResult[$room['id']] = $room;
+        if($roomObj->getHeadquarter()->getPostStatusSlug() == 'generic-post-status-published'){
+          $roomResult[$room['id']] = $room;
+        }
       }
       $result['rooms'] = $roomResult;
       $result['shows'] = array();
