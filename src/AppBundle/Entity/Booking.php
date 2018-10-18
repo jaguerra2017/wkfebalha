@@ -421,4 +421,8 @@ class Booking
     {
         return $this->terms_conditions;
     }
+
+    public function getClientData(){
+      return $this->name.' '.$this->lastname.' ('.$this->email.')';
+    }
 }

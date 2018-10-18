@@ -191,7 +191,7 @@
                             {# Showing a tab if current Feature is a NOT FREQUENTLY FEATURE #}
                             {% if isFrequentlyCurrentFeature == false and userNotFrequentlyAccessFeaturesCollection is not empty %}
                                 {% for userAccessFeature in userNotFrequentlyAccessFeaturesCollection %}
-                                    {% if userAccessFeature.keyword_selected_class in app.request.requesturi %}
+                                    {% if userAccessFeature.keyword_selected_class|trim in app.request.requesturi %}
                                         <li class="dropdown dropdown-fw open-selected"
                                         style="right: 0; position: absolute; margin-right: 14px;">
                                             <a href="{{ path(userAccessFeature.url_index_action) }}">

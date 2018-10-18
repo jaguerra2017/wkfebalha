@@ -1,0 +1,69 @@
+<table class="table table-hover table-light">
+    <thead>
+    <tr class="uppercase">
+       {# <th width="50">
+            <div class="icheckbox_square-blue checkbox-master [[model.allBookingsSelected ? 'checked' : '']]"
+                 data-ng-click="selectAllBookings($event)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+            </div>
+        </th>#}
+        <th class="table-header" width="250">
+            Datos de cliente
+        </th>
+        <th class="table-header" width="150">
+            Funci&oacute;n
+        </th>
+        <th class="table-header" width="150">
+            Sala
+        </th>
+        <th class="table-header" width="120">
+            Fecha
+        </th>
+        <th class="table-header" width="120">
+            Hora
+        </th>
+        <th title="Cantidad de asientos" class="table-header" width="90">
+            Asientos
+        </th>
+        <th class="table-header" width="100">
+            Monto
+        </th>
+        <th class="table-header" width="95">
+            Estado
+        </th>
+    </tr>
+    </thead>
+    <tr data-ng-repeat="booking in model.bookingsCollection | limitTo : (model.bookingsCurrentResultLimit - (model.bookingsCurrentResultStart - 1)) : (model.bookingsCurrentResultStart - 1) ">
+        {#<td>
+            <div class="icheckbox_square-blue checkbox-[[booking.tree_slug]] [[booking.selected ? 'checked' : '']]"
+                 data-ng-click="selectBookings($event,headquarter)"
+                 data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+headquarter.tree_slug, null)"
+                 data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+headquarter.tree_slug, null)">
+            </div>
+        </td>#}
+        <td >
+            [[booking.clientData]]
+        </td>
+        <td class="cursor-pointer" data-ng-bind="booking.show"></td>
+        <td class="cursor-pointer" data-ng-bind="booking.hall"></td>
+        <td class="cursor-pointer" data-ng-bind="booking.date"></td>
+        <td class="cursor-pointer" data-ng-bind="booking.time"></td>
+        <td class="cursor-pointer" data-ng-bind="booking.seats"></td>
+        <td class="cursor-pointer" data-ng-bind="booking.amount"></td>
+        <td class="cursor-pointer">
+            <span data-ng-bind="booking.status"
+            class="label label-sm [[booking.status =='En proceso'? 'label-warning' : booking.status =='Terminada' ? 'label-success': 'label-danger']] ">
+            </span>
+        </td>
+    </tr>
+</table>
+
+<!-- Message when isn't data to show -->
+<div data-ng-show="model.bookingsCollection.length == 0">
+    {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
+</div>
+<!-- Data Loader -->
+<div data-ng-show="model.loadingData">
+    {% include '@app_backend_template_directory/Shared/data_loader.html.twig' %}
+</div>

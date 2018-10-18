@@ -1,0 +1,100 @@
+<div class="col-md-12">
+    <!-- BEGIN Portlet Bookings-List -->
+    <div class="portlet light bordered" style="min-height: 383px;">
+        <div class="portlet-title">
+            <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">
+                  Reservas
+                </span>
+                <span class="caption-helper">
+                    Listado de reservas del festival ...
+                </span>
+            </div>
+            {#<div style="margin-left: 15px" class="actions custom-toolbar-actions">
+                <div class="input-group" style="width: 75px">
+                    <div class="input-group-btn">
+                        <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                           style="text-align: left; font-size: 11px;"
+                           data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            [[model.selectedLanguage == null ? 'Seleccione' : model.selectedLanguage.text]] <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                             style="min-width: 75px;top: 25px;margin-left: 0px;">
+                            <label data-ng-repeat="language in model.languages">
+                                <a class="btn" style="width: 100%;text-align: left;"
+                                    data-ng-click="changeLoadDataOrSavedInfoByLanguage($event, 'list', language)"
+                                >
+                                    [[language.text]]
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen"  style="margin-left:20px;"></a>
+                </div>
+            </div>#}
+        </div>
+        <div class="portlet-body">
+            <!-- Search bar -->
+            <div class="inputs">
+                <div class="portlet-input input-small input-inline"
+                 style="width: 100% !important;border-bottom: 1px solid #eee;margin-bottom: 20px;padding-bottom: 20px;">
+                    <div class="input-icon right">
+                        <i class="icon-magnifier"></i>
+                        <input type="text" class="form-control form-control-solid" placeholder="Buscar...(puede buscar por datos del cliente, función y estado )"
+                        data-ng-model="model.generalSearchValue" data-ng-keyup="searchBookings($event)"
+                        style="color:#2a3239;">
+                    </div>
+                </div>
+            </div>
+            <!-- Paginator and View Mode-->
+            <div class="row">
+                <div class="col-xs-12 col-md-6 paginator">
+                    <span>
+                        Mostrar
+                    </span>
+                    <div class="form-group inline m-b-xs" style="float:left;">
+                        <select class="form-control input-xsmall"
+                        data-ng-model="model.bookingsCurrentPageSize"
+                        data-ng-options="entrySize for entrySize in model.entriesSizesCollection"
+                        data-ng-change="resetPaginationPages()">
+                        </select>
+                    </div>
+                    <span>
+                        entradas
+                    </span>
+
+                    <span style="border-left: 1px solid #eee;padding-left: 10px;">
+                        <strong>[[model.bookingsCurrentResultStart]]</strong>
+                    </span>
+                    <span>
+                         -
+                    </span>
+                    <span>
+                        <strong>[[model.bookingsCurrentResultLimit]]</strong>
+                    </span>
+                    <span>
+                        de <strong>[[model.bookingsCollection.length]]</strong> entradas
+                    </span>
+
+                    <span style="border-left: 1px solid #eee;padding-left: 10px;">
+                        Página
+                    </span>
+                    <div class="form-group inline m-b-xs" style="float:left;">
+                        <select class="form-control input-s-xs"
+                                data-ng-model="model.bookingsCurrentPage"
+                                data-ng-options="page for page in model.bookingsPagesCollection"
+                                data-ng-change="updatePaginationValues()">
+                        </select>
+                    </div>
+                    <span>
+                        de <strong>[[model.bookingsPagesCollection.length]]</strong>
+                    </span>
+                </div>
+            </div>
+            <!-- Simple List Mode -->
+            <div data-ng-if="model.activeView == 'simple_list'" class="table-scrollable table-scrollable-borderless" style="position:relative;">
+                {% include '@app_backend_template_directory/CheckBooking/simple_list.html.twig' %}
+            </div>
+        </div>
+    </div>
+</div>

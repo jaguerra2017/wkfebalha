@@ -25,4 +25,33 @@ class BookingRepository extends EntityRepository
     $qb->getQuery()->useQueryCache(true);
     return $qb->getQuery()->getSingleResult(2);
   }
+
+  public function getBookingDataBy($params){
+    $qb = $this->getEntityManager()->createQueryBuilder();
+    $qb->select('b')
+      ->from('AppBundle:Booking','b')
+      ->innerJoin('b.id','bgp')
+      ->innerJoin('b.status', 'st')
+      ->innerJoin('b.show','sh')
+      ->where('b.id = :id')
+      ->setParameter('id',$params['id']);
+
+    if (isset($params['searchValue'])) {
+      $qb->andWhere(
+        $qb->expr()->orX(
+          'LOWER(b.name) LIKE :search',
+          'LOWER(b.lastname) LIKE :search',
+          'LOWER(b.email) LIKE :search',
+          'LOWER(st.name_es) LIKE :search',
+          'LOWER(sh.title_es) LIKE :search'
+        )
+      );
+      $qb->setParameter('search', '%' . strtolower($params['searchValue']) . '%');
+    }
+
+    $qb->getQuery()->setQueryCacheLifetime(3600);
+    $qb->getQuery()->setResultCacheLifetime(3600);
+    $qb->getQuery()->useQueryCache(true);
+    return $qb->getQuery()->getResult();
+  }
 }

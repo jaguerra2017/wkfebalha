@@ -42,7 +42,8 @@
             'BncBackend.awardsController',
             'BncBackend.usersController',
             'BncBackend.headquartersController',
-            'BncBackend.showsController'
+            'BncBackend.showsController',
+            'BncBackend.checkBookingController'
         ]
     );
 
