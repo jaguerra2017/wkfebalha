@@ -232,7 +232,7 @@ class ReserveBussiness
         $status = $this->em->getRepository('AppBundle:Nomenclature')->findOneBy(array('tree_slug'=>'avaiable'));
         foreach ($parametersCollection['selectedSeats'] as $selectedSeat) {
           $seatObj = $this->em->getRepository('AppBundle:GenericPost')->find($selectedSeat);
-          $seatShowObj = $this->em->getRepository('AppBundle:ShowSeat')->findOneBy(array('seat'=> $selectedSeat));
+          $seatShowObj = $this->em->getRepository('AppBundle:ShowSeat')->findOneBy(array('seat'=> $selectedSeat, 'show'=>$show));
           if(!$seatShowObj)
             $seatShowObj = new ShowSeat();
 
