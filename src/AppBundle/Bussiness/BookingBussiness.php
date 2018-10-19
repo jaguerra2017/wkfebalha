@@ -135,6 +135,7 @@ class BookingBussiness
                     $objBooking = $this->em->getRepository('AppBundle:Booking')->getBookingDataBy($serachParams);
                     if(isset($objBooking[0])){
                       $objBooking = $objBooking[0];
+                      $bookingSeats = array();
                       $bookingsCollection[$key]['clientData'] = $objBooking->getClientData();
                       $bookingsCollection[$key]['date'] = $objBooking->getBookingDate()->format('d/m/Y');
                       $bookingsCollection[$key]['time'] = $objBooking->getBookingDate()->format('h:i a');
@@ -144,7 +145,16 @@ class BookingBussiness
                       $bookingsCollection[$key]['hall'] = $show->getRoom()->getTitle();
                       $status = $this->em->getRepository('AppBundle:Nomenclature')->find($objBooking->getStatus());
                       $bookingsCollection[$key]['status'] = $status->getName();
-                      $bookingsCollection[$key]['seats'] = count($this->em->getRepository('AppBundle:ShowSeat')->findBy(array('booking'=>$objGenericPost)));
+                      $showSeats = $this->em->getRepository('AppBundle:ShowSeat')->findBy(array('booking'=>$objGenericPost));
+//                      $bookingsCollection[$key]['seats'] = count($showSeats);
+                      foreach ($showSeats as $seat) {
+                        $seatObj = $this->em->getRepository('AppBundle:Seat')->find($seat->getSeat());
+                        $zoneRow = $this->em->getRepository('AppBundle:ZoneRow')->find($seatObj->getZoneRow());
+                        $identifier = $zoneRow->getIdentifier() ? $zoneRow->getIdentifier() : $zoneRow->getIdentifierNumber();
+                        $bookingSeats[]
+                          = $identifier.'-'.$seatObj->getName();
+                      }
+                      $bookingsCollection[$key]['seats'] = implode(',',$bookingSeats);
                       $result[] = $bookingsCollection[$key];
                     }
                 }
