@@ -44,6 +44,15 @@
           console.log(show);
         }
 
+        $scope.parseRoom = function (title) {
+          var mella = title.search("Mella");
+          var marti = title.search("Mart");
+          if(mella > 0 || marti > 0){
+            return '';
+          }
+          return '('+title+')';
+        }
+
         $scope.addShow = function (date, room) {
           var extraData = {
             date: date,
@@ -98,31 +107,39 @@
       },
       template:
       '<div>'+
-      '<div class="row" style="margin-top:40px;"> '+
-      '<div class="col-xs-12" style="margin-bottom: 20px">' +
+      '<div class="row" style="margin-top:40px;display: flex;"> '+
+      // '<div class="col-xs-12" style="margin-bottom: 20px">' +
       // '<button style="float: right" type="button" class="btn btn-outline btn-primary">Descargar</button>' +
-      '</div> '+
-      '<div data-ng-repeat="room in model.rooms" class="col-md-2 col-sm-4 col-xs-6">\n' +
-      '    <div class="dummy"></div>\n' +
-      '    <div class="thumbnail purple">[[room.headquarter]]<br> ([[room.title]])</div>\n' +
+      // '</div> '+
+      '<div data-ng-repeat="room in model.rooms" class="col-md-3 col-sm-4 col-xs-6">\n' +
+      '    <div class="thumbnail_mine purple schedule-header">' +
+      '<div style="color: white" ' +
+      // 'href="[[model.domain]]/[[model.headquarter_url_slug]]/[[currentLanguage]]/[[room.url_slug]]"
+      '> [[room.headquarter]]<br> [[parseRoom(room.title)]] '+
+      '</div></div>\n' +
       '  </div>'+
       '  </div>'+
-      '<div class="row" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
-      '<div class="col-xs-12">'+
-      '<h3 class="app-text-color">[[key]]</h3>'+
-      '</div>' +
-      '  <div style="margin-top: -50px;" data-ng-repeat="room in model.rooms" class="col-md-2 col-sm-4 col-xs-6">\n' +
-      '    <div class="dummy"></div>\n' +
-      '    <div data-ng-if="show[room.id] != null" class="thumbnail_show tumbnail_not_empty "><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
-      '<div data-ng-if="userRole == \'ROLE_SALESMAN\'">' +
+      '<div style="display: flex; flex-direction: column;" class="row hidden-xs hidden-sm" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
+      ' <div class="col-xs-12">'+
+      '   <h3 class="app-text-color schedule-date-title">[[key]]</br><p class="title-separator" style="float:left;"></p></h3>'+
+      ' </div>' +
+      '<div style="display: flex; width: 100%; margin-top: 38px" >'+
+      '  <div data-ng-repeat="room in model.rooms" class="col-md-3 col-sm-4 col-xs-6">\n' +
+      '<div class="thumbnail_show tumbnail_not_empty" data-ng-if="show[room.id] != null">'+
+      '    <div ' +
+      // 'href="[[model.domain]]/[[model.url_slug]]/[[currentLanguage]]/[[show[room.id].url_slug]]" ' +
+      '>' +
+      '<strong>[[show[room.id].show_time]]</strong><br>' +
+      '[[show[room.id].title]]' +
+      '</div>\n' +
+      '<div data-ng-if="userRole == \'ROLE_SALESMAN\' && room.online_sale == true">' +
       '<reserve from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
       '</div>'+
-      // '<a data-ng-if="userRole == \'ROLE_ADMIN\'" title="Eliminar" data-ng-click="deleteShow(show[room.id])" class="btn btn-circle-sm btn-danger"><span><i class="icon-trash"></i></span> </a>' +
       '</div>\n' +
-      '    <div data-ng-if="show[room.id] == null" class="thumbnail_show [[outerIndex % 2 == 0 ? \'tumbnail_odd_empty\' : \'tumbnail_pair_empty\']]">' +
-      '<a style="color: white" data-ng-if="userRole == \'ROLE_ADMIN\'" data-ng-click="addShow(show.dateGeneral, room)" class="btn"><span><i style="font-size: 18px" class="icon-plus"></i></span> </a>' +
+      '   <div data-ng-if="show[room.id] == null" class="thumbnail_show [[outerIndex % 2 == 0 ? \'tumbnail_odd_empty\' : \'tumbnail_pair_empty\']]">' +
       '</div>\n' +
       '  </div>\n' +
+      '</div>'+
       '</div>' +
       '</div>'
     }

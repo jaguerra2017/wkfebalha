@@ -3,7 +3,32 @@
 /*
 	MOBILE FIRST DESIGN
 */
+/* here you can put your own css to customize and override the theme */
+/*FONTS*/
+@font-face {
+	font-family: "Abril Fatface Regular";
+	src:url(../../../fonts/frontend/abrilfatface/AbrilFatface-Regular.ttf) format('truetype');
+}
 
+@font-face {
+	font-family: "Arimo Regular";
+	src:url(../../../fonts/frontend/arimo/Arimo-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: "Arimo Bold";
+	src:url(../../../fonts/frontend/arimo/Arimo-Bold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: "Arimo Bold-Italic";
+	src:url(../../../fonts/frontend/arimo/Arimo-BoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: "Arimo Italic";
+	src:url(../../../fonts/frontend/arimo/Arimo-Italic.ttf) format('truetype');
+}
 
 
 
@@ -83,31 +108,34 @@ body{
 .dummy {
 	margin-top: 100%;
 }
-.thumbnail {
-	position: absolute;
+.thumbnail_mine {
+	/*position: absolute;
 	top: -10px;
 	bottom: 0;
 	left: 15px;
-	right: 0;
-	font-size: 16px;
+	right: 0;*/
+	font-size: 17px;
 	text-align:center;
 	background-color: #023147;
 	color: white;
-	padding-top:calc(40% - 30px);
+	/*padding-top:calc(40% - 30px);*/
+	min-height: 221px;
+	padding:30px;
 }
 
 .thumbnail_show {
-	position: absolute;
-	top: 75px;
-	bottom: 0;
-	left: 15px;
 	right: 0;
 	font-size: 16px;
 	text-align:left;
 	color: white;
-	padding-top: 5px;
-	padding-left: 20px;
-	}
+	padding: 15px;
+	height: 100%;
+	min-height: 100px;
+}
+
+.thumbnail_show > a {
+	color: #a5a5a5;
+}
 
 .btn-circle-sm {
 	width: 35px;
@@ -131,20 +159,25 @@ body{
 
 .tumbnail_pair_empty {
 	background-color: #023147;
-	padding-top: calc(50% - 65px);
-	padding-left: calc(50% - 30px);
 }
 
 .tumbnail_odd_empty {
 	background-color: #ecb761;
-	padding-top: calc(50% - 65px);
-	padding-left: calc(50% - 30px);
 }
 
 	.app-text-color {
 		color: #013147 !important;
 	}
 
+.schedule-header{
+	font-family: "Arimo Bold";
+	font-size: 23px !important;
+}
+.schedule-date-title{
+	font-family: "Abril Fatface Regular";
+	font-size: 28px !important;
+	text-transform: uppercase;
+}
 
 .square {
 	float:left;
