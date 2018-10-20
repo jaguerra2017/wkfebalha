@@ -119,7 +119,7 @@
       '</div></div>\n' +
       '  </div>'+
       '  </div>'+
-      '<div style="display: flex; flex-direction: column;" class="row hidden-xs hidden-sm" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
+      '<div style="display: flex; flex-direction: column;" class="row" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
       ' <div class="col-xs-12">'+
       '   <h3 class="app-text-color schedule-date-title">[[key]]</br><p class="title-separator" style="float:left;"></p></h3>'+
       ' </div>' +
