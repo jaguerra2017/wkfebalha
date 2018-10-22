@@ -28,7 +28,9 @@ class FrontendHomeBussiness
             $homeData['closerEventsData'] = $this->getCloserEvents();
             $homeData['newsSummaryData'] = $this->getNewsSummary();
             $homeData['newsMainPageUrl'] = $this->container->get('appbundle_site_settings')->getBncDomain().'/es/noticias';
-            $homeData['partnersSummaryData'] = $this->getPartnersSummary();
+            $homeData['functionsMainPageUrl'] = $this->container->get('appbundle_site_settings')->getBncDomain().'/es/paginas/programacion';
+
+            /*$homeData['partnersSummaryData'] = $this->getPartnersSummary()*/
             //print_r($homeData);die;
             return $homeData;
         }
@@ -103,11 +105,11 @@ class FrontendHomeBussiness
             $parametersCollection['imagineCacheManager'] = $this->container->get('liip_imagine.cache.manager');
             $parametersCollection['searchByPagination'] = true;
             $parametersCollection['start'] = 0;
-            $parametersCollection['end'] = 4;
-            $parametersCollection['returnByCustomOrder'] = true;
+            $parametersCollection['end'] = 3;
             $parametersCollection['returnCustomOrderOnlyInGenericPost'] = true;
+            $parametersCollection['returnByCustomOrder'] = true;
             $parametersCollection['customOrderField'] = 'published_date';
-            $parametersCollection['customOrderSort'] = 'DESC';
+            $parametersCollection['customOrderSort'] = 'DESC';;
             $parametersCollection['post_type_tree_slug'] = 'post';
             $parametersCollection['searchByPostStatusSlug'] = true;
             $parametersCollection['postStatusSlug'] = 'generic-post-status-published';
@@ -161,8 +163,10 @@ class FrontendHomeBussiness
                          if(!isset($availableGenericPostType)){
                              $proceed = false;
                          }
+
                          if(isset($parametersCollection['url_slug']) && $parametersCollection['url_slug'] != null){
                              $includeGenericPostSlug = true;
+
                              $availableGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
                                  'generic_post_type' => $availableGenericPostType,
                                  'url_slug_es' => $parametersCollection['url_slug'],
@@ -204,7 +208,7 @@ class FrontendHomeBussiness
                                 'currentTheme' => $currentTheme,
                                 'template_type' => $templateType,
                                 'template_prefix' => $template_prefix
-                            ));
+                            ));/*print_r($isTemplateAvailable);die();*/
                             if($isTemplateAvailable){
                                 if($includeGenericPostSlug){
                                     $parametersCollection['request_object']->getSession()->set('current_generic_post_id', $availableGenericPost->getId());

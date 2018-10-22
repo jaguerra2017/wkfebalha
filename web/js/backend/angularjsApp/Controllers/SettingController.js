@@ -19,7 +19,7 @@
         var alfaNumericRegExpr = new RegExp("[A-Za-z]|[0-9]");
         var numericRegExpr = new RegExp("[0-9]");
         var dateRegExpress = new RegExp("[0-9]{2}/\[0-9]{2}/\[0-9]{4}");
-        
+
         /*
          * Operations Functions
          * 
@@ -29,7 +29,7 @@
             switch(section){
                 case 'appearance':
                     //var
-                break;
+                    break;
             }
         }
         /* clear errors of the Availability form */
@@ -88,6 +88,7 @@
 
         /* clear values of the Appearance Menu Item form */
         $scope.clearAppearanceMenuItemForm = function(){
+            $scope.model.appearanceMenuItemSelectedLanguage = $scope.model.languages[0];
             $scope.model.appearanceMenuItemName = null;
             $scope.model.appearanceMenuItemSlug = null;
             //$scope.model.appearanceMenuItemParentSelected = null;
@@ -194,7 +195,7 @@
             switch(parameter){
                 case 'domain_http_protocol':
                     $scope.model.availabilitySettingsObject.domain_http_protocol = value;
-                break;
+                    break;
                 case 'status':
                     $scope.model.availabilitySettingsObject.status = value;
                     if(value == 'online'){
@@ -203,7 +204,7 @@
                         $scope.model.availabilitySettingsObject.message_body = null;
                         $scope.clearErrorsAvailabilityForm();
                     }
-                break;
+                    break;
             }
         }
 
@@ -333,7 +334,7 @@
                         $scope.model.availabilitySettingsLoaded = true;
                         $scope.clearErrorsAvailabilityForm();
                     }
-                break;
+                    break;
                 case 'appearance':
                     $scope.model.sectionTitle = 'Temas';
                     $scope.model.sectionSubTitle = 'del sitio, presentación y menú..';
@@ -342,7 +343,7 @@
                         $scope.model.appearanceSettingsLoaded = true;
                         $scope.clearErrorsAppearanceThemeForm();
                     }
-                break;
+                    break;
                 case 'notification':
                     $scope.model.sectionTitle = 'Chequeo';
                     $scope.model.sectionSubTitle = 'de nuevos comentarios...';
@@ -351,7 +352,7 @@
                         $scope.model.notificationSettingsLoaded = true;
                         $scope.clearErrorsNotificationForm();
                     }
-                break;
+                    break;
                 case 'media':
                     $scope.model.sectionTitle = 'Tamaño';
                     $scope.model.sectionSubTitle = 'de imágenes, peso y más...';
@@ -360,7 +361,7 @@
                         $scope.model.mediaSettingsLoaded = true;
                         $scope.clearErrorsMediaForm();
                     }
-                break;
+                    break;
             }
             if(proceed){
                 $scope.toggleDataLoader();
@@ -375,36 +376,36 @@
             $scope.clearErrorsAvailabilityForm();
 
             if($scope.model.availabilitySettingsObject.domain_name == null ||
-            !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.domain_name) ||
-            ($scope.model.availabilitySettingsObject.status == 'offline' &&
-            ($scope.model.availabilitySettingsObject.launch_date == null ||
-            !dateRegExpress.test($scope.model.availabilitySettingsObject.launch_date) ||
-            $scope.model.availabilitySettingsObject.message_title  == null ||
-            !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.message_title) ||
-            $scope.model.availabilitySettingsObject.message_body == null ||
-            !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.message_body)))){
+                !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.domain_name) ||
+                ($scope.model.availabilitySettingsObject.status == 'offline' &&
+                ($scope.model.availabilitySettingsObject.launch_date == null ||
+                !dateRegExpress.test($scope.model.availabilitySettingsObject.launch_date) ||
+                $scope.model.availabilitySettingsObject.message_title  == null ||
+                !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.message_title) ||
+                $scope.model.availabilitySettingsObject.message_body == null ||
+                !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.message_body)))){
                 canProceed = false;
 
                 if($scope.model.availabilitySettingsObject.domain_name == null ||
-                !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.domain_name)){
+                    !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.domain_name)){
                     $scope.model.availabilityDomainHasError = true;
                 }
 
                 if($scope.model.availabilitySettingsObject.status == 'offline' &&
-                ($scope.model.availabilitySettingsObject.launch_date == null ||
-                !dateRegExpress.test($scope.model.availabilitySettingsObject.launch_date))){
+                    ($scope.model.availabilitySettingsObject.launch_date == null ||
+                    !dateRegExpress.test($scope.model.availabilitySettingsObject.launch_date))){
                     $scope.model.availabilityLaunchDateHasError = true;
                 }
 
                 if($scope.model.availabilitySettingsObject.status == 'offline' &&
-                ($scope.model.availabilitySettingsObject.message_title  == null ||
-                !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.message_title))){
+                    ($scope.model.availabilitySettingsObject.message_title  == null ||
+                    !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.message_title))){
                     $scope.model.availabilityMessageTitleHasError = true;
                 }
 
                 if($scope.model.availabilitySettingsObject.status == 'offline' &&
-                ($scope.model.availabilitySettingsObject.message_body  == null ||
-                !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.message_body))){
+                    ($scope.model.availabilitySettingsObject.message_body  == null ||
+                    !alfaNumericRegExpr.test($scope.model.availabilitySettingsObject.message_body))){
                     $scope.model.availabilityMessageBodyHasError = true;
                 }
             }
@@ -429,37 +430,37 @@
             var canProceed = true;
             $scope.clearErrorsAppearanceThemeForm();
 
-            if($scope.model.appearanceSettingsObject.configurations[0].welcome_text == null ||
-            !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[0].welcome_text) ||
-            $scope.model.appearanceSettingsObject.configurations[1].facebook_url == null ||
-            !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].facebook_url) ||
-            $scope.model.appearanceSettingsObject.configurations[1].twitter_url == null ||
-            !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].twitter_url) ||
-            $scope.model.appearanceSettingsObject.configurations[1].youtube_url == null ||
-            !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].youtube_url))
-            {
-                canProceed = false;
+            /*if($scope.model.appearanceSettingsObject.configurations[0].welcome_text == null ||
+             !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[0].welcome_text) ||
+             $scope.model.appearanceSettingsObject.configurations[1].facebook_url == null ||
+             !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].facebook_url) ||
+             $scope.model.appearanceSettingsObject.configurations[1].twitter_url == null ||
+             !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].twitter_url) ||
+             $scope.model.appearanceSettingsObject.configurations[1].youtube_url == null ||
+             !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].youtube_url))
+             {
+             canProceed = false;
 
-                if($scope.model.appearanceSettingsObject.configurations[0].welcome_text == null ||
-                !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[0].welcome_text)){
-                    $scope.model.appearanceWelcomeTextHasError = true;
-                }
+             if($scope.model.appearanceSettingsObject.configurations[0].welcome_text == null ||
+             !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[0].welcome_text)){
+             $scope.model.appearanceWelcomeTextHasError = true;
+             }
 
-                if($scope.model.appearanceSettingsObject.configurations[1].facebook_url == null ||
-                !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].facebook_url)){
-                    $scope.model.appearanceFacebookUrlHasError = true;
-                }
+             if($scope.model.appearanceSettingsObject.configurations[1].facebook_url == null ||
+             !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].facebook_url)){
+             $scope.model.appearanceFacebookUrlHasError = true;
+             }
 
-                if($scope.model.appearanceSettingsObject.configurations[1].twitter_url == null ||
-                !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].twitter_url)){
-                    $scope.model.appearanceTwitterUrlHasError = true;
-                }
+             if($scope.model.appearanceSettingsObject.configurations[1].twitter_url == null ||
+             !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].twitter_url)){
+             $scope.model.appearanceTwitterUrlHasError = true;
+             }
 
-                if($scope.model.appearanceSettingsObject.configurations[1].youtube_url == null ||
-                !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].youtube_url)){
-                    $scope.model.appearanceYoutubeUrlHasError = true;
-                }
-            }
+             if($scope.model.appearanceSettingsObject.configurations[1].youtube_url == null ||
+             !alfaNumericRegExpr.test($scope.model.appearanceSettingsObject.configurations[1].youtube_url)){
+             $scope.model.appearanceYoutubeUrlHasError = true;
+             }
+             }*/
 
             if(canProceed){
                 var settingData = {
@@ -485,7 +486,7 @@
             menuData.slug = $scope.model.appearanceMenuSlug;
             menuData.description = $scope.model.appearanceMenuDescription;
             if(menuData.name == null || !alfaNumericRegExpr.test(menuData.name) ||
-            menuData.slug == null || !alfaNumericRegExpr.test(menuData.slug)){
+                menuData.slug == null || !alfaNumericRegExpr.test(menuData.slug)){
                 canProceed = false;
                 if(menuData.name == null || !alfaNumericRegExpr.test(menuData.name)){
                     $scope.model.appearanceMenuNameHasError = true;
@@ -557,14 +558,14 @@
                 }
 
                 if(menuItemData.item_type_id != null &&
-                $scope.model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-page' &&
-                menuItemData.item_type_page_id == null){
+                    $scope.model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-page' &&
+                    menuItemData.item_type_page_id == null){
                     $scope.model.appearanceMenuItemTypePageHasError = true;
                 }
 
                 if(menuItemData.item_type_id != null &&
-                $scope.model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-url' &&
-                (menuItemData.item_type_link == null || !alfaNumericRegExpr.test(menuItemData.item_type_link))){
+                    $scope.model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-url' &&
+                    (menuItemData.item_type_link == null || !alfaNumericRegExpr.test(menuItemData.item_type_link))){
                     $scope.model.appearanceMenuItemTypeLinkHasError = true;
                 }
             }
@@ -574,6 +575,7 @@
                     menuItemData.menu_item_id = $scope.model.selectedAppearanceMenuItem.id
                 }
                 menuItemData.menu_id = $scope.model.selectedAppearanceMenu.id;
+                menuItemData.language = $scope.model.appearanceMenuItemSelectedLanguage.slug;
                 var menuItemData = {menuItemData: menuItemData};
                 var action = $scope.model.createMenuItemAction == true ? 'create' : 'edit';
 
@@ -641,26 +643,26 @@
             $scope.clearErrorsMediaForm();
 
             if( $scope.model.mediaSettingsObject.max_size_upload == null ||
-            !numericRegExpr.test($scope.model.mediaSettingsObject.max_size_upload) ||
-            $scope.model.mediaSettingsObject.max_size_upload < 1 ||
-            $scope.model.mediaSettingsObject.max_size_upload > $scope.model.mediaSettingsObject.system_max_filesize ||
-            $scope.model.mediaSettingsObject.max_files_upload == null ||
-            !numericRegExpr.test($scope.model.mediaSettingsObject.max_files_upload) ||
-            $scope.model.mediaSettingsObject.max_files_upload < 1 ||
-            $scope.model.mediaSettingsObject.max_files_upload > $scope.model.mediaSettingsObject.system_max_filesupload){
+                !numericRegExpr.test($scope.model.mediaSettingsObject.max_size_upload) ||
+                $scope.model.mediaSettingsObject.max_size_upload < 1 ||
+                $scope.model.mediaSettingsObject.max_size_upload > $scope.model.mediaSettingsObject.system_max_filesize ||
+                $scope.model.mediaSettingsObject.max_files_upload == null ||
+                !numericRegExpr.test($scope.model.mediaSettingsObject.max_files_upload) ||
+                $scope.model.mediaSettingsObject.max_files_upload < 1 ||
+                $scope.model.mediaSettingsObject.max_files_upload > $scope.model.mediaSettingsObject.system_max_filesupload){
                 canProceed = false;
 
                 if($scope.model.mediaSettingsObject.max_size_upload == null ||
-                !numericRegExpr.test($scope.model.mediaSettingsObject.max_size_upload) ||
-                $scope.model.mediaSettingsObject.max_size_upload < 1 ||
-                $scope.model.mediaSettingsObject.max_size_upload > $scope.model.mediaSettingsObject.system_max_filesize){
+                    !numericRegExpr.test($scope.model.mediaSettingsObject.max_size_upload) ||
+                    $scope.model.mediaSettingsObject.max_size_upload < 1 ||
+                    $scope.model.mediaSettingsObject.max_size_upload > $scope.model.mediaSettingsObject.system_max_filesize){
                     $scope.model.mediaMaxSizeUploadHasError = true;
                 }
 
                 if($scope.model.mediaSettingsObject.max_files_upload == null ||
-                !numericRegExpr.test($scope.model.mediaSettingsObject.max_files_upload) ||
-                $scope.model.mediaSettingsObject.max_files_upload < 1 ||
-                $scope.model.mediaSettingsObject.max_files_upload > $scope.model.mediaSettingsObject.system_max_filesupload){
+                    !numericRegExpr.test($scope.model.mediaSettingsObject.max_files_upload) ||
+                    $scope.model.mediaSettingsObject.max_files_upload < 1 ||
+                    $scope.model.mediaSettingsObject.max_files_upload > $scope.model.mediaSettingsObject.system_max_filesupload){
 
                     $scope.model.mediaMaxFilesUploadHasError = true;
                 }
@@ -745,6 +747,9 @@
         $scope.showAppearanceMenuItemForm = function(){
             $scope.clearErrorsAppearanceMenuItemForm();
             $scope.clearAppearanceMenuItemForm();
+            if($scope.model.createMenuItemAction){
+                $scope.model.appearanceMenuItemSelectedLanguage = $scope.model.languages[0]; /*es*/
+            }
             if(!$scope.model.createMenuItemAction){
                 $scope.model.appearanceMenuItemName = $scope.model.selectedAppearanceMenuItem.name_es;
                 $scope.model.appearanceMenuItemSlug = $scope.model.selectedAppearanceMenuItem.url_slug_es;
@@ -761,7 +766,7 @@
                 if($scope.model.appearanceMenuItemTypesCollection.length > 0){
                     for(var i=0; i<$scope.model.appearanceMenuItemTypesCollection.length; i++){
                         if($scope.model.appearanceMenuItemTypesCollection[i].id ==
-                        $scope.model.selectedAppearanceMenuItem.menu_item_type_id){
+                            $scope.model.selectedAppearanceMenuItem.menu_item_type_id){
                             $scope.model.appearanceMenuItemTypeSelected = $scope.model.appearanceMenuItemTypesCollection[i];
                             if($scope.model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-url'){
                                 $scope.model.appearanceMenuItemTypeLink = $scope.model.selectedAppearanceMenuItem.link_url;
@@ -816,6 +821,10 @@
             $scope.model.appearanceMenuItemTypeSelected = menuItemType;
         }
 
+        $scope.selectMenuItemCrudLanguage = function(language){
+            $scope.model.appearanceMenuItemSelectedLanguage = language;
+        }
+
 
         $scope.$watch('model.welcomeImage', function(newValue, oldValue) {
             if(newValue != null && newValue != oldValue && newValue.url != undefined){
@@ -825,9 +834,9 @@
 
 
         /*
-        * Initialization Functions
-        * 
-        * */
+         * Initialization Functions
+         *
+         * */
         $scope.initVisualization = function (){
             /*general variables*/
             $scope.model.createMenuAction = null;
@@ -861,6 +870,16 @@
             $scope.model.appearanceMenuSettingsLoaded = false;
             $scope.model.notificationSettingsLoaded = false;
             $scope.model.mediaSettingsLoaded = false;
+            $scope.model.languages = [
+                {
+                    name: 'Español',
+                    slug: 'es'
+                },
+                {
+                    name: 'Inglés',
+                    slug: 'en'
+                }
+            ];
             /*appearance-header-section  variables*/
             $scope.model.welcomeImage = {};
 

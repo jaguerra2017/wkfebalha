@@ -244,21 +244,21 @@
                 var canProceed = true;
                 $scope.clearErrorsPagesForm();
 
-                if($scope.model.selectedPage.title_es == null ||
-                !alfaNumericRegExpr.test($scope.model.selectedPage.title_es) ||
-                $scope.model.selectedPage.url_slug_es == null ||
-                !alfaNumericRegExpr.test($scope.model.selectedPage.url_slug_es) ||
+                if($scope.model.selectedPage.title == null ||
+                !alfaNumericRegExpr.test($scope.model.selectedPage.title) ||
+                $scope.model.selectedPage.url_slug == null ||
+                !alfaNumericRegExpr.test($scope.model.selectedPage.url_slug) ||
                 $scope.model.selectedTemplate == null ||
                 !checkPublishedDate()){
                     canProceed = false;
 
-                    if($scope.model.selectedPage.title_es == null ||
-                        !alfaNumericRegExpr.test($scope.model.selectedPage.title_es)){
+                    if($scope.model.selectedPage.title == null ||
+                        !alfaNumericRegExpr.test($scope.model.selectedPage.title)){
                         $scope.model.titleHasError = true;
                     }
 
-                    if($scope.model.selectedPage.url_slug_es == null ||
-                        !alfaNumericRegExpr.test($scope.model.selectedPage.url_slug_es)){
+                    if($scope.model.selectedPage.url_slug == null ||
+                        !alfaNumericRegExpr.test($scope.model.selectedPage.url_slug)){
                         $scope.model.urlSlugHasError = true;
                     }
 
@@ -273,7 +273,7 @@
                 }
 
                 if(canProceed){
-                    $scope.model.selectedPage.content_es = $('#textEditor').code();
+                    $scope.model.selectedPage.content = $('#textEditor').code();
                     if($scope.model.selectedPostStatus != null){
                         $scope.model.selectedPage.post_status_id = $scope.model.selectedPostStatus.id;
                     }
@@ -462,7 +462,7 @@
                             id : $scope.model.selectedPage.featured_image_id
                         }
                     }
-                    $('#textEditor').code($scope.model.selectedPage.content_es);
+                    $('#textEditor').code($scope.model.selectedPage.content);
 
                     if($scope.model.templatesCollection.length > 0){
                         for(var i=0; i<$scope.model.templatesCollection.length; i++){
@@ -575,12 +575,12 @@
         {
             switch(field){
                 case 'title':
-                    if($scope.model.selectedPage.title_es != null &&
-                        alfaNumericRegExpr.test($scope.model.selectedPage.title_es)){
-                        $scope.model.selectedPage.url_slug_es = slugify($scope.model.selectedPage.title_es);
+                    if($scope.model.selectedPage.title != null &&
+                        alfaNumericRegExpr.test($scope.model.selectedPage.title)){
+                        $scope.model.selectedPage.url_slug = slugify($scope.model.selectedPage.title);
                     }
                     else{
-                        $scope.model.selectedPage.url_slug_es = null;
+                        $scope.model.selectedPage.url_slug = null;
                     }
                     break;
                 case 'status':

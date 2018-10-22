@@ -129,6 +129,25 @@ class NewsBussiness
                         else{
                             $newsCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($new['featured_image_url'], 'grid_featured_image_thumbnail');
                         }
+                        /*Home Summary thumbnail*/
+                        if($objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
+                            'filter_name' => 'home_news_summary_featured_image_thumbnail',
+                            'image_name' => $new['featured_image_name'],
+                            'image_extension' => $featured_image_extension,
+                            'just_check' => true,
+                            'just_web_filtered_url' => false
+                        ))){
+                            $newsCollection[$key]['web_filtered_home_summary_image_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
+                                'filter_name' => 'home_news_summary_featured_image_thumbnail',
+                                'image_name' => $new['featured_image_name'],
+                                'image_extension' => $featured_image_extension,
+                                'just_check' => false,
+                                'just_web_filtered_url' => true
+                            ));
+                        }
+                        else{
+                            $newsCollection[$key]['web_filtered_home_summary_image_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($new['featured_image_url'], 'home_news_summary_featured_image_thumbnail');
+                        }
 
                         /*Feature Image Single Post*/
                         if(isset($parametersCollection['singleResult']) && $parametersCollection['singleResult'] == true){

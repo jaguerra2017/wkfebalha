@@ -29,6 +29,13 @@ class MenuItem
     /**
      * @var string
      *
+     * @ORM\Column(name="name_en", type="string", length=100)
+     */
+    private $name_en;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description_es", type="string", length=500, nullable=true)
      */
     private $description_es;
@@ -57,6 +64,13 @@ class MenuItem
      * @ORM\Column(name="url_slug_es", type="string", length=100, unique=true)
      */
     private $url_slug_es;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_slug_en", type="string", length=100, unique=true)
+     */
+    private $url_slug_en;
 
     /**
      * @var string
@@ -137,23 +151,24 @@ class MenuItem
      * Set name
      *
      * @param string $name
+     * @param string $language
      * @return MenuItem
      */
-    public function setName($name)
+    public function setName($name, $language = 'es')
     {
-        $this->name_es = $name;
+        eval('$this->name_'.$language.' = $name;');
 
         return $this;
     }
 
     /**
      * Get name
-     *
+     * @param string $language
      * @return string
      */
-    public function getName()
+    public function getName($language = 'es')
     {
-        return $this->name_es;
+        return eval(' return $this->name_'.$language.';');
     }
 
     /**
@@ -249,23 +264,24 @@ class MenuItem
      * Set url_slug
      *
      * @param string $url_slug
+     * @param string $language
      * @return MenuItem
      */
-    public function setUrlSlug($url_slug)
+    public function setUrlSlug($url_slug, $language = 'es')
     {
-        $this->url_slug_es = $url_slug;
+        eval('$this->url_slug_'.$language.' = $url_slug;');
 
         return $this;
     }
 
     /**
      * Get url_slug_es
-     *
+     * @param string $language
      * @return string
      */
-    public function getUrlSlug()
+    public function getUrlSlug($language = 'es')
     {
-        return $this->url_slug_es;
+        return eval(' return $this->url_slug_'.$language.';');
     }
 
     /**
@@ -439,7 +455,7 @@ class MenuItem
     public function setNameEs($nameEs)
     {
         $this->name_es = $nameEs;
-    
+
         return $this;
     }
 
@@ -463,7 +479,7 @@ class MenuItem
     public function setDescriptionEs($descriptionEs)
     {
         $this->description_es = $descriptionEs;
-    
+
         return $this;
     }
 
@@ -487,7 +503,7 @@ class MenuItem
     public function setUrlSlugEs($urlSlugEs)
     {
         $this->url_slug_es = $urlSlugEs;
-    
+
         return $this;
     }
 

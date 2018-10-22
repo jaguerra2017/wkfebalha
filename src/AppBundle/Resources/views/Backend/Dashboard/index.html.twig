@@ -2,6 +2,11 @@
 {% block title %} Dashboard {% endblock %}
 
 {% block pagecontent %}
+    {% set role = 'ANY_ROLE' %}
+    {% if is_granted('ROLE_SALESMAN') %}
+        {% set role = 'ROLE_SALESMAN' %}
+    {% endif %}
+
     <!-- Dashboard content -->
     <div class="row module-description-container">
         <div class="col-xs-12" style="padding: 30px;">
@@ -12,12 +17,14 @@
     </div>
     <div class="page-content" id="go-to-top-anchor" data-ng-controller="dashboardCtrller" data-ng-cloak>
         <div class="row">
+            {% if role != 'ROLE_SALESMAN' %}
             <div class="col-md-6">
                 <info-summary></info-summary>
             </div>
             <div class="col-md-6">
                 {% include '@app_backend_template_directory/Dashboard/comments_summary.html.twig' %}
             </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

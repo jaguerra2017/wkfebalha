@@ -29,7 +29,8 @@
             'BncFrontend.dancersPageController',
             'BncFrontend.compositionController',
             'BncFrontend.aliciaPageController',
-            'BncFrontend.defaultPageController'
+            'BncFrontend.defaultPageController',
+            'BncFrontend.showController'
         ]
     );
 

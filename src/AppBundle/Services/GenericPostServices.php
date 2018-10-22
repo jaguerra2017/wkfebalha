@@ -12,6 +12,7 @@ use AppBundle\Bussiness\PagesBussiness;
 use AppBundle\Bussiness\PartnersBussiness;
 use AppBundle\Bussiness\PublicationsBussiness;
 use AppBundle\Bussiness\RepertoryBussiness;
+use AppBundle\Bussiness\ShowBussiness;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -84,6 +85,11 @@ class GenericPostServices
                 case 'award':
                     $objAwardBussiness = new AwardsBussiness($this->em);
                     $genericPostsCollection = $objAwardBussiness->getAwardsList($parametersCollection);
+
+                    break;
+                case 'show':
+                    $objShowBussiness = new ShowBussiness($this->em);
+                    $genericPostsCollection = $objShowBussiness->getShowsList($parametersCollection);
 
                     break;
             }

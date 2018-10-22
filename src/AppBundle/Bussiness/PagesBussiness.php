@@ -158,7 +158,7 @@ class PagesBussiness
                     }
                     if($this->container != null){
                         $siteDomain = $this->container->get('appbundle_site_settings')->getBncDomain();
-                        $pagesCollection[$key]['url'] = $siteDomain.'/es/paginas/'.$page['url_slug_es'];
+                        $pagesCollection[$key]['url'] = $siteDomain.'/es/paginas/'.$page['url_slug'];
                     }
 
                     /*handling number of comments*/
@@ -216,7 +216,7 @@ class PagesBussiness
                 'tree_slug' => 'page'
             ));
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
-                'title_es' => $parametersCollection['title_es'],
+                'title_es' => $parametersCollection['title'],
                 'generic_post_type' => $objGenericPostType
             ));
             if(isset($objGenericPost)){
@@ -228,7 +228,7 @@ class PagesBussiness
                 }
             }
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
-                'url_slug_es' => $parametersCollection['url_slug_es']
+                'url_slug_es' => $parametersCollection['url_slug']
             ));
             if(isset($objGenericPost)){
                 if($parametersCollection['isCreating'] == true ||
@@ -250,14 +250,35 @@ class PagesBussiness
                 }
                 $objGenericPost->setModifiedDate(new \DateTime());
                 $objGenericPost->setModifiedAuthor($parametersCollection['loggedUser']);
+
+                $objGenericPost->setTitle($parametersCollection['title'], 'es');
+                $objGenericPost->setUrlSlug($parametersCollection['url_slug'], 'es');
+                $objGenericPost->setContent($parametersCollection['content'], 'es');
+                if(isset($parametersCollection['excerpt'])){
+                    $objGenericPost->setExcerpt($parametersCollection['excerpt'], 'es');
+                }
             }
-            $objGenericPost->setTitle($parametersCollection['title_es']);
+            else {
+                $objGenericPost->setTitle($parametersCollection['title'], 'es');
+                $objGenericPost->setUrlSlug($parametersCollection['url_slug'], 'es');
+                $objGenericPost->setTitle($parametersCollection['title'], 'en');
+                $objGenericPost->setUrlSlug($parametersCollection['url_slug'], 'en');
+                $objGenericPost->setContent($parametersCollection['content'], 'es');
+                $objGenericPost->setContent($parametersCollection['content'], 'en');
+                if(isset($parametersCollection['excerpt'])){
+                    $objGenericPost->setExcerpt($parametersCollection['excerpt'], 'es');
+                    $objGenericPost->setExcerpt($parametersCollection['excerpt'], 'en');
+                }
+
+                $objGenericPost->setGenericPostType($objGenericPostType);
+            }
+
+            /*$objGenericPost->setTitle($parametersCollection['title'], 'es');
             $objGenericPost->setUrlSlug($parametersCollection['url_slug_es']);
-            $objGenericPost->setGenericPostType($objGenericPostType);
             $objGenericPost->setContent($parametersCollection['content_es']);
             if(isset($parametersCollection['excerpt_es'])){
                 $objGenericPost->setExcerpt($parametersCollection['excerpt_es']);
-            }
+            }*/
             $objGenericPost->setHaveFeaturedImage(false);
             /*handling Feature Image*/
             if(isset($parametersCollection['featured_image_id'])){

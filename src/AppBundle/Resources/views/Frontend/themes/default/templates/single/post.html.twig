@@ -3,51 +3,59 @@
 
 {% block content %}
     <!-- News Single -->
-    <section class="news-section" style="padding-bottom:50px;" data-ng-controller="newsCtrller" data-ng-cloak>
+    <section class="news-section" style="padding-bottom:0;margin-top:50px;" data-ng-controller="newsCtrller" data-ng-cloak>
 
         <!-- News General Data -->
-        <div class="container-fluid wow fadeInUpBig">
-            <h3 class="font-family-france">[[model.selectedNew.title_es]]</h3>
+        <div class="wow fadeInUpBig">
+            <!-- Featured Image -->
+            <div data-ng-if="model.selectedNew.have_featured_image"
+                 class="single-generic-post-feature-image-container">
+                <img class="img-responsive" src="[[model.selectedNew.featured_image_url]]">
+            </div>
+        </div>
+        <div class="container wow fadeInUpBig">
+            <h3 class="title main-title" style="font-size: 28px;">
+                [[model.selectedNew.title]]
+            </h3>
+            <p class="title-separator"></p>
             <div class="generic-post-author">
-                <span style="width:100%;text-align:center;">
-                    Por : <strong>[[model.selectedNew.author_full_name]]</strong> |
+                <span class="notifier-event-date" style="width:100%;text-align:center;">
                     [[model.selectedNew.published_date]] |
                     <i class="icon-bubble"></i> <strong>[[model.selectedNew.total_comments]]</strong> Comentarios
                 </span>
             </div>
 
-            <!-- Featured Image -->
-            <div data-ng-if="model.selectedNew.have_featured_image"
-             class="single-generic-post-feature-image-container">
-                <img class="img-responsive" src="[[model.selectedNew.featured_image_url]]">
-            </div>
-
             <!-- Excerpt -->
-            <div data-ng-if="model.selectedNew.excerpt_es != null"
+            {#<div data-ng-if="model.selectedNew.excerpt_es != null"
              class="single-generic-post-excerpt-container">
                 <p>
-                    [[model.selectedNew.excerpt_es]]
+                    [[model.selectedNew.excerpt]]
                 </p>
-            </div>
+            </div>#}
 
             <!-- Content -->
-            <div data-ng-if="model.selectedNew.content_es != null"
+            <div data-ng-if="model.selectedNew.content != null"
              class="single-generic-post-content-container"
-             data-ng-bind-html="model.selectedNew.html_filtered_content_es">
+             data-ng-bind-html="model.selectedNew.html_filtered_content">
+            </div>
+
+            <div class="text-center" style="margin:30px 0;">
+                <p class="title-separator"></p>
+                Por: <strong>[[model.selectedNew.author_full_name]]</strong>
             </div>
         </div>
 
 
         <!-- Blocks Handler (for New blocks) -->
-        <div data-ng-if="model.selectedNew != null" class="container-fluid"
+       {# <div data-ng-if="model.selectedNew != null" class="container-fluid"
              style="position:relative;">
             <block-handler elementid="model.selectedNew.id" elementtype="'post'"
                            blockscollection="model.blocksCollection">
             </block-handler>
-        </div>
+        </div>#}
 
         <!-- Tabs -->
-        <div class="container-fluid tabbable-line wow fadeInUpBig text-center"
+        {#<div class="container-fluid tabbable-line wow fadeInUpBig text-center"
         data-ng-if="model.imagesCollection.length > 0 || model.videosCollection.length > 0">
             <ul class="nav nav-tabs" style="padding:20px 0px 40px;margin: auto 0;float: none;">
                 <li data-ng-if="model.imagesCollection.length > 0" class="[[model.activeView == 'new_images' ? 'active' : '']]">
@@ -63,10 +71,10 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div>#}
 
         <!-- Tabs Content -->
-        <div data-ng-if="model.imagesCollection.length > 0 || model.videosCollection.length > 0" class="tab-content">
+        {#<div data-ng-if="model.imagesCollection.length > 0 || model.videosCollection.length > 0" class="tab-content">
             <!-- New Images -->
             <div class="tab-pane" id="new_images">
                 <!-- Images blocks -->
@@ -106,7 +114,7 @@
                     Sin Videos
                 </span>
             </div>
-        </div>
+        </div>#}
 
         <!-- Comments section -->
         <div data-ng-if="model.selectedNew != null" class="comments-section">

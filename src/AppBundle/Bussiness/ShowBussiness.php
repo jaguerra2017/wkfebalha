@@ -213,7 +213,23 @@ class ShowBussiness
                         $headQuarterGP = $room->getHeadquarter();
                         $headQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($headQuarterGP->getId());
                         $showsCollection[$key]['canSellOnline'] = $headQuarter->getOnlineSale();
+
+                        $avaiableSeatsInShow = $this->em->getRepository('AppBundle:ShowSeat')->getAvaiableSeatsInShow(
+                            array('showid'=> $show['id'])
+                        );
+                        if(isset($avaiableSeatsInShow[0])) {
+                            $avaiableSeatsInShow = count($avaiableSeatsInShow);
+                        } else {
+                            $avaiableSeatsInShow = 0;
+                        }
+                        $allowBooking = ($avaiableSeatsInShow > 0 && $objShow->getShowDate()->format('d/m/Y') > date('d/m/Y'));
+
+                        $showsCollection[$key]['allowBooking'] = $allowBooking;
+                        $showsCollection[$key]['avaiableSeats'] = $avaiableSeatsInShow;
                     }
+
+
+
                 }
             }
 

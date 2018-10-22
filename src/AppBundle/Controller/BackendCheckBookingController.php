@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * BACKEND - Check Booking controller.
  *
- * @Route("backend/lista_reservas")
+ * @Route("backend/lista-reservas")
  */
 class BackendCheckBookingController extends Controller
 {
@@ -25,7 +25,7 @@ class BackendCheckBookingController extends Controller
      * Return the Check Booking View
      *
      * @Route("/", name="check_booking_index")
-     * @Security("is_granted('read-booking', 'booking')")
+     * @Security("is_granted('read', 'check-booking')")
      * @Method("GET")
      */
     public function checkbookingViewAction()
@@ -43,7 +43,7 @@ class BackendCheckBookingController extends Controller
        * Load initials data for Booking view
        *
        * @Route("/datos-iniciales", name="check_booking_view_initials_data", options={"expose"=true})
-       * @Security("is_granted('read-booking', 'booking')")
+       * @Security("is_granted('read', 'check-booking')")
        * @Method("POST")
        */
       public function loadBookingInitialsDataAction(Request $request)
@@ -75,7 +75,7 @@ class BackendCheckBookingController extends Controller
      * Load headquarters collection data
      *
      * @Route("/datos-reservas", name="bookings_data", options={"expose"=true})
-     * @Security("is_granted('read-booking', 'booking')")
+     * @Security("is_granted('read', 'check-booking')")
      * @Method("POST")
      */
     public function loadBookingDataAction(Request $request)

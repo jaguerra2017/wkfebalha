@@ -30,6 +30,9 @@
   {% if is_granted('ROLE_ADMIN') %}
     {% set role = 'ROLE_ADMIN' %}
   {% endif %}
+
+
+
     <!-- Main content -->
     <div class="row module-description-container">
         <div class="col-xs-12" style="padding: 30px 15px;">
@@ -52,7 +55,10 @@
             </div>
         </div>
         <div class="portlet-body ">
-            <program user-role="'{{ role }}'" current-language="'es'"></program>
+            <div class="container">
+                <program user-role="'{{ role }}'" current-language="'es'"></program>
+            </div>
+
         </div>
     </div>
     </div>

@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * FRONTEND - Reserve controller.
  *
- * @Route("/reserve")
+ * @Route("/reserva")
  */
 class FrontendReserveController extends Controller
 {

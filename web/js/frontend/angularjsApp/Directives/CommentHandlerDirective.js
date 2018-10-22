@@ -287,7 +287,7 @@
             },
             template:
                 '<div class="container-fluid wow fadeInUpBig" style="max-width: 1280px;">' +
-                    '<h4 class="font-family-france">Comentarios</h4>' +
+                    '<h4 style="font-family: Abril Fatface Regular">Comentarios</h4>' +
                     '<div class="row" style="position:relative;">' +
 
                         '<!-- Comments List -->'+
@@ -299,8 +299,8 @@
                                 'style="padding: 15px 5px;">' +
                                     '<div class="media-body">' +
                                         '<h4 class="media-heading">' +
-                                            '<p class="comment-author">[[comment.author_name]]</p>' +
-                                            '<span class="notifier-event-date comment-date-actions">' +
+                                            '<p class="comment-author" style="color:white;">[[comment.author_name]]</p>' +
+                                            '<span class="notifier-event-date comment-date-actions" style="color:white;">' +
                                                 '[[comment.created_date]] ' +
                                                 '<a style="margin-bottom:5px;" data-ng-click="createComment(comment)"> | RESPONDER </a>' +
                                             '</span>' +
@@ -312,8 +312,8 @@
                                         'style="padding: 15px 30px;">' +
                                             '<div class="media-body">' +
                                                 '<h4 class="media-heading">' +
-                                                    '<p class="comment-author">[[children.author_name]]</p>' +
-                                                    '<span class="notifier-event-date comment-date-actions">' +
+                                                    '<p class="comment-author" style="color:white;">[[children.author_name]]</p>' +
+                                                    '<span class="notifier-event-date comment-date-actions" style="color:white;">' +
                                                         '[[children.created_date]] ' +
                                                         '<a style="margin-bottom:5px;" data-ng-click="createComment(children)"> | RESPONDER </a>' +
                                                     '</span>' +
@@ -325,8 +325,8 @@
                                                 'style="padding: 15px 60px;">' +
                                                     '<div class="media-body">' +
                                                         '<h4 class="media-heading">' +
-                                                            '<p class="comment-author">[[grand_children.author_name]]</p>' +
-                                                            '<span class="notifier-event-date comment-date-actions">' +
+                                                            '<p class="comment-author" style="color:white;">[[grand_children.author_name]]</p>' +
+                                                            '<span class="notifier-event-date comment-date-actions" style="color:white;">' +
                                                                 '[[grand_children.created_date]] ' +
                                                             '</span>' +
                                                         '</h4>' +
@@ -409,7 +409,7 @@
                                         '</div>' +
 
                                         '<div data-ng-if="model.isARobot" class="col-xs-12" ' +
-                                        'style="color:#009dc7;">' +
+                                        'style="color:white;">' +
                                             '<div class="icheckbox_square-blue hover [[!model.isARobot ? \'checked\' : \'\']] wow fadeIn" ' +
                                             'data-ng-click="confirmIsNotARobot($event)" ' +
                                             'style="display: block;float: left;">' +
@@ -419,7 +419,7 @@
 
                                         '<div data-ng-if="!model.isARobot"  class="col-xs-12">' +
                                             '<button type="submit" class="custom-general-button comment-send wow fadeIn" ' +
-                                            'data-ng-click="saveCommentData(\'clear\')" style="padding:7px 14px;width:100% !important;">' +
+                                            'data-ng-click="saveCommentData(\'clear\')" style="color:rgb(7,49,71);background-color:white;padding:7px 14px;width:100% !important;">' +
                                                 'Publicar' +
                                             '</button>' +
 

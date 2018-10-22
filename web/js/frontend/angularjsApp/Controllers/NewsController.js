@@ -97,7 +97,7 @@
                             id : $scope.model.selectedNew.featured_image_id
                         }
                     }
-                    $('#textEditor').code($scope.model.selectedNew.content_es);
+                    $('#textEditor').code($scope.model.selectedNew.content);
 
                     if($scope.model.templatesCollection.length > 0){
                         for(var i=0; i<$scope.model.templatesCollection.length; i++){
@@ -179,7 +179,7 @@
 
                     if(response.data.singleResult != undefined && response.data.singleResult != null){
                         $scope.model.selectedNew = response.data.newsDataCollection;
-                        $scope.model.selectedNew.html_filtered_content_es = $sce.trustAsHtml($scope.model.selectedNew.content_es);
+                        $scope.model.selectedNew.html_filtered_content = $sce.trustAsHtml($scope.model.selectedNew.content);
                     }
                     else{
                         $scope.model.newsCollection = response.data.newsDataCollection;

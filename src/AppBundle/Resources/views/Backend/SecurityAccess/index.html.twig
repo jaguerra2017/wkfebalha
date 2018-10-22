@@ -31,6 +31,13 @@
     <!-- END HEAD -->
     <!-- BEGIN BODY -->
     <body class="login">
+    {% set language = 'es' %}
+    {% if  app.session.get('_locale') != null %}
+        {% set language = app.session.get('_locale') %}
+    {% endif %}
+
+
+
         <div class="logo" style="margin-top:20px !important;"></div>
 
         <div class="content">
@@ -38,7 +45,7 @@
             <form class="login-form" action="{{ path('login') }}" method="post">
                 <!-- Begin Logo -->
                 <div style=" padding-left: 65px;margin-bottom: 50px;">
-                    <a href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
+                    <a href="{{ path('frontend_index_'~language) }}">
                         <img src="{{ asset('images/shared/app-secundary-logo-blanco.png') }}" alt="Logo del FIBHA" width="138" height="100">
                     </a>
                 </div>
@@ -78,7 +85,7 @@
                 <div class="forget-password">
                     <h4>¿Desea salir de esta pantalla?</h4>
                     <p>
-                        Solo haga click <a href="{{ path('frontend_index_'~app.session.get('_locale')) }}">aquí </a>
+                        Solo haga click <a href="{{ path('frontend_index_'~language) }}">aquí </a>
                         para ir a la portada.
                     </p>
                 </div>

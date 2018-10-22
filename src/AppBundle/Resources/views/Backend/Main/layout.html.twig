@@ -47,7 +47,7 @@
                                     {% endif %}
 
                                     <!-- Actions Shortcuts -->
-                                    {% if userFrequentlyAccessFeaturesCollection is not empty %}
+                                    {% if userFrequentlyAccessFeaturesCollection is not empty  and is_granted('ROLE_SALESMAN') == false %}
                                         <div class="btn-group-red btn-group">
                                             <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                 <i class="fa fa-plus"></i>
@@ -92,6 +92,7 @@
                                             <img src="{{ asset(app.user.avatar.url) | imagine_filter('logued_user_thumbnail')}}">
                                         </button>
                                         <ul class="dropdown-menu-v2 min-width-200" role="menu">
+                                            {% if is_granted('ROLE_SALESMAN') == false %}
                                             <li class="">
                                                 <a href="{{ path('users_index') }}">
                                                     <i class="icon-user"></i>
@@ -99,6 +100,7 @@
                                                 </a>
                                             </li>
                                             <li class="divider"></li>
+                                            {% endif %}
                                             <li>
                                                 <a id="trigger_fullscreen">
                                                     <i class="icon-size-fullscreen"></i> Pantalla completa
@@ -275,10 +277,14 @@
                                                             {{ userAccessFeature.functionality_name }}
                                                         <i class="fa fa-angle-down" style="margin-left:10px;"></i>
                                                     </a>
-                                                    <a href="{{ path(userAccessFeature.url_index_action) }}{{ action_path }}" class="main-menu-option-item">
-                                                        <i class="{{ css_action_icon_class }}" style="margin-right:5px;"></i>
-                                                        {{ action_name }}
-                                                    </a>
+
+                                                    {# TEMPORAL#}
+                                                    {% if userAccessFeature.tree_slug != 'functionality-booking' and userAccessFeature.tree_slug != 'functionality-check-booking' %}
+                                                        <a href="{{ path(userAccessFeature.url_index_action) }}{{ action_path }}" class="main-menu-option-item">
+                                                            <i class="{{ css_action_icon_class }}" style="margin-right:5px;"></i>
+                                                            {{ action_name }}
+                                                        </a>
+                                                    {% endif %}
                                                 </div>
                                             {% endfor %}
                                         {% endif %}

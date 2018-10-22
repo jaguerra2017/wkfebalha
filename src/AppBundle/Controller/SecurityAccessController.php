@@ -24,6 +24,10 @@ class SecurityAccessController extends Controller
      */
     public function loginAction(Request $request)
     {
+        if($request->getSession()->get('_locale') == null){
+            $request->getSession()->set('_locale', 'es');
+        }
+
         if( $this->isGranted('IS_AUTHENTICATED_FULLY') ||
             $this->isGranted ('IS_AUTHENTICATED_REMEMBERED') ){
             return $this->redirectToRoute('dashboard_index');

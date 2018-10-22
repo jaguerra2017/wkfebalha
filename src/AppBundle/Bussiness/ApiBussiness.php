@@ -97,7 +97,7 @@ class ApiBussiness
                 $this->container->get('appbundle_mail')->sendMail($mailParams);
               }
 
-              if ($mailConfig['after_booking_mail_interested'] == "true") {
+              if ($mailConfig['after_booking_mail_interested_bool'] == "true") {
                 $emails = explode(',',$mailConfig['after_booking_mail_interested']);
                 foreach ($emails as $email) {
                   $mailParams = array(

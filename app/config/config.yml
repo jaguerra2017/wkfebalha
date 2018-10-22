@@ -122,6 +122,11 @@ liip_imagine:
              filters:
                  thumbnail: { size: [1920, 900], mode: outbound }
 
+         home_news_summary_featured_image_thumbnail:
+             quality: 80
+             filters:
+                thumbnail: { size: [580, 380], mode: outbound }
+
          single_post_featured_image:
               quality: 100
               filters:

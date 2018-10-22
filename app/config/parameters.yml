@@ -2,22 +2,22 @@
 parameters:
     app.locale: es
     app.default_locale: es
-    app.localeValues: es|e
+    app.localeValues: es|en
     app.avaiableLanguajes: [{value: es, text: Español}, {value: en, text: Inglés}]
     app.database_host: 127.0.0.1
     app.database_port: null
-    app.database_name: bnc_festival
-    app.database_user: root
-    app.database_password: root
+    app.database_name: festivalballethab
+    app.database_user: fibhamyadmin
+    app.database_password: "dbf35t1v4l*b4ll3t_HAB"
     app.mailer_transport: smtp
     app.mailer_host: 127.0.0.1
     app.mailer_user: null
     app.mailer_password: null
     app.secret: ddbffe82d30b1ececbf19c9a0deb1ef6075bbd27
-    app.assets_css_base_scripts_version: mb1.1
-    app.assets_css_plugins_scripts_version: mb1.1
-    app.assets_css_customs_scripts_version: mb1.1
-    app.assets_js_base_scripts_version: mb1.1
-    app.assets_js_plugins_scripts_version: mb1.1
-    app.assets_js_base_angular_scripts_version: mb1.1
-    app.assets_js_app_angular_scripts_version: mb1.1
+    app.assets_css_base_scripts_version: mb1.4
+    app.assets_css_plugins_scripts_version: mb1.4
+    app.assets_css_customs_scripts_version: mb1.4
+    app.assets_js_base_scripts_version: mb1.4
+    app.assets_js_plugins_scripts_version: mb1.4
+    app.assets_js_base_angular_scripts_version: mb1.4
+    app.assets_js_app_angular_scripts_version: mb1.4

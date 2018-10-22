@@ -78,6 +78,7 @@ class GenericPostRepository extends EntityRepository
       ->leftJoin('gp.modified_author', 'uu')
       ->leftJoin('gp.featured_image', 'fi');
 
+
     $whereAdded = false;
     if (isset($parametersCollection['post_type_tree_slug'])) {
       if (!$whereAdded) {
@@ -117,6 +118,7 @@ class GenericPostRepository extends EntityRepository
       && isset($parametersCollection['start']) && isset($parametersCollection['end'])) {
       $qb->setFirstResult($parametersCollection['start'])->setMaxResults($parametersCollection['end']);
     }
+
     if (isset($parametersCollection['returnByCustomOrder']) && $parametersCollection['returnByCustomOrder'] == true) {
       $qb->orderBy('gp.' . $parametersCollection['customOrderField'], $parametersCollection['customOrderSort']);
     } else {

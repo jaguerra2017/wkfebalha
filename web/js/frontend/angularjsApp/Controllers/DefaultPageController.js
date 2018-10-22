@@ -76,7 +76,7 @@
                 function(response){
                     if(response.data.singleResult != undefined && response.data.singleResult != null){
                         $scope.model.selectedPage = response.data.pagesDataCollection;
-                        $scope.model.selectedPage.html_filtered_content_es = $sce.trustAsHtml($scope.model.selectedPage.content_es);
+                        $scope.model.selectedPage.html_filtered_content = $sce.trustAsHtml($scope.model.selectedPage.content);
                     }
                 },
                 function(response){

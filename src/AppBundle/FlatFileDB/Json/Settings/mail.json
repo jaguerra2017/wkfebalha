@@ -3,5 +3,5 @@
 "after_booking_mail_notifications":"true",
 "after_booking_mail_voucher":"true",
 "after_booking_mail_theater":"true",
-"after_booking_mail_interested":"true",
-"after_booking_mail_interested":"correo1@gmail.com,correo2@gmail.com,correo3@gmail.com"}
+"after_booking_mail_interested_bool":"true",
+"after_booking_mail_interested":"festival@balletcuba.cult.cu,ventas@balletcuba.cult.cu,economia1@balletcuba.cult.cu,festivalballethabana@gmail.com"}

@@ -10,6 +10,10 @@
                 <source>btn.see_more_text</source>
                 <target>Ver más</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>btn.read_more_text</source>
+                <target>Leer más</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

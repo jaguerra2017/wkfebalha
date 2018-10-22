@@ -16,12 +16,12 @@
                         <div class="row">
                             <div class="col-xs-4 col-md-5" style="margin-top: 10px">
                                 <a class="language-selector {{  app.session.get('_locale') == 'es' ? 'language-active' }}"
-                                href="{{ path('frontend_index_es') }}">
+                                   href="{{ path('frontend_index_es') }}">
                                     ES
                                 </a>
                                 |
                                 <a class="language-selector {{  app.session.get('_locale') == 'en' ? 'language-active' }}"
-                               href="{{ path('frontend_index_en') }}">
+                                   href="{{ path('frontend_index_en') }}">
                                     EN
                                 </a>
                                 <!-- Search -->
@@ -87,7 +87,7 @@
                     <div class="row" >
                         <div class="col-xs-12 main-menu-header">
                             <a id="index" class="main-menu-logo" href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
-                               <img src="{{ asset('images/shared/app-main-logo.png') }}" alt="Logo">
+                                <img src="{{ asset('images/shared/app-main-logo-blanco.png') }}" alt="Logo">
                             </a>
 
                             <a class="page-quick-sidebar-toggler"><i class="fa fa-times"></i></a>
@@ -98,18 +98,18 @@
                         {% if  themeConfigsData.menuConfigs is not empty %}
                             <div class="row" style="margin:0;">
                                 {% for menuItem in themeConfigsData.menuConfigs %}
-                                    {% if loop.index <= 4 %}
-                                        <div class="col-xs-12 col-sm-6 col-md-3 main-menu-option">
+                                    {% if loop.index <= 5 %}
+                                        <div class="col-xs-12 col-sm-6 col-md-2 main-menu-option">
                                             <a href="{{ menuItem.url }}"
-                                            class="main-menu-option-header font-family-france">
+                                               class="main-menu-option-header">
                                                 {{ menuItem.name_es }}
                                                 <i class="fa fa-angle-down" style="margin-left:10px;"></i>
                                             </a>
                                             {% if menuItem.childs is not empty%}
                                                 {% for subItem in menuItem.childs %}
                                                     <a href="{{ subItem.url }}"
-                                                    class="main-menu-option-item">
-                                                       {{ subItem.name_es }}
+                                                       class="main-menu-option-item">
+                                                        {{ subItem.name_es }}
                                                     </a>
                                                 {% endfor %}
                                             {% endif %}
@@ -119,10 +119,10 @@
                             </div>
                             <div class="row" style="margin:0;">
                                 {% for menuItem in themeConfigsData.menuConfigs %}
-                                    {% if loop.index > 4 %}
-                                        <div class="col-xs-12 col-sm-6 col-md-3 main-menu-option">
+                                    {% if loop.index > 5 %}
+                                        <div class="col-xs-12 col-sm-6 col-md-2 main-menu-option">
                                             <a href="{{ menuItem.url }}"
-                                               class="main-menu-option-header font-family-france">
+                                               class="main-menu-option-header">
                                                 {{ menuItem.name_es }}
                                                 <i class="fa fa-angle-down" style="margin-left:10px;"></i>
                                             </a>
@@ -181,41 +181,80 @@
         </div>
 
         <!-- Footer -->
+        <div class="page-main-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 wow fadeInLeftBig">
+                        <span class="notifier-event-text app-text-color" style="text-align: left !important">
+                            Organizadores</br>
+                            <span class="title-separator" style="float:left;"></span>
+                        </span>
+
+                        <div class="" style="display:flex;width: 100%;">
+                            <div style="display: flex;flex-direction: column;margin: 20px 20px 20px 0;">
+                                <img src="{{ asset('images/shared/ministerio-cultura-cuba.jpg') }}" style="max-width: 250px;">
+                            </div>
+                            <div style="display: flex;flex-direction: column;margin: 20px 20px 20px 0;">
+                                <img src="{{ asset('images/shared/bnc-logo.png') }}" style="max-width: 250px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 wow fadeInRightBig">
+                        <span class="notifier-event-text app-text-color text-left" style="text-align: left !important">
+                            Contactos</br>
+                            <span class="title-separator" style="float:left;"></span>
+                        </span>
+                        <div style="display:flex;width: 100%;flex-direction: column;">
+                            <span style="font-family: 'Arimo Arial';font-size: 18px;color:rgb(100,100,100);margin-top:20px;">
+                                <i class="fa fa-phone " style="font-size: 32px;margin-right: 20px;top: 7px;position: relative;"></i>(53) 7-835-3920
+                            </span>
+                            <span style="font-family: 'Arimo Arial';font-size: 18px;color:rgb(100,100,100);margin-top:20px;">
+                                <i class="fa fa-envelope " style="font-size: 26px;margin-right: 10px;top: 7px;position: relative;"></i>
+                                <a style="font-family: 'Arimo Arial';font-size: 18px;color:rgb(100,100,100)" href="mailto:festival@balletcuba.cult.cu">festival@balletcuba.cult.cu</a>
+                            </span>
+                            <span style="font-family: 'Arimo Arial';font-size: 18px;color:rgb(100,100,100);margin-top:20px;">
+                                <i class="fa fa-map-marker " style="font-size: 32px;margin-right: 28px;top: 7px;position: relative;"></i>Calzada #510 % D y E, Vedado, Plaza de la Revolución, CP 10400.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="page-footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="hidden-xs hidden-sm col-md-4 footer-socials">
                         {% if themeConfigsData.socialsConfigs is not empty %}
-                        <ul class="social-icons">
-                            {% if themeConfigsData.socialsConfigs.facebook_url is not empty %}
-                            <li>
-                                <a href="{{ themeConfigsData.socialsConfigs.facebook_url }}" data-original-title="Facebook" class="facebook">
-                                </a>
-                            </li>
-                            {% endif %}
-                            {% if themeConfigsData.socialsConfigs.twitter_url is not empty %}
-                            <li>
-                                <a href="{{ themeConfigsData.socialsConfigs.twitter_url }}" data-original-title="Twitter" class="twitter">
-                                </a>
-                            </li>
-                            {% endif %}
-                            {% if themeConfigsData.socialsConfigs.youtube_url is not empty %}
-                            <li>
-                                <a href="{{ themeConfigsData.socialsConfigs.youtube_url }}" data-original-title="Youtube" class="youtube">
-                                </a>
-                            </li>
-                            {% endif %}
-                        </ul>
+                            <ul class="social-icons">
+                                {% if themeConfigsData.socialsConfigs.facebook_url is not empty %}
+                                    <li>
+                                        <a href="{{ themeConfigsData.socialsConfigs.facebook_url }}" data-original-title="Facebook" class="facebook">
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if themeConfigsData.socialsConfigs.twitter_url is not empty %}
+                                    <li>
+                                        <a href="{{ themeConfigsData.socialsConfigs.twitter_url }}" data-original-title="Twitter" class="twitter">
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if themeConfigsData.socialsConfigs.youtube_url is not empty %}
+                                    <li>
+                                        <a href="{{ themeConfigsData.socialsConfigs.youtube_url }}" data-original-title="Youtube" class="youtube">
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
                         {% endif %}
                     </div>
-                    <div class="col-xs-12 col-md-4 text-center footer-link">
+                    <div class="col-xs-12 col-md-4 text-center footer-link wow bounceIn">
                         <!-- Logo -->
                         <a id="index" class="footer-logo" href="{{ path('frontend_index_'~app.session.get('_locale')) }}"
-                        style="border-right: 2px solid #009dc7;margin-right: 5px;">
-                            <img src="{{ asset('images/shared/bnc-main-logo.png') }}" alt="Logo">
+                           style="border-right: 2px solid #009dc7;margin-right: 5px;">
+                            <img src="{{ asset('images/shared/app-main-logo.png') }}" alt="Logo">
                         </a>
                         <a class="footer-logo jyd-link" id="jyd-link"
-                        href="http://www.jydsolutions.com">
+                           href="http://www.jydsolutions.com">
                             Sitio desarrollado por
                             <img src="{{ asset('images/frontend/themes/default/dev/logo-jyd.png') }}" alt="JYD">
                         </a>

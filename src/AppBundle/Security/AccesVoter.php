@@ -46,13 +46,15 @@ class AccesVoter implements VoterInterface
         }
         else{
             if(
-              $object == 'booking' || $object == 'collateralactivities' || $object == 'show' || $object == 'rooms' || $object == 'headquarter' || $object == 'news' || $object == 'publications' || $object == 'pages' || $object == 'events'
+                $object == 'booking' || $object == 'check-booking' || $object == 'collateralactivities' || $object == 'show'
+                || $object == 'rooms' || $object == 'headquarter' || $object == 'news' || $object == 'publications'
+                || $object == 'pages' || $object == 'events'
                 || $object == 'comments' || $object == 'media' || $object == 'opinions'
                 || $object == 'taxonomy' || $object == 'partners' || $object == 'historical-moments'
                 || $object == 'jewels' || $object == 'composition' || $object == 'repertory'
                 || $object == 'awards' || $object == 'settings' || $object == 'users'
             ){
-                $functionalityTreeSlug = 'functionality-'.$object;
+                $functionalityTreeSlug = 'functionality-'.$object;//print_r($functionalityTreeSlug);die();
                 $actionTreeSlug = $functionalityTreeSlug.'-action-'.$action;
                 $userAccessFeaturesCollection = $this->session->get('userAccessFeatures');
                 if(isset($userAccessFeaturesCollection[0])){

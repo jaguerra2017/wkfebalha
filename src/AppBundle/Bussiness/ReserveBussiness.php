@@ -40,21 +40,21 @@ class ReserveBussiness
 //      $headquarter = $this->em->getRepository('AppBundle:GenericPost')->find();
       $room = $this->em->getRepository('AppBundle:Room')->find($parametersCollection['selectedRoom']);
       $roomAreas = $this->em->getRepository('AppBundle:RoomArea')->findBy(
-        array('room' => $room)
+          array('room' => $room)
       );
       if ($roomAreas) {
         foreach ($roomAreas as $key => $roomArea) {
           $roomsAndZones[$key] = array(
-            'id' => $roomArea->getId()->getId(),
-            'title' => $roomArea->getId()->getTitle($parametersCollection['currentLanguage']),
-            'zones' => array()
+              'id' => $roomArea->getId()->getId(),
+              'title' => $roomArea->getId()->getTitle($parametersCollection['currentLanguage']),
+              'zones' => array()
           );
           $zones = $this->em->getRepository('AppBundle:Zone')->findBy(array('roomArea' => $roomArea));
           if ($zones) {
             foreach ($zones as $zone) {
               $roomsAndZones[$key]['zones'][] = array(
-                'id' => $zone->getId()->getId(),
-                'title' => $zone->getId()->getTitle($parametersCollection['currentLanguage'])
+                  'id' => $zone->getId()->getId(),
+                  'title' => $zone->getId()->getTitle($parametersCollection['currentLanguage'])
               );
             }
           }
@@ -69,11 +69,15 @@ class ReserveBussiness
       }
 //      $objMediaImage = $this->em->getRepository('AppBundle:MediaImage')->find($show['featured_image_id']);
       $show = $this->em->getRepository('AppBundle:Show')->find($parametersCollection['showid']);
+      $avaiableSeatsInShow = $this->em->getRepository('AppBundle:ShowSeat')->getAvaiableSeatsInShow($parametersCollection);
+
       $result['showData'] = array(
-        'title'=>$show->getId()->getTitle($parametersCollection['currentLanguage']),
-        'time'=>$show->getShowDate()->format('H:i'),
-        'date'=>$show->getShowDate()->format('d/m/Y'),
-        'price'=>$show->getSeatPrice()
+          'title'=>$show->getId()->getTitle($parametersCollection['currentLanguage']),
+          'time'=>$show->getShowDate()->format('H:i'),
+          'date'=>$show->getShowDate()->format('d/m/Y'),
+          'price'=>$show->getSeatPrice(),
+          'avaiableSeats'=> count($avaiableSeatsInShow),
+          'allowBooking'=> (count($avaiableSeatsInShow) > 0 && $show->getShowDate()->format('d/m/Y') > date('d/m/Y'))
       );
       $result['availability'] = $this->em->getRepository('AppBundle:ShowSeat')->getAvailabilityInfo($parametersCollection);
 
@@ -93,32 +97,32 @@ class ReserveBussiness
     $availablesadminId = array();
     $selledId = array();
     $languageTags = array(
-      'es'=>array(
-        'available'=>'Disponible',
-        'unavailable'=>'No disponible',
-        'selected'=>'Reservado por usted',
-      ),
-      'en'=>array(
-        'available'=>'Available',
-        'unavailable'=>'Unavailable',
-        'selected'=>'Selected',
-      )
+        'es'=>array(
+            'available'=>'Disponible',
+            'unavailable'=>'No disponible',
+            'selected'=>'Reservado por usted',
+        ),
+        'en'=>array(
+            'available'=>'Available',
+            'unavailable'=>'Unavailable',
+            'selected'=>'Selected',
+        )
     );
 
     if($parametersCollection['role'] == 'IS_AUTHENTICATED_ANONYMOUSLY' ||
-      $parametersCollection['role'] == 'ROLE_SALESMAN'
-      || $parametersCollection['role'] == 'ROLE_TESTER'){
+        $parametersCollection['role'] == 'ROLE_SALESMAN'
+        || $parametersCollection['role'] == 'ROLE_TESTER'){
       $seatsItemsLegend = array(
-        array('a', 'available', $languageTags[$parametersCollection['currentLanguage']]['available']),
-        array('a', 'unavailable', $languageTags[$parametersCollection['currentLanguage']]['unavailable']),
-        array('a', 'selected', $languageTags[$parametersCollection['currentLanguage']]['selected'])
+          array('a', 'available', $languageTags[$parametersCollection['currentLanguage']]['available']),
+          array('a', 'unavailable', $languageTags[$parametersCollection['currentLanguage']]['unavailable']),
+          array('a', 'selected', $languageTags[$parametersCollection['currentLanguage']]['selected'])
       );
     }
     else{
       $seatsItemsLegend = array(
-        array('n', 'available', 'No disponible'),
-        array('s', 'selled', 'Vendido'),
-        array('d', 'available_admin', 'Disponible')
+          array('n', 'available', 'No disponible'),
+          array('s', 'selled', 'Vendido'),
+          array('d', 'available_admin', 'Disponible')
       );
     }
 
@@ -151,8 +155,8 @@ class ReserveBussiness
             $seatsMap[$rowKey] = isset($seatsMap[$rowKey]) ? $seatsMap[$rowKey] : '';
 
             if($parametersCollection['role'] == 'IS_AUTHENTICATED_ANONYMOUSLY' ||
-              $parametersCollection['role'] == 'ROLE_SALESMAN'
-              || $parametersCollection['role'] == 'ROLE_TESTER'){
+                $parametersCollection['role'] == 'ROLE_SALESMAN'
+                || $parametersCollection['role'] == 'ROLE_TESTER'){
               if(!in_array($seat->getId()->getId(),$avaiableSeatsInShow)){
                 $unavailablesId[] = $seat->getId()->getId();
               }
@@ -205,15 +209,15 @@ class ReserveBussiness
 
 
     return array(
-      'reverse' => $seatOrientation->getTreeSlug() == 'row-orientation-right-to-left' ? true : false,
-      'seatMap' => $seatsMap,
-      'seatMapId' => $seatsMapId,
-      'availablesadminId' => $availablesadminId,
-      'unavailablesId' => $unavailablesId,
-      'selledId' => $selledId,
-      'seatsItemsLegend' => $seatsItemsLegend,
-      'rowsNames' => $rowsNames,
-      'seatNames' => $resultSeatsNames
+        'reverse' => $seatOrientation->getTreeSlug() == 'row-orientation-right-to-left' ? true : false,
+        'seatMap' => $seatsMap,
+        'seatMapId' => $seatsMapId,
+        'availablesadminId' => $availablesadminId,
+        'unavailablesId' => $unavailablesId,
+        'selledId' => $selledId,
+        'seatsItemsLegend' => $seatsItemsLegend,
+        'rowsNames' => $rowsNames,
+        'seatNames' => $resultSeatsNames
     );
   }
 
@@ -314,9 +318,9 @@ class ReserveBussiness
     $this->em->flush();
 
     $voucherData = array(
-      'seats'=>$bookingSeatsData,
-      'amount'=>$parametersCollection['amount'],
-      'transaction'=> $booking->getTransaction()
+        'seats'=>$bookingSeatsData,
+        'amount'=>$parametersCollection['amount'],
+        'transaction'=> $booking->getTransaction()
     );
 
 
@@ -329,10 +333,10 @@ class ReserveBussiness
 
 
     $mailParams = array(
-      'subject' => $pay.' Online',
-      'from'=> 'adminfibha@gmail.com',
-      'to'=> $booking->getEmail(),
-      'message' => $mailConfig['after_booking_message_'.$parametersCollection['currentLanguage']]
+        'subject' => $pay.' Online',
+        'from'=> 'adminfibha@gmail.com',
+        'to'=> $booking->getEmail(),
+        'message' => $mailConfig['after_booking_message_'.$parametersCollection['currentLanguage']]
     );
 
     $this->container->get('appbundle_mail')->sendMail($mailParams);

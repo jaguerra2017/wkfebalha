@@ -3,11 +3,11 @@
 
 {% block pagecontent %}
     {# Initializing permissions value #}
-    {%  set userNotFrequentlyAccessFeaturesCollection,canRead,canCreate,canEdit,canDelete =
-    app.session.get('userNotFrequentlyAccessFeatures'),false,false,false,false %}
-    {% if userNotFrequentlyAccessFeaturesCollection is not empty %}
-        {% for userAccessFeature in userNotFrequentlyAccessFeaturesCollection %}
-            {% if userAccessFeature.tree_slug == 'functionality-headquarter' and userAccessFeature.actions is not empty %}
+    {%  set userFrequentlyAccessFeaturesCollection,canRead,canCreate,canEdit,canDelete =
+    app.session.get('userFrequentlyAccessFeatures'),false,false,false,false %}
+    {% if userFrequentlyAccessFeaturesCollection is not empty %}
+        {% for userAccessFeature in userFrequentlyAccessFeaturesCollection %}
+            {% if userAccessFeature.tree_slug == 'functionality-check-booking' and userAccessFeature.actions is not empty %}
                 {% for action in userAccessFeature.actions %}
                     {% if 'read' in action.tree_slug %}
                         {% set canRead = true %}

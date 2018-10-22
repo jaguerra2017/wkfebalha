@@ -244,7 +244,7 @@ class SettingBussiness
                     'name_es' => $parametersCollection['name']
                 ));
                 if((isset($objMenuItem) && $parametersCollection['isCreating']) ||
-                (isset($objMenuItem) && !$parametersCollection['isCreating'] && $parametersCollection['menu_item_id'] != $objMenuItem->getId())){
+                    (isset($objMenuItem) && !$parametersCollection['isCreating'] && $parametersCollection['menu_item_id'] != $objMenuItem->getId())){
                     $message = 'Ya existe un elemento del menú con ese nombre.';
                     $this->returnResponse(array('sucsess'=>0,'message'=>$message));
                 }
@@ -252,7 +252,7 @@ class SettingBussiness
                     'url_slug_es' => $parametersCollection['url_slug']
                 ));
                 if((isset($objMenuItem) && $parametersCollection['isCreating']) ||
-                (isset($objMenuItem) && !$parametersCollection['isCreating'] && $parametersCollection['menu_item_id'] != $objMenuItem->getId())){
+                    (isset($objMenuItem) && !$parametersCollection['isCreating'] && $parametersCollection['menu_item_id'] != $objMenuItem->getId())){
                     $message = 'Ya existe un elemento del menú con ese slug.';
                     $this->returnResponse(array('sucsess'=>0,'message'=>$message));
                 }
@@ -273,13 +273,17 @@ class SettingBussiness
                 $objMenuItem = new MenuItem();
                 $objMenuItem->setCreatedAuthor($parametersCollection['loggedUser']);
                 $objMenuItem->setMenu($objMenu);
+                $objMenuItem->setName($parametersCollection['name'], 'es');
+                $objMenuItem->setUrlSlug($parametersCollection['url_slug'], 'es');
+                $objMenuItem->setName($parametersCollection['name'], 'en');
+                $objMenuItem->setUrlSlug($parametersCollection['url_slug'], 'en');
             }
             else{
                 $objMenuItem->setModifiedDate(new \DateTime());
                 $objMenuItem->setModifiedAuthor($parametersCollection['loggedUser']);
+                $objMenuItem->setName($parametersCollection['name'], $parametersCollection['language']);
+                $objMenuItem->setUrlSlug($parametersCollection['url_slug'], $parametersCollection['language']);
             }
-            $objMenuItem->setName($parametersCollection['name']);
-            $objMenuItem->setUrlSlug($parametersCollection['url_slug']);
             $objMenuItem->setTreeSlug($objMenu->getSlug().'-'.$parametersCollection['url_slug']);
             $objMenuItem->setPriority($parametersCollection['priority']);
             $objMenuItem->setDescription($parametersCollection['description']);

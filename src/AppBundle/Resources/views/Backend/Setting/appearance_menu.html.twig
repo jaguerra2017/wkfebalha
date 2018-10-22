@@ -1,11 +1,11 @@
 <div class="row" style="position: relative;">
     <div class="col-xs-12" style="padding: 5px 15px;border-bottom: 1px solid #eee;margin-bottom: 10px;">
         {% if canEdit %}
-        <button class="btn blue btn-circle btn-icon-only btn-create-inner tooltips"
-        data-container="body" data-placement="top" data-original-title="Crear nuevo menú"
-        data-ng-click="createMenu()">
-            <i class="fa fa-plus" style="color:white"></i>
-        </button>
+            <button class="btn blue btn-circle btn-icon-only btn-create-inner tooltips"
+                    data-container="body" data-placement="top" data-original-title="Crear nuevo menú"
+                    data-ng-click="createMenu()">
+                <i class="fa fa-plus" style="color:white"></i>
+            </button>
         {% endif %}
         <!-- Modal with form for CRUD Menus -->
         <div id="appearance-menu-crud-modal" class="modal fade" tabindex="-1" data-width="760">
@@ -24,8 +24,8 @@
                                     </label>
                                     <div class="col-md-10">
                                         <input class="form-control" type="text" id="menu_name" name="menu_name"
-                                        data-ng-model="model.appearanceMenuName"
-                                        data-ng-keyup="handleMenuFormInputKeyEvents($event)">
+                                               data-ng-model="model.appearanceMenuName"
+                                               data-ng-keyup="handleMenuFormInputKeyEvents($event)">
                                         <span class="help-block">
                                             <p data-ng-if="model.appearanceMenuNameHasError">
                                                 Valor incorrecto o en blanco.
@@ -61,7 +61,7 @@
                                     </label>
                                     <div class="col-md-10">
                                         <textarea class="form-control" rows="5" style="width:100%"
-                                        data-ng-model="model.appearanceMenuDescription"></textarea>
+                                                  data-ng-model="model.appearanceMenuDescription"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -69,19 +69,19 @@
                     </div>
                     <div class="form-actions">
                         <div class="row"
-                         style="margin-top: 30px;border-top: 1px solid #eee;padding: 15px 0px 10px;">
+                             style="margin-top: 30px;border-top: 1px solid #eee;padding: 15px 0px 10px;">
                             <div class="col-xs-12 col-md-offset-3 col-md-9">
                                 <button class="btn default btn-footer" type="button"
-                                data-ng-click="hideAppearanceMenuForm()">
+                                        data-ng-click="hideAppearanceMenuForm()">
                                     Cancelar
                                 </button>
                                 <button data-ng-if="model.createMenuAction"
-                                class="btn blue btn-blue btn-footer" type="submit"
-                                data-ng-click="saveAppearanceThemeSectionMenuData('clear')">
+                                        class="btn blue btn-blue btn-footer" type="submit"
+                                        data-ng-click="saveAppearanceThemeSectionMenuData('clear')">
                                     Guardar y limpiar
                                 </button>
                                 <button class="btn blue btn-blue btn-footer" type="button"
-                                data-ng-click="saveAppearanceThemeSectionMenuData('close')">
+                                        data-ng-click="saveAppearanceThemeSectionMenuData('close')">
                                     Guardar y cerrar
                                 </button>
                             </div>
@@ -97,12 +97,12 @@
     <div data-ng-if="model.appearanceMenusCollection.length > 0" class="col-xs-12 col-md-4">
         <ul data-ng-if="model.appearanceMenusCollection.length > 0" class="ver-inline-menu tabbable">
             <li data-ng-repeat="menu in model.appearanceMenusCollection"
-            class="[[model.selectedAppearanceMenu != null && menu.id == model.selectedAppearanceMenu.id?'active':'']]">
+                class="[[model.selectedAppearanceMenu != null && menu.id == model.selectedAppearanceMenu.id?'active':'']]">
                 <a data-toggle="tab" data-ng-click="loadAppearanceMenuItems(menu)">
                     {% if canEdit %}
-                    <i class="fa fa-bars dropdown-toggle tooltips"
-                    data-container="body" data-placement="top" data-original-title="Opciones del menú"
-                    data-toggle="dropdown"></i>
+                        <i class="fa fa-bars dropdown-toggle tooltips"
+                           data-container="body" data-placement="top" data-original-title="Opciones del menú"
+                           data-toggle="dropdown"></i>
                     {% endif %}
                     [[menu.name]]
                     <ul class="dropdown-menu" role="menu">
@@ -126,10 +126,10 @@
 
         <!-- Modal with form for Menu Items CRUD -->
         <div id="appearance-menu-item-crud-modal" class="modal fade" tabindex="-1" data-width="990"
-        data-backdrop="static" data-keyboard="false">
+             data-backdrop="static" data-keyboard="false">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                data-ng-click="hideAppearanceMenuItemForm()"></button>
+                        data-ng-click="hideAppearanceMenuItemForm()"></button>
                 <h4 class="modal-title">[[model.createMenuItemAction?'Crear':'Editar']] elemento del menú</h4>
             </div>
             <div class="modal-body">
@@ -139,14 +139,37 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="row">
                                     <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="col-md-3 setting-label">
+                                                Idioma :
+                                            </label>
+                                            <div class="col-md-9">
+                                                <a class="btn toolbar-btn-dropdown-text btn-sm btn-default dropdown-toggle"
+                                                   style="text-align: left; font-size: 11px;width: auto !important;"
+                                                   data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                    [[model.appearanceMenuItemSelectedLanguage == null ? 'Seleccione' : model.appearanceMenuItemSelectedLanguage.name]] <i class="fa fa-angle-down"></i>
+                                                </a>
+                                                <div class="dropdown-menu hold-on-click dropdown-checkboxes "
+                                                     style="min-width: 75px;top: 25px;margin-left: 0px;">
+                                                    <label data-ng-repeat="language in model.languages">
+                                                        <a class="btn" style="width: 100%;text-align: left;"
+                                                           data-ng-click="selectMenuItemCrudLanguage(language)">
+                                                            [[language.name]]
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
                                         <div class="form-group [[model.appearanceMenuItemNameHasError?'has-error':'']]">
                                             <label class="col-md-3 setting-label">
                                                 Nombre :
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control" type="text" id="menu_item_name" name="menu_item_name"
-                                               data-ng-model="model.appearanceMenuItemName"
-                                               data-ng-keyup="handleMenuFormInputKeyEvents($event)">
+                                                       data-ng-model="model.appearanceMenuItemName"
+                                                       data-ng-keyup="handleMenuFormInputKeyEvents($event)">
                                                 <span class="help-block">
                                                     <p data-ng-if="model.appearanceMenuItemNameHasError">
                                                         Valor incorrecto o en blanco.
@@ -162,7 +185,7 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control" type="text"
-                                                data-ng-model="model.appearanceMenuItemSlug">
+                                                       data-ng-model="model.appearanceMenuItemSlug">
                                                 <span class="help-block">
                                                     <p data-ng-if="model.appearanceMenuItemSlugHasError">
                                                         Valor incorrecto o en blanco.
@@ -178,7 +201,7 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control" type="text"
-                                                   data-ng-model="model.appearanceMenuItemPriority">
+                                                       data-ng-model="model.appearanceMenuItemPriority">
                                                 <span class="help-block">
                                                     <p data-ng-if="!model.appearanceMenuItemPriorityHasError">
                                                         Orden respecto a los elementos del mismo nivel.
@@ -190,6 +213,11 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="row">
                                     <div class="col-xs-12">
                                         <div class="form-group ">
                                             <label class="col-md-3 setting-label">
@@ -197,14 +225,10 @@
                                             </label>
                                             <div class="col-md-9">
                                                  <textarea class="form-control" rows="5" style="width:100%"
-                                                  data-ng-model="model.appearanceMenuItemDescription"></textarea>
+                                                           data-ng-model="model.appearanceMenuItemDescription"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="row">
                                     <div class="col-xs-12">
                                         <div class="form-group [[model.appearanceMenuItemNameHasError?'has-error':'']]">
                                             <label class="col-md-3 setting-label">
@@ -212,8 +236,8 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <a class="btn toolbar-btn-dropdown-text btn-md btn-default"
-                                                style="text-align:left !important;"
-                                                data-ng-click="showMenuItemParentsSelector()">
+                                                   style="text-align:left !important;"
+                                                   data-ng-click="showMenuItemParentsSelector()">
                                                     [[model.appearanceMenuItemParentSelected != null ? model.appearanceMenuItemParentSelected.name_es : 'Seleccione.']]
                                                 </a>
                                             </div>
@@ -226,7 +250,7 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <button class="btn btn-default dropdown-toggle" type="button"
-                                                data-toggle="dropdown" style="width: 100%;text-align: left;">
+                                                        data-toggle="dropdown" style="width: 100%;text-align: left;">
                                                     [[model.appearanceMenuItemTypeSelected != null?model.appearanceMenuItemTypeSelected.name_es:'Seleccione.']]
                                                     <i class="fa fa-angle-down pull-right"></i>
                                                 </button>
@@ -246,13 +270,13 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12"
-                                    data-ng-if="model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-page'">
+                                         data-ng-if="model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-page'">
                                         <div class="form-group [[model.appearanceMenuItemTypePageHasError?'has-error':'']]">
                                             <label class="col-md-3 setting-label">
                                             </label>
                                             <div class="col-md-9">
                                                 <button class="btn btn-default dropdown-toggle" type="button"
-                                                data-toggle="dropdown" style="width: 100%;text-align: left;">
+                                                        data-toggle="dropdown" style="width: 100%;text-align: left;">
                                                     [[model.appearanceMenuItemTypePageSelected != null?model.appearanceMenuItemTypePageSelected.name_es:'Seleccione la página.']]
                                                     <i class="fa fa-angle-down pull-right"></i>
                                                 </button>
@@ -276,7 +300,7 @@
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control" type="text" placeholder="Etiqueta específica"
-                                                data-ng-model="model.appearanceMenuItemTypePageTag">
+                                                       data-ng-model="model.appearanceMenuItemTypePageTag">
                                                 <span class="help-block">
                                                      <p>
                                                          Id de algún elemento HTML dentro de la página.
@@ -286,13 +310,13 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12"
-                                     data-ng-if="model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-url'">
+                                         data-ng-if="model.appearanceMenuItemTypeSelected.tree_slug == 'menu-item-type-url'">
                                         <div class="form-group [[model.appearanceMenuItemTypeLinkHasError?'has-error':'']]">
                                             <label class="col-md-3 setting-label">
                                             </label>
                                             <div class="col-md-9">
                                                 <input class="form-control" type="text" placeholder="Enlace"
-                                                data-ng-model="model.appearanceMenuItemTypeLink">
+                                                       data-ng-model="model.appearanceMenuItemTypeLink">
                                                 <span class="help-block">
                                                      <p data-ng-if="!model.appearanceMenuItemTypeLinkHasError">
                                                          Ejemplo:  http://www.misitio.com
@@ -310,19 +334,19 @@
                     </div>
                     <div class="form-actions">
                         <div class="row"
-                        style="margin-top: 30px;border-top: 1px solid #eee;padding: 15px 0px 10px;">
+                             style="margin-top: 30px;border-top: 1px solid #eee;padding: 15px 0px 10px;">
                             <div class="col-xs-12 col-md-offset-3 col-md-9">
                                 <button class="btn default btn-footer" type="button"
                                         data-ng-click="hideAppearanceMenuItemForm()">
                                     Cancelar
                                 </button>
                                 <button data-ng-if="model.createMenuItemAction"
-                                class="btn blue btn-blue btn-footer" type="submit"
-                                data-ng-click="saveAppearanceThemeSectionMenuItemData('clear')">
+                                        class="btn blue btn-blue btn-footer" type="submit"
+                                        data-ng-click="saveAppearanceThemeSectionMenuItemData('clear')">
                                     Guardar y limpiar
                                 </button>
                                 <button class="btn blue btn-blue btn-footer" type="button"
-                                data-ng-click="saveAppearanceThemeSectionMenuItemData('close')">
+                                        data-ng-click="saveAppearanceThemeSectionMenuItemData('close')">
                                     Guardar y cerrar
                                 </button>
                             </div>
@@ -359,11 +383,11 @@
                              style="margin-top: 30px;border-top: 1px solid #eee;padding: 15px 0px 10px;">
                             <div class="col-xs-12 col-md-offset-3 col-md-9">
                                 <button class="btn default btn-footer" type="button"
-                                data-ng-click="hideMenuItemParentsSelector();">
+                                        data-ng-click="hideMenuItemParentsSelector();">
                                     Cancelar
                                 </button>
                                 <button class="btn blue btn-blue btn-footer" type="button"
-                                data-ng-click="selectMenuItemParent()">
+                                        data-ng-click="selectMenuItemParent()">
                                     Guardar
                                 </button>
                             </div>

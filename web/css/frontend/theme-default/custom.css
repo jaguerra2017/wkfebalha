@@ -33,7 +33,7 @@
 */
 /*General styles*/
 body{
-    background: rgb(255, 255, 255);
+	background: rgb(255, 255, 255);
 	font-family: "Arimo Regular";
 }
 .max-width-1920{
@@ -469,18 +469,18 @@ ul.book-right li {
 	float:right;
 }
 .page-quick-sidebar-wrapper{
-	background: rgb(255,255,255);/* changing 28,27,41 for 30,52,72 */
+	background: #1e3448; /*dtavares86 OLD: #fff*/ /* Nestor changing 28,27,41 for 30,52,72 */
 	width:100%;
 	right: -100%;
 }
 .main-menu-header{
-	background: rgb(255,255,255);
+	background: #1e3448; /*dtavares86 OLD: #fff*/
 	padding: 20px 25px;
 	display:block;
 	text-align: center;
 }
 .page-quick-sidebar-toggler>i{
-	color: rgb(100,100,100) !important;
+	color: rgb(255,255,255) !important; /*dtavares86 OLD: rgb(100,100,100)*/
 }
 .page-quick-sidebar-toggler:hover,
 .page-quick-sidebar-toggler>i:hover{
@@ -492,13 +492,13 @@ ul.book-right li {
 }
 .close-menu i{
 	font-size:18px !important;
-	color:white;
+	color:#a5a5a5/*white*/;
 }
 .close-menu i:hover{
-	color:#009dc7 !important;
+	color: #deb666 !important; /*dtavares86 OLD: rgb(30,52,72)*/
 }
 .main-menu-options-container{
-	background: rgb(255,255,255);
+	background: #1e3448; /*dtavares86 OLD: #fff*/
 	padding-top:40px;
 	padding-bottom: 40px;
 }
@@ -507,36 +507,42 @@ ul.book-right li {
 	border-bottom: 2px solid #ffffff;
 	padding-bottom: 5px;
 }
+
 .main-menu-option{
-	padding: 30px 40px;
+	padding: 30px 30px;
 }
 .main-menu-option a{
 	text-decoration: none;
 }
 .main-menu-option a:hover,
 .main-menu-selected{
-	color:#009dc7 !important;
+	color: #deb666 !important; /*dtavares86 OLD: rgb(30,52,72) */
 }
 .main-menu-option-header{
 	margin-bottom: 20px;
-	color: white;
-	font-family: "Helvetica LTStd Roman";
-	font-size: 16px;
+	color: #fff; /*dtavares86 OLD: #a5a5a5*/
+	font-family: "Arimo Bold";
+	font-size: 14px;
 	text-transform: uppercase;
 	display:block;
-	border-bottom: 2px solid #009dc7;
+	border-bottom: 2px solid #fff; /*dtavares86 OLD: #a5a5a5*/
+}
+.main-menu-option-header:hover{
+	border-bottom: 2px solid #deb666; /*dtavares86 OLD: #023147*/
 }
 .main-menu-option-item{
-	font-family: "Helvetica LTStd Roman";
-	font-size: 15px;
-	color: white;
+	font-family: "Arimo Regular";
+	font-size: 14px;
+	color: #fff; /*dtavares86 OLD: #a5a5a5*/
 	width: 100%;
 	display: block;
 	padding: 5px;
 }
+
 .page-body{
 	padding-right: 0 !important;
 	padding-left: 0 !important;
+	overflow-x: hidden;
 }
 .title{
 	color: rgb(7,49,71);
@@ -545,6 +551,25 @@ ul.book-right li {
 	font-family: "Abril Fatface Regular";
 	font-size: 50px;
 	text-align: center;
+	text-transform: uppercase;
+	margin-top: 50px;
+}
+.secundary-title{
+	font-family: "Abril Fatface Regular";
+	font-size: 28px;
+	text-align: center;
+	text-transform: uppercase;
+	margin-top: 50px;
+}
+.sub-data{
+	font-family: "Arimo Bold";
+	font-size: 16px;
+	color: rgb(100,100,100);
+}
+.third-title{
+	font-family: "Abril Fatface Regular";
+	font-size: 19px;
+	/*text-align: center;*/
 	text-transform: uppercase;
 	margin-top: 50px;
 }
@@ -582,8 +607,10 @@ ul.book-right li {
 }
 .custom-general-button{
 	background: none;
-	border: solid 1px #a5a5a5;
-	color: #a5a5a5;
+	/*border: solid 1px #a5a5a5;
+	color: #a5a5a5;*/
+	border: solid 1px rgb(7,49,71);
+	color: rgb(7,49,71);
 	text-transform: uppercase;
 	padding: 7px 20px 5px;
 	font-family: "Arimo Bold";
@@ -591,10 +618,28 @@ ul.book-right li {
 	font-size:13px;
 }
 .custom-general-button:hover{
-	background-color: rgb(7,49,71);
+	background-color: #edb761; /*dtavares86*/
+	border: solid 1px #edb761;
 	color:white;
 	/*color: #fff !important;
-	background-color: #009dc7;*/
+	background-color: #009dc7;
+	-webkit-transition: all .2s linear;
+	transition: all .2s linear;*/
+
+}
+.custom-button-yellow{
+	background: none;
+	border: solid 1px #edb761;
+	color: #edb761;
+	text-transform: uppercase;
+	padding: 7px 20px 5px;
+	font-family: "Arimo Bold";
+	width: auto !important;
+	font-size:13px;
+}
+.custom-button-yellow:hover{
+	background-color: #edb761;
+	color:white;
 
 }
 
@@ -621,18 +666,20 @@ ul.book-right li {
 	font-family: "Abril Fatface Regular";
 	font-size: 28px !important;
 	text-transform: uppercase;
+	margin-top: 50px;
+	text-align: left !important;
 }
 .news-summary{
-	margin-top: 80px;
+	margin-top: 30px;
 }
 .news-summary .generic-post-grid-container{
 	/*max-width: 400px;*/
 	margin: auto;
 }
-.summary-first .notifier-event-date,
-.summary-second .notifier-event-date,
-.summary-third .notifier-event-date,
-.summary-fourth .notifier-event-date{
+.summary-first .notifier-event-date
+	/*.summary-second .notifier-event-date,
+    .summary-third .notifier-event-date,
+    .summary-fourth .notifier-event-date*/{
 	width: auto;
 	padding-top: 15px;
 }
@@ -641,7 +688,7 @@ ul.book-right li {
 .summary-third .notifier-event-text,
 .summary-fourth .notifier-event-text{
 	text-align: center;
-	font-size: 16px;
+	font-size: 28px;
 	padding: 10px 0;
 }
 
@@ -650,10 +697,6 @@ ul.book-right li {
 .generic-post-container-222 .custom-general-button,
 .comment-form .comment-send
 {
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	color: white;
 	width: 100%;
 }
 .home-partner{
@@ -759,13 +802,13 @@ ul.book-right li {
 	margin-top:10px;
 	width: auto;
 	padding-top: 5px;
-	border-top: 1px solid white;
+	/*border-top: 1px solid white;*/
 	text-align: right;
 }
 .generic-post-container .notifier-event-text,
 .generic-post-container-222 .notifier-event-text{
 	text-align: left !important;
-	font-size: 16px;
+	font-size: 28px;
 	padding: 5px 0px;
 	height: 70px !important;
 }
@@ -781,8 +824,9 @@ ul.book-right li {
 }
 .generic-post-over{
 	width: 100%;
-	height: 100%;
-	top:0;left:0;
+	min-height: 300px;
+	top:0;
+	left:0;
 	position: absolute;
 	background:rgba(1,1,1,0.5);
 }
@@ -804,18 +848,19 @@ ul.book-right li {
 	font-size: 16px;
 }
 .single-generic-post-content-container{
-	font-size: 16px;
-	font-family: "Helvetica LTStd Roman";
-	color: white;
 	width: 100%;
 	display: block;
-	padding: 40px 5px;
+	padding: 10px 5px;
+
+	font-family: "Arimo Regular";
+	font-size: 14px;
+	color: rgb(100,100,100);
 }
 .single-generic-post-content-container blockquote{
-	color: #009dc7;
+	/*color: #009dc7;
 	padding: 10px;
 	font-family: "Play Fair Display Bold";
-	font-size: 16px;
+	font-size: 16px;*/
 }
 .block-handler-section{
 	padding:80px 15px;
@@ -971,7 +1016,7 @@ ul.book-right li {
 }
 
 .comments-section{
-	background: rgba(1,1,1,0.2);
+	background: rgb(7,49,71);
 	min-height: 400px;
 	padding: 40px 0px 60px;
 }
@@ -988,14 +1033,14 @@ h4{
 }
 .comment-form-group > input,
 .comment-form-group > textarea{
-   	border-style: none none solid;
-   	border-bottom-width: 2px;
-   	border-bottom-color: white;
-   	background: none;
+	border-style: none none solid;
+	border-bottom-width: 2px;
+	border-bottom-color: white;
+	background: none;
 	color: #eee;
 }
 /*.has-error .control-label{*/
-	/*color:#fff !important;*/
+/*color:#fff !important;*/
 /*}*/
 .has-error .form-control{
 	border-bottom-color: #F3565D;
@@ -1033,12 +1078,16 @@ h4{
 	color:white;
 }
 
-
+.page-main-footer{
+	min-height: 300px;
+	background-color: rgb(231,231,233);
+	padding: 20px 0;
+}
 .page-footer{
 	padding: 30px 10px 10px;
 }
 .footer-copyright{
-	color: white;
+	color: rgb(100,100,100);
 	font-size: 11px;
 	text-align: center;
 	min-width: 100%;
@@ -1047,10 +1096,11 @@ h4{
 }
 .jyd-link{
 	font-size: 11px;
-	color: #009dc7;
+	color: #013147;
 }
 #jyd-link:hover{
 	text-transform: none !important;
+	color: #013147 !important;;
 }
 .footer-link > a:hover{
 	text-transform: none !important;
@@ -1072,9 +1122,21 @@ h4{
 	font-size: 30px;
 	opacity: 0.6;
 }
+.generic-post-grid-feature-image-container{
+	margin-bottom:40px;
+}
+
+.btn-booking-square{
+	text-align: center !important;
+	margin-bottom: 40px;
+	margin-top: 0;
+}
+.btn-booking-square button{
+	float: none !important;
+}
 
 
-
+/*Mierda de ariel*/
 @media (max-width: 480px){
 	.ml {
 		margin-left: 15% !important;
@@ -1106,6 +1168,12 @@ h4{
 		margin-left: 20% !important;
 	}
 }
+/*--------------------------*/
+
+
+
+
+
 
 /*
 	Small devices (tablets, 768px and up)
@@ -1143,18 +1211,18 @@ h4{
 		text-align: right;
 		width: 100%;
 		display: block;
-		font-family: "Helvetica LTStd Roman";
-		font-size: 16px;
-		color: #009dc7;
+		font-family: "Arimo Italic";
+		font-size: 14px;
+		color: #013147;/*#009dc7;*/
 	}
 	.notifier-event-text{
 		text-align: right;
 		max-width: 320px;
 		display: block;
-		font-family: "Play Fair Display Bold";
-		font-size: 18px;
+		font-family: "Abril Fatface Regular";
+		font-size: 28px;
 		text-transform: uppercase;
-		color: #fff;
+		color: #013147;
 	}
 	.custom-general-button{
 		float:left;
@@ -1179,11 +1247,35 @@ h4{
 	.home-partner-over{
 		padding: 60px 60px;
 	}
+	.summary-excerpt{
+		font-family: "Arimo Regular";
+		font-size: 14px;
+		color: rgb(100,100,100);
+		width: 100%;
+		float: left;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.charge-block{
+		width: 33.33%;
+	}
+	.post-inverse-img{
+		box-shadow: -15px 15px #edb761 !important
+	}
 
 
 	.footer-copyright{
 		float:right;
 	}
+
+	/*Begin - dtavares86*/
+
+	.generic-post-grid-feature-image-container .col-md-5 {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+
+	/*End - dtavares86*/
 }
 
 
@@ -1223,12 +1315,12 @@ h4{
 		float: left;
 		width: auto;
 		padding-top: 5px;
-		border-top: 1px solid white;
+		/*border-top: 1px solid white;*/
 	}
 	.summary-first .notifier-event-text{
 		text-align: left;
 		float: left;
-		font-size: 17px;
+		font-size: 24px;
 	}
 	.summary-second img{
 		height: 250px;
@@ -1266,17 +1358,32 @@ h4{
 	}
 	.single-generic-post-feature-image-container{
 		width: 100%;
-		max-width:1280px;
-		max-height:420px;
+		/*max-width:1280px;*/
+		max-height:900px;
 		text-align:center;
 	}
 	.single-generic-post-feature-image-container > img{
 		margin:auto;
-		max-width:1280px;
+		/*max-width:1280px;*/
 		min-width: 320px;
-		max-height: 420px;
-		min-height: 105px;
+		max-height: 900px;
+		/*min-height: 105px*/
 	}
+	.charge-block{
+		width: 33.33%;
+	}
+
+
+	/*Begin - dtavares86*/
+
+	.main-menu-option{
+		width:20% ;
+	}
+
+	/*End - dtavares86*/
+
+
+
 }
 
 

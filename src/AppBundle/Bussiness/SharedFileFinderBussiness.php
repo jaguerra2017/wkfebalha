@@ -188,6 +188,7 @@ class SharedFileFinderBussiness
                 $imagineFilterSetsCollection[4]['name'] = 'list_featured_image_mini_thumbnail';
                 $imagineFilterSetsCollection[5]['name'] = 'default_theme_banner';
                 $imagineFilterSetsCollection[6]['name'] = 'single_post_featured_image';
+                $imagineFilterSetsCollection[7]['name'] = 'home_news_summary_featured_image_thumbnail';
                 $paramsCollection = array();
                 $paramsCollection['image_name'] = $parametersCollection['file_old_name'];
                 $paramsCollection['image_extension'] = $parametersCollection['file_extension'];
@@ -233,6 +234,7 @@ class SharedFileFinderBussiness
         $imagineFilterSetsCollection[4]['name'] = 'list_featured_image_mini_thumbnail';
         $imagineFilterSetsCollection[5]['name'] = 'default_theme_banner';
         $imagineFilterSetsCollection[6]['name'] = 'single_post_featured_image';
+        $imagineFilterSetsCollection[7]['name'] = 'home_news_summary_featured_image_thumbnail';
 
         foreach($imagineFilterSetsCollection as $filterSets){
             if(file_exists($this->uploadedImagesFilteredDirectory.'/'.$filterSets['name'].'/'.$parametersCollection['image_url'])){

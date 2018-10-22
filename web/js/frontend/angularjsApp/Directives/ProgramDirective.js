@@ -111,12 +111,12 @@
        '<div style="display: flex; width: 100%; margin-top: 38px" >'+
       '  <div data-ng-repeat="room in model.rooms" class="col-md-3 col-sm-4 col-xs-6">\n' +
         '<div class="thumbnail_show tumbnail_not_empty" data-ng-if="show[room.id] != null">'+
-      '    <div ' +
-      // 'href="[[model.domain]]/[[model.url_slug]]/[[currentLanguage]]/[[show[room.id].url_slug]]" ' +
+      '    <a ' +
+       'href="[[model.domain]]/[[currentLanguage]]/[[model.url_slug]]/[[show[room.id].url_slug]]" ' +
           '>' +
             '<strong>[[show[room.id].show_time]]</strong><br>' +
             '[[show[room.id].title]]' +
-          '</div>\n' +
+          '</a>\n' +
       '<div data-ng-if="(userRole == \'IS_AUTHENTICATED_ANONYMOUSLY\' || userRole == \'ROLE_TESTER\') && room.online_sale == true">' +
       '<reserve view="\'large\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
       '</div>'+

@@ -10,18 +10,15 @@
 
   /* Declaring directive functions for this module */
   angular.module('BncFrontend.reserveDirective').directive('reserve', [function () {
-
     var directiveDefinitionObject = {
       restrict: "EA",
       replace: true,
       template:
       '<div class="row"> '+
-      '<div class="col-lg-2 col-md-3 col-xs-6" data-ng-if="from == \'detail\'">' +
-      '<div class="input-group-btn">' +
-      '<button data-ng-click="showSeatModal()" data-ng-if="userRole !=\'ROLE_ADMIN\'" type="button" class="btn btn-outline btn-primary">Reservar</button>' +
+      '<div class="col-xs-12 btn-booking-square" data-ng-if="from == \'detail\' && model.showData.allowBooking" >' +
+      '<button data-ng-click="showSeatModal()" data-ng-if="userRole !=\'ROLE_ADMIN\'" type="button" class="btn custom-general-button">[[model.languageTags.button]]</button>' +
       '</div>' +
-      '</div>' +
-      '<a data-ng-if="userRole != \'ROLE_ADMIN\' && from == \'program\'" title="[[model.languageTags.button]]" data-ng-click="showSeatModal()" class="btn btn-circle-sm btn-primary"><span><i class="icon-tag"></i></span> </a>' +
+      '<a data-ng-if="userRole != \'ROLE_ADMIN\' && from == \'program\' && model.showData.allowBooking" title="[[model.languageTags.button]]" data-ng-click="showSeatModal()" class="btn btn-circle-sm btn-primary"><span><i class="icon-tag"></i></span> </a>' +
       '<div class="col-xs-12">' +
       '<div id="seats-modal-[[showid]]-[[view]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
       '<div class="modal-header">'+
