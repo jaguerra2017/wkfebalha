@@ -1,0 +1,166 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block template_name %}
+    <!--**
+     * Template Name: Página Comite Organizador
+     *
+     * -->
+{% endblock %}
+{% block title %} {{ "page_title" | trans({}, 'committee-page', app.session.get('_locale')) }} {% endblock %}
+
+{% block content %}
+    <!-- News Section -->
+    <section class="container news-section" style="padding-bottom:50px;">
+        <!-- Block linked to Tag "companias"-->
+        <h3 class="title main-title">
+            {{ "page_title" | trans({}, 'committee-page', app.session.get('_locale')) }}
+            <p class="title-separator"></p>
+        </h3>
+        <div class="container-fluid" style="padding: 60px 0px; min-height:400px;">
+            <div class="row" style="margin:0">
+                <div class="col-xs-12 text-center wow fadeInUpBig">
+                    <h3 class="title secundary-title">
+                        Alicia Alonso
+                    </h3>
+                    <span class="sub-data" style="text-transform: uppercase;">{{ "president_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}</span>
+                </div>
+            </div>
+            <div class="row wow fadeInUpBig" style="margin:0">
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "general_coordinator_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="">
+                        Heriberto Cabezas
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "scheduler_assistance_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Salvador Fernández
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "org_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Redento Morejón
+                    </span>
+                </div>
+            </div>
+            <div class="row wow fadeInUpBig" style="margin:0">
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "collaterals_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="">
+                        Mauricio Abreu
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "logistic_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Enrique Escalona
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-4 text-left ">
+                    <h3 class="title third-title">
+                        {{ "assistance_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Pedro Simón
+                    </span>
+                </div>
+            </div>
+            <div class="row wow fadeInUpBig" style="margin:0">
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "courses_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="">
+                        Miriam Vila
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "history_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Miguel Cabrera
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-4 text-left ">
+                    <h3 class="title third-title">
+                        {{ "artistic_assistance_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Ocilia Pedrera
+                    </span>
+                </div>
+            </div>
+            <div class="row wow fadeInUpBig" style="margin:0">
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "musical_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="">
+                        Giovanni Duarte
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "contract_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Dalgis Moya
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-4 text-left ">
+                    <h3 class="title third-title">
+                        {{ "international_relations_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Martha Espinosa
+                    </span>
+                </div>
+            </div>
+            <div class="row wow fadeInUpBig" style="margin:0">
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "proccess_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="">
+                        Ernesto Pérez
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-3 text-left charge-block">
+                    <h3 class="title third-title">
+                        {{ "public_relations_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Yasser Lago
+                    </span>
+                </div>
+                <div class="col-xs-12 col-md-4 text-left ">
+                    <h3 class="title third-title">
+                        {{ "general_services_charge" | trans({}, 'committee-page', app.session.get('_locale')) }}
+                    </h3>
+                    <span class="sub-data" style="font-size: 15px;">
+                        Pedro Alvarado
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </section>
+
+
+
+{% endblock %}

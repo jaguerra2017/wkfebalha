@@ -1,0 +1,41 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block template_name %}
+    <!--**
+     * Template Name: Página Programacion
+     *
+     * -->
+{% endblock %}
+{% block title %} {{ "page_title" | trans({}, 'schedule-page', app.session.get('_locale')) }} {% endblock %}
+
+{% block content %}
+    {% set role = 'ANY_ROLE' %}
+    {% if is_granted('ROLE_TESTER') %}
+        {% set role = 'ROLE_TESTER' %}
+    {% endif %}
+    {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+        {% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}
+    {% endif %}
+
+    <!-- News Section -->
+    <section class="news-section" style="padding-bottom:50px;">
+        <!-- Block linked to Tag "companias"-->
+        <h3 class="title main-title">
+            {{ "page_title" | trans({}, 'schedule-page', app.session.get('_locale')) }}
+            <p class="title-separator"></p>
+        </h3>
+        <div class="container" style="padding: 60px 0px; min-height:400px;">
+            <div class="row" style="margin:0">
+                <div class="col-xs-12 text-center wow fadeInUpBig">
+                    <program user-role="'{{ role }}'" current-language="'{{ app.session.get('_locale') }}'"></program>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </section>
+
+
+
+{% endblock %}

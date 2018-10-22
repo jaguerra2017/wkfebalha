@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="es" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>page_title</source>
+                <target>Comité Organizador</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>president_charge</source>
+                <target>Presidenta Comité Organizador</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>general_coordinator_charge</source>
+                <target>Coordinador General</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>scheduler_assistance_charge</source>
+                <target>Programación</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>org_charge</source>
+                <target>Organización</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>collaterals_charge</source>
+                <target>Prensa y Eventos Colaterales</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>logistic_charge</source>
+                <target>Logística</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>assistance_charge</source>
+                <target>Asesor</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>courses_charge</source>
+                <target>Cursos</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>history_charge</source>
+                <target>Historiador</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>artistic_assistance_charge</source>
+                <target>Coordinación Artística</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>musical_charge</source>
+                <target>Dirección Musical</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>contract_charge</source>
+                <target>Acreditación y Contratación</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>international_relations_charge</source>
+                <target>Relaciones Internacionales</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>proccess_charge</source>
+                <target>Trámites</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>public_relations_charge</source>
+                <target>Relaciones Públicas</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>general_services_charge</source>
+                <target>Servicios Generales</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

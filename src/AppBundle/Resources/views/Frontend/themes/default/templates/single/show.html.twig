@@ -1,0 +1,63 @@
+{% extends "@app_frontend_template_directory/themes/default/layout.html.twig" %}
+{% block title %} {{ "page_title" | trans({}, 'show-page', app.session.get('_locale')) }} {% endblock %}
+
+{% block content %}
+    {% set role = 'ANY_ROLE' %}
+    {% if is_granted('ROLE_TESTER') %}
+        {% set role = 'ROLE_TESTER' %}
+    {% endif %}
+    {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+        {% set role = 'IS_AUTHENTICATED_ANONYMOUSLY' %}
+    {% endif %}
+
+    <!-- News Single -->
+    <section class="news-section" style="padding-bottom:0;margin-top:50px;" data-ng-controller="showCtrller" data-ng-cloak>
+
+        <!-- Shows General Data -->
+        <div class="wow fadeInUpBig">
+            <!-- Featured Image -->
+            <div data-ng-if="model.selectedShow.have_featured_image"
+                 class="single-generic-post-feature-image-container">
+                <img class="img-responsive" src="[[model.selectedShow.featured_image_url]]">
+            </div>
+        </div>
+        <div class="container wow fadeInUpBig">
+            <h3 class="title main-title" style="font-size: 28px;">
+                [[model.selectedShow.title]]
+            </h3>
+            <p class="title-separator"></p>
+            <div class="generic-post-author">
+                <span class="notifier-event-date" style="width:100%;text-align:center;">
+                    <strong>Fecha</strong>: [[model.selectedShow.show_date]] |
+                    <strong>Hora</strong>: [[model.selectedShow.show_time]]
+                </span>
+            </div>
+
+
+            <!-- Content -->
+            <div data-ng-if="model.selectedShow.content != null"
+             class="single-generic-post-content-container"
+             data-ng-bind-html="model.selectedShow.html_filtered_content">
+            </div>
+
+            <p data-ng-if="model.selectedShow.avaiableSeats" class="title-separator"></p>
+            <div data-ng-if="model.selectedShow.avaiableSeats" class="generic-post-author">
+                <span class="notifier-event-date" style="width:100%;text-align:center;">
+                    <strong>{{ "seats_available" | trans({}, 'show-page', app.session.get('_locale')) }}</strong>: [[model.selectedShow.avaiableSeats]]
+                </span>
+            </div>
+            <reserve data-ng-if="model.selectedShow" from="'detail'" showid="model.selectedShow.id" view="'nomodal'" selectedroom="model.selectedShow.room"
+             current-language="'{{ app.session.get('_locale') }}'" user-role="'{{ role }}'"></reserve>
+        </div>
+
+        <!-- Comments section -->
+        <div data-ng-if="model.selectedShow != null" class="comments-section">
+            <comment-handler genericpostid="model.selectedShow.id"></comment-handler>
+        </div>
+
+
+    </section>
+
+
+
+{% endblock %}
