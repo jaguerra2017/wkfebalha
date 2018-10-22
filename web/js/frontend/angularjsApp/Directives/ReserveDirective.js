@@ -10,6 +10,7 @@
 
   /* Declaring directive functions for this module */
   angular.module('BncFrontend.reserveDirective').directive('reserve', [function () {
+
     var directiveDefinitionObject = {
       restrict: "EA",
       replace: true,
