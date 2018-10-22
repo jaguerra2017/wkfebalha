@@ -77,7 +77,7 @@ class ReserveBussiness
           'date'=>$show->getShowDate()->format('d/m/Y'),
           'price'=>$show->getSeatPrice(),
           'avaiableSeats'=> count($avaiableSeatsInShow),
-          'allowBooking'=> (count($avaiableSeatsInShow) > 0 && $show->getShowDate()->format('d/m/Y') > date('d/m/Y'))
+          'allowBooking'=> (count($avaiableSeatsInShow) > 0 && $show->getShowDate() > new \DateTime('now'))
       );
       $result['availability'] = $this->em->getRepository('AppBundle:ShowSeat')->getAvailabilityInfo($parametersCollection);
 

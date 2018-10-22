@@ -169,7 +169,7 @@ class ShowBussiness
                     }
                     if($this->container != null){
                         $siteDomain = $this->container->get('appbundle_site_settings')->getBncDomain();
-                        $showsCollection[$key]['url'] = $siteDomain.'/es/funciones/'.$show['url_slug_'.$parametersCollection['currentLanguage']];
+                        $showsCollection[$key]['url'] = $siteDomain.'/es/funciones/'.$show['url_slug'];
                     }
 
                     /*handling number of comments*/
@@ -222,7 +222,7 @@ class ShowBussiness
                         } else {
                             $avaiableSeatsInShow = 0;
                         }
-                        $allowBooking = ($avaiableSeatsInShow > 0 && $objShow->getShowDate()->format('d/m/Y') > date('d/m/Y'));
+                        $allowBooking = ($avaiableSeatsInShow > 0 && $objShow->getShowDate() > new \DateTime('now'));
 
                         $showsCollection[$key]['allowBooking'] = $allowBooking;
                         $showsCollection[$key]['avaiableSeats'] = $avaiableSeatsInShow;
