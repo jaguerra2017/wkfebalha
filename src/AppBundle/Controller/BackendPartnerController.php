@@ -16,7 +16,7 @@ use AppBundle\Bussiness\PartnersBussiness;
 /**
  * BACKEND - Partners controller.
  *
- * @Route("backend/socios")
+ * @Route("backend/asociados")
  */
 class BackendPartnerController extends Controller
 {
@@ -35,7 +35,8 @@ class BackendPartnerController extends Controller
             throw $this->createAccessDeniedException();
         }
         else {
-            return $this->render('@app_backend_template_directory/Partner/index.html.twig');
+            return $this->render('@app_backend_template_directory/Partner/index.html.twig',
+              array('languages'=> $this->container->getParameter('app.avaiableLanguajes')));
         }
 
     }
@@ -57,6 +58,7 @@ class BackendPartnerController extends Controller
             $em = $this->getDoctrine()->getManager();
             $parametersCollection = array();
             $parametersCollection['imagineCacheManager'] = $this->get('liip_imagine.cache.manager');
+            $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
 
             $partnersBussinessObj = new PartnersBussiness($em);
             $initialsData = $partnersBussinessObj->loadInitialsData($parametersCollection);
@@ -78,6 +80,7 @@ class BackendPartnerController extends Controller
             $parametersCollection = array();
             $parametersCollection['taxonomyTypeTreeSlug'] = 'partner-category';
             $parametersCollection['returnDataInTree'] = true;
+            $initialsData['languages'] = $this->container->getParameter('app.avaiableLanguajes');
             $initialsData['categoriesDataCollection'] = $this->container->get('appbundle_taxonomies')->getTaxonomies($parametersCollection);
 
             return new JsonResponse(array('initialsData' => $initialsData));
@@ -99,6 +102,7 @@ class BackendPartnerController extends Controller
         }
         else {
             $parametersCollection = array();
+            $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
             $parametersCollection['generalSearchValue'] = $request->get('generalSearchValue');
             $parametersCollection['singleResult'] = $request->get('singleResult');
             $parametersCollection['partnerId'] = $request->get('partnerId');
@@ -137,6 +141,7 @@ class BackendPartnerController extends Controller
                 $parametersCollection = $request->get('partnerData');
                 //print_r($parametersCollection);die;
                 $parametersCollection['isCreating'] = true;
+                $parametersCollection['currentLanguage'] = $parametersCollection['currentLanguage'] ? $parametersCollection['currentLanguage'] : $this->container->getParameter('app.default_locale');
                 $parametersCollection['loggedUser'] = $this->getUser();
 
                 $partnersBussinessObj = new PartnersBussiness($em);
@@ -167,6 +172,7 @@ class BackendPartnerController extends Controller
             $em = $this->getDoctrine()->getManager();
             $parametersCollection = $request->get('partnerData');
             $parametersCollection['isCreating'] = false;
+            $parametersCollection['currentLanguage'] = $parametersCollection['currentLanguage'] ? $parametersCollection['currentLanguage'] : $this->container->getParameter('app.default_locale');
             $parametersCollection['loggedUser'] = $this->getUser();
 
             $partnersBussinessObj = new PartnersBussiness($em);

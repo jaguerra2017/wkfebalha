@@ -1,10 +1,10 @@
-<div class="col-md-12" data-ng-if="!model.showPartnersForm">
-    <!-- BEGIN Portlet Partners-List -->
+<div class="col-md-12" data-ng-if="!model.showGuestsForm">
+    <!-- BEGIN Portlet Guests-List -->
     <div class="portlet light bordered" style="min-height: 383px;">
         <div class="portlet-title">
             <div class="caption font-dark">
                 <span class="caption-subject bold uppercase">
-                    Asociados
+                    Invitados
                 </span>
                 <span class="caption-helper">
                     Gestione los patrocinadores del BNC y sus asociados...
@@ -35,20 +35,20 @@
             <!-- Toolbar -->
             <div class="actions custom-toolbar-actions">
                 {% if canCreate %}
-                    <a class="btn btn-add [[model.canCreatePartners ? 'blue btn-blue' : '']] btn-circle btn-icon-only btn-default"
-                    data-ng-click="createPartners()">
+                    <a class="btn btn-add [[model.canCreateGuests ? 'blue btn-blue' : '']] btn-circle btn-icon-only btn-default"
+                    data-ng-click="createGuests()">
                         <i class="fa fa-plus"></i>
                     </a>
                 {% endif %}
                 {% if canDelete %}
-                <a class="btn [[model.canDeletePartners ? 'btn-danger' : '']] btn-circle btn-icon-only btn-default"
-                data-ng-click="deletePartners('all')"
+                <a class="btn [[model.canDeleteGuests ? 'btn-danger' : '']] btn-circle btn-icon-only btn-default"
+                data-ng-click="deleteGuests('all')"
                    style="margin-left:10px;">
                     <i class="icon-trash"></i>
                 </a>
                 {% endif %}
                 <a class="btn btn-circle btn-icon-only btn-default reload" style="margin-left:10px;"
-                data-ng-click="getPartners()">
+                data-ng-click="getGuests()">
                     <i class="icon-refresh"></i>
                 </a>
             </div>
@@ -61,7 +61,7 @@
                     <div class="input-icon right">
                         <i class="icon-magnifier"></i>
                         <input type="text" class="form-control form-control-solid" placeholder="Buscar..."
-                        data-ng-model="model.generalSearchValue" data-ng-keyup="searchPartners($event)"
+                        data-ng-model="model.generalSearchValue" data-ng-keyup="searchGuests($event)"
                         style="color:#2a3239;">
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     </span>
                     <div class="form-group inline m-b-xs" style="float:left;">
                         <select class="form-control input-xsmall"
-                        data-ng-model="model.partnersCurrentPageSize"
+                        data-ng-model="model.guestsCurrentPageSize"
                         data-ng-options="entrySize for entrySize in model.entriesSizesCollection"
                         data-ng-change="resetPaginationPages()">
                         </select>
@@ -84,16 +84,16 @@
                     </span>
 
                     <span style="border-left: 1px solid #eee;padding-left: 10px;">
-                        <strong>[[model.partnersCurrentResultStart]]</strong>
+                        <strong>[[model.guestsCurrentResultStart]]</strong>
                     </span>
                     <span>
                          -
                     </span>
                     <span>
-                        <strong>[[model.partnersCurrentResultLimit]]</strong>
+                        <strong>[[model.guestsCurrentResultLimit]]</strong>
                     </span>
                     <span>
-                        de <strong>[[model.partnersCollection.length]]</strong> entradas
+                        de <strong>[[model.guestsCollection.length]]</strong> entradas
                     </span>
 
                     <span style="border-left: 1px solid #eee;padding-left: 10px;">
@@ -101,13 +101,13 @@
                     </span>
                     <div class="form-group inline m-b-xs" style="float:left;">
                         <select class="form-control input-s-xs"
-                                data-ng-model="model.partnersCurrentPage"
-                                data-ng-options="page for page in model.partnersPagesCollection"
+                                data-ng-model="model.guestsCurrentPage"
+                                data-ng-options="page for page in model.guestsPagesCollection"
                                 data-ng-change="updatePaginationValues()">
                         </select>
                     </div>
                     <span>
-                        de <strong>[[model.partnersPagesCollection.length]]</strong>
+                        de <strong>[[model.guestsPagesCollection.length]]</strong>
                     </span>
                 </div>
                 <div class="col-xs-12 col-md-6 view-mode">
@@ -123,11 +123,11 @@
             </div>
             <!-- Grid List Mode -->
             <div data-ng-if="model.activeView == 'grid_list'" style="position:relative;">
-                {% include '@app_backend_template_directory/Partner/grid_list.html.twig' %}
+                {% include '@app_backend_template_directory/Guest/grid_list.html.twig' %}
             </div>
             <!-- Simple List Mode -->
             <div data-ng-if="model.activeView == 'simple_list'" class="table-scrollable table-scrollable-borderless" style="position:relative;">
-                {% include '@app_backend_template_directory/Partner/simple_list.html.twig' %}
+                {% include '@app_backend_template_directory/Guest/simple_list.html.twig' %}
             </div>
         </div>
     </div>

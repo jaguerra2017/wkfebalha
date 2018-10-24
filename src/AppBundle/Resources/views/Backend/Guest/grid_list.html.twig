@@ -1,41 +1,41 @@
 <div class="row" style="margin-top:40px;">
-    <div data-ng-repeat="partner in model.partnersCollection | limitTo : (model.partnersCurrentResultLimit - (model.partnersCurrentResultStart - 1)) : (model.partnersCurrentResultStart - 1) "
+    <div data-ng-repeat="guest in model.guestsCollection | limitTo : (model.guestsCurrentResultLimit - (model.guestsCurrentResultStart - 1)) : (model.guestsCurrentResultStart - 1) "
          class="col-xs-12 col-md-4">
         <div class="generic-post-grid-container">
             <div class="generic-post-grid-feature-image-container">
-                <img data-ng-if="partner.have_featured_image == true && partner.featured_image_url != ''"
-                     data-ng-src="[[partner.web_filtered_grid_featured_image_thumbnail_url]]">
+                <img data-ng-if="guest.have_featured_image == true && guest.featured_image_url != ''"
+                     data-ng-src="[[guest.web_filtered_grid_featured_image_thumbnail_url]]">
             </div>
 
             <span style="float:left;width:100%; color:#777;padding:10px 15px;
             border-top: 1px solid #eee;text-align:left;">
-                <span data-ng-bind="partner.post_status_name"
-                      class="label label-sm [[partner.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] pull-right">
+                <span data-ng-bind="guest.post_status_name"
+                      class="label label-sm [[guest.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] pull-right">
                 </span>
-                [[partner.title]]
+                [[guest.title]]
             </span>
 
             <div style="background-color: white; position: absolute;top: 0 !important;
             margin-top: 5px;margin-left: 5px;width: 22px; height: 22px">
-                <div class="icheckbox_square-blue hover [[partner.selected ? 'checked' : '']]"
-                     data-ng-click="selectPartners($event,partner)"
+                <div class="icheckbox_square-blue hover [[guest.selected ? 'checked' : '']]"
+                     data-ng-click="selectGuests($event,guest)"
                      style="">
                 </div>
             </div>
 
             {% if canEdit %}
-                <a data-ng-if="partner.canEdit"
+                <a data-ng-if="guest.canEdit"
                    class="btn btn-add blue btn-blue btn-circle btn-icon-only btn-default tooltips"
-                   data-ng-click="editPartners(partner)" data-container="body" data-placement="top"
+                   data-ng-click="editGuests(guest)" data-container="body" data-placement="top"
                    data-original-title="Editar publicacion"
                    style="position: absolute;top: 40px;left:15px">
                     <i class="icon-pencil"></i>
                 </a>
             {% endif %}
             {% if canDelete %}
-                <a data-ng-if="partner.canDelete"
+                <a data-ng-if="guest.canDelete"
                    class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
-                   data-ng-click="deletePartners(partner.id)"
+                   data-ng-click="deleteGuests(guest.id)"
                    data-container="body" data-placement="top"
                    data-original-title="Eliminar publicacion"
                    style="position: absolute;top: 80px;left:15px">
@@ -48,7 +48,7 @@
 
 
 <!-- Message when isn't data to show -->
-<div data-ng-show="model.partnersCollection.length == 0">
+<div data-ng-show="model.guestsCollection.length == 0">
     {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
 </div>
 

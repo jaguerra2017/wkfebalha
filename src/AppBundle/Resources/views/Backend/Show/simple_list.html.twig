@@ -14,6 +14,12 @@
         <th class="table-header">
             Título
         </th>
+        <th class="table-header">
+            Fecha
+        </th>
+        <th class="table-header">
+            Sala
+        </th>
         <th class="table-header" width="120">
             Status
         </th>
@@ -42,6 +48,8 @@
             </div>
         </td>
         <td class="cursor-pointer" data-ng-click="selectShows($event,show)" data-ng-bind="show.title"></td>
+        <td class="cursor-pointer" data-ng-click="selectShows($event,show)" data-ng-bind="show.show_date"></td>
+        <td class="cursor-pointer" data-ng-click="selectShows($event,show)" data-ng-bind="show.room_title"></td>
         <td class="cursor-pointer" data-ng-click="selectShows($event,show)">
             <span data-ng-bind="show.post_status_name"
             class="label label-sm [[show.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] ">

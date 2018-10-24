@@ -137,12 +137,14 @@ class BookingBussiness
                       $objBooking = $objBooking[0];
                       $bookingSeats = array();
                       $bookingsCollection[$key]['clientData'] = $objBooking->getClientData();
+                      $bookingsCollection[$key]['transaction'] = $objBooking->getTransaction();
                       $bookingsCollection[$key]['date'] = $objBooking->getBookingDate()->format('d/m/Y');
                       $bookingsCollection[$key]['time'] = $objBooking->getBookingDate()->format('h:i a');
                       $bookingsCollection[$key]['amount'] = $objBooking->getTotalAmount();
                       $bookingsCollection[$key]['show'] = $objBooking->getShow()->getTitle();
                       $show = $this->em->getRepository('AppBundle:Show')->find($objBooking->getShow());
                       $bookingsCollection[$key]['hall'] = $show->getRoom()->getTitle();
+                      $bookingsCollection[$key]['showDate'] = $show->getShowDate()->format('d/m/Y');
                       $status = $this->em->getRepository('AppBundle:Nomenclature')->find($objBooking->getStatus());
                       $bookingsCollection[$key]['status'] = $status->getName();
                       $showSeats = $this->em->getRepository('AppBundle:ShowSeat')->findBy(array('booking'=>$objGenericPost));

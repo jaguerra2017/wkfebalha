@@ -1,5 +1,5 @@
-<div class="col-md-12"  data-ng-show="model.showPartnersForm">
-    <!-- BEGIN Portlet Partners-CRUD -->
+<div class="col-md-12"  data-ng-show="model.showGuestsForm">
+    <!-- BEGIN Portlet Guests-CRUD -->
     <div class="portlet light bordered" style="position:relative;">
         <div class="portlet-title">
             <div class="caption font-dark">
@@ -9,19 +9,19 @@
             </div>
             <!-- Toolbar -->
             <div class="actions custom-toolbar-actions">
-                <button class="btn default btn-footer width-auto-important" type="button" data-ng-click="hidePartnersForm()">
+                <button class="btn default btn-footer width-auto-important" type="button" data-ng-click="hideGuestsForm()">
                     Cancelar
                 </button>
                 <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer width-auto-important"
-                        type="submit" data-ng-click="savePartnersData('stay')">
+                        type="submit" data-ng-click="saveGuestsData('stay')">
                     Guardar
                 </button>
                 <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer width-auto-important"
-                        type="submit" data-ng-click="savePartnersData('clear')">
+                        type="submit" data-ng-click="saveGuestsData('clear')">
                     Guardar y limpiar
                 </button>
                 <button class="btn blue btn-blue btn-footer width-auto-important" type="submit"
-                        data-ng-click="savePartnersData('close')">
+                        data-ng-click="saveGuestsData('close')">
                     Guardar y cerrar
                 </button>
                 <div class="input-group" style="width: 75px">
@@ -50,22 +50,22 @@
             <form class="horizontal-form">
                 <div class="form-body">
                     <div class="tabbable-line">
-                        <!-- Partner sections -->
+                        <!-- Guest sections -->
                         <ul class="nav nav-tabs">
                             <li class="[[model.formActiveView == 'general-info' ? 'active' : '']]">
-                                <a href="#partner_general_data" data-toggle="tab"
+                                <a href="#guest_general_data" data-toggle="tab"
                                    data-ng-click="updateFormSection('general-info')">
                                     Datos generales
                                 </a>
                             </li>
                             <li class="[[model.formActiveView == 'blocks' ? 'active' : '']]">
-                                <a href="#partner_blocks" data-toggle="tab"
+                                <a href="#guest_blocks" data-toggle="tab"
                                    data-ng-click="updateFormSection('blocks')">
                                     Bloques
                                 </a>
                             </li>
                             <li class="[[model.formActiveView == 'comments' ? 'active' : '']]">
-                                <a href="#partner_comments" data-toggle="tab"
+                                <a href="#guest_comments" data-toggle="tab"
                                    data-ng-click="updateFormSection('comments')">
                                     Comentarios
                                 </a>
@@ -76,30 +76,30 @@
                     <div class="sub-tab-container">
                         <div class="tab-content">
                             <!-- General info -->
-                            {% include '@app_backend_template_directory/Partner/crud_form_general_info.html.twig' %}
+                            {% include '@app_backend_template_directory/Guest/crud_form_general_info.html.twig' %}
                             <!-- Blocks -->
-                            {% include '@app_backend_template_directory/Partner/crud_form_blocks.html.twig' %}
+                            {% include '@app_backend_template_directory/Guest/crud_form_blocks.html.twig' %}
                             <!-- Comments -->
-                            {% include '@app_backend_template_directory/Partner/crud_form_comments.html.twig' %}
+                            {% include '@app_backend_template_directory/Guest/crud_form_comments.html.twig' %}
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-xs-12 col-md-offset-4 col-md-8">
-                            <button class="btn default btn-footer" type="button" data-ng-click="hidePartnersForm()">
+                            <button class="btn default btn-footer" type="button" data-ng-click="hideGuestsForm()">
                                 Cancelar
                             </button>
                             <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer"
-                                    type="submit" data-ng-click="savePartnersData('stay')">
+                                    type="submit" data-ng-click="saveGuestsData('stay')">
                                 Guardar
                             </button>
                             <button data-ng-if="model.createAction" class="btn blue btn-blue btn-footer"
-                                    type="submit" data-ng-click="savePartnersData('clear')">
+                                    type="submit" data-ng-click="saveGuestsData('clear')">
                                 Guardar y limpiar
                             </button>
                             <button class="btn blue btn-blue btn-footer" type="submit"
-                                    data-ng-click="savePartnersData('close')">
+                                    data-ng-click="saveGuestsData('close')">
                                 Guardar y cerrar
                             </button>
                         </div>

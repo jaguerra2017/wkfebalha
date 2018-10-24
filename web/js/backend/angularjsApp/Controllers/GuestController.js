@@ -1,16 +1,16 @@
 /*
- * File for handling controllers for Backend Partners Feature
+ * File for handling controllers for Backend Guests Feature
  * */
 
 (function () {
     'use strict';
 
     /* Declare app level module which depends on views, and components */
-    angular.module('BncBackend.partnersController', ['BncBackend.partnersFactory']);
+    angular.module('BncBackend.guestsController', ['BncBackend.guestsFactory']);
 
 
-    /* Controller for handling Partners functions */
-    function partnersCtrller($scope, $filter, partnersFact){
+    /* Controller for handling Guests functions */
+    function guestsCtrller($scope, $filter, guestsFact){
 
         /*
          * Global variables
@@ -26,16 +26,16 @@
          * 
          * */
         /* clear errors of the form */
-        $scope.clearErrorsPartnersForm = function(){
+        $scope.clearErrorsGuestsForm = function(){
             $scope.model.titleHasError = false;
             $scope.model.urlSlugHasError = false;
             $scope.model.publishedDateHasError = false;
         }
         
         /* clear form values */
-        $scope.clearPartnersForm = function(){
+        $scope.clearGuestsForm = function(){
             $scope.model.formActiveView = 'general-info';
-            $scope.model.selectedPartner = {};
+            $scope.model.selectedGuest = {};
             $scope.model.featureImage = {};
             $scope.model.selectedCategoriesCollection = null;
             $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
@@ -43,26 +43,26 @@
 
         }
         
-        /* create partners */
-        $scope.createPartners = function()
+        /* create guests */
+        $scope.createGuests = function()
         {
-            if($scope.model.canCreatePartners == true)
+            if($scope.model.canCreateGuests == true)
             {
                 $scope.model.createAction = true;
-                $scope.clearPartnersForm();
+                $scope.clearGuestsForm();
                 $scope.model.formActiveView = 'general-info';
-                $scope.showPartnersForm();
+                $scope.showGuestsForm();
             }
         }
 
         function checkPublishedDate(){
             var proceed = true;
-            if($scope.model.selectedPartner.published_date != null){
-                if(!dateRegExpress.test($scope.model.selectedPartner.published_date)){
+            if($scope.model.selectedGuest.published_date != null){
+                if(!dateRegExpress.test($scope.model.selectedGuest.published_date)){
                     proceed = false;
                 }
                 else{
-                    var publishedDate = $scope.model.selectedPartner.published_date;
+                    var publishedDate = $scope.model.selectedGuest.published_date;
                     var publishedDateCollection = publishedDate.split('/');
                     if(publishedDateCollection.length == 3){
                         var currentDate = new Date();
@@ -76,11 +76,11 @@
             return proceed;
         }
 
-        /* delete partners */
-        $scope.deletePartners = function(partners_id)
+        /* delete guests */
+        $scope.deleteGuests = function(guests_id)
         {
             var proceed = true;
-            if(typeof partners_id == 'string' && !$scope.model.canDeletePartners){
+            if(typeof guests_id == 'string' && !$scope.model.canDeleteGuests){
                 proceed = false;
             }
             if(proceed){
@@ -100,62 +100,62 @@
                         if (isConfirm)
                         {
                             $scope.model.createAction = false;
-                            var partnersIdCollection = [];
-                            if(typeof partners_id == 'string'){
-                                if($scope.model.partnersCollection.length > 0){
-                                    for(var i=0; i<$scope.model.partnersCollection.length; i++){
-                                        if($scope.model.partnersCollection[i].selected != undefined &&
-                                            $scope.model.partnersCollection[i].selected == true)
+                            var guestsIdCollection = [];
+                            if(typeof guests_id == 'string'){
+                                if($scope.model.guestsCollection.length > 0){
+                                    for(var i=0; i<$scope.model.guestsCollection.length; i++){
+                                        if($scope.model.guestsCollection[i].selected != undefined &&
+                                            $scope.model.guestsCollection[i].selected == true)
                                         {
-                                            partnersIdCollection.push($scope.model.partnersCollection[i].id);
+                                            guestsIdCollection.push($scope.model.guestsCollection[i].id);
                                         }
                                     }
                                 }
                             }
                             else{
-                                partnersIdCollection.push(partners_id);
+                                guestsIdCollection.push(guests_id);
                             }
                             var data = {
-                                partnersId: partnersIdCollection
+                                guestsId: guestsIdCollection
                             };
-                            partnersFact.deletePartners($scope, data);
+                            guestsFact.deleteGuests($scope, data);
                         }
                     });
             }
         }
 
-        /* edit partners */
-        $scope.editPartners = function(partner)
+        /* edit guests */
+        $scope.editGuests = function(guest)
         {
             $scope.model.createAction = false;
-            $scope.clearPartnersForm();
-            $scope.clearPartnersForm();
-            $scope.model.selectedPartner = partner;
-            $scope.showPartnersForm();
+            $scope.clearGuestsForm();
+            $scope.clearGuestsForm();
+            $scope.model.selectedGuest = guest;
+            $scope.showGuestsForm();
         }
 
-        /* change the view mode of the partners data */
+        /* change the view mode of the guests data */
         $scope.changeViewMode = function(option)
         {
-            $scope.model.partnersCollection = [];
+            $scope.model.guestsCollection = [];
             $scope.model.activeView = option;
-            $scope.getPartners();
+            $scope.getGuests();
         }
 
-        /* get the Partners Collection */
-        $scope.getPartners = function()
+        /* get the Guests Collection */
+        $scope.getGuests = function()
         {
             $scope.toggleDataLoader();
             var searchParametersCollection = {};
             searchParametersCollection.currentLanguage = $scope.model.selectedLanguage.value;
             if($scope.model.generalSearchValue != null){
                 if(alfaNumericRegExpr.test($scope.model.generalSearchValue) &&
-                $scope.model.showPartnersForm == false){
+                $scope.model.showGuestsForm == false){
                     searchParametersCollection.generalSearchValue = $scope.model.generalSearchValue;
                 }
             }
-            partnersFact.getPartnersData($scope,searchParametersCollection, function(response){
-                    $scope.model.partnersCollection = response.data.partnersDataCollection;
+            guestsFact.getGuestsData($scope,searchParametersCollection, function(response){
+                    $scope.model.guestCollection = response.data.guestCollection;
                     $scope.updatePaginationValues();
                     $scope.toggleDataLoader();
                 },
@@ -187,27 +187,27 @@
         {
             /* when option is 'disable' */
             if(option == 'disable'){
-                $scope.model.canCreatePartners = false;
-                $scope.model.canEditPartners = false;
-                $scope.model.canDeletePartners = false;
+                $scope.model.canCreateGuests = false;
+                $scope.model.canEditGuests = false;
+                $scope.model.canDeleteGuests = false;
             }
             else{/* else if 'reset'*/
-                $scope.model.canCreatePartners = true;
-                $scope.model.canEditPartners = false;
-                $scope.model.canDeletePartners = false;
-                $scope.model.allPartnersSelected = false;
-                $scope.model.selectedPartner = null;
+                $scope.model.canCreateGuests = true;
+                $scope.model.canEditGuests = false;
+                $scope.model.canDeleteGuests = false;
+                $scope.model.allGuestsSelected = false;
+                $scope.model.selectedGuest = null;
             }
 
         }
 
         /* Hide the CRUD form */
-        $scope.hidePartnersForm = function()
+        $scope.hideGuestsForm = function()
         {
-            $scope.model.showPartnersForm = false;
+            $scope.model.showGuestsForm = false;
             $scope.model.formActiveView = 'general-info';
             $scope.handleCrudOperations('reset');
-            $scope.getPartners();
+            $scope.getGuests();
 
             $scope.goToTop();
         }
@@ -215,38 +215,38 @@
         /* reset the page size to default value 1 */
         $scope.resetPaginationPages = function()
         {
-            $scope.model.partnersCurrentPage = 1;
-            $scope.model.partnersPagesCollection = [];
-            $scope.model.partnersPagesCollection.push(1);
-            $scope.model.partnersCurrentResultStart = 0;
-            $scope.model.partnersCurrentResultLimit = 0;
+            $scope.model.guestsCurrentPage = 1;
+            $scope.model.guestsPagesCollection = [];
+            $scope.model.guestsPagesCollection.push(1);
+            $scope.model.guestsCurrentResultStart = 0;
+            $scope.model.guestsCurrentResultLimit = 0;
 
             $scope.updatePaginationValues();
         }
         
-        /* save partners data */
-        $scope.savePartnersData = function(option)
+        /* save guests data */
+        $scope.saveGuestsData = function(option)
         {
             if($scope.model.processingData == false){
                 $scope.model.processingData = true;
                 $scope.toggleDataLoader();
                 var canProceed = true;
-                $scope.clearErrorsPartnersForm();
+                $scope.clearErrorsGuestsForm();
 
-                if($scope.model.selectedPartner.title == null ||
-                !alfaNumericRegExpr.test($scope.model.selectedPartner.title) ||
-                $scope.model.selectedPartner.url_slug == null ||
-                !alfaNumericRegExpr.test($scope.model.selectedPartner.url_slug) ||
+                if($scope.model.selectedGuest.title == null ||
+                !alfaNumericRegExpr.test($scope.model.selectedGuest.title) ||
+                $scope.model.selectedGuest.url_slug == null ||
+                !alfaNumericRegExpr.test($scope.model.selectedGuest.url_slug) ||
                 !checkPublishedDate()){
                     canProceed = false;
 
-                    if($scope.model.selectedPartner.title == null ||
-                        !alfaNumericRegExpr.test($scope.model.selectedPartner.title)){
+                    if($scope.model.selectedGuest.title == null ||
+                        !alfaNumericRegExpr.test($scope.model.selectedGuest.title)){
                         $scope.model.titleHasError = true;
                     }
 
-                    if($scope.model.selectedPartner.url_slug == null ||
-                        !alfaNumericRegExpr.test($scope.model.selectedPartner.url_slug)){
+                    if($scope.model.selectedGuest.url_slug == null ||
+                        !alfaNumericRegExpr.test($scope.model.selectedGuest.url_slug)){
                         $scope.model.urlSlugHasError = true;
                     }
 
@@ -256,25 +256,25 @@
                 }
 
                 if(canProceed){
-                    $scope.model.selectedPartner.content = $('#textEditor').code();
+                    $scope.model.selectedGuest.content = $('#textEditor').code();
                     if($scope.model.selectedPostStatus != null){
-                        $scope.model.selectedPartner.post_status_id = $scope.model.selectedPostStatus.id;
+                        $scope.model.selectedGuest.post_status_id = $scope.model.selectedPostStatus.id;
                     }
                     if($scope.model.featureImage != null){
-                        $scope.model.selectedPartner.featured_image_id = $scope.model.featureImage.id;
+                        $scope.model.selectedGuest.featured_image_id = $scope.model.featureImage.id;
                     }
                     if($scope.model.selectedCategoriesCollection != null &&
                     $scope.model.selectedCategoriesCollection.length > 0){
-                        $scope.model.selectedPartner.selected_categories_id = [];
+                        $scope.model.selectedGuest.selected_categories_id = [];
                         for(var i=0;i<$scope.model.selectedCategoriesCollection.length;i++){
-                            $scope.model.selectedPartner.selected_categories_id.push($scope.model.selectedCategoriesCollection[i].id)
+                            $scope.model.selectedGuest.selected_categories_id.push($scope.model.selectedCategoriesCollection[i].id)
                         }
                     }
-                     $scope.model.selectedPartner.currentLanguage = $scope.model.selectedLanguage.value;
-                     var partnersData = {partnerData: $scope.model.selectedPartner};
+                     $scope.model.selectedGuest.currentLanguage = $scope.model.selectedLanguage.value;
+                     var guestsData = {guestData: $scope.model.selectedGuest};
                      var action = $scope.model.createAction == true ? 'create' : 'edit';
 
-                     partnersFact.savePartnersData($scope, partnersData, option, action);
+                     guestsFact.saveGuestsData($scope, guestsData, option, action);
                 }
                 else{
                     $scope.model.processingData = false;
@@ -286,132 +286,132 @@
             }
         }
 
-        /* search Partners through Search Input Field */
-        $scope.searchPartners = function($event)
+        /* search Guests through Search Input Field */
+        $scope.searchGuests = function($event)
         {
             /*when ENTER key are press OR input value are empty */
             if(($event.keyCode == 13 && alfaNumericRegExpr.test($scope.model.generalSearchValue)) 
                || !alfaNumericRegExpr.test($scope.model.generalSearchValue)){
-                $scope.getPartners();
+                $scope.getGuests();
             }/*when ESCAPE key are press*/
             else if($event.keyCode == 27){
                 $scope.model.generalSearchValue = null;
-                $scope.getPartners();
+                $scope.getGuests();
             }
         }
 
-        /* selecting/deselecting all partners */
-        $scope.selectAllPartners = function(event){
+        /* selecting/deselecting all guests */
+        $scope.selectAllGuests = function(event){
             var canDeleteAll = true;
-            $scope.model.allPartnersSelected = !$scope.model.allPartnersSelected;
-            if(!$scope.model.allPartnersSelected){
+            $scope.model.allGuestsSelected = !$scope.model.allGuestsSelected;
+            if(!$scope.model.allGuestsSelected){
                 canDeleteAll = false;
             }
-            for(var i= 0; i<$scope.model.partnersCollection.length; i++){
-                $scope.model.partnersCollection[i].selected = $scope.model.allPartnersSelected;
-                if($scope.model.allPartnersSelected == true && $scope.model.partnersCollection[i].canDelete == 0){
+            for(var i= 0; i<$scope.model.guestsCollection.length; i++){
+                $scope.model.guestsCollection[i].selected = $scope.model.allGuestsSelected;
+                if($scope.model.allGuestsSelected == true && $scope.model.guestsCollection[i].canDelete == 0){
                     canDeleteAll = false;
                 }
             }
 
-            $scope.model.canDeletePartners = canDeleteAll;
+            $scope.model.canDeleteGuests = canDeleteAll;
         }
 
-        /*selecting/deselecting partners */
-        $scope.selectPartners= function(event,partners){
+        /*selecting/deselecting guests */
+        $scope.selectGuests= function(event,guests){
             var canDeleteAll = true;
             var canEditAll = true;
-            var totalPartnersSelected = 1;
-            partners.selected = !partners.selected;
-            if($scope.model.partnersCollection.length == 1){
-                if(partners.selected == false){
+            var totalGuestsSelected = 1;
+            guests.selected = !guests.selected;
+            if($scope.model.guestsCollection.length == 1){
+                if(guests.selected == false){
                     canDeleteAll = false;
                     canEditAll = false;
-                    totalPartnersSelected = 0;
+                    totalGuestsSelected = 0;
                 }
-                if(partners.canDelete == 0){
+                if(guests.canDelete == 0){
                     canDeleteAll = false;
                 }
-                if(partners.canDelete == 0){
+                if(guests.canDelete == 0){
                     canEditAll = false;
                 }
             }
-            else if($scope.model.partnersCollection.length > 1){
-                totalPartnersSelected = 0;
-                for(var i=0; i<$scope.model.partnersCollection.length; i++){
-                    var partners = $scope.model.partnersCollection[i];
-                    if(partners.selected == true){
-                        totalPartnersSelected++;
-                        if(partners.canDelete == 0){
+            else if($scope.model.guestsCollection.length > 1){
+                totalGuestsSelected = 0;
+                for(var i=0; i<$scope.model.guestsCollection.length; i++){
+                    var guests = $scope.model.guestsCollection[i];
+                    if(guests.selected == true){
+                        totalGuestsSelected++;
+                        if(guests.canDelete == 0){
                             canDeleteAll = false;
                         }
-                        if(partners.canEdit == 0){
+                        if(guests.canEdit == 0){
                             canEditAll = false;
                         }
                     }
                 }
             }
 
-            if(totalPartnersSelected > 0)
+            if(totalGuestsSelected > 0)
             {
                 if(canDeleteAll == true){
-                    $scope.model.canDeletePartners = true;
-                    if(totalPartnersSelected == $scope.model.partnersCollection.length){
-                        $scope.model.allPartnersSelected = true;
+                    $scope.model.canDeleteGuests = true;
+                    if(totalGuestsSelected == $scope.model.guestsCollection.length){
+                        $scope.model.allGuestsSelected = true;
                     }
                     else{
-                        $scope.model.allPartnersSelected = false;
+                        $scope.model.allGuestsSelected = false;
                     }
                 }
-                if(totalPartnersSelected == 1 && canEditAll == true){
-                    $scope.model.canEditPartners = true;
+                if(totalGuestsSelected == 1 && canEditAll == true){
+                    $scope.model.canEditGuests = true;
                 }
                 else{
-                    $scope.model.canEditPartners = false;
+                    $scope.model.canEditGuests = false;
                 }
             }
             else{
-                $scope.model.canEditPartners = false;
-                $scope.model.canDeletePartners = false;
-                $scope.model.allPartnersSelected = false;
+                $scope.model.canEditGuests = false;
+                $scope.model.canDeleteGuests = false;
+                $scope.model.allGuestsSelected = false;
             }
         }
 
-        /* show the form to Create/Edit Partners */
-        $scope.showPartnersForm = function()
+        /* show the form to Create/Edit Guests */
+        $scope.showGuestsForm = function()
         {
             $scope.handleCrudOperations('disable');
             if($scope.model.createAction){
-                $scope.model.showPartnersForm = true;
+                $scope.model.showGuestsForm = true;
                 $scope.goToTop();
             }
             else{
-                $scope.model.showPartnersForm = true;
+                $scope.model.showGuestsForm = true;
                 $scope.goToTop();
                 $scope.toggleDataLoader();
                 var searchParametersCollection = {
                     singleResult : true,
-                    partnerId : $scope.model.selectedPartner.id
+                    guestId : $scope.model.selectedGuest.id
                 };
                 searchParametersCollection.currentLanguage = $scope.model.selectedLanguage.value;
-                partnersFact.getPartnersData($scope, searchParametersCollection, function(response){
+                guestsFact.getGuestsData($scope, searchParametersCollection, function(response){
                     $scope.toggleDataLoader();
-                    $scope.model.selectedPartner = response.data.partnerData;
-                    $scope.model.selectedCategoriesCollection = $scope.model.selectedPartner.categoriesCollection;
+                    $scope.model.selectedGuest = response.data.guestData;
+                    $scope.model.selectedCategoriesCollection = $scope.model.selectedGuest.categoriesCollection;
                     if($scope.model.postStatusCollection.length > 0){
                         for(var i=0; i<$scope.model.postStatusCollection.length; i++){
-                            if($scope.model.postStatusCollection[i].id == $scope.model.selectedPartner.post_status_id){
+                            if($scope.model.postStatusCollection[i].id == $scope.model.selectedGuest.post_status_id){
                                 $scope.model.selectedPostStatus = $scope.model.postStatusCollection[i];
                             }
                         }
                     }
-                    if($scope.model.selectedPartner.have_featured_image == true){
+                    if($scope.model.selectedGuest.have_featured_image == true){
                         $scope.model.featureImage = {
-                            url : $scope.model.selectedPartner.featured_image_url,
-                            id : $scope.model.selectedPartner.featured_image_id
+                            url : $scope.model.selectedGuest.featured_image_url,
+                            id : $scope.model.selectedGuest.featured_image_id
                         }
                     }
-                    $('#textEditor').code($scope.model.selectedPartner.content);
+                    $('#textEditor').code($scope.model.selectedGuest.content);
 
                 });
             }
@@ -421,11 +421,11 @@
             $scope.model.selectedLanguage = language;
             switch (from) {
               case 'list':
-                $scope.model.partnersCollection = [];
-                $scope.getPartners();
+                $scope.model.guestCollection = [];
+                $scope.getGuests();
                 break;
               case 'form':
-                $scope.showPartnersForm();
+                $scope.showGuestsForm();
                 break;
             }
           }
@@ -488,8 +488,8 @@
                 });
 
 
-                if(suffix == 'partners-type'){
-                    $('#partners-types-modal-selector').modal('hide');
+                if(suffix == 'guests-type'){
+                    $('#guests-types-modal-selector').modal('hide');
                 }
             }
 
@@ -497,28 +497,28 @@
 
         /* update values of the pagination options */
         $scope.updatePaginationValues = function(){
-            $scope.model.partnersCurrentResultStart = 0;
-            $scope.model.partnersCurrentResultLimit = 0;
-            $scope.model.partnersCurrentPage = ($scope.model.partnersCurrentPage*1);
-            $scope.model.partnersCurrentPageSize = ($scope.model.partnersCurrentPageSize*1);
+            $scope.model.guestsCurrentResultStart = 0;
+            $scope.model.guestsCurrentResultLimit = 0;
+            $scope.model.guestsCurrentPage = ($scope.model.guestsCurrentPage*1);
+            $scope.model.guestsCurrentPageSize = ($scope.model.guestsCurrentPageSize*1);
 
-            if($scope.model.partnersCollection.length > 0){
-                $scope.model.partnersCurrentResultStart = ($scope.model.partnersCurrentPage - 1) * $scope.model.partnersCurrentPageSize + 1;
-                $scope.model.partnersCurrentResultLimit = ($scope.model.partnersCurrentPageSize * $scope.model.partnersCurrentPage);
-                if($scope.model.partnersCollection.length < ($scope.model.partnersCurrentPageSize * $scope.model.partnersCurrentPage)){
+            if($scope.model.guestsCollection.length > 0){
+                $scope.model.guestsCurrentResultStart = ($scope.model.guestsCurrentPage - 1) * $scope.model.guestsCurrentPageSize + 1;
+                $scope.model.guestsCurrentResultLimit = ($scope.model.guestsCurrentPageSize * $scope.model.guestsCurrentPage);
+                if($scope.model.guestsCollection.length < ($scope.model.guestsCurrentPageSize * $scope.model.guestsCurrentPage)){
 
-                    $scope.model.partnersCurrentResultLimit = $scope.model.partnersCollection.length;
+                    $scope.model.guestsCurrentResultLimit = $scope.model.guestsCollection.length;
                 }
 
-                var totalPages = Math.ceil($scope.model.partnersCollection.length / $scope.model.partnersCurrentPageSize);
-                $scope.model.partnersPagesCollection = [];
+                var totalPages = Math.ceil($scope.model.guestsCollection.length / $scope.model.guestsCurrentPageSize);
+                $scope.model.guestsPagesCollection = [];
                 if(totalPages > 0){
                     for(var i=1; i<=totalPages; i++){
-                        $scope.model.partnersPagesCollection.push(i);
+                        $scope.model.guestsPagesCollection.push(i);
                     }
                 }
                 else{
-                    $scope.model.partnersPagesCollection.push(1);
+                    $scope.model.guestsPagesCollection.push(1);
                 }
             }
 
@@ -526,26 +526,26 @@
         }
 
         /* handle key events triggered from input events in the CRUD form */
-        $scope.updatePartnersForm = function(event, field, element)
+        $scope.updateGuestsForm = function(event, field, element)
         {
             switch(field){
                 case 'title':
-                    if($scope.model.selectedPartner.title != null &&
-                        alfaNumericRegExpr.test($scope.model.selectedPartner.title)){
-                        $scope.model.selectedPartner.url_slug = slugify($scope.model.selectedPartner.title);
+                    if($scope.model.selectedGuest.title != null &&
+                        alfaNumericRegExpr.test($scope.model.selectedGuest.title)){
+                        $scope.model.selectedGuest.url_slug = slugify($scope.model.selectedGuest.title);
                     }
                     else{
-                        $scope.model.selectedPartner.url_slug = null;
+                        $scope.model.selectedGuest.url_slug = null;
                     }
                     break;
                 case 'status':
                     $scope.model.selectedPostStatus = element;
                     if(element != undefined && element.tree_slug == 'generic-post-status-published'){
 
-                        $scope.model.selectedPartner.published_date = dateFilter(new Date(), 'dd/MM/yyyy');
+                        $scope.model.selectedGuest.published_date = dateFilter(new Date(), 'dd/MM/yyyy');
                     }
                     else{
-                            $scope.model.selectedPartner.published_date = null;
+                            $scope.model.selectedGuest.published_date = null;
                             $scope.model.publishedDateHasError = false;
                         }
                     break;
@@ -566,35 +566,36 @@
             $scope.success = false;
             $scope.error = false;
             /*list view variables*/
-            $scope.model.partnersCollection = [];
-            $scope.model.partnersSelectedCounter = 0;
+            $scope.model.guestsCollection = [];
+            $scope.model.guestsSelectedCounter = 0;
             $scope.model.generalSearchValue = null;
             $scope.model.activeView = 'simple_list';
             /*pagination*/
             $scope.model.entriesSizesCollection = [];
             $scope.model.entriesSizesCollection = [5,10,20,50,100,150,200];
-            $scope.model.partnersCurrentPageSize = 20;
-            $scope.model.partnersCurrentPage = 1;
-            $scope.model.partnersPagesCollection = [];
-            $scope.model.partnersPagesCollection.push(1);
-            $scope.model.partnersCurrentResultStart = 0;
-            $scope.model.partnersCurrentResultLimit = 0;
+            $scope.model.guestsCurrentPageSize = 20;
+            $scope.model.guestsCurrentPage = 1;
+            $scope.model.guestsPagesCollection = [];
+            $scope.model.guestsPagesCollection.push(1);
+            $scope.model.guestsCurrentResultStart = 0;
+            $scope.model.guestsCurrentResultLimit = 0;
             /*form view variables*/
             $scope.model.createAction = null;
             $scope.model.bncDomain = '';
             $scope.model.formActiveView = 'general-info';
-            $scope.model.allPartnersSelected = false;
+            $scope.model.allGuestsSelected = false;
             $scope.model.loadingData = false;
-            $scope.model.showPartnersForm = false;
+            $scope.model.showGuestsForm = false;
             $scope.model.processingData = false;
             $scope.model.featureImage = {};
             $scope.model.postStatusCollection = [];
             $scope.model.selectedCategoriesCollection = null;
-            $scope.model.selectedPartner = null;
+            $scope.model.selectedGuest = null;
 
-            $scope.clearPartnersForm();
-            partnersFact.loadInitialsData($scope, function(response){
-                $scope.model.partnersCollection = response.data.initialsData.partnersDataCollection;
+            $scope.clearGuestsForm();
+            guestsFact.loadInitialsData($scope, function(response){
+
+                $scope.model.guestsCollection = response.data.initialsData.guestDataCollection;
                 $scope.model.postStatusCollection = response.data.initialsData.postStatusDataCollection;
                 if($scope.model.postStatusCollection.length > 0){
                     $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
@@ -605,13 +606,14 @@
                 if($scope.model.bncDomain == null || ($scope.model.bncDomain != null && $scope.model.bncDomain.length == 0)){
                     $scope.model.bncDomain = '(www.tudominio.com)';
                 }
-                var showPartnersForm = response.data.initialsData.showPartnersForm;
+                var showGuestsForm = response.data.initialsData.showGuestsForm;
+
 
                     $scope.updatePaginationValues();
-                    $scope.clearErrorsPartnersForm();
+                    $scope.clearErrorsGuestsForm();
 
-                if(showPartnersForm == true){
-                        $scope.createPartners();
+                if(showGuestsForm == true){
+                        $scope.createGuests();
                     }
             },
             function(response){
@@ -633,5 +635,5 @@
 
 
     /* Declaring controllers functions for this module */
-    angular.module('BncBackend.partnersController').controller('partnersCtrller',partnersCtrller);
+    angular.module('BncBackend.guestsController').controller('guestsCtrller',guestsCtrller);
 })();

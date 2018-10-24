@@ -41,7 +41,7 @@
                 <img data-ng-src="[[partner.web_filtered_list_featured_image_mini_thumbnail_url]]">
             </div>
         </td>
-        <td class="cursor-pointer" data-ng-click="selectPartners($event,partner)" data-ng-bind="partner.title_es"></td>
+        <td class="cursor-pointer" data-ng-click="selectPartners($event,partner)" data-ng-bind="partner.title"></td>
         <td class="cursor-pointer" data-ng-click="selectPartners($event,partner)">
             <span data-ng-bind="partner.post_status_name"
             class="label label-sm [[partner.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] ">

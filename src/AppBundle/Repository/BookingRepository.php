@@ -41,6 +41,7 @@ class BookingRepository extends EntityRepository
         $qb->expr()->orX(
           'LOWER(b.name) LIKE :search',
           'LOWER(b.lastname) LIKE :search',
+          'LOWER(b.transaction) LIKE :search',
           'LOWER(b.email) LIKE :search',
           'LOWER(st.name_es) LIKE :search',
           'LOWER(sh.title_es) LIKE :search'

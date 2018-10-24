@@ -43,7 +43,8 @@
             'BncBackend.usersController',
             'BncBackend.headquartersController',
             'BncBackend.showsController',
-            'BncBackend.checkBookingController'
+            'BncBackend.checkBookingController',
+            'BncBackend.guestsController'
         ]
     );
 

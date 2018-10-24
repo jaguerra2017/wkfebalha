@@ -160,7 +160,7 @@ class PartnersBussiness
                     }
                     if($this->container != null){
                         $siteDomain = $this->container->get('appbundle_site_settings')->getBncDomain();
-                        $partnersCollection[$key]['url'] = $siteDomain.'/es/asociados/'.$partner['url_slug_es'];
+                        $partnersCollection[$key]['url'] = $siteDomain.'/es/asociados/'.$partner['url_slug'];
                     }
 
                     /*handling number of comments*/
@@ -193,10 +193,10 @@ class PartnersBussiness
                     }
 
                     /*handling data for Partner Object*/
-                    $objPartner = $this->em->getRepository('AppBundle:Partner')->find($objGenericPost);
+                    /*$objPartner = $this->em->getRepository('AppBundle:Partner')->find($objGenericPost);
                     if(isset($objPartner)){
                         $partnersCollection[$key]['address'] = $objPartner->getAddress();
-                    }
+                    }*/
                 }
             }
 
@@ -219,7 +219,7 @@ class PartnersBussiness
                 'tree_slug' => 'partner'
             ));
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
-                'title_es' => $parametersCollection['title_es'],
+                'title_'.$parametersCollection['currentLanguage'] => $parametersCollection['title'],
                 'generic_post_type' => $objGenericPostType
             ));
             if(isset($objGenericPost)){
@@ -231,7 +231,7 @@ class PartnersBussiness
                 }
             }
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
-                'url_slug_es' => $parametersCollection['url_slug_es']/*,
+                'url_slug_'.$parametersCollection['currentLanguage'] => $parametersCollection['url_slug']/*,
                 'generic_post_type' => $objGenericPostType*/
             ));
             if(isset($objGenericPost)){
@@ -255,20 +255,33 @@ class PartnersBussiness
                 $objGenericPost->setModifiedDate(new \DateTime());
                 $objGenericPost->setModifiedAuthor($parametersCollection['loggedUser']);
 
-                $objPartner = $this->em->getRepository('AppBundle:Partner')->find($objGenericPost);
+              $objGenericPost->setTitle($parametersCollection['title'],$parametersCollection['currentLanguage']);
+              $objGenericPost->setUrlSlug($parametersCollection['url_slug'],$parametersCollection['currentLanguage']);
+              $objGenericPost->setGenericPostType($objGenericPostType);
+              $objGenericPost->setContent($parametersCollection['content'],$parametersCollection['currentLanguage']);
+              if(isset($parametersCollection['excerpt'])){
+                $objGenericPost->setExcerpt($parametersCollection['excerpt'],$parametersCollection['currentLanguage']);
+              }
+//                $objPartner = $this->em->getRepository('AppBundle:Partner')->find($objGenericPost);
             }
             else{
-                $objGenericPost->setCreatedAuthor($parametersCollection['loggedUser']);
+              $objGenericPost->setCreatedAuthor($parametersCollection['loggedUser']);
 
-                $objPartner = new Partner();
+              $objGenericPost->setTitle($parametersCollection['title']);
+              $objGenericPost->setTitle($parametersCollection['title'],'en');
+              $objGenericPost->setUrlSlug($parametersCollection['url_slug']);
+              $objGenericPost->setUrlSlug($parametersCollection['url_slug'],'en');
+              $objGenericPost->setGenericPostType($objGenericPostType);
+              $objGenericPost->setContent($parametersCollection['content']);
+              $objGenericPost->setContent($parametersCollection['content'],'en');
+              if(isset($parametersCollection['excerpt'])){
+                $objGenericPost->setExcerpt($parametersCollection['excerpt']);
+                $objGenericPost->setExcerpt($parametersCollection['excerpt'],'en');
+              }
+
+//                $objPartner = new Partner();
             }
-            $objGenericPost->setTitle($parametersCollection['title_es']);
-            $objGenericPost->setUrlSlug($parametersCollection['url_slug_es']);
-            $objGenericPost->setGenericPostType($objGenericPostType);
-            $objGenericPost->setContent($parametersCollection['content_es']);
-            if(isset($parametersCollection['excerpt_es'])){
-                $objGenericPost->setExcerpt($parametersCollection['excerpt_es']);
-            }
+
             $objGenericPost->setHaveFeaturedImage(false);
             if(isset($parametersCollection['featured_image_id'])){
                 $objFeatureImage = $this->em->getRepository('AppBundle:Media')->find($parametersCollection['featured_image_id']);
@@ -281,11 +294,11 @@ class PartnersBussiness
             $this->em->flush($objGenericPost);
 
             /*persisting Partner Object*/
-            $objPartner->setId($objGenericPost);
+            /*$objPartner->setId($objGenericPost);
             if(isset($parametersCollection['address'])){
                 $objPartner->setAddress($parametersCollection['address']);
             }
-            $this->em->persist($objPartner);
+            $this->em->persist($objPartner);*/
 
             /*persisting relation Post Status - Partner */
             if(isset($parametersCollection['post_status_id'])){

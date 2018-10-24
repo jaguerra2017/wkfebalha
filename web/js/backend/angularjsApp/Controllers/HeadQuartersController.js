@@ -55,6 +55,20 @@
             }
         }
 
+        $scope.createRoom = function () {
+          $scope.model.selectedRoom = {};
+          $scope.showRoomsForm();
+        }
+
+      $scope.editRoom = function (room) {
+        $scope.model.selectedRoom = room;
+        $scope.showRoomsForm();
+      }
+      
+      $scope.showRoomsForm = function () {
+        $scope.model.showRoomsForm = true;
+      }
+
         function checkPublishedDate(){
             var proceed = true;
             if($scope.model.selectedHeadQuarter.published_date != null){
@@ -588,11 +602,13 @@
             $scope.model.allHeadQuartersSelected = false;
             $scope.model.loadingData = false;
             $scope.model.showHeadQuartersForm = false;
+            $scope.model.showRoomsForm = false;
             $scope.model.processingData = false;
             $scope.model.featureImage = {};
             $scope.model.postStatusCollection = [];
             $scope.model.selectedCategoriesCollection = null;
             $scope.model.selectedHeadQuarter = null;
+            $scope.model.selectedRoom = null;
 
             $scope.clearHeadQuartersForm();
             headquartersFact.loadInitialsData($scope, function(response){

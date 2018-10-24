@@ -12,13 +12,19 @@
             Datos de cliente
         </th>
         <th class="table-header" width="150">
+            Transacci&oacute;n
+        </th>
+        <th class="table-header" width="150">
             Funci&oacute;n
+        </th>
+        <th title="Fecha de la función" class="table-header" width="90">
+            Fecha
         </th>
         <th class="table-header" width="150">
             Sala
         </th>
-        <th class="table-header" width="120">
-            Fecha
+        <th title="Fecha de la reserva" class="table-header" width="90">
+            Fecha R.
         </th>
         <th class="table-header" width="120">
             Hora
@@ -45,7 +51,9 @@
         <td >
             [[booking.clientData]]
         </td>
+        <td class="cursor-pointer" data-ng-bind="booking.transaction"></td>
         <td class="cursor-pointer" data-ng-bind="booking.show"></td>
+        <td class="cursor-pointer" data-ng-bind="booking.showDate"></td>
         <td class="cursor-pointer" data-ng-bind="booking.hall"></td>
         <td class="cursor-pointer" data-ng-bind="booking.date"></td>
         <td class="cursor-pointer" data-ng-bind="booking.time"></td>

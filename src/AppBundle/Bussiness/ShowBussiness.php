@@ -209,6 +209,7 @@ class ShowBussiness
                         $showsCollection[$key]['show_time'] = $objShow->getShowDate()->format('H:i');
                         $showsCollection[$key]['duration'] = $objShow->getDuration();
                         $showsCollection[$key]['room'] = $objShow->getRoom()->getId();
+                        $showsCollection[$key]['room_title'] = $objShow->getRoom()->getTitle($parametersCollection['currentLanguage']);
                         $room = $this->em->getRepository('AppBundle:Room')->find($objShow->getRoom()->getId());
                         $headQuarterGP = $room->getHeadquarter();
                         $headQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($headQuarterGP->getId());

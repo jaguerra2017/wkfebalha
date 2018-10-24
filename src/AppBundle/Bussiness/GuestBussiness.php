@@ -3,17 +3,16 @@
 namespace AppBundle\Bussiness;
 
 use AppBundle\Entity\GenericPostTaxonomy;
-use AppBundle\Entity\HeadQuarter;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 use AppBundle\Entity\GenericPost;
+use AppBundle\Bussiness\NomenclatureBussiness;
 use AppBundle\Entity\GenericPostNomenclature;
 
 
 
-class HeadQuarterBussiness
+class GuestBussiness
 {
     private $container;
 
@@ -30,7 +29,7 @@ class HeadQuarterBussiness
             $parametersCollection['returnByCustomOrder'] = true;
             $parametersCollection['customOrderField'] = 'published_date';
             $parametersCollection['customOrderSort'] = 'DESC';
-            $initialsData['headquartersDataCollection'] = $this->getHeadQuartersList($parametersCollection);
+            $initialsData['guestDataCollection'] = $this->getGuestsList($parametersCollection);
 
             return $initialsData;
         }
@@ -39,117 +38,117 @@ class HeadQuarterBussiness
          }
     }
 
-    public function getHeadQuartersList($parametersCollection)
+    public function getGuestsList($parametersCollection)
     {
         try{
             if(isset($parametersCollection['getFullTotal']) && $parametersCollection['getFullTotal'] == true){
                 return $this->em->getRepository('AppBundle:GenericPost')->getFullTotal($parametersCollection);
             }
 
-            $parametersCollection['post_type_tree_slug'] = 'headquarter';
+            $parametersCollection['post_type_tree_slug'] = 'guest';
             if(isset($parametersCollection['singleResult'])){
                 $parametersCollection['searchByIdsCollection'] = true;
                 $idsCollection = array();
-                $idsCollection[0] = $parametersCollection['headquarterId'];
+                $idsCollection[0] = $parametersCollection['guestId'];
                 $idsCollection = implode(',', $idsCollection);
                 $parametersCollection['idsCollection'] = $idsCollection;
-                $headquartersCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsFullData($parametersCollection);
+                $guestCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsFullData($parametersCollection);
             }
             else{
-                $headquartersCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
+                $guestCollection = $this->em->getRepository('AppBundle:GenericPost')->getGenericPostsBasicData($parametersCollection);
             }
-            if(isset($headquartersCollection[0])){
-                foreach($headquartersCollection as $key=>$headquarter){
+            if(isset($guestCollection[0])){
+                foreach($guestCollection as $key=>$guest){
                     $canEdit = 1;
                     $canDelete = 1;
-                    $headquartersCollection[$key]['canEdit'] = $canEdit;
-                    $headquartersCollection[$key]['canDelete'] = $canDelete;
+                    $guestCollection[$key]['canEdit'] = $canEdit;
+                    $guestCollection[$key]['canDelete'] = $canDelete;
 
                     /*handling Post Status*/
-                    $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->find($headquarter['id']);
+                    $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->find($guest['id']);
                     $objPostStatus = $this->em->getRepository('AppBundle:GenericPostNomenclature')->findOneBy(array(
                         'generic_post' => $objGenericPost,
                         'relation_slug' => 'post_status'
                     ));
                     if(isset($objPostStatus)){
-                        $headquartersCollection[$key]['post_status_name'] = $objPostStatus->getNomenclature()->getName();
+                        $guestCollection[$key]['post_status_name'] = $objPostStatus->getNomenclature()->getName();
                         if(isset($parametersCollection['singleResult'])){
-                            $headquartersCollection[$key]['post_status_id'] = $objPostStatus->getNomenclature()->getId();
+                            $guestCollection[$key]['post_status_id'] = $objPostStatus->getNomenclature()->getId();
                         }
                     }
 
                     /*handling dates*/
-                    $headquartersCollection[$key]['created_date'] = date_format($headquarter['created_date'],'d/m/Y');
-                    if($headquarter['modified_date'] != null){
-                        $headquartersCollection[$key]['modified_date'] = date_format($headquarter['modified_date'],'d/m/Y');
+                    $guestCollection[$key]['created_date'] = date_format($guest['created_date'],'d/m/Y');
+                    if($guest['modified_date'] != null){
+                        $guestCollection[$key]['modified_date'] = date_format($guest['modified_date'],'d/m/Y');
                     }
-                    if($headquarter['published_date'] != null){
-                        $headquartersCollection[$key]['published_date'] = date_format($headquarter['published_date'],'d/m/Y');
+                    if($guest['published_date'] != null){
+                        $guestCollection[$key]['published_date'] = date_format($guest['published_date'],'d/m/Y');
                     }
 
                     /*handling featured image urls*/
-                    if($headquarter['have_featured_image'] == true){
-                        $objMediaImage = $this->em->getRepository('AppBundle:MediaImage')->find($headquarter['featured_image_id']);
+                    if($guest['have_featured_image'] == true){
+                        $objMediaImage = $this->em->getRepository('AppBundle:MediaImage')->find($guest['featured_image_id']);
                         $featured_image_extension = $objMediaImage->getExtension();
                         $objSharedFileFinderBussiness = new SharedFileFinderBussiness();
                         /*Simple List Mini-thumbnail*/
                         if($objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                             'filter_name' => 'list_featured_image_mini_thumbnail',
-                            'image_name' => $headquarter['featured_image_name'],
+                            'image_name' => $guest['featured_image_name'],
                             'image_extension' => $featured_image_extension,
                             'just_check' => true,
                             'just_web_filtered_url' => false
                         ))){
-                            $headquartersCollection[$key]['web_filtered_list_featured_image_mini_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
+                            $guestCollection[$key]['web_filtered_list_featured_image_mini_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                                 'filter_name' => 'list_featured_image_mini_thumbnail',
-                                'image_name' => $headquarter['featured_image_name'],
+                                'image_name' => $guest['featured_image_name'],
                                 'image_extension' => $featured_image_extension,
                                 'just_check' => false,
                                 'just_web_filtered_url' => true
                             ));
                         }
                         else{
-                            $headquartersCollection[$key]['web_filtered_list_featured_image_mini_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($headquarter['featured_image_url'], 'list_featured_image_mini_thumbnail');
+                            $guestCollection[$key]['web_filtered_list_featured_image_mini_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($guest['featured_image_url'], 'list_featured_image_mini_thumbnail');
                         }
                         /*Grid List thumbnail*/
                         if($objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                             'filter_name' => 'grid_featured_image_thumbnail',
-                            'image_name' => $headquarter['featured_image_name'],
+                            'image_name' => $guest['featured_image_name'],
                             'image_extension' => $featured_image_extension,
                             'just_check' => true,
                             'just_web_filtered_url' => false
                         ))){
-                            $headquartersCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
+                            $guestCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                                 'filter_name' => 'grid_featured_image_thumbnail',
-                                'image_name' => $headquarter['featured_image_name'],
+                                'image_name' => $guest['featured_image_name'],
                                 'image_extension' => $featured_image_extension,
                                 'just_check' => false,
                                 'just_web_filtered_url' => true
                             ));
                         }
                         else{
-                            $headquartersCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($headquarter['featured_image_url'], 'grid_featured_image_thumbnail');
+                            $guestCollection[$key]['web_filtered_grid_featured_image_thumbnail_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($guest['featured_image_url'], 'grid_featured_image_thumbnail');
                         }
 
                         /*Feature Image Single Post*/
                         if(isset($parametersCollection['singleResult']) && $parametersCollection['singleResult'] == true){
                             if($objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                                 'filter_name' => 'single_post_featured_image',
-                                'image_name' => $headquarter['featured_image_name'],
+                                'image_name' => $guest['featured_image_name'],
                                 'image_extension' => $featured_image_extension,
                                 'just_check' => true,
                                 'just_web_filtered_url' => false
                             ))){
-                                $headquartersCollection[$key]['web_filtered_single_post_feature_image_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
+                                $guestCollection[$key]['web_filtered_single_post_feature_image_url'] = $objSharedFileFinderBussiness->getExistenceFilteredUploadedImage(array(
                                     'filter_name' => 'single_post_featured_image',
-                                    'image_name' => $headquarter['featured_image_name'],
+                                    'image_name' => $guest['featured_image_name'],
                                     'image_extension' => $featured_image_extension,
                                     'just_check' => false,
                                     'just_web_filtered_url' => true
                                 ));
                             }
                             else{
-                                $headquartersCollection[$key]['web_filtered_single_post_feature_image_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($headquarter['featured_image_url'], 'single_post_featured_image');
+                                $guestCollection[$key]['web_filtered_single_post_feature_image_url'] = $parametersCollection['imagineCacheManager']->getBrowserPath($guest['featured_image_url'], 'single_post_featured_image');
                             }
                         }
                     }
@@ -160,7 +159,7 @@ class HeadQuarterBussiness
                     }
                     if($this->container != null){
                         $siteDomain = $this->container->get('appbundle_site_settings')->getBncDomain();
-                        $headquartersCollection[$key]['url'] = $siteDomain.'/es/sedes/'.$headquarter['url_slug_'.$parametersCollection['currentLanguage']];
+                        $guestCollection[$key]['url'] = $siteDomain.'/es/invitados/'.$guest['url_slug'];
                     }
 
                     /*handling number of comments*/
@@ -176,78 +175,47 @@ class HeadQuarterBussiness
                     /*handling data for Single Result*/
                     if(isset($parametersCollection['singleResult'])){
                         /*handling dates*/
-                        if($headquarter['modified_date'] != null){
-                            $headquartersCollection[$key]['modified_date'] = date_format($headquarter['modified_date'],'d/m/Y H:i');
+                        if($guest['modified_date'] != null){
+                            $guestCollection[$key]['modified_date'] = date_format($guest['modified_date'],'d/m/Y H:i');
                         }
-                        if($headquarter['published_date'] != null){
-                            $headquartersCollection[$key]['published_date'] = date_format($headquarter['published_date'],'d/m/Y H:i');
+                        if($guest['published_date'] != null){
+                            $guestCollection[$key]['published_date'] = date_format($guest['published_date'],'d/m/Y H:i');
                         }
                         /*handling Categories*/
                         $genericPostsId = array();
-                        $genericPostsId[0] = $headquarter['id'];
+                        $genericPostsId[0] = $guest['id'];
                         $categoriesCollection = $this->em->getRepository('AppBundle:GenericPostTaxonomy')->getGenericPostTaxonomies(array(
                             'searchByGenericPost' => true,
                             'genericPostsId' => implode(',', $genericPostsId)
                         ));
-                        $headquartersCollection[$key]['categoriesCollection'] = $categoriesCollection;
+                        $guestCollection[$key]['categoriesCollection'] = $categoriesCollection;
                     }
 
-                    /*handling data for HeadQuarter Object*/
-                    $objHeadQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($objGenericPost);
-                    if(isset($objHeadQuarter)){
-                        $headquartersCollection[$key]['address'] = $objHeadQuarter->getAddress($parametersCollection['currentLanguage']);
-                        $headquartersCollection[$key]['online_sale'] = $objHeadQuarter->getOnlineSale();
-                        $headquartersCollection[$key]['email'] = $objHeadQuarter->getEmail();
-                        $rooms = $this->em->getRepository('AppBundle:Room')->findBy(array('headquarter'=>$objGenericPost));
-                        if(isset($rooms[0])){
-                          $headquartersCollection[$key]['rooms'] = array();
-                          foreach ($rooms as $pos => $room) {
-                            $areas = $this->em->getRepository('AppBundle:RoomArea')->findBy(array('room'=>$room->getId()));
-                            $zonesCant = 0;
-                            $seatsCant = 0;
-                            foreach ($areas as $area) {
-                              $zones = $this->em->getRepository('AppBundle:Zone')->findBy(array('roomArea'=>$area->getId()));
-                              foreach ($zones as $zone) {
-                                $zoneRow = $this->em->getRepository('AppBundle:ZoneRow')->findBy(array('zone'=>$zone->getId()));
-                                foreach ($zoneRow as $row) {
-                                  $seats = $this->em->getRepository('AppBundle:Seat')->findBy(array('zoneRow'=>$row->getId()));
-                                  $seatsCant += count($seats);
-                                }
-                              }
-
-                              $zonesCant += count($zones);
-                            }
-
-//                            $seats = $this->em->getRepository('AppBundle:Seat')->findBy(array(''))
-                            $headquartersCollection[$key]['rooms'][$pos]['title'] = $room->getId()->getTitle($parametersCollection['currentLanguage']);
-                            $headquartersCollection[$key]['rooms'][$pos]['areas'] = count($areas);
-                            $headquartersCollection[$key]['rooms'][$pos]['zones'] = $zonesCant;
-                            $headquartersCollection[$key]['rooms'][$pos]['seats'] = $seatsCant;
-
-
-                          }
-                        }
-                    }
+                    /*handling data for Guest Object*/
+                    /*$objGuest = $this->em->getRepository('AppBundle:Guest')->find($objGenericPost);
+                    if(isset($objGuest)){
+                        $guestCollection[$key]['address'] = $objGuest->getAddress();
+                    }*/
                 }
             }
 
-            if(isset($parametersCollection['singleResult']) && isset($headquartersCollection[0])){
-                return $headquartersCollection[0];
+            if(isset($parametersCollection['singleResult']) && isset($guestCollection[0])){
+                return $guestCollection[0];
             }
-            return $headquartersCollection;
+            return $guestCollection;
         }
         catch(\Exception $e){
             throw new \Exception($e);
         }
     }
 
-    public function saveHeadQuarterData($parametersCollection){
+    public function saveGuestData($parametersCollection){
         try{
 
             $message = 'Datos guardados.';
             /*checking previous existence*/
             $objGenericPostType = $this->em->getRepository('AppBundle:GenericPostType')->findOneBy(array(
-                'tree_slug' => 'headquarter'
+                'tree_slug' => 'guest'
             ));
             $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->findOneBy(array(
                 'title_'.$parametersCollection['currentLanguage'] => $parametersCollection['title'],
@@ -257,7 +225,7 @@ class HeadQuarterBussiness
                 if($parametersCollection['isCreating'] == true ||
                     ($parametersCollection['isCreating'] == false &&
                         $objGenericPost->getId() != $parametersCollection['id'])){
-                    $message = 'Ya existe una sede con ese nombre.';
+                    $message = 'Ya existe un socio con ese nombre.';
                     return $this->returnResponse(array('success'=>0,'message'=>$message));
                 }
             }
@@ -280,39 +248,39 @@ class HeadQuarterBussiness
 
                 $objGenericPost = $this->em->getRepository('AppBundle:GenericPost')->find($parametersCollection['id']);
                 if(!isset($objGenericPost)){
-                    $message = 'La sede que desea editar ya no existe.';
+                    $message = 'El asociado que desea editar ya no existe.';
                     return $this->returnResponse(array('success'=>0,'message'=>$message));
                 }
                 $objGenericPost->setModifiedDate(new \DateTime());
                 $objGenericPost->setModifiedAuthor($parametersCollection['loggedUser']);
 
-
-                $objGenericPost->setTitle($parametersCollection['title'],$parametersCollection['currentLanguage']);
-                $objGenericPost->setUrlSlug($parametersCollection['url_slug'],$parametersCollection['currentLanguage']);
-                $objGenericPost->setContent($parametersCollection['content'],$parametersCollection['currentLanguage']);
-                if(isset($parametersCollection['excerpt'])){
-                  $objGenericPost->setExcerpt($parametersCollection['excerpt'], $parametersCollection['currentLanguage']);
-                }
-
-                $objHeadQuarter = $this->em->getRepository('AppBundle:HeadQuarter')->find($objGenericPost);
+              $objGenericPost->setTitle($parametersCollection['title'],$parametersCollection['currentLanguage']);
+              $objGenericPost->setUrlSlug($parametersCollection['url_slug'],$parametersCollection['currentLanguage']);
+              $objGenericPost->setGenericPostType($objGenericPostType);
+              $objGenericPost->setContent($parametersCollection['content'],$parametersCollection['currentLanguage']);
+              if(isset($parametersCollection['excerpt'])){
+                $objGenericPost->setExcerpt($parametersCollection['excerpt'],$parametersCollection['currentLanguage']);
+              }
+//                $objGuest = $this->em->getRepository('AppBundle:Guest')->find($objGenericPost);
             }
             else{
-                $objGenericPost->setCreatedAuthor($parametersCollection['loggedUser']);
+              $objGenericPost->setCreatedAuthor($parametersCollection['loggedUser']);
 
-                $objGenericPost->setTitle($parametersCollection['title'],'es');
-                $objGenericPost->setTitle($parametersCollection['title'],'en');
-                $objGenericPost->setUrlSlug($parametersCollection['url_slug'],'es');
-                $objGenericPost->setUrlSlug($parametersCollection['url_slug'],'en');
-                $objGenericPost->setContent($parametersCollection['content'],'es');
-                $objGenericPost->setContent($parametersCollection['content'],'en');
-                if(isset($parametersCollection['excerpt'])){
-                  $objGenericPost->setExcerpt($parametersCollection['excerpt'], 'es');
-                  $objGenericPost->setExcerpt($parametersCollection['excerpt'], 'en');
-                }
+              $objGenericPost->setTitle($parametersCollection['title']);
+              $objGenericPost->setTitle($parametersCollection['title'],'en');
+              $objGenericPost->setUrlSlug($parametersCollection['url_slug']);
+              $objGenericPost->setUrlSlug($parametersCollection['url_slug'],'en');
+              $objGenericPost->setGenericPostType($objGenericPostType);
+              $objGenericPost->setContent($parametersCollection['content']);
+              $objGenericPost->setContent($parametersCollection['content'],'en');
+              if(isset($parametersCollection['excerpt'])){
+                $objGenericPost->setExcerpt($parametersCollection['excerpt']);
+                $objGenericPost->setExcerpt($parametersCollection['excerpt'],'en');
+              }
 
-                $objHeadQuarter = new HeadQuarter();
+//                $objGuest = new Guest();
             }
-            $objGenericPost->setGenericPostType($objGenericPostType);
+
             $objGenericPost->setHaveFeaturedImage(false);
             if(isset($parametersCollection['featured_image_id'])){
                 $objFeatureImage = $this->em->getRepository('AppBundle:Media')->find($parametersCollection['featured_image_id']);
@@ -324,21 +292,14 @@ class HeadQuarterBussiness
             $this->em->persist($objGenericPost);
             $this->em->flush($objGenericPost);
 
-            /*persisting HeadQuarter Object*/;
-            $objHeadQuarter->setId($objGenericPost);
+            /*persisting Guest Object*/
+            /*$objGuest->setId($objGenericPost);
             if(isset($parametersCollection['address'])){
-                $objHeadQuarter->setAddress($parametersCollection['address'], $parametersCollection['currentLanguage']);
+                $objGuest->setAddress($parametersCollection['address']);
             }
-          if(isset($parametersCollection['email'])){
-            $objHeadQuarter->setEmail($parametersCollection['email']);
-          }
-            if(isset($parametersCollection['online_sale'])){
-              $value = ($parametersCollection['online_sale'] == 'false') ? 0 : 1;
-              $objHeadQuarter->setOnlineSale($value);
-            }
-            $this->em->persist($objHeadQuarter);
+            $this->em->persist($objGuest);*/
 
-            /*persisting relation Post Status - HeadQuarter */
+            /*persisting relation Post Status - Guest */
             if(isset($parametersCollection['post_status_id'])){
                 $objNomPostStatus = $this->em->getRepository('AppBundle:Nomenclature')->find($parametersCollection['post_status_id']);
                 if(isset($objNomPostStatus)) {
@@ -374,7 +335,7 @@ class HeadQuarterBussiness
                 }
             }
 
-            /*Handling relation Taxonomy - HeadQuarter*/
+            /*Handling relation Taxonomy - Guest*/
             /*deleting previous association between Generic Post and Taxonomy*/
             $genericPostsId = array();
             $genericPostsId[0] = $objGenericPost->getId();
@@ -407,21 +368,21 @@ class HeadQuarterBussiness
 
             $this->em->flush();
 
-            return $this->returnResponse(array('success'=>1,'message'=>$message, 'headquarterId'=>$objGenericPost->getId()));
+            return $this->returnResponse(array('success'=>1,'message'=>$message, 'guestId'=>$objGenericPost->getId()));
         }
         catch(\Exception $e){
             throw new \Exception($e);
         }
     }
 
-    public function deleteHeadQuarterData($parametersCollection){
+    public function deleteGuestsData($parametersCollection){
         try{
             $message = 'Datos guardados.';
-            if(isset($parametersCollection['headquartersId'][0])) {
+            if(isset($parametersCollection['guestId'][0])) {
                 $objCommentBussiness = new CommentsBussiness($this->em);
-                $objCommentBussiness->updateCommentsPending(null, $parametersCollection['headquartersId']);
+                $objCommentBussiness->updateCommentsPending(null, $parametersCollection['guestId']);
 
-                $idsCollection = implode(',',$parametersCollection['headquartersId']);
+                $idsCollection = implode(',',$parametersCollection['guestId']);
                 $this->em->getRepository('AppBundle:GenericPost')->deleteByIdsCollection($idsCollection);
             }
             else{

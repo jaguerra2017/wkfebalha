@@ -662,6 +662,9 @@ i.btn-red{
 .page-feature-image-container,
 .new-feature-image-container,
 .partner-feature-image-container,
+.show-feature-image-container,
+.headquarter-feature-image-container,
+.guest-feature-image-container,
 .jewel-feature-image-container,
 .composition-feature-image-container,
 .repertory-feature-image-container,
@@ -680,11 +683,17 @@ i.btn-red{
 .partner-feature-image-container{
 	height: 512px;
 }
+.show-feature-image-container,
+.headquarter-feature-image-container,
+.guest-feature-image-container,
 .jewel-feature-image-container,
 .composition-feature-image-container,
 .repertory-feature-image-container{
 	height: 421px;
 }
+.show-feature-image-container .button-container,
+.headquarter-feature-image-container .button-container,
+.guest-feature-image-container .button-container,
 .publication-feature-image-container .button-container,
 .page-feature-image-container .button-container,
 .new-feature-image-container .button-container,
@@ -701,6 +710,10 @@ i.btn-red{
 	min-height: 35px;
 	max-height: 380px;
 }
+
+.show-feature-image-container > img,
+.headquarter-feature-image-container > img,
+.guest-feature-image-container > img,
 .page-feature-image-container > img,
 .new-feature-image-container > img,
 .partner-feature-image-container > img,

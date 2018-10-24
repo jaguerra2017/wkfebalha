@@ -67,16 +67,48 @@ class GenericPostRepository extends EntityRepository
     $selectByLanguage = "gp.title_{$language} as title, gp.url_slug_{$language} as url_slug,
      gp.excerpt_{$language} as excerpt, gp.content_{$language} as content,fi.name_es as featured_image_name,";
 
-    $qb = $this->createQueryBuilder('gp');
-    $qb->select(' gp.id, ' . $selectByLanguage . '
+    if(isset($parametersCollection['post_type_tree_slug']) && $parametersCollection['post_type_tree_slug'] == 'show'){
+      $qb = $this->getEntityManager()->createQueryBuilder();
+      $qb->select('gp.id, ' . $selectByLanguage . '
                       gp.have_featured_image, gp.priority, gp.created_date, gp.modified_date,
                       gp.published_date,gp.post_status_slug,
                       fi.id as featured_image_id, fi.url as featured_image_url, 
                       u.user_name as author_name,u.full_name as author_full_name, uu.user_name as modified_author')
-      ->innerJoin('gp.generic_post_type', 'gpt')
-      ->leftJoin('gp.created_author', 'u')
-      ->leftJoin('gp.modified_author', 'uu')
-      ->leftJoin('gp.featured_image', 'fi');
+        ->from('AppBundle:Show','sh')
+        ->innerJoin('sh.id','gp')
+        ->innerJoin('gp.generic_post_type', 'gpt')
+        ->leftJoin('gp.created_author', 'u')
+        ->leftJoin('gp.modified_author', 'uu')
+        ->leftJoin('gp.featured_image', 'fi');
+      }
+      else if(isset($parametersCollection['post_type_tree_slug']) && $parametersCollection['post_type_tree_slug'] == 'booking'){
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('gp.id, ' . $selectByLanguage . '
+                      gp.have_featured_image, gp.priority, gp.created_date, gp.modified_date,
+                      gp.published_date,gp.post_status_slug,
+                      fi.id as featured_image_id, fi.url as featured_image_url, 
+                      u.user_name as author_name,u.full_name as author_full_name, uu.user_name as modified_author')
+          ->from('AppBundle:Booking','b')
+          ->innerJoin('b.id','gp')
+          ->innerJoin('gp.generic_post_type', 'gpt')
+          ->leftJoin('gp.created_author', 'u')
+          ->leftJoin('gp.modified_author', 'uu')
+          ->leftJoin('gp.featured_image', 'fi');
+      }
+      else{
+        $qb = $this->createQueryBuilder('gp');
+        $qb->select(' gp.id, ' . $selectByLanguage . '
+                      gp.have_featured_image, gp.priority, gp.created_date, gp.modified_date,
+                      gp.published_date,gp.post_status_slug,
+                      fi.id as featured_image_id, fi.url as featured_image_url, 
+                      u.user_name as author_name,u.full_name as author_full_name, uu.user_name as modified_author')
+          ->innerJoin('gp.generic_post_type', 'gpt')
+          ->leftJoin('gp.created_author', 'u')
+          ->leftJoin('gp.modified_author', 'uu')
+          ->leftJoin('gp.featured_image', 'fi');
+      }
+
+
 
 
     $whereAdded = false;
@@ -87,6 +119,7 @@ class GenericPostRepository extends EntityRepository
       } else {
         $qb->andWhere("gp.tree_slug LIKE '%" . $parametersCollection['post_type_tree_slug'] . "%' ");
       }
+
     }
     if (isset($parametersCollection['generalSearchValue'])) {
       if (!$whereAdded) {
@@ -123,6 +156,14 @@ class GenericPostRepository extends EntityRepository
       $qb->orderBy('gp.' . $parametersCollection['customOrderField'], $parametersCollection['customOrderSort']);
     } else {
       $qb->orderBy('gp.created_date', 'DESC');
+    }
+
+    if(isset($parametersCollection['post_type_tree_slug']) && $parametersCollection['post_type_tree_slug'] == 'show'){
+      $qb->orderBy('sh.showDate', 'DESC');
+    }
+
+    if(isset($parametersCollection['post_type_tree_slug']) && $parametersCollection['post_type_tree_slug'] == 'booking'){
+      $qb->orderBy('b.bookingDate', 'DESC');
     }
 
     $dataCollection = $qb->getQuery()->getArrayResult();
