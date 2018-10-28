@@ -155,7 +155,7 @@
                 }
             }
             guestsFact.getGuestsData($scope,searchParametersCollection, function(response){
-                    $scope.model.guestCollection = response.data.guestCollection;
+                    $scope.model.guestsCollection = response.data.guestDataCollection;
                     $scope.updatePaginationValues();
                     $scope.toggleDataLoader();
                 },
@@ -421,7 +421,7 @@
             $scope.model.selectedLanguage = language;
             switch (from) {
               case 'list':
-                $scope.model.guestCollection = [];
+                $scope.model.guestsCollection = [];
                 $scope.getGuests();
                 break;
               case 'form':
