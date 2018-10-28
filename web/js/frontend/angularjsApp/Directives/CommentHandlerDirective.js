@@ -286,7 +286,7 @@
                 init();
             },
             template:
-                '<div class="container-fluid wow fadeInUpBig" style="max-width: 1280px;">' +
+                '<div class="container wow fadeInUpBig" style="max-width: 1280px;">' +
                     '<h4 style="font-family: Abril Fatface Regular">Comentarios</h4>' +
                     '<div class="row" style="position:relative;">' +
 
@@ -401,7 +401,7 @@
                                                 '</label>' +
                                                 '<textarea data-ng-model="model.selectedComment.content" ' +
                                                 'class="form-control"' +
-                                                'style="width: 100%;height: 200px;"></textarea>' +
+                                                'style="width: 100%;height: 100px;"></textarea>' +
                                                 '<span data-ng-if="model.contentHasError" class="help-block">' +
                                                     '<p>Valor incorrecto o en blanco.</p>' +
                                                 '</span>' +

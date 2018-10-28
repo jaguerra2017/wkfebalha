@@ -24,7 +24,7 @@
         $scope.getNews = function()
         {
             $scope.toggleDataLoader();
-            $scope.model.start = ($scope.model.end + 1);
+            $scope.model.start = ($scope.model.end);
             $scope.model.end = ($scope.model.end + 10);
             newsFact.getNewsData({
                 start: $scope.model.start,

@@ -199,7 +199,18 @@ class FrontendMainController extends Controller
               );
               $result = $apiBussiness->checkInvoice($params);
               if($result != 'error'){
-                return $this->render('@app_frontend_template_directory/themes/default/templates/pages/invoice.html.twig');
+                $em = $this->getDoctrine()->getManager();
+                $container = $this->container;
+                $parametersCollection = array();
+                $parametersCollection['request_object'] = $request;
+                $parametersCollection['section'] = $request->get('section');
+                $parametersCollection['url_slug'] = $request->get('url_slug');
+
+                $objFrontendHomeBussiness = new FrontendHomeBussiness($em, $container);
+                $requestHandler = $objFrontendHomeBussiness->handleRequest($parametersCollection);
+                return $this->render('@app_frontend_template_directory/themes/default/templates/pages/invoice.html.twig', array(
+                  'themeConfigsData' => $requestHandler['themeConfigsData']
+                ));
               } else {
                 $excep = new \Exception("No existe la reserva",204);
                 throw new \Exception($excep);

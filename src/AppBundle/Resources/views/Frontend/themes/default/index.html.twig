@@ -143,10 +143,16 @@
                         {% endif %}
 
                         {% if key is odd %}
-                            <div class="col-xs-12 wow fadeInUpBig" style="margin: 40px 0;">
+                            <div class="col-xs-12 wow fadeInUpBig impar" style="margin: 40px 0;">
                                 <div class="generic-post-grid-container summary-first-container">
                                     <div class="row generic-post-grid-feature-image-container summary-first">
-                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                        {% if newObj.have_featured_image == true  %}
+                                            <div class="col-xs-12 col-sm-6 col-md-6 col-sm-push-6 col-md-offset-1 col-md-push-5" >
+                                                <img src="{{ newObj.web_filtered_home_summary_image_thumbnail_url }}"
+                                                     class="post-inverse-img" style="max-width:100%;">
+                                            </div>
+                                        {% endif %}
+                                        <div class="col-xs-12 col-sm-6 col-md-5 col-md-pull-7col-xs-12 col-sm-6 col-md-5 col-sm-pull-6 col-md-pull-7">
                                             <span class="notifier-event-date">
                                                 {{ newObj.published_date }}
                                             </span>
@@ -164,13 +170,6 @@
                                                 {{ "btn.read_more_text" | trans({}, 'general', app.session.get('_locale')) }}
                                             </a>
                                         </div>
-                                        {% if newObj.have_featured_image == true  %}
-                                            <div class="col-xs-12 col-sm-6 col-md-6  col-md-push-1" >
-                                                <img src="{{ newObj.web_filtered_home_summary_image_thumbnail_url }}"
-                                                     class="post-inverse-img" style="max-width:100%;">
-                                            </div>
-                                        {% endif %}
-
                                     </div>
                                 </div>
                             </div>

@@ -52,7 +52,7 @@
                         }
                     }
 
-                    $('#media-images-selector-modal').modal('hide');
+                    $('#media-images-selector-modal-'+$scope.model.randomNumb).modal('hide');
                 }
 
                 /* reset the page size to default value 1 */
@@ -79,13 +79,13 @@
                         }
                     }
                     if(proceed){
-                        $('#media-images-selector-modal').modal('hide');
+                        $('#media-images-selector-modal-'+$scope.model.randomNumb).modal('hide');
                     }
                     else{
                         /*toastr.options.timeOut = 3000;
                         toastr.error("Debe de seleccionar una imagen.","¡Error!");*/
                         $scope.selectedimage = {};
-                        $('#media-images-selector-modal').modal('hide');
+                        $('#media-images-selector-modal-'+$scope.model.randomNumb).modal('hide');
                     }
 
                 }
@@ -127,7 +127,7 @@
                             }
                         }
                     }
-                    $('#media-images-selector-modal').modal('show');
+                    $('#media-images-selector-modal-'+$scope.model.randomNumb).modal('show');
                 }
 
                 /* update values of the pagination options */
@@ -189,6 +189,7 @@
                     $scope.model.mediaImagePagesCollection.push(1);
                     $scope.model.mediaImageCurrentResultStart = 0;
                     $scope.model.mediaImageCurrentResultLimit = 0;
+                    $scope.model.randomNumb = Math.floor(Math.random() * 1000000000);
 
                     $scope.getMediaData();
                 }
@@ -203,7 +204,7 @@
                         '<i class="icon-picture"></i>' +
                     '</button>' +
 
-                        '<div id="media-images-selector-modal" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
+                        '<div id="media-images-selector-modal-[[model.randomNumb]]" class="modal fade" tabindex="-1" data-width="1200" data-backdrop="static" data-keyboard="false">'+
                             '<div class="modal-header">'+
                                 '<button type="button" class="close" data-ng-click="hideMediaSelectorModal()"></button>'+
                                 '<h4 class="modal-title">Seleccione la imagen deseada</h4>'+

@@ -149,12 +149,12 @@
       // 'Debe llenar todos los campos' +
       // '</p>\n' +
       // '</div>'+
-      '<form id="payment_gateway" target="_blank" method="post" action="http://www.terminalpago.soycubano.com/procesar_pago.php">\n' +
+      '<form id="payment_gateway" target="_blank" method="post" action="https://www.terminalpago.soycubano.com/procesar_pago.php">\n' +
       '    <input name="cod_entidad" type="hidden" value="FestivalBallet">\n' +
       '    <input name="id_transaccion" type="hidden" data-ng-value="model.transactionNumber">\n' +
       '    <input name="concepto" type="hidden" value="SeatBooking">\n' +
       '    <input name="AmountUSD" data-ng-value="model.amountUSD" type="hidden">\n' +
-      '    <input name="moneda" type="hidden" value="840 - usd">\n' +
+      '    <input name="moneda" type="hidden" value="840">\n' +
       '    <input name="nombres" type="hidden" data-ng-value="model.clientData.name">\n' +
       '    <input name="apellidos" type="hidden" data-ng-value="model.clientData.lastName">\n' +
       '    <input name="email" type="hidden" data-ng-value="model.clientData.email">\n' +
@@ -214,7 +214,7 @@
       '</div>'+
       '<div class="col-xs-12 col-md-4">\n' +
       '                <div class="form-group">\n' +
-      '                    <label class="control-label"><a href="#"> [[model.languageTags.terms]]</a></label>\n' +
+      '                    <label class="control-label"><a href="http://www.festivalballethabana.cu/es/paginas/terminos-y-condiciones" target="_blank"> [[model.languageTags.terms]]</a></label>\n' +
       '                    <div class="actions">\n' +
       '                        <input id="terms_conditions-[[showid]]-[[view]]" type="checkbox" class="make-switch" data-on-text="Si" data-off-text="No">\n' +
       '                    </div>\n' +
@@ -400,7 +400,7 @@
               $scope.model.sc = null;
               $scope.model.voucherData = response.data.voucher;
             });
-            $('#payment_gateway').submit()
+            $('#payment_gateway').submit();
           }
         }
 

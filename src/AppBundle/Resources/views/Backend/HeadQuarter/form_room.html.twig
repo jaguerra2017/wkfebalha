@@ -1,3 +1,131 @@
-<div class="col-md-12"  data-ng-show="model.showRoomsForm">
+<div class="col-xs-12 col-md-5" data-ng-show="model.showRoomsForm">
+  <div class="headquarter-feature-image-container">
+    <!-- Directive mediaSelector(media-selector) -->
+    <media-selector selectedimage="model.roomMapImage"></media-selector>
+    <img data-ng-if="model.roomMapImage.url != undefined && model.roomMapImage.url != ''"
+         data-ng-src="[[model.roomMapImage.url]]">
+  </div>
+  <div class="form-group">
+    <label class="control-label" style="padding:5px 1px;">
+      Imagen principal
+    </label>
+    <span style="color: #888;padding: 5px 2px;margin-top: 5px;font-size: 12px;">
+                (recomendado: 480x768 píxeles)
+            </span>
+  </div>
+</div>
+<div class="col-md-7 col-xs-12" data-ng-show="model.showRoomsForm">
+  <div class="actions custom-toolbar-actions">
+    <button class="btn default btn-footer width-auto-important" type="button" data-ng-click="hideRoomsForm()">
+      Cancelar
+    </button>
+    <button class="btn blue btn-footer width-auto-important" type="submit"
+            data-ng-click="saveHeadQuartersData('close')">
+      Guardar
+    </button>
+  </div>
+  <form class="horizontal-form">
+    <div class="form-body">
+      {#<div class="col-xs-6">#}
+        <div style="width: 60%" class=" form-group margin-top-20 [[model.roomNameHasError ? 'has-error' : '']]">
+          <label class="control-label">
+            Nombre ([[model.selectedLanguage.text]])
+          </label>
+          <input class="form-control" type="text" placeholder="No más de 100 caracteres."
+                 data-ng-model="model.selectedRoom.title" maxlength="100">
+          <span class="help-block">
+                        <p data-ng-if="model.roomNameHasError">Valor incorrecto o en blanco.</p>
+                    </span>
+
+        </div>
+      {#</div>#}
+    </div>
+
+  </form>
+  <div class="caption font-dark">
+                <span class="caption-subject bold uppercase">
+                  &Aacute;reas
+                </span>
+    <span class="caption-helper">
+                    (&Aacute;reas vendibles de esta sala)
+                </span>
+  </div>
+  <div data-ng-show="!model.showAreaForm">
+    <a title="Haga click para crear &aacute;rea" style="margin: 15px 0 0 10px;" class="btn btn-add blue btn-circle btn-icon-only btn-default"
+       data-ng-click="createArea()">
+      <i class="fa fa-plus" style="color: white !important;"></i>
+    </a>
+    <table class="table table-hover table-light">
+      <thead>
+      <tr class="uppercase">
+        {#<th width="50">
+          <div class="icheckbox_square-blue checkbox-master [[model.allHeadQuartersSelected ? 'checked' : '']]"
+               data-ng-click="selectAllHeadQuarters($event)"
+               data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)"
+               data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-master', null)">
+          </div>
+        </th>#}
+        <th class="table-header">
+          Título
+        </th>
+        <th class="table-header" width="120">
+          Zonas
+        </th>
+        <th class="table-header" width="95">
+          Acciones
+        </th>
+      </tr>
+      </thead>
+      <tr data-ng-repeat="area in model.selectedRoom.areas">
+        {#<td>
+          <div class="icheckbox_square-blue checkbox-[[headquarter.tree_slug]] [[headquarter.selected ? 'checked' : '']]"
+               data-ng-click="selectHeadQ   uarters($event,headquarter)"
+               data-ng-mouseover="updateICheckStyles($event, 'checkbox', 'checkbox-'+headquarter.tree_slug, null)"
+               data-ng-mouseleave="updateICheckStyles($event, 'checkbox', 'checkbox-'+headquarter.tree_slug, null)">
+          </div>
+        </td>#}
+        <td data-ng-bind="area.title"></td>
+        <td data-ng-bind="area.zones"></td>
+        <td>
+          <button class="btn btn-link"
+                  data-ng-click="editArea(area)">
+            <i class="icon-pencil btn-blue"></i>
+          </button>
+          <button  class="btn btn-link"
+                   data-ng-click="deleteArea(area.id)">
+            <i class="icon-trash btn-red"></i>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div data-ng-show="model.showAreaForm">
+    <div style="width: 60%" class=" form-group margin-top-20 [[model.roomNameHasError ? 'has-error' : '']]">
+    <label class="control-label">
+      Nombre del &aacute;rea ([[model.selectedLanguage.text]])
+    </label>
+    <input class="form-control" type="text" placeholder="No más de 100 caracteres."
+           data-ng-model="model.selectedArea.title" maxlength="100">
+    <span class="help-block">
+                        <p data-ng-if="model.roomNameHasError">Valor incorrecto o en blanco.</p>
+                    </span>
+  </div>
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-xs-12 col-md-offset-4 col-md-8">
+          <button class="btn default btn-footer" type="button" data-ng-click="hideAreaForm()">
+            Cancelar
+          </button>
+          <button class="btn blue btn-blue btn-footer"
+                  type="submit" data-ng-click="saveHeadQuartersData('stay')">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="col-xs-12" data-ng-show="model.showAreaForm">
 
 </div>

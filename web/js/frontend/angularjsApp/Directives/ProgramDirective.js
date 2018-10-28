@@ -99,7 +99,7 @@
       '<div data-ng-repeat="room in model.rooms" class="hidden-xs hidden-sm col-md-3 col-sm-4 col-xs-6">\n' +
       '    <div class="thumbnail_mine purple schedule-header">' +
       '<div style="color: white" ' +
-      // 'href="[[model.domain]]/[[model.headquarter_url_slug]]/[[currentLanguage]]/[[room.url_slug]]"
+      //'href="[[model.domain]]/[[currentLanguage]]/[[model.headquarter_url_slug]]/[[room.url_slug]]"'+
       '> [[room.headquarter]]<br> [[parseRoom(room.title)]] '+
       '</div></div>\n' +
       '  </div>'+
@@ -136,10 +136,12 @@
       '<div  class="col-xs-12" data-ng-repeat="(key, show) in model.showData" ng-init="outerIndex = $index">\n' +
       '   <h3 class="app-text-color schedule-date-title">[[key]]</br><p class="title-separator" style="float:left;"></p></h3>'+
       '<div style="margin-top: 30px" class="thumbnail_show tumbnail_not_empty" data-ng-if="show[room.id] != null">'+
-      '<div ' +
-      // 'href="[[model.domain]]/[[model.url_slug]]/[[currentLanguage]]/[[show[room.id].url_slug]]"' +
-      '><strong>[[show[room.id].show_time]]</strong><br>[[show[room.id].title]]' +
-      '</div>\n' +
+      '    <a ' +
+      'href="[[model.domain]]/[[currentLanguage]]/[[model.url_slug]]/[[show[room.id].url_slug]]" ' +
+      '>' +
+      '<strong>[[show[room.id].show_time]]</strong><br>' +
+      '[[show[room.id].title]]' +
+      '</a>\n' +
       '<div data-ng-if="(userRole == \'IS_AUTHENTICATED_ANONYMOUSLY\' || userRole == \'ROLE_TESTER\') && room.online_sale == true">' +
       '<reserve view="\'mobile\'" from="\'program\'" showid="show[room.id].id" user-role="userRole" current-language="currentLanguage" selectedroom="room.id"></reserve>'+
       '</div>'+

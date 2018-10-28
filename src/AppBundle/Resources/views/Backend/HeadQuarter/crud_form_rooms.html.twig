@@ -2,7 +2,7 @@
   <div data-ng-if="model.createAction == true" style="display:block;text-align: center; color:#93a2a9; padding: 20px;">
     Primero debe de <strong>Guardar</strong> para poder agregar Salas a esta Sede.
   </div>
-  <div data-ng-if="model.createAction == false && model.selectedHeadQuarter.id != undefined && !model.showRoomsForm">
+  {#<div data-ng-if="model.createAction == false && model.selectedHeadQuarter.id != undefined && !model.showRoomsForm">
     <div style="padding: 35px;" class="col-lg-1 col-xs-12">
       {% if canCreate %}
         <a class="btn btn-add blue btn-circle btn-icon-only btn-default"
@@ -21,7 +21,7 @@
             [[room.title]]
           </div>
           <div class="label">
-            &Aacute;reas vendibles: [[room.areas]]
+            &Aacute;reas vendibles: [[room.cantareas]]
           </div><br>
           <div class="label">
             Zonas: [[room.zones]]
@@ -36,4 +36,5 @@
       </div>
     </div>
   </div>
+  {% include '@app_backend_template_directory/HeadQuarter/form_room.html.twig' %}#}
 </div>

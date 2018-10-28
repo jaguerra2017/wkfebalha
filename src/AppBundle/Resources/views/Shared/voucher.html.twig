@@ -25,14 +25,31 @@
   </thead>
   <tbody>
   <tr >
+    <td style="font-size:14px; font-weight: bold; text-align: left; border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;">
+      <span style="font-size: 20px">Código de Reserva/ Booking code: {{ params['transaction'] }}</span>
+    </td>
+    <td style="font-size:14px; font-weight: bold; text-align: left; border-left-width: 0;
+    border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
+    padding: 3px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #000000;">
+      <span style="font-size: 20px">Código de transacción/ Transaction code: {{ params['notrans'] }}</span>
+    </td>
+  </tr>
+  <tr >
     <td colspan="2" style="font-size:14px; font-weight: bold; text-align: left; border-left-width: 0;
     border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
     padding: 3px;
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 1px solid #000000;">
-      <span style="float: right; font-size: 20px">Código de transacción/ Transaction code: {{ params['transaction'] }}</span>
-       Fecha de compra / Booking date: {{ params['date'] }}
+       Fecha de compra / Booking date: {{ params['date'] }}<br>
       {#{{ 'now'|date('d-m-Y') }}<br>#}
       {#Comercial:  <br>#}
       {#VARIAS AGENCIAS PARADISO<br>#}
@@ -92,11 +109,7 @@
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 1px solid #000000;font-size:14px; text-align: left; border-right: none">
-      Usted ha pagado {{ params['price'] }} USD por cada asiento. Conserve esta factura y pres&eacute;ntela en la
-      taquilla del teatro como m&aacute;ximo una hora antes de que empiece la funci&oacute;n
-      para que se le haga entrega de su Ticket. Si no cuenta con una impresora, copie en una hoja toda la informaci&oacute;n
-      que aparece en el recibo de pago y no olvide el c&oacute;digo de la esquina superior derecha. Gracias.
-      Recuerde que la programaci&oacute;n puede estar sujeta a cambios de &uacute;ltima hora.
+      Usted ha pagado {{ params['price'] }} USD por cada asiento. Conserve esta factura y preséntela en la taquilla del teatro como máximo una hora antes de que empiece la función para que se le haga entrega de su Ticket. Si no cuenta con una impresora, copie en una hoja toda la información que aparece en el recibo de pago y no olvide el código de la reserva. Gracias. Recuerde que la programación puede estar sujeta a cambios de última hora.
     </td>
     <td style="border-left-width: 0;
     border-top-width: 0;border-bottom-width: 1px;border: 1px solid #000000;
@@ -104,11 +117,7 @@
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 1px solid #000000;font-size:14px; text-align: left; border-right: none">
-      You have paid {{ params['price'] }} USD for each seat. Keep this invoice and prescribe it in the
-      theater box office at the most one hour before the function begins.
-      to receive your Ticket. If you do not have a printer, copy all the information on a sheet.
-      that appears on the payment receipt and do not forget the code in the upper right corner. Thank you.
-      Remember that programming may be subject to last-minute changes.
+      You have paid {{ params['price'] }} USD for each seat. Keep this invoice and prescribe it in the theater box office at the most one hour before the function begins. to receive your Ticket. If you do not have a printer, copy all the information on a sheet. that appears on the payment receipt and do not forget the booking code. Thank you. Remember that programming may be subject to last-minute changes.
     </td>
   </tr>
 

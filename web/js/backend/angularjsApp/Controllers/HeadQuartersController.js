@@ -39,6 +39,7 @@
             $scope.model.featureImage = {};
             $scope.model.selectedCategoriesCollection = null;
             $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
+            $scope.clearRoomForm();
             $('#textEditor').code(null);
 
         }
@@ -54,20 +55,52 @@
                 $scope.showHeadQuartersForm();
             }
         }
+        
+        $scope.createArea = function () {
+          $scope.model.selectedArea = {};
+          $scope.showAreaForm();
+        }
+
+      $scope.editArea = function (area) {
+        $scope.model.selectedArea = area;
+        $scope.showAreaForm();
+      }
+
+      $scope.showAreaForm = function () {
+        $scope.model.showAreaForm = true;
+      }
+
+      $scope.hideAreaForm = function () {
+        $scope.model.showAreaForm = false;
+        $scope.model.selectedArea = {};
+      }
 
         $scope.createRoom = function () {
           $scope.model.selectedRoom = {};
+          $scope.model.roomMapImage = {};
           $scope.showRoomsForm();
         }
 
-      $scope.editRoom = function (room) {
-        $scope.model.selectedRoom = room;
-        $scope.showRoomsForm();
-      }
-      
-      $scope.showRoomsForm = function () {
-        $scope.model.showRoomsForm = true;
-      }
+        $scope.editRoom = function (room) {
+          $scope.model.selectedRoom = room;
+          $scope.model.roomMapImage = room.mapImage;
+          $scope.showRoomsForm();
+        }
+
+        $scope.clearRoomForm = function () {
+          $scope.model.createAreaTitle = '';
+          $scope.model.selectedRoom = {};
+          $scope.model.roomMapImage = {};
+        }
+
+        $scope.showRoomsForm = function () {
+          $scope.model.showRoomsForm = true;
+        }
+
+        $scope.hideRoomsForm = function () {
+          $scope.model.selectedRoom = {};
+          $scope.model.showRoomsForm = false;
+        }
 
         function checkPublishedDate(){
             var proceed = true;
@@ -586,6 +619,7 @@
             $scope.model.headquartersSelectedCounter = 0;
             $scope.model.generalSearchValue = null;
             $scope.model.activeView = 'simple_list';
+            // $scope.model.createAreaTitle = '';
             /*pagination*/
             $scope.model.entriesSizesCollection = [];
             $scope.model.entriesSizesCollection = [5,10,20,50,100,150,200];
@@ -603,12 +637,14 @@
             $scope.model.loadingData = false;
             $scope.model.showHeadQuartersForm = false;
             $scope.model.showRoomsForm = false;
+            $scope.model.showAreaForm = false;
             $scope.model.processingData = false;
             $scope.model.featureImage = {};
             $scope.model.postStatusCollection = [];
             $scope.model.selectedCategoriesCollection = null;
             $scope.model.selectedHeadQuarter = null;
             $scope.model.selectedRoom = null;
+            $scope.model.selectedArea = null;
 
             $scope.clearHeadQuartersForm();
             headquartersFact.loadInitialsData($scope, function(response){

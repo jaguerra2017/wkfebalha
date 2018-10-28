@@ -19,7 +19,6 @@
                                    href="{{ path('frontend_index_es') }}">
                                     ES
                                 </a>
-                                |
                                 <a class="language-selector {{  app.session.get('_locale') == 'en' ? 'language-active' }}"
                                    href="{{ path('frontend_index_en') }}">
                                     EN
@@ -27,17 +26,24 @@
                                 <!-- Search -->
                                 {#{% include "@app_backend_template_directory/Shared/general_search.html.twig" %}#}
                             </div>
-                            <div class="col-xs-5 col-md-2">
+                        <!-- BEGIN dtavares86 -->
+                        {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <div class="col-xs-4 col-sm-3 col-sm-offset-1 col-md-2 col-md-offset-0 image-logo not-padding">
+                        {% else %}
+                            <div class="col-xs-5 col-sm-3 col-sm-offset-1 col-md-2 col-md-offset-0 image-logo">
+                        {% endif %}
+                        <!-- END dtavares86 -->
                                 <!-- Logo -->
                                 <a id="index" class="page-logo" href="{{ path('frontend_index_'~app.session.get('_locale')) }}">
                                     <img src="{{ asset('images/shared/app-main-logo.png') }}" alt="Logo">
                                 </a>
                             </div>
-                            <div class="col-xs-3 col-md-5">
+                            <!-- BEGIN dtavares86 -->
+                            <div class="{% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %} col-xs-4 {% else %} col-xs-3 {% endif %} col-sm-4 col-md-5">
+                                {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <!-- Topbar Actions -->
                                 <div class="topbar-actions">
                                     <!-- User Profile -->
-                                    {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                                         <div class="btn-group-img btn-group">
                                             <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                 <span>Hola, {{ app.user.fullname }}</span>
@@ -68,8 +74,9 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                    {% endif %}
                                 </div>
+                                {% endif %}
+                                <!-- END dtavares86 -->
 
                                 <!-- Main menu button -->
                                 <button type="button" class="main-menu-button open-menu" data-toggle="collapse">
@@ -190,12 +197,12 @@
                             <span class="title-separator" style="float:left;"></span>
                         </span>
 
-                        <div class="" style="display:flex;width: 100%;">
-                            <div style="display: flex;flex-direction: column;margin: 20px 20px 20px 0;">
-                                <img src="{{ asset('images/shared/ministerio-cultura-cuba.jpg') }}" style="max-width: 250px;">
+                        <div class="logo-organizators-container">
+                            <div id="ministery">
+                                <a href="http://www.ministeriodecultura.gob.cu" target="_blank" rel="nofollow"><img src="{{ asset('images/shared/ministerio-cultura-cuba.jpg') }}"></a>
                             </div>
-                            <div style="display: flex;flex-direction: column;margin: 20px 20px 20px 0;">
-                                <img src="{{ asset('images/shared/bnc-logo.png') }}" style="max-width: 250px;">
+                            <div id="ballet" >
+                                <a href="http://balletcuba.cult.cu" target="_blank" rel="nofollow"><img src="{{ asset('images/shared/bnc-logo.png') }}"></a>
                             </div>
                         </div>
                     </div>
@@ -206,14 +213,14 @@
                         </span>
                         <div style="display:flex;width: 100%;flex-direction: column;">
                             <span style="font-family: 'Arimo Arial';font-size: 18px;color:rgb(100,100,100);margin-top:20px;">
-                                <i class="fa fa-phone " style="font-size: 32px;margin-right: 20px;top: 7px;position: relative;"></i>(53) 7-835-3920
+                                <i class="fa fa-phone " style="font-size: 32px;margin-right: 15px;top: 10px;position: relative;"></i>(53) 7-835-3920
                             </span>
                             <span style="font-family: 'Arimo Arial';font-size: 18px;color:rgb(100,100,100);margin-top:20px;">
-                                <i class="fa fa-envelope " style="font-size: 26px;margin-right: 10px;top: 7px;position: relative;"></i>
+                                <i class="fa fa-envelope " style="font-size: 26px;margin-right: 10px;top: 5px;position: relative;"></i>
                                 <a style="font-family: 'Arimo Arial';font-size: 18px;color:rgb(100,100,100)" href="mailto:festival@balletcuba.cult.cu">festival@balletcuba.cult.cu</a>
                             </span>
                             <span style="font-family: 'Arimo Arial';font-size: 18px;color:rgb(100,100,100);margin-top:20px;">
-                                <i class="fa fa-map-marker " style="font-size: 32px;margin-right: 28px;top: 7px;position: relative;"></i>Calzada #510 % D y E, Vedado, Plaza de la Revolución, CP 10400.
+                                <i class="fa fa-map-marker " style="font-size: 32px;margin-right: 23px;top: 4px; left: 4px; position: relative;"></i>Calzada #510 % D y E, Vedado, Plaza de la Revolución, CP 10400.
                             </span>
                         </div>
                     </div>
@@ -223,7 +230,7 @@
         <div class="page-footer">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="hidden-xs hidden-sm col-md-4 footer-socials">
+                    <div class="col-xs-12 col-md-4 footer-socials">
                         {% if themeConfigsData.socialsConfigs is not empty %}
                             <ul class="social-icons">
                                 {% if themeConfigsData.socialsConfigs.facebook_url is not empty %}
@@ -266,7 +273,7 @@
                 </div>
             </div>
         </div>
-        <div class="scroll-to-top" style="display: block;">
+        <div class="scroll-to-top">
             <i class="icon-arrow-up"></i>
         </div>
     </div>

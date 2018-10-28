@@ -199,14 +199,31 @@ class HeadQuarterBussiness
                         $headquartersCollection[$key]['online_sale'] = $objHeadQuarter->getOnlineSale();
                         $headquartersCollection[$key]['email'] = $objHeadQuarter->getEmail();
                         $rooms = $this->em->getRepository('AppBundle:Room')->findBy(array('headquarter'=>$objGenericPost));
+
+
+
+
                         if(isset($rooms[0])){
                           $headquartersCollection[$key]['rooms'] = array();
                           foreach ($rooms as $pos => $room) {
+
+                            if($room->getMapImage()){
+                              $headquartersCollection[$key]['rooms'][$pos]['mapImage'] = array(
+                                'id'=>$room->getMapImage()->getId(),
+                                'url'=>$room->getMapImage()->getUrl());
+                            }
+
                             $areas = $this->em->getRepository('AppBundle:RoomArea')->findBy(array('room'=>$room->getId()));
                             $zonesCant = 0;
                             $seatsCant = 0;
+                            $roomAreas = array();
                             foreach ($areas as $area) {
                               $zones = $this->em->getRepository('AppBundle:Zone')->findBy(array('roomArea'=>$area->getId()));
+                              $roomAreas[] = array(
+                                'id'=>$area->getId()->getId(),
+                                'title'=>$area->getId()->getTitle($parametersCollection['currentLanguage']),
+                                'zones'=>count($zones)
+                              );
                               foreach ($zones as $zone) {
                                 $zoneRow = $this->em->getRepository('AppBundle:ZoneRow')->findBy(array('zone'=>$zone->getId()));
                                 foreach ($zoneRow as $row) {
@@ -220,7 +237,8 @@ class HeadQuarterBussiness
 
 //                            $seats = $this->em->getRepository('AppBundle:Seat')->findBy(array(''))
                             $headquartersCollection[$key]['rooms'][$pos]['title'] = $room->getId()->getTitle($parametersCollection['currentLanguage']);
-                            $headquartersCollection[$key]['rooms'][$pos]['areas'] = count($areas);
+                            $headquartersCollection[$key]['rooms'][$pos]['cantareas'] = count($areas);
+                            $headquartersCollection[$key]['rooms'][$pos]['areas'] = $roomAreas;
                             $headquartersCollection[$key]['rooms'][$pos]['zones'] = $zonesCant;
                             $headquartersCollection[$key]['rooms'][$pos]['seats'] = $seatsCant;
 

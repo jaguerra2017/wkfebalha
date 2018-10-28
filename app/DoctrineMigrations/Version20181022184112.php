@@ -188,7 +188,7 @@ class Version20181022184112 extends AbstractMigration implements ContainerAwareI
       /*Functionalities for Booking*/
       $partnerFunctionality = $em->getRepository('AppBundle:Nomenclature')->findOneBy(
         array(
-          'tree_slug'=>'functionality-partner'
+          'tree_slug'=>'functionality-partners'
         )
       );
       if(isset($partnerFunctionality)){
