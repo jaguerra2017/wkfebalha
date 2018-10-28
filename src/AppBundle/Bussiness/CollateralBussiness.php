@@ -197,6 +197,7 @@ class CollateralBussiness
                     if(isset($objCollateral)){
                         $collateralCollection[$key]['place'] = $objCollateral->getPlace($parametersCollection['currentLanguage']);
                         $collateralCollection[$key]['actDate'] = $objCollateral->getActDate()->format('d/m/Y');
+                        $collateralCollection[$key]['actTime'] = $objCollateral->getActDate()->format('H:i');
                         $collateralCollection[$key]['duration'] = $objCollateral->getDuration();
                     }
                 }
@@ -304,11 +305,14 @@ class CollateralBussiness
 
             /*persisting Collateral Object*/;
             $objCollateral->setId($objGenericPost);
-            if(isset($parametersCollection['actDate'])){
-              $objCollateral->setActDate(new \DateTime($parametersCollection['actDate']));
+
+
+            if(isset($parametersCollection['actDate']) && isset($parametersCollection['actTime'])){
+              $date = new \DateTime(str_replace('/','-',$parametersCollection['actDate']).' '.$parametersCollection['actTime']);
+              $objCollateral->setActDate($date);
             }
 
-            if(isset($parametersCollection['duration'])){
+            if(isset($parametersCollection['duration']) && $parametersCollection['duration'] != ''){
               $objCollateral->setDuration($parametersCollection['duration']);
             }
             $this->em->persist($objCollateral);
