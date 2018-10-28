@@ -150,7 +150,7 @@ class BackendGuestController extends Controller
       }
       else{
         $request->getSession()->set('directAccessToCreate', true);
-        return $this->redirectToRoute('guest_index');
+        return $this->redirectToRoute('guests_index');
       }
     }
   }

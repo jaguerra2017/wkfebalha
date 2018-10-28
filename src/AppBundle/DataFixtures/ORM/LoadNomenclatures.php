@@ -1331,6 +1331,33 @@ class LoadNomenclatures extends AbstractFixture implements OrderedFixtureInterfa
         $nomBookingAction->setPriority(2);
         $manager->persist($nomBookingAction);
       }
+
+      /* CheckBooking*/
+      $nomCheckBookingFunctionality = new Nomenclature();
+      $nomCheckBookingFunctionality->setName('Lista de reservas');
+      $nomCheckBookingFunctionality->setUrlSlug(' lista_reservas');
+      $nomCheckBookingFunctionality->setTreeSlug('functionality-check-booking');
+      $nomCheckBookingFunctionality->setNomType($objNomTypeFunctionality);
+      $nomCheckBookingFunctionality->setPriority(21);
+      $manager->persist($nomCheckBookingFunctionality);
+      $manager->flush();
+      $bookingFunctionality = new NomFunctionality();
+      $bookingFunctionality->setId($nomCheckBookingFunctionality);
+      $bookingFunctionality->setIconClass('icon-book-open');
+      $bookingFunctionality->setUrlIndexAction('check_booking_index');
+      $bookingFunctionality->setKeywordSelectedClass($nomCheckBookingFunctionality->getUrlSlug());
+      $bookingFunctionality->setIsUsedFrequently(false);
+      $manager->persist($bookingFunctionality);
+
+      $nomCheckBookingReadAction = new Nomenclature();
+      $nomCheckBookingReadAction->setName('Leer reservas');
+      $nomCheckBookingReadAction->setUrlSlug(' lista-accion-leer-reservas');
+      $nomCheckBookingReadAction->setTreeSlug('functionality-check-booking-action-read-booking');
+      $nomCheckBookingReadAction->setNomType($objNomAction);
+      $nomCheckBookingReadAction->setParent($nomCheckBookingFunctionality);
+      $nomCheckBookingReadAction->setPriority(1);
+      $manager->persist($nomCheckBookingReadAction);
+
     }
 
     /*Nomenclature for Rows Orientation*/

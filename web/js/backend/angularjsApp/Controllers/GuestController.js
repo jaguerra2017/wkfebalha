@@ -606,7 +606,7 @@
                 if($scope.model.bncDomain == null || ($scope.model.bncDomain != null && $scope.model.bncDomain.length == 0)){
                     $scope.model.bncDomain = '(www.tudominio.com)';
                 }
-                var showGuestsForm = response.data.initialsData.showGuestsForm;
+                var showGuestsForm = response.data.initialsData.showGuestForm;
 
 
                     $scope.updatePaginationValues();

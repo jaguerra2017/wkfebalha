@@ -613,6 +613,7 @@
                     $scope.updatePaginationValues();
                     $scope.clearErrorsCollateralForm();
 
+                console.log(showCollateralForm);
                 if(showCollateralForm == true){
                         $scope.createCollateral();
                     }

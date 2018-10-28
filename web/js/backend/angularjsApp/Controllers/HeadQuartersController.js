@@ -660,7 +660,7 @@
                 if($scope.model.bncDomain == null || ($scope.model.bncDomain != null && $scope.model.bncDomain.length == 0)){
                     $scope.model.bncDomain = '(www.tudominio.com)';
                 }
-                var showHeadQuartersForm = response.data.initialsData.showHeadQuartersForm;
+                var showHeadQuartersForm = response.data.initialsData.showHeadQuarterForm;
                     $scope.updatePaginationValues();
                     $scope.clearErrorsHeadQuartersForm();
 
