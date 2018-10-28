@@ -10,32 +10,32 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-use AppBundle\Bussiness\CollateralActivitiesBussiness;
+use AppBundle\Bussiness\CollateralBussiness;
 
 
 /**
- * BACKEND - CollateralActivities controller.
+ * BACKEND - Collateral controller.
  *
- * @Route("backend/actividades_colateraless")
+ * @Route("backend/colaterales")
  */
-class BackendCollateralActivitiesController extends Controller
+class BackendCollateralController extends Controller
 {
 
     /**
-     * Return the CollateralActivities View
+     * Return the Collateral View
      *
-     * @Route("/", name="collateralactivities_index")
-     * @Security("is_granted('read', 'collateralactivities')")
+     * @Route("/", name="collateral_index")
+     * @Security("is_granted('read', 'collateral')")
      * @Method("GET")
      */
-    public function collateralactivitiessViewAction()
+    public function collateralsViewAction()
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
             throw $this->createAccessDeniedException();
         }
         else {
-            return $this->render('@app_backend_template_directory/CollateralActivities/index.html.twig',
+            return $this->render('@app_backend_template_directory/Collateral/index.html.twig',
               array('languages'=> $this->container->getParameter('app.avaiableLanguajes'))
             );
         }
@@ -43,13 +43,13 @@ class BackendCollateralActivitiesController extends Controller
     }
 
     /**
-     * Load initials data for CollateralActivities view
+     * Load initials data for Collateral view
      *
-     * @Route("/datos-iniciales", name="collateralactivitiess_view_initials_data", options={"expose"=true})
-     * @Security("is_granted('read', 'collateralactivities')")
+     * @Route("/datos-iniciales", name="collateral_view_initials_data", options={"expose"=true})
+     * @Security("is_granted('read', 'collateral')")
      * @Method("POST")
      */
-    public function loadCollateralActivitiesInitialsDataAction(Request $request)
+    public function loadCollateralInitialsDataAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -61,41 +61,41 @@ class BackendCollateralActivitiesController extends Controller
             $parametersCollection['imagineCacheManager'] = $this->get('liip_imagine.cache.manager');
             $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
 
-            $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
-            $initialsData = $collateralactivitiessBussinessObj->loadInitialsData($parametersCollection);
+            $collateralsBussinessObj = new CollateralBussiness($em);
+            $initialsData = $collateralsBussinessObj->loadInitialsData($parametersCollection);
 
             $parametersCollection = new \stdClass();
             $parametersCollection->filterByTreeSlug = true;
             $parametersCollection->treeSlug = 'post-status';
             $initialsData['postStatusDataCollection'] = $this->container->get('appbundle_nomenclatures')->getNomenclatures($parametersCollection);
 
-            $showCollateralActivitiesForm = false;
+            $showCollateralForm = false;
             if($request->getSession()->get('directAccessToCreate') == true){
-                $showCollateralActivitiesForm = true;
+                $showCollateralForm = true;
                 $request->getSession()->remove('directAccessToCreate');
             }
-            $initialsData['showCollateralActivitiesForm'] = $showCollateralActivitiesForm;
+            $initialsData['showCollateralForm'] = $showCollateralForm;
 
             $initialsData['bncDomain'] = $this->container->get('appbundle_site_settings')->getBncDomain();
             $initialsData['languages'] = $this->container->getParameter('app.avaiableLanguajes');
 
-//            $parametersCollection = array();
-//            $parametersCollection['taxonomyTypeTreeSlug'] = 'collateralactivities-category';
-//            $parametersCollection['returnDataInTree'] = true;
-//            $initialsData['categoriesDataCollection'] = $this->container->get('appbundle_taxonomies')->getTaxonomies($parametersCollection);
+            $parametersCollection = array();
+            $parametersCollection['taxonomyTypeTreeSlug'] = 'collateral-category';
+            $parametersCollection['returnDataInTree'] = true;
+            $initialsData['categoriesDataCollection'] = $this->container->get('appbundle_taxonomies')->getTaxonomies($parametersCollection);
 
             return new JsonResponse(array('initialsData' => $initialsData));
         }
     }
 
     /**
-     * Load collateralactivitiess collection data
+     * Load collaterals collection data
      *
-     * @Route("/datos-actividades_colateraless", name="collateralactivitiess_data", options={"expose"=true})
-     * @Security("is_granted('read', 'collateralactivities')")
+     * @Route("/datos-colaterales", name="collateral_data", options={"expose"=true})
+     * @Security("is_granted('read', 'collateral')")
      * @Method("POST")
      */
-    public function loadCollateralActivitiesDataAction(Request $request)
+    public function loadCollateralDataAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -106,7 +106,7 @@ class BackendCollateralActivitiesController extends Controller
             $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
             $parametersCollection['generalSearchValue'] = $request->get('generalSearchValue');
             $parametersCollection['singleResult'] = $request->get('singleResult');
-            $parametersCollection['collateralactivitiesId'] = $request->get('collateralactivitiesId');
+            $parametersCollection['collateralId'] = $request->get('collateralId');
             $parametersCollection['imagineCacheManager'] = $this->get('liip_imagine.cache.manager');
 
             $parametersCollection['returnByCustomOrder'] = true;
@@ -114,23 +114,23 @@ class BackendCollateralActivitiesController extends Controller
             $parametersCollection['customOrderSort'] = 'DESC';
 
             $em = $this->getDoctrine()->getManager();
-            $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
-            $collateralactivitiessDataCollection = $collateralactivitiessBussinessObj->getCollateralActivitiessList($parametersCollection);
+            $collateralsBussinessObj = new CollateralBussiness($em);
+            $collateralsDataCollection = $collateralsBussinessObj->getCollateralsList($parametersCollection);
             if(isset($parametersCollection['singleResult'])){
-                return new JsonResponse(array('collateralactivitiesData' => $collateralactivitiessDataCollection));
+                return new JsonResponse(array('collateralData' => $collateralsDataCollection));
             }
-            return new JsonResponse(array('collateralactivitiessDataCollection' => $collateralactivitiessDataCollection));
+            return new JsonResponse(array('collateralDataCollection' => $collateralsDataCollection));
         }
     }
 
     /**
-     * Save CollateralActivities data (CREATE action)
+     * Save Collateral data (CREATE action)
      *
-     * @Route("/crear", name="collateralactivitiess_create", options={"expose"=true})
-     * @Security("is_granted('create', 'collateralactivities')")
+     * @Route("/crear", name="collateral_create", options={"expose"=true})
+     * @Security("is_granted('create', 'collateral')")
      *
      */
-    public function createCollateralActivitiesAction(Request $request)
+    public function createCollateralAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -139,31 +139,31 @@ class BackendCollateralActivitiesController extends Controller
         else {
             if($request->getMethod() == 'POST'){
                 $em = $this->getDoctrine()->getManager();
-                $parametersCollection = $request->get('collateralactivitiesData');
+                $parametersCollection = $request->get('collateralData');
                 //print_r($parametersCollection);die;
                 $parametersCollection['isCreating'] = true;
                 $parametersCollection['currentLanguage'] = $parametersCollection['currentLanguage'] ? $parametersCollection['currentLanguage'] : $this->container->getParameter('app.default_locale');
                 $parametersCollection['loggedUser'] = $this->getUser();
 
-                $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
-                $response = $collateralactivitiessBussinessObj->saveCollateralActivitiesData($parametersCollection);
+                $collateralsBussinessObj = new CollateralBussiness($em);
+                $response = $collateralsBussinessObj->saveCollateralData($parametersCollection);
                 return new JsonResponse($response);
             }
             else{
                 $request->getSession()->set('directAccessToCreate', true);
-                return $this->redirectToRoute('collateralactivitiess_index');
+                return $this->redirectToRoute('collateral_index');
             }
         }
     }
 
     /**
-     * Save CollateralActivities data (EDIT action)
+     * Save Collateral data (EDIT action)
      *
-     * @Route("/editar", name="collateralactivitiess_edit", options={"expose"=true})
-     * @Security("is_granted('edit', 'collateralactivities')")
+     * @Route("/editar", name="collateral_edit", options={"expose"=true})
+     * @Security("is_granted('edit', 'collateral')")
      * @Method("POST")
      */
-    public function editCollateralActivitiesAction(Request $request)
+    public function editCollateralAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -171,25 +171,25 @@ class BackendCollateralActivitiesController extends Controller
         }
         else {
             $em = $this->getDoctrine()->getManager();
-            $parametersCollection = $request->get('collateralactivitiesData');
+            $parametersCollection = $request->get('collateralData');
             $parametersCollection['currentLanguage'] = $parametersCollection['currentLanguage'] ? $parametersCollection['currentLanguage'] : $this->container->getParameter('app.default_locale');
             $parametersCollection['isCreating'] = false;
             $parametersCollection['loggedUser'] = $this->getUser();
 
-            $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
-            $response = $collateralactivitiessBussinessObj->saveCollateralActivitiesData($parametersCollection);
+            $collateralsBussinessObj = new CollateralBussiness($em);
+            $response = $collateralsBussinessObj->saveCollateralData($parametersCollection);
             return new JsonResponse($response);
         }
     }
 
     /**
-     * Delete CollateralActivities
+     * Delete Collateral
      *
-     * @Route("/eliminar-actividades_colaterales", name="collateralactivitiess_delete", options={"expose"=true})
-     * @Security("is_granted('delete', 'collateralactivities')")
+     * @Route("/eliminar-colaterales", name="collaterals_delete", options={"expose"=true})
+     * @Security("is_granted('delete', 'collateral')")
      * @Method("POST")
      */
-    public function deleteCollateralActivitiesAction(Request $request)
+    public function deleteCollateralAction(Request $request)
     {
         if(!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY'))
         {
@@ -198,11 +198,11 @@ class BackendCollateralActivitiesController extends Controller
         else {
             $em = $this->getDoctrine()->getManager();
             $parametersCollection = array();
-            $parametersCollection['collateralactivitiessId'] = $request->get('collateralactivitiessId');
+            $parametersCollection['collateralId'] = $request->get('collateralId');
             $parametersCollection['currentLanguage'] = $request->get('currentLanguage') ? $request->get('currentLanguage') : $this->container->getParameter('app.default_locale');
 
-            $collateralactivitiessBussinessObj = new CollateralActivitiesBussiness($em);
-            $response = $collateralactivitiessBussinessObj->deleteCollateralActivitiesData($parametersCollection);
+            $collateralsBussinessObj = new CollateralBussiness($em);
+            $response = $collateralsBussinessObj->deleteCollateralData($parametersCollection);
             return new JsonResponse($response);
         }
     }

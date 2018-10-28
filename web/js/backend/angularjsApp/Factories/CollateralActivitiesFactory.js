@@ -1,23 +1,23 @@
 /*
- * File for handling factories for CollateralActivities controllers
+ * File for handling factories for Collateral controllers
  * */
 
 (function () {
     'use strict';
 
     /* Declare app level module which depends on views, and components */
-    angular.module('BncBackend.collateralactivitiesFactory', []);
+    angular.module('BncBackend.collateralFactory', []);
 
 
-    /* Factory for handling CollateralActivities functions */
-    function collateralactivitiesFact($http) {
+    /* Factory for handling Collateral functions */
+    function collateralFact($http) {
         var factory = {};
         toastr.options.timeOut = 1000;
 
         factory.loadInitialsData = function($scope, successCallBackFn, errorCallBackFn){
             $http({
                 method: "post",
-                url: Routing.generate('collateralactivities_view_initials_data'),
+                url: Routing.generate('collateral_view_initials_data'),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
@@ -34,10 +34,10 @@
             });
         }
 
-        factory.getCollateralActivitiesData = function($scope,searchParametersCollection, successCallBackFn, errorCallBackFn){
+        factory.getCollateralData = function($scope,searchParametersCollection, successCallBackFn, errorCallBackFn){
             $http({
                 method: "post",
-                url: Routing.generate('collateralactivities_data'),
+                url: Routing.generate('collateral_data'),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -55,10 +55,10 @@
             });
         }
 
-        factory.saveCollateralActivitiesData = function($scope, data, option, action){
+        factory.saveCollateralData = function($scope, data, option, action){
             $http({
                 method: "post",
-                url: Routing.generate('collateralactivities_'+action),
+                url: Routing.generate('collateral_'+action),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -71,17 +71,17 @@
                     toastr.error(response.data.message,"Error");
                 }
                 else{
-                    $scope.clearErrorsCollateralActivitiesForm();
+                    $scope.clearErrorsCollateralForm();
                     if(option == 'clear'){
-                        $scope.clearCollateralActivitiesForm();
+                        $scope.clearCollateralForm();
                     }
                     else if(option == 'close'){
-                        $scope.clearCollateralActivitiesForm();
-                        $scope.hideCollateralActivitiesForm();
+                        $scope.clearCollateralForm();
+                        $scope.hideCollateralForm();
                     }
                     else if(option == 'stay'){
                         $scope.model.createAction = false;
-                        $scope.model.selectedCollateralActivitie.id = response.data.collateralactivitieId;
+                        $scope.model.selectedCollateral.id = response.data.collateralId;
                     }
                     //toastr.options.timeOut = 3000;
                     toastr.success(response.data.message,"¡Hecho!");
@@ -103,11 +103,11 @@
 
         }
 
-        factory.deleteCollateralActivities = function($scope, data){
+        factory.deleteCollateral = function($scope, data){
 
             $http({
                 method: "post",
-                url: Routing.generate('collateralactivities_delete'),
+                url: Routing.generate('collaterals_delete'),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -122,7 +122,7 @@
                     toastr.success(response.data.message,"¡Hecho!");
                 }
 
-                $scope.getCollateralActivities();
+                $scope.getCollateral();
 
             }, function errorCallback(response) {
                 toastr.options.timeOut = 5000;
@@ -142,7 +142,7 @@
 
     
     /* Declare factories functions for this module */
-    angular.module('BncBackend.collateralactivitiesFactory').factory('collateralactivitiesFact',collateralactivitiesFact);
+    angular.module('BncBackend.collateralFactory').factory('collateralFact',collateralFact);
 
 
 })();

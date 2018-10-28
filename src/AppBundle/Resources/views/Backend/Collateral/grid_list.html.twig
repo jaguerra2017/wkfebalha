@@ -1,41 +1,41 @@
 <div class="row" style="margin-top:40px;">
-    <div data-ng-repeat="collateralactivitie in model.collateralactivitiesCollection | limitTo : (model.collateralactivitiesCurrentResultLimit - (model.collateralactivitiesCurrentResultStart - 1)) : (model.collateralactivitiesCurrentResultStart - 1) "
+    <div data-ng-repeat="collateral in model.collateralCollection | limitTo : (model.collateralCurrentResultLimit - (model.collateralCurrentResultStart - 1)) : (model.collateralCurrentResultStart - 1) "
          class="col-xs-12 col-md-4">
         <div class="generic-post-grid-container">
             <div class="generic-post-grid-feature-image-container">
-                <img data-ng-if="collateralactivitie.have_featured_image == true && collateralactivitie.featured_image_url != ''"
-                     data-ng-src="[[collateralactivitie.web_filtered_grid_featured_image_thumbnail_url]]">
+                <img data-ng-if="collateral.have_featured_image == true && collateral.featured_image_url != ''"
+                     data-ng-src="[[collateral.web_filtered_grid_featured_image_thumbnail_url]]">
             </div>
 
             <span style="float:left;width:100%; color:#777;padding:10px 15px;
             border-top: 1px solid #eee;text-align:left;">
-                <span data-ng-bind="collateralactivitie.post_status_name"
-                      class="label label-sm [[collateralactivitie.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] pull-right">
+                <span data-ng-bind="collateral.post_status_name"
+                      class="label label-sm [[collateral.post_status_name =='Pendiente'? 'label-warning' : 'label-success']] pull-right">
                 </span>
-                [[collateralactivitie.title]]
+                [[collateral.title]]
             </span>
 
             <div style="background-color: white; position: absolute;top: 0 !important;
             margin-top: 5px;margin-left: 5px;width: 22px; height: 22px">
-                <div class="icheckbox_square-blue hover [[collateralactivitie.selected ? 'checked' : '']]"
-                     data-ng-click="selectCollateralActivities($event,collateralactivitie)"
+                <div class="icheckbox_square-blue hover [[collateral.selected ? 'checked' : '']]"
+                     data-ng-click="selectCollateral($event,collateral)"
                      style="">
                 </div>
             </div>
 
             {% if canEdit %}
-                <a data-ng-if="collateralactivitie.canEdit"
+                <a data-ng-if="collateral.canEdit"
                    class="btn btn-add blue btn-blue btn-circle btn-icon-only btn-default tooltips"
-                   data-ng-click="editCollateralActivities(collateralactivitie)" data-container="body" data-placement="top"
+                   data-ng-click="editCollateral(collateral)" data-container="body" data-placement="top"
                    data-original-title="Editar publicacion"
                    style="position: absolute;top: 40px;left:15px">
                     <i class="icon-pencil"></i>
                 </a>
             {% endif %}
             {% if canDelete %}
-                <a data-ng-if="collateralactivitie.canDelete"
+                <a data-ng-if="collateral.canDelete"
                    class="btn btn-danger btn-circle btn-icon-only btn-default tooltips"
-                   data-ng-click="deleteCollateralActivities(collateralactivitie.id)"
+                   data-ng-click="deleteCollateral(collateral.id)"
                    data-container="body" data-placement="top"
                    data-original-title="Eliminar publicacion"
                    style="position: absolute;top: 80px;left:15px">
@@ -48,7 +48,7 @@
 
 
 <!-- Message when isn't data to show -->
-<div data-ng-show="model.collateralactivitiesCollection.length == 0">
+<div data-ng-show="model.collateralCollection.length == 0">
     {% include '@app_backend_template_directory/Shared/no_data_to_show.html.twig' %}
 </div>
 

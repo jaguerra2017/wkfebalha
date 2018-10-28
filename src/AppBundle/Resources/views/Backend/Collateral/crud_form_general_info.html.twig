@@ -1,6 +1,6 @@
-<div data-ng-show="model.formActiveView == 'general-info'" class="row" id="collateralactivitie_general_data">
+<div data-ng-show="model.formActiveView == 'general-info'" class="row" id="collateral_general_data">
     <div class="col-xs-12 col-md-5">
-        <div class="collateralactivitie-feature-image-container">
+        <div class="collateral-feature-image-container">
             <!-- Directive mediaSelector(media-selector) -->
             <media-selector selectedimage="model.featureImage"></media-selector>
             <img data-ng-if="model.featureImage.url != undefined && model.featureImage.url != ''"
@@ -23,8 +23,8 @@
                         Nombre ([[model.selectedLanguage.text]])
                     </label>
                     <input class="form-control" type="text" placeholder="No más de 100 caracteres."
-                    data-ng-model="model.selectedCollateralActivitie.title"
-                    data-ng-keyup="updateCollateralActivitiesForm($event, 'title')"
+                    data-ng-model="model.selectedCollateral.title"
+                    data-ng-keyup="updateCollateralForm($event, 'title')"
                     maxlength="100">
                     <span class="help-block">
                         <p data-ng-if="model.titleHasError">Valor incorrecto o en blanco.</p>
@@ -37,7 +37,7 @@
                         Slug ([[model.selectedLanguage.text]])
                     </label>
                     <input class="form-control" type="text" placeholder="No más de 100 caracteres."
-                    data-ng-model="model.selectedCollateralActivitie.url_slug" maxlength="100">
+                    data-ng-model="model.selectedCollateral.url_slug" maxlength="100">
                     <span class="help-block">
                         <p data-ng-if="model.urlSlugHasError">Valor incorrecto o en blanco.</p>
                     </span>
@@ -46,14 +46,14 @@
             <div data-ng-if="model.createAction == false" class="col-xs-12">
                 <div class="form-group margin-top-20">
                     <label class="control-label">
-                        Url del asociado
+                        Url de la colateral
                     </label>
                     <div class="input-group">
                         <div class="input-group-btn">
                             <a class="btn default" type="button" target="_blank"
-                               href="[[model.bncDomain]]/es/asociados/[[model.selectedCollateralActivitie.url_slug]]"
+                               href="[[model.bncDomain]]/[[model.selectedLanguage.value]]/[[model.selectedLanguage.value == 'es' ? 'colateral' : 'collateral' ]]/[[model.selectedCollateral.url_slug]]"
                                style="width:100%;text-align: left;" >
-                                [[model.bncDomain]]/es/asociados/[[model.selectedCollateralActivitie.url_slug]]
+                                [[model.bncDomain]]/[[model.selectedLanguage.value]]/[[model.selectedLanguage.value == 'es' ? 'colateral' : 'collateral' ]]/[[model.selectedCollateral.url_slug]]
                             </a>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
             <div class="col-xs-12">
                 <taxonomy-selector taxonomylabel="Categoría"
                 selectedtaxonomiescollection="model.selectedCategoriesCollection"
-                taxonomytypetreeslug="collateralactivitie-category"></taxonomy-selector>
+                taxonomytypetreeslug="collateral-category"></taxonomy-selector>
             </div>
             <div class="col-xs-12 col-md-6">
                 <div class="form-group margin-top-20">
@@ -78,7 +78,7 @@
                              style="min-width: 275px;top: 25px;margin-left: 0px;">
                                 <label data-ng-repeat="postStatus in model.postStatusCollection">
                                     <a class="btn" style="width: 100%;text-align: left;"
-                                       data-ng-click="updateCollateralActivitiesForm($event, 'status', postStatus)">
+                                       data-ng-click="updateCollateralForm($event, 'status', postStatus)">
                                         [[postStatus.name_es]]
                                     </a>
                                 </label>
@@ -93,7 +93,7 @@
                     <input data-ng-show="model.selectedPostStatus.tree_slug == 'generic-post-status-published'"
                     class="form-control form-control-inline date-picker"
                     size="16" type="text"
-                    data-ng-model="model.selectedCollateralActivitie.published_date"/>
+                    data-ng-model="model.selectedCollateral.published_date"/>
                     <span class="help-block">
                         <p data-ng-if="model.selectedPostStatus.tree_slug == 'generic-post-status-pending'">
                             El status debe de estar "Publicado".
@@ -107,27 +107,56 @@
                     </span>
                 </div>
             </div>
-            <div class="col-xs-12">
-                <div class="form-group margin-top-20">
-                    <label class="control-label">Disponible para venta online</label>
-                    <div class="actions">
-                        <input  id="online_sale" checked type="checkbox" class="make-switch" data-on-text="Si" data-off-text="No">
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
-    <div class="col-xs-12">
-        <div class="form-group margin-top-20">
-            <label class="control-label">Dirección ([[model.selectedLanguage.text]])</label>
-            <textarea data-ng-model="model.selectedCollateralActivitie.address" style="width: 100%;height:120px">
-            </textarea>
-        </div>
+  <div class="col-xs-12 col-md-3">
+    <div class="form-group margin-top-20 [[model.actDateHasError ? 'has-error' : '']]">
+      <label class="control-label">Fecha</label>
+      <input class="form-control form-control-inline date-picker"
+             size="16" type="text"
+             data-ng-model="model.selectedCollateral.actDate"/>
+      <span class="help-block">
+                        <p>
+                            Ejemplo: 19/07/1985
+                        </p>
+                        <p data-ng-if="model.actDateHasError">
+                            Valor incorrecto o en blanco.
+                        </p>
+                    </span>
     </div>
+  </div>
+  <div class="col-xs-12 col-md-3">
+    <div class="form-group  margin-top-20">
+      <label class="control-label">
+        Lugar
+      </label>
+      <input class="form-control" type="text" placeholder=""
+             data-ng-model="model.selectedCollateral.place"
+      >
+      {#<span class="help-block">#}
+      {#<p data-ng-if="model.titleHasError">Valor incorrecto o en blanco.</p>#}
+      {#</span>#}
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-3">
+    <div class="form-group  margin-top-20">
+      <label class="control-label">
+        Duraci&oacute;n
+      </label>
+      <input class="form-control" type="number" placeholder="Solo números."
+             data-ng-model="model.selectedCollateral.duration"
+      >
+      {#<span class="help-block">#}
+      {#<p data-ng-if="model.titleHasError">Valor incorrecto o en blanco.</p>#}
+      {#</span>#}
+    </div>
+  </div>
+
     <div class="col-xs-12">
         <div class="form-group margin-top-20">
             <label class="control-label">Breve resumen ([[model.selectedLanguage.text]])</label>
-            <textarea data-ng-model="model.selectedCollateralActivitie.excerpt" style="width: 100%;height:120px">
+            <textarea data-ng-model="model.selectedCollateral.excerpt" style="width: 100%;height:120px">
             </textarea>
         </div>
     </div>

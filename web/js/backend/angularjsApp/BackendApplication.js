@@ -44,7 +44,8 @@
             'BncBackend.headquartersController',
             'BncBackend.showsController',
             'BncBackend.checkBookingController',
-            'BncBackend.guestsController'
+            'BncBackend.guestsController',
+            'BncBackend.collateralController'
         ]
     );
 
