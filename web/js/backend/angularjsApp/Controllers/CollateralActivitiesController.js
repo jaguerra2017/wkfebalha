@@ -44,7 +44,8 @@
             $scope.model.selectedCategoriesCollection = null;
             $scope.model.selectedPostStatus = $scope.model.postStatusCollection[0];
             $('#textEditor').code(null);
-
+            $scope.model.selectedCollateral.actTime = new Date().getHours() + ':' + new Date().getMinutes();
+            $scope.model.selectedCollateral.duration = 0;
         }
         
         /* create collateral */
