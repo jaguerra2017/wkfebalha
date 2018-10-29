@@ -127,36 +127,39 @@
     </div>
   </div>
   <div class="col-xs-12 col-md-3">
-    <div class="form-group  margin-top-20">
+    <div class="form-group  margin-top-20 [[model.placeHasError ? 'has-error' : '']]">
       <label class="control-label">
-        Lugar
+        Lugar ([[model.selectedLanguage.text]])
       </label>
       <input class="form-control" type="text" placeholder=""
              data-ng-model="model.selectedCollateral.place"
       >
-      {#<span class="help-block">#}
-      {#<p data-ng-if="model.titleHasError">Valor incorrecto o en blanco.</p>#}
-      {#</span>#}
+      <span class="help-block">
+      <p data-ng-if="model.placeHasError">Valor incorrecto o en blanco.</p>
+      </span>
     </div>
   </div>
   <div class="col-xs-12 col-md-3">
-    <div class="form-group margin-top-20">
+    <div class="form-group margin-top-20 [[model.timeHasError ? 'has-error' : '']]">
       <label class="control-label">Hora</label>
       <input data-ng-model="model.selectedCollateral.actTime" type="text"
              class="form-control timepicker timepicker-no-seconds">
+      <span class="help-block">
+      <p data-ng-if="model.timeHasError">Valor incorrecto o en blanco.</p>
+      </span>
     </div>
   </div>
   <div class="col-xs-12 col-md-3">
-    <div class="form-group  margin-top-20">
+    <div class="form-group  margin-top-20 [[model.durationHasError ? 'has-error' : '']]">
       <label class="control-label">
         Duraci&oacute;n
       </label>
       <input class="form-control" type="number" placeholder="Solo números."
              data-ng-model="model.selectedCollateral.duration"
       >
-      {#<span class="help-block">#}
-      {#<p data-ng-if="model.titleHasError">Valor incorrecto o en blanco.</p>#}
-      {#</span>#}
+      <span class="help-block">
+      <p data-ng-if="model.durationHasError">Valor incorrecto o en blanco.</p>
+      </span>
     </div>
   </div>
 

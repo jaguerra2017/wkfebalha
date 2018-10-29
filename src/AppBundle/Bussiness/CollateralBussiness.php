@@ -315,6 +315,9 @@ class CollateralBussiness
             if(isset($parametersCollection['duration']) && $parametersCollection['duration'] != ''){
               $objCollateral->setDuration($parametersCollection['duration']);
             }
+            else{
+              $objCollateral->setDuration(0);
+            }
             $this->em->persist($objCollateral);
 
             /*persisting relation Post Status - Collateral */

@@ -30,6 +30,10 @@
             $scope.model.titleHasError = false;
             $scope.model.urlSlugHasError = false;
             $scope.model.publishedDateHasError = false;
+            $scope.model.actDateHasError = false;
+            $scope.model.placeHasError = false;
+            $scope.model.timeHasError = false;
+            $scope.model.durationHasError = false;
         }
         
         /* clear form values */
@@ -51,6 +55,8 @@
                 $scope.model.createAction = true;
                 $scope.clearCollateralForm();
                 $scope.model.formActiveView = 'general-info';
+                $scope.model.selectedCollateral.actTime = new Date().getHours() + ':' + new Date().getMinutes();
+                $scope.model.selectedCollateral.duration = 0;
                 $scope.showCollateralForm();
             }
         }
@@ -239,13 +245,36 @@
                 !alfaNumericRegExpr.test($scope.model.selectedCollateral.title) ||
                 $scope.model.selectedCollateral.url_slug == null ||
                 !alfaNumericRegExpr.test($scope.model.selectedCollateral.url_slug) ||
-                !checkPublishedDate()){
+                !checkPublishedDate()
+                || $scope.model.selectedCollateral.place == null ||
+                  !alfaNumericRegExpr.test($scope.model.selectedCollateral.place)
+                  || $scope.model.selectedCollateral.actDate == null
+                  || $scope.model.selectedCollateral.actTime == null
+                  || $scope.model.selectedCollateral.duration == null
+                ){
                     canProceed = false;
 
                     if($scope.model.selectedCollateral.title == null ||
                         !alfaNumericRegExpr.test($scope.model.selectedCollateral.title)){
                         $scope.model.titleHasError = true;
                     }
+
+                  if($scope.model.selectedCollateral.place == null ||
+                    !alfaNumericRegExpr.test($scope.model.selectedCollateral.place)){
+                    $scope.model.placeHasError = true;
+                  }
+
+                  if($scope.model.selectedCollateral.actDate == null){
+                    $scope.model.actDateHasError = true;
+                  }
+
+                  if($scope.model.selectedCollateral.actTime == null){
+                    $scope.model.timeHasError = true;
+                  }
+
+                  if($scope.model.selectedCollateral.duration == null){
+                    $scope.model.durationHasError = true;
+                  }
 
                     if($scope.model.selectedCollateral.url_slug == null ||
                         !alfaNumericRegExpr.test($scope.model.selectedCollateral.url_slug)){
