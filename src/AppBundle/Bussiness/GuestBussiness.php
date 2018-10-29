@@ -375,14 +375,14 @@ class GuestBussiness
         }
     }
 
-    public function deleteGuestsData($parametersCollection){
+    public function deleteGuestData($parametersCollection){
         try{
             $message = 'Datos guardados.';
-            if(isset($parametersCollection['guestId'][0])) {
+            if(isset($parametersCollection['guestsId'][0])) {
                 $objCommentBussiness = new CommentsBussiness($this->em);
-                $objCommentBussiness->updateCommentsPending(null, $parametersCollection['guestId']);
+                $objCommentBussiness->updateCommentsPending(null, $parametersCollection['guestsId']);
 
-                $idsCollection = implode(',',$parametersCollection['guestId']);
+                $idsCollection = implode(',',$parametersCollection['guestsId']);
                 $this->em->getRepository('AppBundle:GenericPost')->deleteByIdsCollection($idsCollection);
             }
             else{

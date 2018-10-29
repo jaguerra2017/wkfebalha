@@ -184,7 +184,7 @@ class BackendGuestController extends Controller
   /**
    * Delete Guest
    *
-   * @Route("/eliminar-socio", name="guest_delete", options={"expose"=true})
+   * @Route("/eliminar-invitado", name="guest_delete", options={"expose"=true})
    * @Security("is_granted('delete', 'guest')")
    * @Method("POST")
    */
@@ -197,7 +197,7 @@ class BackendGuestController extends Controller
     else {
       $em = $this->getDoctrine()->getManager();
       $parametersCollection = array();
-      $parametersCollection['guestId'] = $request->get('guestId');
+      $parametersCollection['guestsId'] = $request->get('guestsId');
 
       $guestBussinessObj = new GuestBussiness($em);
       $response = $guestBussinessObj->deleteGuestData($parametersCollection);
